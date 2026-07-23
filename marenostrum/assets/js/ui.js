@@ -194,7 +194,7 @@ function mnInitReveal(root) {
         }
       });
     },
-    { threshold: 0.05, rootMargin: "0px 0px -5% 0px" }
+    { threshold: 0, rootMargin: "0px" }
   );
 
   elements.forEach((el) => {
@@ -202,12 +202,13 @@ function mnInitReveal(root) {
     observer.observe(el);
   });
 
-  // Safety net: an instant scroll-restoration jump (bfcache, hash navigation) can land past an
-  // element without ever rendering an intermediate frame for the observer to catch — reveal
-  // anything still hidden after a short delay so content is never permanently invisible.
+  // Safety net: a very fast/instant scroll (flick, "End" key, bfcache restore) can in rare
+  // cases move past an element between two rendered frames without ever registering an
+  // intersection — reveal anything still hidden after a brief delay so content is never
+  // stuck invisible. Short enough that it's imperceptible if it ever has to fire.
   setTimeout(() => {
     elements.forEach((el) => el.classList.add("is-visible"));
-  }, 2500);
+  }, 500);
 }
 
 /** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade). */
