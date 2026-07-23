@@ -66,6 +66,11 @@
       </div>
     </section>
 
+    <!-- Categories -->
+    <section class="flex flex-col justify-center bg-white text-white min-h-screen">
+      <div id="mn-categories-grid" class="grid grid-cols-1 md:grid-cols-3"></div>
+    </section>
+
     <!-- Featured products -->
     <section class="container-page py-20">
       <div class="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end reveal">
@@ -154,6 +159,10 @@
       mnStagger(grid, 90);
       mnStagger(document.getElementById("mn-trust-grid"), 80);
       mnStagger(document.getElementById("mn-testimonial-grid"), 90);
+
+      const categoriesGrid = document.getElementById("mn-categories-grid");
+      categoriesGrid.innerHTML = MN_CATEGORY_CARDS.map(mnCategoryCard).join("");
+      mnStagger(categoriesGrid, 150);
 
       document.getElementById("mn-trust-icon-1").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-trust-icon-2").innerHTML = MN_ICONS.truck;

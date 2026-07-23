@@ -128,4 +128,39 @@
     opacity: 1;
     transform: none;
   }
+
+  /* Category cards: full-bleed art background, vertical category name, shimmer CTA */
+  .cat-card {
+    @apply relative flex flex-col items-start justify-between overflow-hidden
+           p-6 sm:p-8 md:p-12 min-h-[400px] sm:min-h-[500px] md:min-h-[750px];
+  }
+
+  /* Ambient slow zoom gives the background life in place of video; hover feedback comes from
+     the overlay/text/button instead of a second competing transform on the same element. */
+  .cat-card-art {
+    @apply absolute inset-0 h-full w-full bg-cover bg-center animate-slowzoom;
+  }
+
+  .cat-card-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/15 to-transparent
+           transition-colors duration-500 ease-fluid group-hover:from-charcoal/80;
+  }
+
+  .btn-shimmer {
+    @apply relative overflow-hidden inline-flex items-center justify-center rounded-full
+           bg-ink-900 px-8 py-3 text-sm font-semibold text-charcoal
+           transition-[transform,box-shadow] duration-300 ease-fluid
+           hover:-translate-y-0.5 hover:shadow-lifted active:translate-y-0;
+  }
+
+  .btn-shimmer::before {
+    content: "";
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(120deg, transparent 0%, rgba(138, 109, 26, 0.18) 50%, transparent 100%);
+    transition: transform 500ms ease;
+  }
+
+  .btn-shimmer:hover::before {
+    @apply translate-x-full;
+  }
 }

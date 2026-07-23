@@ -67,12 +67,17 @@ module.exports = {
         fadeUp: {
           from: { opacity: "0", transform: "translateY(22px)" },
           to: { opacity: "1", transform: "none" }
+        },
+        slowzoom: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.06)" }
         }
       },
       animation: {
         float: "float 5s ease-in-out infinite",
         drawline: "drawline 2.2s ease-out forwards",
-        fadeUp: "fadeUp 800ms cubic-bezier(0.4, 0, 0.2, 1) both"
+        fadeUp: "fadeUp 800ms cubic-bezier(0.4, 0, 0.2, 1) both",
+        slowzoom: "slowzoom 14s ease-in-out infinite"
       }
     }
   },

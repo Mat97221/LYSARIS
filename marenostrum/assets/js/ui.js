@@ -17,7 +17,9 @@ const MN_ICONS = {
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>`,
   mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5 12 13l9-6.5"/></svg>`,
   phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l1.5 4.5L7.5 10a12 12 0 0 0 6.5 6.5l1.5-2 4.5 1.5v3a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg>`,
-  pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>`
+  pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>`,
+  gift: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="11"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.2-3.2-3.2-5-5-5-1.4 0-2.3 1-2.3 2.2C4.7 8 6.4 9 9 9M12 9c1.2-3.2 3.2-5 5-5 1.4 0 2.3 1 2.3 2.2C19.3 8 17.6 9 15 9"/></svg>`,
+  spoon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="4.5" ry="5.5"/><path d="M12 12v10"/></svg>`
 };
 
 let mnTinCounter = 0;
@@ -82,6 +84,46 @@ function mnProductCard(product) {
         </span>
       </div>
     </div>
+  </a>`;
+}
+
+const MN_CATEGORY_CARDS = [
+  {
+    label: "caviars",
+    href: "boutique.html?cat=caviar",
+    gradient: "linear-gradient(160deg, #2A2620 0%, #181410 55%, #0B0A08 100%)",
+    icon: "tin"
+  },
+  {
+    label: "coffrets",
+    href: "boutique.html?cat=coffrets",
+    gradient: "linear-gradient(160deg, #8A6D1A 0%, #5C4812 55%, #2A2010 100%)",
+    icon: "gift"
+  },
+  {
+    label: "accessoires",
+    href: "boutique.html?cat=accessoires",
+    gradient: "linear-gradient(160deg, #2C6E8E 0%, #1C4B60 55%, #0F2C38 100%)",
+    icon: "spoon"
+  }
+];
+
+/** Carte de catégorie plein cadre : fond illustré (pas de photo), nom en texte vertical, CTA. */
+function mnCategoryCard(cat) {
+  const artInner =
+    cat.icon === "tin"
+      ? `<div class="absolute -right-6 -bottom-6 h-56 w-56 opacity-30 md:h-72 md:w-72">${mnTinSVG("amber")}</div>`
+      : `<span class="absolute -right-4 -bottom-4 h-48 w-48 text-white/15 md:h-64 md:w-64">${MN_ICONS[cat.icon]}</span>`;
+
+  return `
+  <a href="${cat.href}" class="cat-card group reveal">
+    <div class="cat-card-art" style="background-image:${cat.gradient}">${artInner}</div>
+    <div class="cat-card-overlay"></div>
+    <h2
+      class="relative z-10 font-display text-5xl font-medium transition-transform duration-500 ease-fluid group-hover:-translate-y-2 sm:text-6xl md:text-7xl lg:text-8xl"
+      style="writing-mode: vertical-lr; transform: rotate(180deg);"
+    >${cat.label}</h2>
+    <span class="btn-shimmer relative z-10 mt-auto">découvrir ${cat.label}</span>
   </a>`;
 }
 
