@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paiement — MARENOSTRUM</title>
+  <meta name="description" content="Finalisez votre commande MARENOSTRUM." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C9A227' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="paiement">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="border-b border-ink-600/50 bg-ink-800/40">
+      <div class="container-page py-12">
+        <p class="eyebrow mb-3">Étape 2 sur 3</p>
+        <h1 class="font-display text-4xl font-semibold text-ink-50">Livraison &amp; paiement</h1>
+      </div>
+    </section>
+
+    <div id="mn-checkout-empty" class="hidden container-page py-24 text-center">
+      <p class="font-display text-2xl text-ink-50 mb-4">Votre panier est vide</p>
+      <p class="text-ink-200 mb-8">Ajoutez des produits avant de passer commande.</p>
+      <a href="boutique.html" class="btn-gold">Voir la boutique</a>
+    </div>
+
+    <section id="mn-checkout-content" class="hidden container-page py-14">
+      <div class="mb-8 rounded-md border border-gold/30 bg-ink-700/40 px-6 py-4 text-sm text-ink-100">
+        <strong class="text-gold">Mode démonstration —</strong> aucune donnée bancaire réelle n'est collectée ni transmise. Ce formulaire simule un paiement afin de présenter le tunnel de commande.
+      </div>
+
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        <form id="mn-checkout-form" novalidate class="lg:col-span-2 flex flex-col gap-10">
+          <fieldset>
+            <legend class="font-display text-xl text-ink-50 mb-5">Coordonnées</legend>
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div>
+                <label class="field-label" for="ck-firstname">Prénom</label>
+                <input id="ck-firstname" name="firstname" type="text" class="input-field" autocomplete="given-name" required />
+                <p id="ck-firstname-error" class="field-error hidden"></p>
+              </div>
+              <div>
+                <label class="field-label" for="ck-lastname">Nom</label>
+                <input id="ck-lastname" name="lastname" type="text" class="input-field" autocomplete="family-name" required />
+                <p id="ck-lastname-error" class="field-error hidden"></p>
+              </div>
+              <div>
+                <label class="field-label" for="ck-email">E-mail</label>
+                <input id="ck-email" name="email" type="email" class="input-field" autocomplete="email" required />
+                <p id="ck-email-error" class="field-error hidden"></p>
+              </div>
+              <div>
+                <label class="field-label" for="ck-phone">Téléphone</label>
+                <input id="ck-phone" name="phone" type="tel" class="input-field" autocomplete="tel" required />
+                <p id="ck-phone-error" class="field-error hidden"></p>
+                <p class="text-xs text-ink-300 mt-1.5">Nécessaire pour coordonner la livraison réfrigérée.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class="font-display text-xl text-ink-50 mb-5">Adresse de livraison</legend>
+            <div class="grid grid-cols-1 gap-5">
+              <div>
+                <label class="field-label" for="ck-address">Adresse</label>
+                <input id="ck-address" name="address" type="text" class="input-field" autocomplete="address-line1" required />
+                <p id="ck-address-error" class="field-error hidden"></p>
+              </div>
+              <div>
+                <label class="field-label" for="ck-address-2">Complément d'adresse (optionnel)</label>
+                <input id="ck-address-2" name="address2" type="text" class="input-field" autocomplete="address-line2" />
+              </div>
+              <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                  <label class="field-label" for="ck-postal">Code postal</label>
+                  <input id="ck-postal" name="postal" type="text" inputmode="numeric" class="input-field" autocomplete="postal-code" required />
+                  <p id="ck-postal-error" class="field-error hidden"></p>
+                </div>
+                <div>
+                  <label class="field-label" for="ck-city">Ville</label>
+                  <input id="ck-city" name="city" type="text" class="input-field" autocomplete="address-level2" required />
+                  <p id="ck-city-error" class="field-error hidden"></p>
+                </div>
+              </div>
+              <div>
+                <label class="field-label" for="ck-country">Pays</label>
+                <select id="ck-country" name="country" class="input-field">
+                  <option>France</option>
+                  <option>Belgique</option>
+                  <option>Suisse</option>
+                  <option>Luxembourg</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class="font-display text-xl text-ink-50 mb-5">Paiement</legend>
+            <div class="grid grid-cols-1 gap-5">
+              <div>
+                <label class="field-label" for="ck-card-number">Numéro de carte</label>
+                <input id="ck-card-number" name="cardNumber" type="text" inputmode="numeric" placeholder="4242 4242 4242 4242" class="input-field" autocomplete="cc-number" required />
+                <p id="ck-card-number-error" class="field-error hidden"></p>
+              </div>
+              <div class="grid grid-cols-2 gap-5">
+                <div>
+                  <label class="field-label" for="ck-card-expiry">Expiration</label>
+                  <input id="ck-card-expiry" name="cardExpiry" type="text" placeholder="MM/AA" class="input-field" autocomplete="cc-exp" required />
+                  <p id="ck-card-expiry-error" class="field-error hidden"></p>
+                </div>
+                <div>
+                  <label class="field-label" for="ck-card-cvc">CVC</label>
+                  <input id="ck-card-cvc" name="cardCvc" type="text" inputmode="numeric" placeholder="123" class="input-field" autocomplete="cc-csc" required />
+                  <p id="ck-card-cvc-error" class="field-error hidden"></p>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <button type="submit" id="mn-submit-payment" class="btn-gold w-full sm:w-auto">Confirmer et payer</button>
+        </form>
+
+        <aside class="reveal rounded-md border border-ink-600/60 bg-ink-700/40 p-7 h-fit">
+          <h2 class="font-display text-xl font-semibold text-ink-50 mb-6">Votre commande</h2>
+          <div id="mn-checkout-lines" class="flex flex-col gap-4 mb-6"></div>
+          <div class="flex justify-between text-sm text-ink-200 mb-3 border-t border-ink-600/60 pt-4">
+            <span>Sous-total</span>
+            <span id="mn-ck-subtotal" class="text-ink-50"></span>
+          </div>
+          <div class="flex justify-between text-sm text-ink-200 mb-4">
+            <span>Livraison réfrigérée</span>
+            <span id="mn-ck-shipping" class="text-ink-50"></span>
+          </div>
+          <div class="flex justify-between border-t border-ink-600/60 pt-4 font-display text-xl">
+            <span class="text-ink-50">Total</span>
+            <span id="mn-ck-total" class="text-gold"></span>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/checkout.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const lines = MnCart.detailedLines();
+      if (lines.length === 0) {
+        document.getElementById("mn-checkout-empty").classList.remove("hidden");
+        return;
+      }
+      document.getElementById("mn-checkout-content").classList.remove("hidden");
+
+      document.getElementById("mn-checkout-lines").innerHTML = lines
+        .map(
+          (l) => `
+        <div class="flex justify-between text-sm">
+          <span class="text-ink-100">${l.product.name} <span class="text-ink-300">× ${l.qty}</span> <span class="text-ink-300">(${l.variant.size})</span></span>
+          <span class="text-ink-50">${mnFormatPrice(l.lineTotal)}</span>
+        </div>`
+        )
+        .join("");
+
+      const totals = MnCart.totals();
+      document.getElementById("mn-ck-subtotal").textContent = mnFormatPrice(totals.subtotal);
+      document.getElementById("mn-ck-shipping").textContent = totals.shipping === 0 ? "Offerte" : mnFormatPrice(totals.shipping);
+      document.getElementById("mn-ck-total").textContent = mnFormatPrice(totals.total);
+    });
+  </script>
+</body>
+</html>

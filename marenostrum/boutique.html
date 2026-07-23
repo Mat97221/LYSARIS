@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boutique — MARENOSTRUM</title>
+  <meta name="description" content="Découvrez la gamme complète de caviars MARENOSTRUM : Osciètre, Beluga, Sevruga, Kaluga, Baeri, coffrets cadeaux et accessoires de service." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C9A227' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="boutique">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="border-b border-ink-600/50 bg-ink-800/40">
+      <div class="container-page py-14 text-center reveal">
+        <p class="eyebrow mb-3">La boutique</p>
+        <h1 class="font-display text-4xl font-semibold text-ink-50 sm:text-5xl">Nos caviars &amp; coffrets d'exception</h1>
+        <p class="mx-auto mt-4 max-w-2xl text-ink-200">Sélectionnez une catégorie ou parcourez l'ensemble de la gamme. Tous nos caviars sont expédiés réfrigérés sous 24 à 48h.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-14">
+      <div id="mn-category-filters" class="mb-10 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Filtrer par catégorie"></div>
+      <div id="mn-product-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <p id="mn-empty-state" class="hidden py-16 text-center text-ink-300">Aucun produit dans cette catégorie pour le moment.</p>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    function mnRenderCategory(catId) {
+      const grid = document.getElementById("mn-product-grid");
+      const empty = document.getElementById("mn-empty-state");
+      const items = catId === "tous" ? MARENOSTRUM_PRODUCTS : MARENOSTRUM_PRODUCTS.filter((p) => p.category === catId);
+      grid.innerHTML = items.map(mnProductCard).join("");
+      mnStagger(grid, 70);
+      empty.classList.toggle("hidden", items.length > 0);
+
+      document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
+        const isActive = btn.dataset.cat === catId;
+        btn.classList.toggle("bg-gold-light", isActive);
+        btn.classList.toggle("text-charcoal", isActive);
+        btn.classList.toggle("border-gold", isActive);
+        btn.classList.toggle("text-ink-100", !isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const requestedCat = params.get("cat") || "tous";
+      const activeCat = MARENOSTRUM_CATEGORIES.some((c) => c.id === requestedCat) ? requestedCat : "tous";
+
+      const filters = document.getElementById("mn-category-filters");
+      filters.innerHTML = MARENOSTRUM_CATEGORIES.map(
+        (c) =>
+          `<button type="button" role="tab" data-cat="${c.id}" class="rounded-full border border-ink-500 px-5 py-2.5 min-h-[44px] text-sm font-medium text-ink-100 transition-all duration-200 ease-fluid hover:border-gold">${c.label}</button>`
+      ).join("");
+
+      filters.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const url = new URL(window.location);
+          url.searchParams.set("cat", btn.dataset.cat);
+          window.history.replaceState({}, "", url);
+          mnRenderCategory(btn.dataset.cat);
+        });
+      });
+
+      mnRenderCategory(activeCat);
+    });
+  </script>
+</body>
+</html>

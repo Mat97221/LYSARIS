@@ -1,0 +1,14 @@
+{
+  "name": "marenostrum",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site vitrine et e-commerce MARENOSTRUM — caviar d'exception",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/style.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/style.css --watch",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13"
+  }
+}
