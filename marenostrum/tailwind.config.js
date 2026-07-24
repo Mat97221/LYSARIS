@@ -22,13 +22,13 @@ module.exports = {
           800: "#F3EBD8", // alternate section backgrounds / footer
           900: "#FBF6EA" // page background / nav background
         },
-        gold: {
-          DEFAULT: "#8A6D1A", // antique honey gold — text, icons, borders (accessible on cream/white)
-          hover: "#D9B84A", // button hover fill
-          light: "#E4C664", // button / badge backgrounds (paired with charcoal text)
-          dark: "#5C4812"
+        navy: {
+          DEFAULT: "#1C3A5E", // deep navy — text, icons, borders AND button/badge fills (dark
+          // enough on its own to serve both roles; pair fills with text-white, not text-charcoal)
+          hover: "#2E5384", // richer/lighter navy for hover feedback
+          dark: "#0F1F35" // deepest shade — dividers, subtle borders
         },
-        charcoal: "#22201A", // dedicated dark text for use on gold/light-gold fills
+        charcoal: "#22201A", // dark text for fills that stay light (e.g. .btn-shimmer's cream pill)
         azure: {
           DEFAULT: "#2C6E8E", // Côte d'Azur sea blue — secondary accent
           light: "#6FA9C2",
@@ -47,7 +47,7 @@ module.exports = {
       boxShadow: {
         soft: "0 4px 14px rgba(60,50,20,0.08)",
         lifted: "0 18px 40px rgba(60,50,20,0.14)",
-        gold: "0 0 0 1px rgba(138,109,26,0.35)"
+        navy: "0 0 0 1px rgba(28,58,94,0.35)"
       },
       letterSpacing: {
         widest2: "0.25em"

@@ -53,12 +53,12 @@ function mnTinSVG(tint) {
 
 function mnBadge(text) {
   if (!text) return "";
-  return `<span class="absolute left-3 top-3 rounded-sm bg-gold-light px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-charcoal z-10">${text}</span>`;
+  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white z-10">${text}</span>`;
 }
 
 /** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
 function mnWaveDivider(colorClass) {
-  const cls = colorClass || "text-gold/50";
+  const cls = colorClass || "text-navy/50";
   return `<svg viewBox="0 0 400 24" class="mx-auto h-5 w-36 ${cls}" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0 12 C 40 2, 80 22, 120 12 S 200 2, 240 12 S 320 22, 360 12 S 400 2 400 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" class="animate-drawline"/>
   </svg>`;
@@ -70,17 +70,19 @@ function mnProductCard(product) {
   <a href="produit.html?id=${product.id}" class="card-product tilt-3d group" data-category="${product.category}">
     <div class="spot-glow"></div>
     ${mnBadge(product.badge)}
-    <div class="relative flex h-48 items-center justify-center bg-gradient-to-b from-ink-600/40 to-ink-800 p-6">
-      ${mnTinSVG(product.tint)}
+    <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600/40 to-ink-800 p-6">
+      <div class="flex h-full w-full items-center justify-center transition-transform duration-500 ease-fluid group-hover:scale-110">
+        ${mnTinSVG(product.tint)}
+      </div>
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">
-      <h3 class="font-display text-xl font-semibold text-ink-50 group-hover:text-gold transition-colors">${product.name}</h3>
+      <h3 class="font-display text-xl font-semibold text-ink-50 group-hover:text-navy transition-colors">${product.name}</h3>
       <p class="text-sm text-ink-200 leading-snug">${product.tagline}</p>
       <div class="mt-auto flex items-center justify-between pt-3">
         <span class="font-body text-sm text-ink-100">
-          ${product.variants.length > 1 ? "dès " : ""}<span class="text-gold font-semibold">${mnFormatPrice(price)}</span>
+          ${product.variants.length > 1 ? "dès " : ""}<span class="text-navy font-semibold">${mnFormatPrice(price)}</span>
         </span>
-        <span class="flex items-center gap-1 text-xs uppercase tracking-wide text-ink-200 group-hover:text-gold transition-colors">
+        <span class="flex items-center gap-1 text-xs uppercase tracking-wide text-ink-200 group-hover:text-navy transition-colors">
           Découvrir <span class="h-3.5 w-3.5">${MN_ICONS.chevronRight}</span>
         </span>
       </div>
@@ -131,15 +133,15 @@ function mnCategoryCard(cat) {
 
 function mnHeader(active) {
   const link = (href, label, key) =>
-    `<a href="${href}" class="text-sm uppercase tracking-wide transition-colors duration-200 hover:text-gold ${
-      active === key ? "text-gold" : "text-ink-100"
+    `<a href="${href}" class="text-sm uppercase tracking-wide transition-colors duration-200 hover:text-navy ${
+      active === key ? "text-navy" : "text-ink-100"
     }">${label}</a>`;
 
   return `
   <header class="nav-glass sticky top-0 z-40">
     <div class="container-page flex h-20 items-center justify-between">
       <a href="index.html" class="font-display text-2xl sm:text-3xl font-semibold tracking-wide text-ink-50">
-        MAREN<span class="text-gold">O</span>STRUM
+        MAREN<span class="text-navy">O</span>STRUM
       </a>
       <nav class="hidden md:flex items-center gap-8">
         ${link("index.html", "Accueil", "accueil")}
@@ -149,7 +151,7 @@ function mnHeader(active) {
         ${link("contact.html", "Contact", "contact")}
       </nav>
       <div class="flex items-center gap-4">
-        <a href="panier.html" aria-label="Voir le panier" class="relative h-6 w-6 text-ink-50 hover:text-gold transition-colors">
+        <a href="panier.html" aria-label="Voir le panier" class="relative h-6 w-6 text-ink-50 hover:text-navy transition-colors">
           ${MN_ICONS.cart}
           <span id="mn-cart-badge" class="badge-count hidden">0</span>
         </a>
@@ -176,26 +178,26 @@ function mnFooter() {
   <footer class="border-t border-ink-600/60 bg-ink-800/60 mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="font-display text-2xl text-ink-50 mb-3">MAREN<span class="text-gold">O</span>STRUM</p>
+        <p class="font-display text-2xl text-ink-50 mb-3">MAREN<span class="text-navy">O</span>STRUM</p>
         <p class="text-sm text-ink-200 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, livraison réfrigérée en 24-48h partout en France métropolitaine.</p>
       </div>
       <div>
         <p class="eyebrow mb-4">Boutique</p>
         <ul class="space-y-2.5 text-sm text-ink-200">
-          <li><a class="hover:text-gold transition-colors" href="boutique.html">Tous les caviars</a></li>
-          <li><a class="hover:text-gold transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
-          <li><a class="hover:text-gold transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
-          <li><a class="hover:text-gold transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
+          <li><a class="hover:text-navy transition-colors" href="boutique.html">Tous les caviars</a></li>
+          <li><a class="hover:text-navy transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
+          <li><a class="hover:text-navy transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
+          <li><a class="hover:text-navy transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
         </ul>
       </div>
       <div>
         <p class="eyebrow mb-4">Informations</p>
         <ul class="space-y-2.5 text-sm text-ink-200">
-          <li><a class="hover:text-gold transition-colors" href="a-propos.html">La Maison</a></li>
-          <li><a class="hover:text-gold transition-colors" href="contact.html">Contact</a></li>
-          <li><a class="hover:text-gold transition-colors" href="cgv.html">Conditions générales de vente</a></li>
-          <li><a class="hover:text-gold transition-colors" href="confidentialite.html">Confidentialité</a></li>
-          <li><a class="hover:text-gold transition-colors" href="mentions-legales.html">Mentions légales</a></li>
+          <li><a class="hover:text-navy transition-colors" href="a-propos.html">La Maison</a></li>
+          <li><a class="hover:text-navy transition-colors" href="contact.html">Contact</a></li>
+          <li><a class="hover:text-navy transition-colors" href="cgv.html">Conditions générales de vente</a></li>
+          <li><a class="hover:text-navy transition-colors" href="confidentialite.html">Confidentialité</a></li>
+          <li><a class="hover:text-navy transition-colors" href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
       <div>
@@ -204,9 +206,9 @@ function mnFooter() {
         <form id="mn-newsletter-form" class="flex gap-2" novalidate>
           <label for="mn-newsletter-email" class="sr-only">Adresse e-mail</label>
           <input id="mn-newsletter-email" type="email" required placeholder="Votre e-mail" class="input-field !py-2.5 text-sm" />
-          <button type="submit" class="btn-gold !px-4 !py-2.5 shrink-0" aria-label="S'inscrire à la newsletter">${MN_ICONS.mail}</button>
+          <button type="submit" class="btn-navy !px-4 !py-2.5 shrink-0" aria-label="S'inscrire à la newsletter">${MN_ICONS.mail}</button>
         </form>
-        <p id="mn-newsletter-feedback" class="mt-3 text-xs text-gold hidden" role="status"></p>
+        <p id="mn-newsletter-feedback" class="mt-3 text-xs text-navy hidden" role="status"></p>
       </div>
     </div>
     <div class="border-t border-ink-600/60">
@@ -309,7 +311,7 @@ function mnInit3DTilt(root) {
   });
 }
 
-/** Nudges a `.magnetic` element toward the cursor within its own bounds. Pairs with .btn-gold-magnetic. */
+/** Nudges a `.magnetic` element toward the cursor within its own bounds. Pairs with .btn-navy-magnetic. */
 function mnInitMagnetic(root) {
   if (mnPrefersReducedMotion()) return;
   const scope = root || document;

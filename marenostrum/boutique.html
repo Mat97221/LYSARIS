@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boutique — MARENOSTRUM</title>
   <meta name="description" content="Découvrez la gamme complète de caviars MARENOSTRUM : Osciètre, Beluga, Sevruga, Kaluga, Baeri, coffrets cadeaux et accessoires de service." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C9A227' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%231C3A5E' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -45,9 +45,9 @@
 
       document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
         const isActive = btn.dataset.cat === catId;
-        btn.classList.toggle("bg-gold-light", isActive);
-        btn.classList.toggle("text-charcoal", isActive);
-        btn.classList.toggle("border-gold", isActive);
+        btn.classList.toggle("bg-navy", isActive);
+        btn.classList.toggle("text-white", isActive);
+        btn.classList.toggle("border-navy", isActive);
         btn.classList.toggle("text-ink-100", !isActive);
         btn.setAttribute("aria-selected", String(isActive));
       });
@@ -61,7 +61,7 @@
       const filters = document.getElementById("mn-category-filters");
       filters.innerHTML = MARENOSTRUM_CATEGORIES.map(
         (c) =>
-          `<button type="button" role="tab" data-cat="${c.id}" class="rounded-full border border-ink-500 px-5 py-2.5 min-h-[44px] text-sm font-medium text-ink-100 transition-all duration-200 ease-fluid hover:border-gold">${c.label}</button>`
+          `<button type="button" role="tab" data-cat="${c.id}" class="rounded-full border border-ink-500 px-5 py-2.5 min-h-[44px] text-sm font-medium text-ink-100 transition-all duration-200 ease-fluid hover:border-navy">${c.label}</button>`
       ).join("");
 
       filters.querySelectorAll("button").forEach((btn) => {

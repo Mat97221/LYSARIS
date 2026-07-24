@@ -93,8 +93,8 @@ front-end — seule la clé publique (`pk_...`) peut être exposée côté clien
 ## Accessibilité & performance
 
 - Contraste texte/fond vérifié (≥ 4.5:1) pour les combinaisons de couleurs
-  principales (texte antique-gold sur crème/blanc, texte charbon sur gold
-  clair, etc.).
+  principales (texte bleu marine sur crème/blanc, texte blanc sur fond
+  marine, etc.).
 - `prefers-reduced-motion` respecté : animations et transitions désactivées
   automatiquement.
 - Focus clavier visible sur tous les éléments interactifs.

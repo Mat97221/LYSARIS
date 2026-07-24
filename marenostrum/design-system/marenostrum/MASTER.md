@@ -19,18 +19,29 @@ after client feedback: too dark, wanted a light "chic Côte d'Azur / Swiss Alpin
 feel, plus visible motion. The site as implemented uses:
 
 - **Light, warm palette** — ivory/cream backgrounds (`ink-900` role), white cards
-  (`ink-700` role), antique honey gold (`#8A6D1A`) for text/icons/links, champagne
-  gold (`#E4C664`) for button/badge fills with charcoal (`#22201A`) text, plus two
+  (`ink-700` role), deep navy (`navy`, `#1C3A5E`) as the primary accent for
+  text/icons/links AND button/badge fills (paired with white text — navy is dark
+  enough on its own to serve both roles, unlike the gold it replaced), plus two
   secondary accents: Côte d'Azur blue (`azure`, `#2C6E8E`) and alpine pine green
   (`pine`, `#4B6650`) used sparingly (icons, dividers).
+  **Second revision:** the accent was originally antique gold (`#8A6D1A`) /
+  champagne gold (`#E4C664`); the client asked for it to become a deep navy blue
+  instead, keeping the ivory background. All `gold`/`gold-light`/`gold-hover`
+  classes were mechanically renamed to `navy` (see git history) — if you find
+  any stray `gold` class or `text-charcoal` paired with a `bg-navy` fill (should
+  be `text-white` instead), it's a leftover from that rename.
 - **Same typography** (Cormorant + Montserrat) — that recommendation held up.
 - **Restrained motion, not glassmorphism**: scroll-triggered fade/rise reveals
   (`.reveal` + `mnInitReveal`/`mnStagger` in `assets/js/ui.js`), an immediate
-  `animate-fadeUp` on hero/above-fold content, a floating product-tin animation,
-  and small hand-drawn wave dividers (`mnWaveDivider`) evoking the coastline —
-  instead of heavy backdrop-blur/chromatic-aberration effects, which the tool's
-  own priority order (Accessibility/Performance > Style) argued against anyway.
-- Token names in `tailwind.config.js` (`ink-50`…`ink-900`, `gold`) are **reused
+  `animate-fadeUp` on hero/above-fold content, a floating + slowly-wobbling
+  product-tin animation, small hand-drawn wave dividers (`mnWaveDivider`)
+  evoking the coastline, pointer-driven 3D tilt + cursor-spotlight on cards
+  (`.tilt-3d`/`.spot-glow`, `mnInit3DTilt`), and a magnetic pull on the two
+  main marketing CTAs (`.magnetic`, `mnInitMagnetic`) — instead of heavy
+  backdrop-blur/chromatic-aberration effects, which the tool's own priority
+  order (Accessibility/Performance > Style) argued against anyway. All of it
+  is skipped under `prefers-reduced-motion`.
+- Token names in `tailwind.config.js` (`ink-50`…`ink-900`, `navy`) are **reused
   from the original dark spec** with new hex values assigned per their actual
   usage role (see comment block at the top of the `ink` color object) — not a
   literal light-mode ramp. Read that comment before adding new `ink-*` classes.

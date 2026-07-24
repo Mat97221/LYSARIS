@@ -34,7 +34,7 @@
   }
 
   ::selection {
-    @apply bg-gold/25 text-ink-50;
+    @apply bg-navy/25 text-ink-50;
   }
 
   a, button, [role="button"], input[type="submit"] {
@@ -48,7 +48,7 @@
   select:focus-visible,
   textarea:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid theme('colors.gold.DEFAULT');
+    outline: 2px solid theme('colors.navy.DEFAULT');
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -60,39 +60,39 @@
   }
 
   .eyebrow {
-    @apply text-xs sm:text-sm tracking-widest2 uppercase text-gold font-semibold;
+    @apply text-xs sm:text-sm tracking-widest2 uppercase text-navy font-semibold;
   }
 
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-gold-light px-7 py-3.5 min-h-[44px]
-           font-body font-semibold text-sm tracking-wide uppercase text-charcoal
-           transition-all duration-200 ease-fluid hover:bg-gold-hover hover:-translate-y-0.5
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
+           font-body font-semibold text-sm tracking-wide uppercase text-white
+           transition-all duration-200 ease-fluid hover:bg-navy-hover hover:-translate-y-0.5
            active:translate-y-0 shadow-soft;
   }
 
-  /* Same look as .btn-gold, but the lift-on-hover is dropped: pair with .magnetic instead, whose
+  /* Same look as .btn-navy, but the lift-on-hover is dropped: pair with .magnetic instead, whose
      JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
-  .btn-gold-magnetic {
-    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-gold-light px-7 py-3.5 min-h-[44px]
-           font-body font-semibold text-sm tracking-wide uppercase text-charcoal
-           transition-colors duration-200 ease-fluid hover:bg-gold-hover shadow-soft;
+  .btn-navy-magnetic {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
+           font-body font-semibold text-sm tracking-wide uppercase text-white
+           transition-colors duration-200 ease-fluid hover:bg-navy-hover shadow-soft;
   }
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-sm border border-ink-300/70 px-7 py-3.5 min-h-[44px]
            font-body font-semibold text-sm tracking-wide uppercase text-ink-100
-           transition-all duration-200 ease-fluid hover:border-gold hover:text-gold hover:-translate-y-0.5
+           transition-all duration-200 ease-fluid hover:border-navy hover:text-navy hover:-translate-y-0.5
            active:translate-y-0;
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[44px]
-           font-body font-medium text-sm text-ink-200 transition-colors duration-200 ease-fluid hover:text-gold;
+           font-body font-medium text-sm text-ink-200 transition-colors duration-200 ease-fluid hover:text-navy;
   }
 
   .card-product {
     @apply relative flex flex-col overflow-hidden rounded-md border border-ink-600/60 bg-ink-700/60
-           hover:border-gold/50 hover:shadow-lifted;
+           hover:border-navy/50 hover:shadow-lifted;
   }
 
   .nav-glass {
@@ -105,7 +105,7 @@
 
   .input-field {
     @apply w-full rounded-sm border border-ink-500 bg-ink-800 px-4 py-3 min-h-[44px] text-ink-50 placeholder:text-ink-300
-           transition-colors duration-200 ease-fluid focus:border-gold outline-none;
+           transition-colors duration-200 ease-fluid focus:border-navy outline-none;
   }
 
   .field-label {
@@ -117,11 +117,11 @@
   }
 
   .badge-count {
-    @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold-light text-[11px] font-bold text-charcoal;
+    @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-navy text-[11px] font-bold text-white;
   }
 
-  .divider-gold {
-    @apply h-px w-16 bg-gold;
+  .divider-navy {
+    @apply h-px w-16 bg-navy;
   }
 
   /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js) */
@@ -168,7 +168,7 @@
   .btn-shimmer::before {
     content: "";
     @apply absolute inset-0 -translate-x-full;
-    background: linear-gradient(120deg, transparent 0%, rgba(138, 109, 26, 0.18) 50%, transparent 100%);
+    background: linear-gradient(120deg, transparent 0%, rgba(28, 58, 94, 0.18) 50%, transparent 100%);
     transition: transform 500ms ease;
   }
 
