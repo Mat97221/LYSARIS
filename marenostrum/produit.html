@@ -33,9 +33,11 @@
       </section>
 
       <section class="container-page grid grid-cols-1 gap-12 py-14 lg:grid-cols-2">
-        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600/40 to-ink-800">
+        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600/40 to-ink-800 [perspective:900px]">
           <div id="mn-product-badge-slot"></div>
-          <div id="mn-product-tin" class="h-64 w-64 animate-float"></div>
+          <div class="h-64 w-64 animate-float">
+            <div id="mn-product-tin" class="h-full w-full animate-tinwobble"></div>
+          </div>
         </div>
 
         <div class="reveal [transition-delay:120ms]">

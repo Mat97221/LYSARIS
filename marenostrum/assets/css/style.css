@@ -759,6 +759,43 @@ a:focus-visible,
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+/* Same look as .btn-gold, but the lift-on-hover is dropped: pair with .magnetic instead, whose
+     JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
+
+.btn-gold-magnetic{
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.125rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(228 198 100 / var(--tw-bg-opacity, 1));
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(34 32 26 / var(--tw-text-opacity, 1));
+  --tw-shadow: 0 4px 14px rgba(60,50,20,0.08);
+  --tw-shadow-colored: 0 4px 14px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gold-magnetic:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 184 74 / var(--tw-bg-opacity, 1));
+}
+
 .btn-outline{
   display: inline-flex;
   min-height: 44px;
@@ -834,14 +871,9 @@ a:focus-visible,
   border-width: 1px;
   border-color: rgb(225 211 174 / 0.6);
   background-color: rgb(255 255 255 / 0.6);
-  transition-property: all;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-product:hover{
-  --tw-translate-y: -0.25rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   border-color: rgb(138 109 26 / 0.5);
   --tw-shadow: 0 18px 40px rgba(60,50,20,0.14);
   --tw-shadow-colored: 0 18px 40px var(--tw-shadow-color);
@@ -949,9 +981,14 @@ a:focus-visible,
   will-change: opacity, transform;
 }
 
+/* Composes with .tilt-3d: on elements without tilt, --tilt-* are unset and default to 0, so
+     this resolves to a no-op transform. On elements with tilt, it keeps reflecting the live
+     JS-driven tilt instead of pinning `transform: none` once revealed (same rule specificity as
+     .reveal.is-visible would otherwise have, which was silently overriding .tilt-3d). */
+
 .reveal.is-visible {
   opacity: 1;
-  transform: none;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(var(--tilt-z, 0px));
 }
 
 /* Category cards: full-bleed art background, vertical category name, shimmer CTA */
@@ -1077,6 +1114,41 @@ a:focus-visible,
 .btn-shimmer:hover::before{
   --tw-translate-x: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* Subtle 3D tilt on pointer move (see mnInit3DTilt in ui.js) — reusable on any card. Owns the
+     full transition list itself so it isn't fighting another class's `transition-all`. */
+
+.tilt-3d {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(var(--tilt-z, 0px));
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease, box-shadow 350ms ease, background-color 300ms ease;
+  will-change: transform;
+}
+
+/* Soft light that follows the cursor, layered above tilt cards for a tactile, premium feel. */
+
+.spot-glow{
+  pointer-events: none;
+  position: absolute;
+  inset: 0px;
+  z-index: 10;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  background: radial-gradient(280px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, 0.4), transparent 65%);
+  mix-blend-mode: soft-light;
+}
+
+.group:hover .spot-glow{
+  opacity: 1;
+}
+
+/* Magnetic button: nudges toward the cursor within its own bounds (see mnInitMagnetic in ui.js) */
+
+.magnetic {
+  transform: translate(var(--mag-x, 0px), var(--mag-y, 0px));
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sr-only{
@@ -1528,6 +1600,20 @@ a:focus-visible,
 
 .animate-float{
   animation: float 5s ease-in-out infinite;
+}
+
+@keyframes tinwobble{
+  0%, 100%{
+    transform: rotateY(-7deg);
+  }
+
+  50%{
+    transform: rotateY(7deg);
+  }
+}
+
+.animate-tinwobble{
+  animation: tinwobble 9s ease-in-out infinite;
 }
 
 .resize-none{
@@ -2068,6 +2154,14 @@ a:focus-visible,
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.transition{
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .transition-all{
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2100,6 +2194,14 @@ a:focus-visible,
 
 .\[animation-delay\:150ms\]{
   animation-delay: 150ms;
+}
+
+.\[perspective\:800px\]{
+  perspective: 800px;
+}
+
+.\[perspective\:900px\]{
+  perspective: 900px;
 }
 
 .\[transition-delay\:120ms\]{

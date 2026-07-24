@@ -67,7 +67,8 @@ function mnWaveDivider(colorClass) {
 function mnProductCard(product) {
   const price = mnLowestPrice(product);
   return `
-  <a href="produit.html?id=${product.id}" class="card-product group" data-category="${product.category}">
+  <a href="produit.html?id=${product.id}" class="card-product tilt-3d group" data-category="${product.category}">
+    <div class="spot-glow"></div>
     ${mnBadge(product.badge)}
     <div class="relative flex h-48 items-center justify-center bg-gradient-to-b from-ink-600/40 to-ink-800 p-6">
       ${mnTinSVG(product.tint)}
@@ -116,9 +117,10 @@ function mnCategoryCard(cat) {
       : `<span class="absolute -right-4 -bottom-4 h-48 w-48 text-white/15 md:h-64 md:w-64">${MN_ICONS[cat.icon]}</span>`;
 
   return `
-  <a href="${cat.href}" class="cat-card group reveal">
+  <a href="${cat.href}" class="cat-card tilt-3d group reveal">
     <div class="cat-card-art" style="background-image:${cat.gradient}">${artInner}</div>
     <div class="cat-card-overlay"></div>
+    <div class="spot-glow"></div>
     <h2
       class="relative z-10 font-display text-5xl font-medium transition-transform duration-500 ease-fluid group-hover:-translate-y-2 sm:text-6xl md:text-7xl lg:text-8xl"
       style="writing-mode: vertical-lr; transform: rotate(180deg);"
@@ -262,6 +264,75 @@ function mnStagger(container, stepMs) {
     child.style.transitionDelay = `${Math.min(i * step, 560)}ms`;
   });
   mnInitReveal(container);
+  mnInit3DTilt(container);
+}
+
+function mnPrefersReducedMotion() {
+  return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+}
+
+function mnClamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+/**
+ * Subtle pointer-driven 3D tilt + lift for `.tilt-3d` cards, and the matching cursor-follow
+ * highlight for any `.spot-glow` child (`--spot-x`/`--spot-y`). Skipped entirely when the user
+ * prefers reduced motion — this is interaction-driven motion, not just a CSS transition.
+ */
+function mnInit3DTilt(root) {
+  if (mnPrefersReducedMotion()) return;
+  const scope = root || document;
+  const elements = Array.from(scope.querySelectorAll(".tilt-3d:not([data-tilt-bound])"));
+  const maxTiltDeg = 6;
+  const liftPx = 8;
+
+  elements.forEach((el) => {
+    el.dataset.tiltBound = "true";
+
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      el.style.setProperty("--tilt-x", `${((0.5 - py) * 2 * maxTiltDeg).toFixed(2)}deg`);
+      el.style.setProperty("--tilt-y", `${((px - 0.5) * 2 * maxTiltDeg).toFixed(2)}deg`);
+      el.style.setProperty("--tilt-z", `${liftPx}px`);
+      el.style.setProperty("--spot-x", `${(px * 100).toFixed(1)}%`);
+      el.style.setProperty("--spot-y", `${(py * 100).toFixed(1)}%`);
+    });
+
+    el.addEventListener("mouseleave", () => {
+      el.style.setProperty("--tilt-x", "0deg");
+      el.style.setProperty("--tilt-y", "0deg");
+      el.style.setProperty("--tilt-z", "0px");
+    });
+  });
+}
+
+/** Nudges a `.magnetic` element toward the cursor within its own bounds. Pairs with .btn-gold-magnetic. */
+function mnInitMagnetic(root) {
+  if (mnPrefersReducedMotion()) return;
+  const scope = root || document;
+  const elements = Array.from(scope.querySelectorAll(".magnetic:not([data-magnetic-bound])"));
+  const strength = 0.3;
+  const maxPx = 10;
+
+  elements.forEach((el) => {
+    el.dataset.magneticBound = "true";
+
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const mx = mnClamp((e.clientX - rect.left - rect.width / 2) * strength, -maxPx, maxPx);
+      const my = mnClamp((e.clientY - rect.top - rect.height / 2) * strength, -maxPx, maxPx);
+      el.style.setProperty("--mag-x", `${mx.toFixed(1)}px`);
+      el.style.setProperty("--mag-y", `${my.toFixed(1)}px`);
+    });
+
+    el.addEventListener("mouseleave", () => {
+      el.style.setProperty("--mag-x", "0px");
+      el.style.setProperty("--mag-y", "0px");
+    });
+  });
 }
 
 function mnUpdateCartBadge() {
@@ -312,6 +383,8 @@ function mnMountLayout(activePage) {
   }
 
   mnInitReveal();
+  mnInitMagnetic();
+  mnInit3DTilt();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
