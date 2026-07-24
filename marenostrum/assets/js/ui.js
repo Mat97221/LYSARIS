@@ -66,8 +66,9 @@ function mnWaveDivider(colorClass) {
 
 function mnProductCard(product) {
   const price = mnLowestPrice(product);
+  const firstVariant = product.variants[0];
   return `
-  <a href="produit.html?id=${product.id}" class="card-product tilt-3d group" data-category="${product.category}">
+  <div class="card-product tilt-3d group" data-category="${product.category}">
     <div class="spot-glow"></div>
     ${mnBadge(product.badge)}
     <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600/40 to-ink-800 p-6">
@@ -76,18 +77,26 @@ function mnProductCard(product) {
       </div>
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">
-      <h3 class="font-display text-xl font-semibold text-ink-50 group-hover:text-navy transition-colors">${product.name}</h3>
+      <a href="produit.html?id=${product.id}" class="stretched-link block">
+        <h3 class="font-display text-xl font-semibold text-ink-50 group-hover:text-navy transition-colors">${product.name}</h3>
+      </a>
       <p class="text-sm text-ink-200 leading-snug">${product.tagline}</p>
-      <div class="mt-auto flex items-center justify-between pt-3">
+      <div class="mt-auto flex items-center justify-between gap-3 pt-3">
         <span class="font-body text-sm text-ink-100">
           ${product.variants.length > 1 ? "dès " : ""}<span class="text-navy font-semibold">${mnFormatPrice(price)}</span>
         </span>
-        <span class="flex items-center gap-1 text-xs uppercase tracking-wide text-ink-200 group-hover:text-navy transition-colors">
-          Découvrir <span class="h-3.5 w-3.5">${MN_ICONS.chevronRight}</span>
-        </span>
+        <button
+          type="button"
+          class="quick-add btn-quick-add"
+          data-product-id="${product.id}"
+          data-sku="${firstVariant.sku}"
+          aria-label="Ajouter ${product.name} (${firstVariant.size}) au panier"
+        >
+          <span class="h-3.5 w-3.5">${MN_ICONS.cart}</span> Ajouter
+        </button>
       </div>
     </div>
-  </a>`;
+  </div>`;
 }
 
 const MN_CATEGORY_CARDS = [
@@ -267,6 +276,32 @@ function mnStagger(container, stepMs) {
   });
   mnInitReveal(container);
   mnInit3DTilt(container);
+  mnBindQuickAdd(container);
+}
+
+/** Wires up `.quick-add` buttons on product cards: adds the card's default (smallest) variant
+    straight to the cart without navigating — the button sits outside the card's stretched-link
+    so a click on it never triggers the "go to product page" navigation. */
+function mnBindQuickAdd(root) {
+  const scope = root || document;
+  const buttons = Array.from(scope.querySelectorAll(".quick-add:not([data-quickadd-bound])"));
+
+  buttons.forEach((btn) => {
+    btn.dataset.quickaddBound = "true";
+    const originalHTML = btn.innerHTML;
+
+    btn.addEventListener("click", () => {
+      const { productId, sku } = btn.dataset;
+      MnCart.add(productId, sku, 1);
+
+      btn.disabled = true;
+      btn.innerHTML = `<span class="h-3.5 w-3.5">${MN_ICONS.check}</span> Ajouté`;
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+      }, 1400);
+    });
+  });
 }
 
 function mnPrefersReducedMotion() {

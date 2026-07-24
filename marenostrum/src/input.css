@@ -200,4 +200,19 @@
     transform: translate(var(--mag-x, 0px), var(--mag-y, 0px));
     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
+
+  /* Makes the whole nearest `position:relative` ancestor clickable via this link, while any
+     sibling with a higher z-index (e.g. .btn-quick-add) stays independently clickable on top —
+     avoids nesting a real <button> inside an <a>, which is invalid HTML. */
+  .stretched-link::after {
+    content: "";
+    @apply absolute inset-0;
+  }
+
+  .btn-quick-add {
+    @apply relative z-[2] inline-flex shrink-0 items-center gap-1.5 rounded-full border border-navy/30
+           px-4 min-h-[44px] text-xs font-semibold uppercase tracking-wide text-navy
+           transition-all duration-200 ease-fluid hover:border-navy hover:bg-navy hover:text-white
+           disabled:opacity-70;
+  }
 }
