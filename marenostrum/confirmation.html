@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commande confirmée — MARENOSTRUM</title>
+  <meta name="description" content="Confirmation de commande MARENOSTRUM." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C9A227' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="confirmation">
+  <div id="site-header"></div>
+
+  <main>
+    <div id="mn-no-order" class="hidden container-page py-24 text-center">
+      <p class="font-display text-2xl text-ink-50 mb-4">Aucune commande récente</p>
+      <p class="text-ink-200 mb-8">Nous n'avons trouvé aucune commande à afficher.</p>
+      <a href="boutique.html" class="btn-gold">Voir la boutique</a>
+    </div>
+
+    <section id="mn-order-content" class="hidden container-page py-20">
+      <div class="mx-auto max-w-2xl text-center animate-fadeUp">
+        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-gold/40 text-gold">
+          <span class="h-8 w-8"></span>
+        </div>
+        <p class="eyebrow mb-3">Étape 3 sur 3</p>
+        <h1 class="font-display text-4xl font-semibold text-ink-50 mb-4">Merci pour votre commande</h1>
+        <p class="text-ink-200 leading-relaxed mb-2">
+          Votre commande <span id="mn-order-number" class="text-gold font-semibold"></span> a bien été enregistrée.
+          Un e-mail de confirmation a été envoyé à <span id="mn-order-email" class="text-ink-50"></span>.
+        </p>
+        <p class="text-ink-200 leading-relaxed mb-10">
+          Votre colis réfrigéré sera expédié sous 24 à 48h ouvrées. Merci de vous assurer qu'une personne puisse le réceptionner à l'adresse indiquée.
+        </p>
+      </div>
+
+      <div class="mx-auto max-w-2xl rounded-md border border-ink-600/60 bg-ink-700/40 p-8">
+        <h2 class="font-display text-xl font-semibold text-ink-50 mb-6">Récapitulatif de la commande</h2>
+        <div id="mn-order-lines" class="flex flex-col gap-3 mb-6"></div>
+        <div class="flex justify-between text-sm text-ink-200 mb-2 border-t border-ink-600/60 pt-4">
+          <span>Sous-total</span>
+          <span id="mn-order-subtotal" class="text-ink-50"></span>
+        </div>
+        <div class="flex justify-between text-sm text-ink-200 mb-4">
+          <span>Livraison réfrigérée</span>
+          <span id="mn-order-shipping" class="text-ink-50"></span>
+        </div>
+        <div class="flex justify-between border-t border-ink-600/60 pt-4 font-display text-xl mb-6">
+          <span class="text-ink-50">Total réglé</span>
+          <span id="mn-order-total" class="text-gold"></span>
+        </div>
+        <p class="text-sm text-ink-300">
+          Livraison à : <span id="mn-order-address" class="text-ink-100"></span>
+        </p>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-2xl text-center">
+        <a href="boutique.html" class="btn-outline">Continuer mes achats</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const raw = sessionStorage.getItem("marenostrum_last_order");
+      if (!raw) {
+        document.getElementById("mn-no-order").classList.remove("hidden");
+        return;
+      }
+      const order = JSON.parse(raw);
+      document.getElementById("mn-order-content").classList.remove("hidden");
+      document.querySelector("#mn-order-content .h-8.w-8").innerHTML = MN_ICONS.check;
+
+      document.getElementById("mn-order-number").textContent = order.orderNumber;
+      document.getElementById("mn-order-email").textContent = order.customer.email;
+      document.getElementById("mn-order-address").textContent =
+        `${order.customer.address}${order.customer.addressComplement ? ", " + order.customer.addressComplement : ""}, ${order.customer.postalCode} ${order.customer.city}`;
+
+      document.getElementById("mn-order-lines").innerHTML = order.lines
+        .map(
+          (l) => `
+        <div class="flex justify-between text-sm">
+          <span class="text-ink-100">${l.name} <span class="text-ink-300">× ${l.qty}</span> <span class="text-ink-300">(${l.size})</span></span>
+          <span class="text-ink-50">${mnFormatPrice(l.lineTotal)}</span>
+        </div>`
+        )
+        .join("");
+
+      document.getElementById("mn-order-subtotal").textContent = mnFormatPrice(order.totals.subtotal);
+      document.getElementById("mn-order-shipping").textContent = order.totals.shipping === 0 ? "Offerte" : mnFormatPrice(order.totals.shipping);
+      document.getElementById("mn-order-total").textContent = mnFormatPrice(order.totals.total);
+    });
+  </script>
+</body>
+</html>
