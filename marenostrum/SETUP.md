@@ -100,3 +100,21 @@ front-end — seule la clé publique (`pk_...`) peut être exposée côté clien
 - Focus clavier visible sur tous les éléments interactifs.
 - Illustrations de produits en SVG généré (pas de photos) — à remplacer par
   de vraies photos produit en production pour un rendu plus premium.
+
+## Fond photo (montagne)
+
+`assets/img/hero-mountain.jpg` (photo Unsplash, libre de droits) sert de fond
+à tout le site : appliqué sur `body` dans `src/input.css`, en `fixed` sur
+desktop (avec un fondu crème par-dessus pour rester lisible derrière tous
+les textes) et en bande pleine largeur fixée en haut de page sur mobile
+(`@media (max-width: 768px)`, pour éviter qu'un fond `cover` non-fixe
+n'étire l'image sur toute la hauteur d'une longue page et ne révèle ses
+zones sombres derrière le texte).
+
+Pour changer cette photo : remplacez le fichier `assets/img/hero-mountain.jpg`
+(même nom) par une autre image, idéalement dans les mêmes tons clairs en
+haut de l'image (le fondu crème est calé sur une zone claire en haut). Le
+fichier actuel (~264 Ko) n'est pas optimisé (pas d'outil de compression
+d'image disponible au moment de l'intégration) — le passer dans un
+compresseur (Squoosh, TinyPNG) ou générer une version WebP est recommandé
+avant mise en production.
