@@ -29,30 +29,13 @@
     }
   }
 
-  /* Site-wide backdrop: the same alpine photo as the homepage hero, but washed heavily with the
-     cream background color so it reads as a faint, atmospheric texture behind dense content
-     (forms, legal pages, product grids) rather than competing with it. The hero section on the
-     homepage layers its own much-less-washed copy of this image on top, at full strength. */
+  /* Site-wide backdrop: rendered by a JS-injected `#site-bg` fixed-position layer (see
+     mnPageBackground() in ui.js), not via `background-attachment: fixed` here — that property
+     is unreliable across browsers/mobile (image ends up invisible outside the homepage hero).
+     The body just needs its own solid fallback color underneath that layer. */
   body {
     @apply text-ink-50 font-body antialiased;
     background-color: #fbf6ea;
-    background-image: linear-gradient(rgba(251, 246, 234, 0.78) 0%, rgba(251, 246, 234, 0.82) 55%, rgba(251, 246, 234, 1) 100%), url('../img/hero-mountain.jpg');
-    background-size: cover;
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
-
-  /* iOS Safari renders fixed backgrounds poorly (jank or ignored), and without `fixed` a `cover`
-     background scales against the *whole* (often very tall) document instead of the viewport —
-     which drags the image's darker lower half into view on any long page. Cap it to a single
-     full-width band pinned to the top instead: the rest of the page falls back to the plain
-     cream background-color. */
-  @media (max-width: 768px) {
-    body {
-      background-attachment: scroll;
-      background-size: 100% auto;
-    }
   }
 
   ::selection {

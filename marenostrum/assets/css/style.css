@@ -582,10 +582,10 @@ html {
   }
 }
 
-/* Site-wide backdrop: the same alpine photo as the homepage hero, but washed heavily with the
-     cream background color so it reads as a faint, atmospheric texture behind dense content
-     (forms, legal pages, product grids) rather than competing with it. The hero section on the
-     homepage layers its own much-less-washed copy of this image on top, at full strength. */
+/* Site-wide backdrop: rendered by a JS-injected `#site-bg` fixed-position layer (see
+     mnPageBackground() in ui.js), not via `background-attachment: fixed` here — that property
+     is unreliable across browsers/mobile (image ends up invisible outside the homepage hero).
+     The body just needs its own solid fallback color underneath that layer. */
 
 body{
   font-family: Montserrat, sans-serif;
@@ -594,24 +594,6 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fbf6ea;
-  background-image: linear-gradient(rgba(251, 246, 234, 0.78) 0%, rgba(251, 246, 234, 0.82) 55%, rgba(251, 246, 234, 1) 100%), url('../img/hero-mountain.jpg');
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-/* iOS Safari renders fixed backgrounds poorly (jank or ignored), and without `fixed` a `cover`
-     background scales against the *whole* (often very tall) document instead of the viewport —
-     which drags the image's darker lower half into view on any long page. Cap it to a single
-     full-width band pinned to the top instead: the rest of the page falls back to the plain
-     cream background-color. */
-
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-    background-size: 100% auto;
-  }
 }
 
 ::-moz-selection{
@@ -1233,8 +1215,16 @@ a:focus-visible,
   border-width: 0;
 }
 
+.pointer-events-none{
+  pointer-events: none;
+}
+
 .invisible{
   visibility: hidden;
+}
+
+.fixed{
+  position: fixed;
 }
 
 .absolute{
@@ -1291,6 +1281,10 @@ a:focus-visible,
 
 .top-4{
   top: 1rem;
+}
+
+.-z-10{
+  z-index: -10;
 }
 
 .z-10{
@@ -1844,6 +1838,11 @@ a:focus-visible,
   border-color: rgb(28 58 94 / 0.4);
 }
 
+.bg-\[\#fbf6ea\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 246 234 / var(--tw-bg-opacity, 1));
+}
+
 .bg-ink-700\/40{
   background-color: rgb(255 255 255 / 0.4);
 }
@@ -1936,6 +1935,10 @@ a:focus-visible,
 
 .bg-center{
   background-position: center;
+}
+
+.bg-top{
+  background-position: top;
 }
 
 .p-5{
@@ -2402,6 +2405,10 @@ a:focus-visible,
 
   .sm\:justify-between{
     justify-content: space-between;
+  }
+
+  .sm\:bg-center{
+    background-position: center;
   }
 
   .sm\:text-3xl{

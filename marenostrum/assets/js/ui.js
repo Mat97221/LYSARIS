@@ -380,10 +380,25 @@ function mnUpdateCartBadge() {
   badge.classList.toggle("hidden", count === 0);
 }
 
-/** Injecte header/footer, câble le menu mobile, la newsletter (démo) et le badge panier. */
+/**
+ * Fond photo fixe, commun à toutes les pages. Injecté en JS (position: fixed) plutôt
+ * qu'en CSS `background-attachment: fixed`, qui se révèle peu fiable selon les navigateurs
+ * (image invisible hors de la page d'accueil sur certains moteurs/mobiles).
+ */
+function mnPageBackground() {
+  return `
+    <div class="fixed inset-0 -z-10 overflow-hidden bg-[#fbf6ea] pointer-events-none" aria-hidden="true">
+      <div class="absolute inset-0 bg-cover bg-top sm:bg-center" style="background-image:url('assets/img/hero-mountain.jpg')"></div>
+      <div class="absolute inset-0" style="background:linear-gradient(rgba(251,246,234,0.78) 0%, rgba(251,246,234,0.85) 45%, rgba(251,246,234,0.97) 75%, rgba(251,246,234,1) 100%)"></div>
+    </div>`;
+}
+
+/** Injecte fond/header/footer, câble le menu mobile, la newsletter (démo) et le badge panier. */
 function mnMountLayout(activePage) {
+  const bgMount = document.getElementById("site-bg");
   const headerMount = document.getElementById("site-header");
   const footerMount = document.getElementById("site-footer");
+  if (bgMount) bgMount.outerHTML = mnPageBackground();
   if (headerMount) headerMount.outerHTML = mnHeader(activePage);
   if (footerMount) footerMount.outerHTML = mnFooter();
 
