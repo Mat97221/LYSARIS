@@ -15,7 +15,7 @@
   <div id="site-header"></div>
 
   <main>
-    <section class="border-b border-ink-600/50 bg-ink-800/40">
+    <section class="border-b border-ink-600/50 bg-ink-800">
       <div class="container-page py-14 text-center reveal">
         <p class="eyebrow mb-3">La boutique</p>
         <h1 class="font-display text-4xl font-semibold text-ink-50 sm:text-5xl">Nos caviars &amp; coffrets d'exception</h1>
@@ -62,7 +62,7 @@
       const filters = document.getElementById("mn-category-filters");
       filters.innerHTML = MARENOSTRUM_CATEGORIES.map(
         (c) =>
-          `<button type="button" role="tab" data-cat="${c.id}" class="rounded-full border border-ink-500 px-5 py-2.5 min-h-[44px] text-sm font-medium text-ink-100 transition-all duration-200 ease-fluid hover:border-navy">${c.label}</button>`
+          `<button type="button" role="tab" data-cat="${c.id}" class="rounded-full border border-ink-500 bg-ink-900 px-5 py-2.5 min-h-[44px] text-sm font-medium text-ink-100 shadow-soft transition-all duration-200 ease-fluid hover:border-navy">${c.label}</button>`
       ).join("");
 
       filters.querySelectorAll("button").forEach((btn) => {

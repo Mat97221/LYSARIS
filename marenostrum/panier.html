@@ -15,7 +15,7 @@
   <div id="site-header"></div>
 
   <main>
-    <section class="border-b border-ink-600/50 bg-ink-800/40">
+    <section class="border-b border-ink-600/50 bg-ink-800">
       <div class="container-page py-12">
         <p class="eyebrow mb-3">Étape 1 sur 3</p>
         <h1 class="font-display text-4xl font-semibold text-ink-50">Votre panier</h1>
@@ -32,7 +32,7 @@
       <div id="mn-cart-filled" class="hidden grid grid-cols-1 gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 flex flex-col gap-4" id="mn-cart-lines"></div>
 
-        <aside class="rounded-md border border-ink-600/60 bg-ink-700/40 p-7 h-fit">
+        <aside class="rounded-md border border-ink-600/60 bg-ink-700 p-7 h-fit">
           <h2 class="font-display text-xl font-semibold text-ink-50 mb-6">Récapitulatif</h2>
           <div class="flex justify-between text-sm text-ink-200 mb-3">
             <span>Sous-total</span>
@@ -62,7 +62,7 @@
   <script>
     function mnRenderCartLine(line) {
       return `
-      <div class="flex gap-5 rounded-md border border-ink-600/60 bg-ink-700/40 p-5" data-sku="${line.variant.sku}">
+      <div class="flex gap-5 rounded-md border border-ink-600/60 bg-ink-700 p-5" data-sku="${line.variant.sku}">
         <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-sm bg-ink-800">
           <div class="h-16 w-16">${mnTinSVG(line.product.tint)}</div>
         </div>

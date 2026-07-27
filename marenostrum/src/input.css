@@ -96,7 +96,7 @@
   }
 
   .card-product {
-    @apply relative flex flex-col overflow-hidden rounded-md border border-ink-600/60 bg-ink-700/60
+    @apply relative flex flex-col overflow-hidden rounded-md border border-ink-600/60 bg-ink-700
            hover:border-navy/50 hover:shadow-lifted;
   }
 

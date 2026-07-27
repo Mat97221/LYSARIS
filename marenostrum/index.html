@@ -17,25 +17,23 @@
   <main>
     <!-- Hero -->
     <section class="relative overflow-hidden border-b border-ink-600/50">
-      <div
-        class="parallax-bg absolute inset-0 bg-cover bg-center"
-        style="background-image: url('assets/img/hero-caviar.jpg')"
-        data-speed="0.15"
-      ></div>
+      <div class="parallax-bg absolute inset-0 overflow-hidden" data-speed="0.15">
+        <div class="absolute inset-0 bg-cover bg-center animate-slowzoom" style="background-image: url('assets/img/hero-caviar.jpg')"></div>
+      </div>
       <div class="container-page relative flex flex-col items-center gap-9 py-24 text-center lg:py-32">
-        <h1 class="animate-fadeUp font-display text-5xl font-semibold leading-[1.05] text-ink-50 sm:text-6xl lg:text-7xl">
-          L'art du caviar,<br /><span class="italic text-navy">sans compromis.</span>
+        <h1 class="animate-fadeUp font-display text-5xl font-semibold leading-[1.05] text-ink-900 [text-shadow:0_2px_20px_rgba(0,0,0,0.4)] sm:text-6xl lg:text-7xl">
+          L'art du caviar,<br /><span class="italic">sans compromis.</span>
         </h1>
         <div class="flex flex-wrap items-center justify-center gap-4 animate-fadeUp [animation-delay:150ms]">
           <a href="boutique.html" class="btn-navy-magnetic magnetic">Découvrir la boutique</a>
-          <a href="a-propos.html" class="btn-outline">Notre histoire</a>
+          <a href="a-propos.html" class="btn-outline !border-ink-900 !text-ink-900 hover:!border-navy-hover hover:!text-navy-hover">Notre histoire</a>
         </div>
       </div>
       <div class="relative pb-8 flex justify-center" id="mn-hero-wave"></div>
     </section>
 
     <!-- Trust bar -->
-    <section class="border-b border-ink-600/50 bg-ink-800/40">
+    <section class="border-b border-ink-600/50 bg-ink-800">
       <div id="mn-trust-grid" class="container-page grid grid-cols-1 gap-8 py-10 sm:grid-cols-3">
         <div class="flex items-center gap-4">
           <span class="h-9 w-9 shrink-0 text-navy" id="mn-trust-icon-1"></span>
@@ -74,7 +72,7 @@
     </section>
 
     <!-- Story teaser -->
-    <section class="border-y border-ink-600/50 bg-ink-800/40">
+    <section class="border-y border-ink-600/50 bg-ink-800">
       <div class="container-page grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2">
         <div class="order-2 lg:order-1 reveal">
           <p class="eyebrow mb-4">Notre engagement</p>
@@ -88,16 +86,16 @@
           <a href="a-propos.html" class="btn-outline">En savoir plus sur la Maison</a>
         </div>
         <div class="order-1 grid grid-cols-3 gap-4 lg:order-2 reveal [transition-delay:120ms]">
-          <div class="col-span-3 flex h-40 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700/50 sm:h-56 shadow-soft">
+          <div class="col-span-3 flex h-40 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-56 shadow-soft">
             <div class="h-28 w-28 sm:h-40 sm:w-40" id="mn-story-tin-1"></div>
           </div>
-          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700/50 sm:h-36 shadow-soft">
+          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft">
             <div class="h-16 w-16" id="mn-story-tin-2"></div>
           </div>
-          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700/50 sm:h-36 shadow-soft">
+          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft">
             <div class="h-16 w-16" id="mn-story-tin-3"></div>
           </div>
-          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700/50 sm:h-36 shadow-soft">
+          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft">
             <div class="h-16 w-16" id="mn-story-tin-4"></div>
           </div>
         </div>
@@ -120,15 +118,15 @@
       <p class="eyebrow mb-3 text-center reveal">Ils nous font confiance</p>
       <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-12 text-center reveal">La parole de nos convives</h2>
       <div id="mn-testimonial-grid" class="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700/40 p-7 shadow-soft">
+        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
           <p class="text-ink-100 leading-relaxed mb-5">« L'Osciètre Royal a fait l'unanimité pour notre réveillon. Grain parfait, livraison impeccable en 24h. »</p>
           <footer class="text-sm text-ink-300">— Camille R., Bordeaux</footer>
         </blockquote>
-        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700/40 p-7 shadow-soft">
+        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
           <p class="text-ink-100 leading-relaxed mb-5">« Le Coffret Découverte est une excellente porte d'entrée pour qui n'a jamais goûté de vrai caviar français. »</p>
           <footer class="text-sm text-ink-300">— Julien M., Paris</footer>
         </blockquote>
-        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700/40 p-7 shadow-soft">
+        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
           <p class="text-ink-100 leading-relaxed mb-5">« Le Beluga Impérial, servi seul avec la cuillère de nacre : un moment de dégustation rare. »</p>
           <footer class="text-sm text-ink-300">— Sophie D., Lyon</footer>
         </blockquote>

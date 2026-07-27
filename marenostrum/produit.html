@@ -34,7 +34,7 @@
       </section>
 
       <section class="container-page grid grid-cols-1 gap-12 py-14 lg:grid-cols-2">
-        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600/40 to-ink-800 [perspective:900px]">
+        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600 to-ink-800 [perspective:900px]">
           <div id="mn-product-badge-slot"></div>
           <div class="h-64 w-64 animate-float">
             <div id="mn-product-tin" class="h-full w-full animate-tinwobble"></div>
@@ -100,7 +100,7 @@
         </div>
       </section>
 
-      <section class="border-t border-ink-600/50 bg-ink-800/40">
+      <section class="border-t border-ink-600/50 bg-ink-800">
         <div class="container-page py-16">
           <h2 class="font-display text-2xl font-semibold text-ink-50 mb-8">Vous aimerez aussi</h2>
           <div id="mn-related-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
@@ -171,7 +171,7 @@
       const tastingBlock = document.getElementById("mn-tasting-block");
       if (product.tastingNotes && product.tastingNotes.length) {
         document.getElementById("mn-tasting-notes").innerHTML = product.tastingNotes
-          .map((n) => `<li class="rounded-full border border-ink-500 px-3.5 py-1.5 text-xs text-ink-100">${n}</li>`)
+          .map((n) => `<li class="rounded-full border border-ink-500 bg-ink-900 px-3.5 py-1.5 text-xs text-ink-100 shadow-soft">${n}</li>`)
           .join("");
         tastingBlock.classList.remove("hidden");
       } else {

@@ -70,7 +70,7 @@ function mnProductCard(product) {
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
-    <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600/40 to-ink-800 p-6">
+    <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600 to-ink-800 p-6">
       <div class="flex h-full w-full items-center justify-center transition-transform duration-500 ease-fluid group-hover:scale-110">
         ${mnTinSVG(product.tint)}
       </div>
@@ -142,7 +142,7 @@ function mnHeader(active) {
 function mnFooter() {
   const year = new Date().getFullYear();
   return `
-  <footer class="border-t border-ink-600/60 bg-ink-800/60 mt-24">
+  <footer class="border-t border-ink-600/60 bg-ink-800 mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-display text-2xl text-ink-50 mb-3">MAREN<span class="text-navy">O</span>STRUM</p>
@@ -306,13 +306,18 @@ function mnUpdateCartBadge() {
 /**
  * Fond photo fixe, commun à toutes les pages. Injecté en JS (position: fixed) plutôt
  * qu'en CSS `background-attachment: fixed`, qui se révèle peu fiable selon les navigateurs
- * (image invisible hors de la page d'accueil sur certains moteurs/mobiles). Pas de voile
- * dégradé : l'image reste nette sur toutes les pages.
+ * (image invisible hors de la page d'accueil sur certains moteurs/mobiles).
+ * Voile uni (pas de dégradé) plutôt qu'un fondu multi-stops : assez léger pour que la photo
+ * reste nettement visible, assez présent pour que le texte posé directement dessus reste
+ * lisible (les cartes/pastilles de contenu ont, elles, un fond plein indépendant de ce voile).
+ * `animate-slowzoom` donne un très léger mouvement respirant à l'image (substitut à une vraie
+ * vidéo, qu'on ne peut pas générer ici).
  */
 function mnPageBackground() {
   return `
     <div class="fixed inset-0 -z-10 overflow-hidden bg-[#fbf6ea] pointer-events-none" aria-hidden="true">
-      <div class="absolute inset-0 bg-cover bg-top sm:bg-center" style="background-image:url('assets/img/hero-caviar.jpg')"></div>
+      <div class="absolute inset-0 bg-cover bg-top sm:bg-center animate-slowzoom" style="background-image:url('assets/img/hero-caviar.jpg')"></div>
+      <div class="absolute inset-0 bg-ink-900/70"></div>
     </div>`;
 }
 
