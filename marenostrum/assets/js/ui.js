@@ -71,9 +71,7 @@ function mnProductCard(product) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600 to-ink-800 p-6">
-      <div class="flex h-full w-full items-center justify-center transition-transform duration-500 ease-fluid group-hover:scale-110">
-        ${mnTinSVG(product.tint)}
-      </div>
+      <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
@@ -100,15 +98,15 @@ function mnProductCard(product) {
 
 function mnHeader(active) {
   const link = (href, label, key) =>
-    `<a href="${href}" class="text-sm uppercase tracking-wide transition-colors duration-200 hover:text-navy ${
-      active === key ? "text-navy" : "text-ink-100"
+    `<a href="${href}" class="mn-nav-link text-sm uppercase tracking-wide transition-colors duration-200 hover:text-navy ${
+      active === key ? "text-navy is-active" : "text-ink-100"
     }">${label}</a>`;
 
   return `
   <header class="nav-glass sticky top-0 z-40">
     <div class="container-page flex h-20 items-center justify-between">
-      <a href="index.html" class="font-display text-2xl sm:text-3xl font-semibold tracking-wide text-ink-50">
-        MAREN<span class="text-navy">O</span>STRUM
+      <a href="index.html" class="flex items-center">
+        <img src="assets/img/logo-marenostrum-horizontal-noir.png" alt="MARENOSTRUM" class="w-auto" style="width:231px;height:44px" />
       </a>
       <nav class="hidden md:flex items-center gap-8">
         ${link("index.html", "Accueil", "accueil")}
@@ -234,6 +232,7 @@ function mnStagger(container, stepMs) {
   });
   mnInitReveal(container);
   mnBindQuickAdd(container);
+  mnInitTilt(container);
 }
 
 /** Wires up `.quick-add` buttons on product cards: adds the card's default (smallest) variant
@@ -267,6 +266,30 @@ function mnPrefersReducedMotion() {
 
 function mnClamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
+}
+
+/** Subtle pointer-driven 3D tilt on product cards — sets --tilt-x/--tilt-y consumed by the
+    .card-product transform in input.css. Purely additive to the existing hover shine. */
+function mnInitTilt(root) {
+  if (mnPrefersReducedMotion()) return;
+  const scope = root || document;
+  const cards = Array.from(scope.querySelectorAll(".card-product:not([data-tilt-bound])"));
+  const maxDeg = 6;
+
+  cards.forEach((card) => {
+    card.dataset.tiltBound = "true";
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty("--tilt-x", `${(-py * maxDeg).toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${(px * maxDeg).toFixed(2)}deg`);
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
+    });
+  });
 }
 
 /** Nudges a `.magnetic` element toward the cursor within its own bounds. Pairs with .btn-navy-magnetic. */
@@ -315,10 +338,11 @@ function mnUpdateCartBadge() {
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 overflow-hidden bg-[#fbf6ea] pointer-events-none" aria-hidden="true">
+    <div class="fixed inset-0 -z-10 overflow-hidden bg-[#FAF6EF] pointer-events-none" aria-hidden="true">
       <div class="absolute inset-0 bg-cover bg-top sm:bg-center animate-slowzoom" style="background-image:url('assets/img/hero-caviar.jpg')"></div>
       <div class="absolute inset-0 bg-ink-900/70"></div>
-    </div>`;
+    </div>
+    <div class="mn-grain" aria-hidden="true"></div>`;
 }
 
 /** Injecte fond/header/footer, câble le menu mobile, la newsletter (démo) et le badge panier. */

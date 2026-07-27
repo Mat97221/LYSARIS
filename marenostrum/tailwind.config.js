@@ -6,37 +6,37 @@ module.exports = {
       colors: {
         /**
          * Token names are reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
-         * Values below are assigned per the ROLE each token already plays in the markup
-         * (see grep audit before this change), not a literal light→dark ramp — so the same
-         * class names now render a warm, light "Côte d'Azur / Alpine chic" theme.
+         * "Vivant & premium" pass: collapsed to a restrained two-tone navy/ivory system (see
+         * design_handoff_marenostrum_site) — ink-50 (primary text) now equals navy itself, and
+         * azure/pine (formerly separate accent hues) collapse to the same navy too, so the whole
+         * site reads as a single deliberate color instead of several competing accents.
          */
         ink: {
-          50: "#22201A", // primary text (was brightest text-on-dark; now darkest text-on-light)
-          100: "#3B372C", // secondary text
-          200: "#655F4E", // muted paragraph text
-          300: "#8D8570", // faint / footnote text
-          400: "#A79C80",
-          500: "#CBBB92", // input borders
-          600: "#E1D3AE", // hairline borders, gradient stops
+          50: "#0A1F3D", // primary text — same value as navy
+          100: "#14304F", // secondary text
+          200: "#35506E", // muted paragraph text
+          300: "#6B7C90", // faint / footnote text
+          400: "#94A0AF",
+          500: "#C3C9D2", // input borders
+          600: "#D7DCE3", // hairline borders, gradient stops
           700: "#FFFFFF", // card surfaces
-          800: "#F3EBD8", // alternate section backgrounds / footer
-          900: "#FBF6EA" // page background / nav background
+          800: "#F1EADC", // alternate section backgrounds / footer
+          900: "#FAF6EF" // page background / nav background (warm ivory)
         },
         navy: {
-          DEFAULT: "#1C3A5E", // deep navy — text, icons, borders AND button/badge fills (dark
-          // enough on its own to serve both roles; pair fills with text-white, not text-charcoal)
-          hover: "#2E5384", // richer/lighter navy for hover feedback
-          dark: "#0F1F35" // deepest shade — dividers, subtle borders
+          DEFAULT: "#0A1F3D",
+          hover: "#15355C", // richer/lighter navy for hover feedback
+          dark: "#050D1A" // deepest shade — dividers, the "abysse" section
         },
-        charcoal: "#22201A", // dark text for fills that stay light (e.g. .btn-shimmer's cream pill)
+        charcoal: "#0A1F3D",
         azure: {
-          DEFAULT: "#2C6E8E", // Côte d'Azur sea blue — secondary accent
-          light: "#6FA9C2",
+          DEFAULT: "#0A1F3D", // collapsed onto navy — no separate accent hue anymore
+          light: "#0A1F3D",
           50: "#EAF3F6"
         },
         pine: {
-          DEFAULT: "#4B6650", // alpine pine green — tertiary accent
-          light: "#7C9682"
+          DEFAULT: "#0A1F3D", // collapsed onto navy — no separate accent hue anymore
+          light: "#0A1F3D"
         },
         error: "#B3261E"
       },
@@ -49,9 +49,9 @@ module.exports = {
         body: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
       },
       boxShadow: {
-        soft: "0 4px 14px rgba(60,50,20,0.08)",
-        lifted: "0 18px 40px rgba(60,50,20,0.14)",
-        navy: "0 0 0 1px rgba(28,58,94,0.35)"
+        soft: "0 4px 14px rgba(10,31,61,0.08)",
+        lifted: "0 18px 40px rgba(10,31,61,0.14)",
+        navy: "0 0 0 1px rgba(10,31,61,0.35)"
       },
       letterSpacing: {
         widest2: "0.25em"

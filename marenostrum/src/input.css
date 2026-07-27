@@ -35,7 +35,7 @@
      The body just needs its own solid fallback color underneath that layer. */
   body {
     @apply text-ink-50 font-body antialiased;
-    background-color: #fbf6ea;
+    background-color: #faf6ef;
   }
 
   ::selection {
@@ -69,7 +69,7 @@
   }
 
   .btn-navy {
-    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
            font-body font-semibold text-sm tracking-wide uppercase text-white
            transition-all duration-200 ease-fluid hover:bg-navy-hover hover:-translate-y-0.5
            active:translate-y-0 shadow-soft;
@@ -78,13 +78,13 @@
   /* Same look as .btn-navy, but the lift-on-hover is dropped: pair with .magnetic instead, whose
      JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
   .btn-navy-magnetic {
-    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
            font-body font-semibold text-sm tracking-wide uppercase text-white
            transition-colors duration-200 ease-fluid hover:bg-navy-hover shadow-soft;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-ink-300/70 px-7 py-3.5 min-h-[44px]
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm border border-ink-300/70 px-7 py-3.5 min-h-[44px]
            font-body font-semibold text-sm tracking-wide uppercase text-ink-100
            transition-all duration-200 ease-fluid hover:border-navy hover:text-navy hover:-translate-y-0.5
            active:translate-y-0;
@@ -137,9 +137,12 @@
     will-change: opacity, transform;
   }
 
+  /* Composes with .card-product's tilt transform (--tilt-x/--tilt-y default to 0deg when unset,
+     so this is a no-op on every other .reveal element) instead of hard-overriding `transform:
+     none`, which would silently cancel the tilt on cards once revealed. */
   .reveal.is-visible {
     opacity: 1;
-    transform: none;
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   }
 
   /* Magnetic button: nudges toward the cursor within its own bounds (see mnInitMagnetic in ui.js) */
@@ -162,4 +165,205 @@
            transition-all duration-200 ease-fluid hover:border-navy hover:bg-navy hover:text-white
            disabled:opacity-70;
   }
+}
+
+/* ============================================================
+   "Vivant & premium" pass — hand-written additions (design import from
+   claude.ai/design, design_handoff_marenostrum_site), not Tailwind utilities.
+   ============================================================ */
+
+/* Fine, near-invisible film grain over the whole page — the tactile "photographed on film"
+   texture that keeps a flat digital palette from feeling sterile. Sits just above the fixed
+   background photo, below all real content. */
+.mn-grain {
+  position: fixed;
+  inset: 0;
+  z-index: -9;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
+}
+
+/* Deep-sea "abyss" section: near-black navy gradient with two slow-drifting radial caustics,
+   evoking light refracting through moving water. Used for dramatic full-bleed breaks between
+   the warm ivory sections — the one deliberate dark note in the palette. */
+.mn-abyss {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse 120% 100% at 50% -10%, #163050 0%, #050d1a 45%, #080f1c 100%);
+  isolation: isolate;
+}
+
+.mn-abyss::before,
+.mn-abyss::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.mn-abyss::before {
+  width: 60%;
+  height: 60%;
+  left: -10%;
+  top: -15%;
+  background: radial-gradient(circle, rgba(107, 124, 144, 0.35), transparent 70%);
+  animation: mn-caustic-drift-a 16s ease-in-out infinite;
+}
+
+.mn-abyss::after {
+  width: 55%;
+  height: 55%;
+  right: -12%;
+  bottom: -18%;
+  background: radial-gradient(circle, rgba(250, 246, 239, 0.16), transparent 70%);
+  animation: mn-caustic-drift-b 20s ease-in-out infinite;
+}
+
+@keyframes mn-caustic-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6%, 8%) scale(1.15); }
+}
+
+@keyframes mn-caustic-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-8%, -5%) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-abyss::before,
+  .mn-abyss::after {
+    animation: none;
+  }
+}
+
+/* Small bright glints scattered over dark/hero surfaces — like light catching the surface
+   of moving water. Purely decorative, aria-hidden. */
+.mn-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #faf6ef;
+  box-shadow: 0 0 6px 1px rgba(250, 246, 239, 0.7);
+  opacity: 0;
+  animation: mn-twinkle 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes mn-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 0.9; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-sparkle { animation: none; opacity: 0.5; }
+}
+
+/* Product-card 3D tilt (values set via inline --tilt-x/--tilt-y from mnInitTilt in ui.js) plus a
+   diagonal light sweep on hover — gives the product photo a jewel-like, handled quality. */
+.card-product {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms, box-shadow 200ms;
+}
+
+.card-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-product:hover::before {
+  transform: translateX(120%);
+}
+
+/* Sheen sweep on primary/outline buttons — a single quiet flash of light on hover, not a
+   permanent gradient background. */
+.btn-navy::before, .btn-navy-magnetic::before, .btn-outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.25) 50%, transparent 65%);
+  transform: translateX(-130%);
+  transition: transform 650ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.btn-outline::before {
+  background: linear-gradient(115deg, transparent 35%, rgba(10, 31, 61, 0.12) 50%, transparent 65%);
+}
+
+.btn-navy:hover::before, .btn-navy-magnetic:hover::before, .btn-outline:hover::before {
+  transform: translateX(130%);
+}
+
+/* Nav links: underline grows from the center on hover instead of a flat color swap. */
+.mn-nav-link {
+  position: relative;
+}
+
+.mn-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: -6px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+  transition: left 250ms cubic-bezier(0.4, 0, 0.2, 1), right 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mn-nav-link:hover::after, .mn-nav-link.is-active::after {
+  left: 0;
+  right: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-product, .btn-navy, .btn-navy-magnetic, .btn-outline {
+    transition: none !important;
+  }
+  .card-product::before, .btn-navy::before, .btn-navy-magnetic::before, .btn-outline::before {
+    display: none;
+  }
+}
+
+/* Gold-quiet shimmer sweep across the hero accent word — a slow, traveling highlight rather
+   than a static fill. (The design-tool export baked this to a flat single-color gradient with
+   no visible effect; restored as a working sweep using the same ivory/white palette.) */
+.mn-shine-text {
+  background-image: linear-gradient(100deg, #faf6ef 0%, #faf6ef 35%, #ffffff 50%, #faf6ef 65%, #faf6ef 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: mn-shine-sweep 6s ease-in-out infinite;
+}
+
+@keyframes mn-shine-sweep {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-shine-text { animation: none; }
+}
+
+/* Category tiles ("Univers" grid), full-photo tile grid. */
+.mn-tile {
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms;
+}
+
+.mn-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(20, 30, 20, 0.22);
 }
