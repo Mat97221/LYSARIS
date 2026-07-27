@@ -68,8 +68,7 @@ function mnProductCard(product) {
   const price = mnLowestPrice(product);
   const firstVariant = product.variants[0];
   return `
-  <div class="card-product tilt-3d group" data-category="${product.category}">
-    <div class="spot-glow"></div>
+  <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600/40 to-ink-800 p-6">
       <div class="flex h-full w-full items-center justify-center transition-transform duration-500 ease-fluid group-hover:scale-110">
@@ -97,39 +96,6 @@ function mnProductCard(product) {
       </div>
     </div>
   </div>`;
-}
-
-const MN_CATEGORY_CARDS = [
-  {
-    label: "caviars",
-    href: "boutique.html?cat=caviar",
-    gradient: "linear-gradient(160deg, #2A2620 0%, #181410 55%, #0B0A08 100%)"
-  },
-  {
-    label: "coffrets",
-    href: "boutique.html?cat=coffrets",
-    gradient: "linear-gradient(160deg, #8A6D1A 0%, #5C4812 55%, #2A2010 100%)"
-  },
-  {
-    label: "accessoires",
-    href: "boutique.html?cat=accessoires",
-    gradient: "linear-gradient(160deg, #2C6E8E 0%, #1C4B60 55%, #0F2C38 100%)"
-  }
-];
-
-/** Carte de catégorie plein cadre : emplacement photo vide (à venir), nom en texte vertical, CTA. */
-function mnCategoryCard(cat) {
-  return `
-  <a href="${cat.href}" class="cat-card tilt-3d group reveal">
-    <div class="cat-card-art" style="background-image:${cat.gradient}"></div>
-    <div class="cat-card-overlay"></div>
-    <div class="spot-glow"></div>
-    <h2
-      class="relative z-10 font-display text-3xl font-medium transition-transform duration-500 ease-fluid group-hover:-translate-y-2 sm:text-4xl md:text-5xl"
-      style="writing-mode: vertical-lr; transform: rotate(180deg);"
-    >${cat.label}</h2>
-    <span class="btn-shimmer relative z-10 mt-auto">découvrir ${cat.label}</span>
-  </a>`;
 }
 
 function mnHeader(active) {
@@ -267,7 +233,6 @@ function mnStagger(container, stepMs) {
     child.style.transitionDelay = `${Math.min(i * step, 560)}ms`;
   });
   mnInitReveal(container);
-  mnInit3DTilt(container);
   mnBindQuickAdd(container);
 }
 
@@ -302,40 +267,6 @@ function mnPrefersReducedMotion() {
 
 function mnClamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
-}
-
-/**
- * Subtle pointer-driven 3D tilt + lift for `.tilt-3d` cards, and the matching cursor-follow
- * highlight for any `.spot-glow` child (`--spot-x`/`--spot-y`). Skipped entirely when the user
- * prefers reduced motion — this is interaction-driven motion, not just a CSS transition.
- */
-function mnInit3DTilt(root) {
-  if (mnPrefersReducedMotion()) return;
-  const scope = root || document;
-  const elements = Array.from(scope.querySelectorAll(".tilt-3d:not([data-tilt-bound])"));
-  const maxTiltDeg = 6;
-  const liftPx = 8;
-
-  elements.forEach((el) => {
-    el.dataset.tiltBound = "true";
-
-    el.addEventListener("mousemove", (e) => {
-      const rect = el.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;
-      const py = (e.clientY - rect.top) / rect.height;
-      el.style.setProperty("--tilt-x", `${((0.5 - py) * 2 * maxTiltDeg).toFixed(2)}deg`);
-      el.style.setProperty("--tilt-y", `${((px - 0.5) * 2 * maxTiltDeg).toFixed(2)}deg`);
-      el.style.setProperty("--tilt-z", `${liftPx}px`);
-      el.style.setProperty("--spot-x", `${(px * 100).toFixed(1)}%`);
-      el.style.setProperty("--spot-y", `${(py * 100).toFixed(1)}%`);
-    });
-
-    el.addEventListener("mouseleave", () => {
-      el.style.setProperty("--tilt-x", "0deg");
-      el.style.setProperty("--tilt-y", "0deg");
-      el.style.setProperty("--tilt-z", "0px");
-    });
-  });
 }
 
 /** Nudges a `.magnetic` element toward the cursor within its own bounds. Pairs with .btn-navy-magnetic. */
@@ -375,13 +306,13 @@ function mnUpdateCartBadge() {
 /**
  * Fond photo fixe, commun à toutes les pages. Injecté en JS (position: fixed) plutôt
  * qu'en CSS `background-attachment: fixed`, qui se révèle peu fiable selon les navigateurs
- * (image invisible hors de la page d'accueil sur certains moteurs/mobiles).
+ * (image invisible hors de la page d'accueil sur certains moteurs/mobiles). Pas de voile
+ * dégradé : l'image reste nette sur toutes les pages.
  */
 function mnPageBackground() {
   return `
     <div class="fixed inset-0 -z-10 overflow-hidden bg-[#fbf6ea] pointer-events-none" aria-hidden="true">
-      <div class="absolute inset-0 bg-cover bg-top sm:bg-center" style="background-image:url('assets/img/hero-mountain.jpg')"></div>
-      <div class="absolute inset-0" style="background:linear-gradient(rgba(251,246,234,0.78) 0%, rgba(251,246,234,0.85) 45%, rgba(251,246,234,0.97) 75%, rgba(251,246,234,1) 100%)"></div>
+      <div class="absolute inset-0 bg-cover bg-top sm:bg-center" style="background-image:url('assets/img/hero-caviar.jpg')"></div>
     </div>`;
 }
 
@@ -428,7 +359,6 @@ function mnMountLayout(activePage) {
 
   mnInitReveal();
   mnInitMagnetic();
-  mnInit3DTilt();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

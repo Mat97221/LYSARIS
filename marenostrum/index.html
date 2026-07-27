@@ -19,30 +19,16 @@
     <section class="relative overflow-hidden border-b border-ink-600/50">
       <div
         class="parallax-bg absolute inset-0 bg-cover bg-center"
-        style="background-image: url('assets/img/hero-mountain.jpg')"
+        style="background-image: url('assets/img/hero-caviar.jpg')"
         data-speed="0.15"
       ></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/85 to-ink-900/20"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_75%,rgba(44,110,142,0.12),transparent_45%)]"></div>
-      <div class="container-page relative grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
-        <div class="animate-fadeUp">
-          <p class="eyebrow mb-5">Élevage français · Affinage traditionnel Malossol</p>
-          <h1 class="font-display text-5xl font-semibold leading-[1.05] text-ink-50 sm:text-6xl lg:text-7xl">
-            L'art du caviar,<br /><span class="italic text-navy">sans compromis.</span>
-          </h1>
-          <p class="mt-6 max-w-xl text-lg text-ink-200 leading-relaxed">
-            MARENOSTRUM sélectionne et affine des caviars d'exception — Osciètre, Beluga, Sevruga, Kaluga — élevés en eaux vives et livrés réfrigérés jusqu'à votre table en 24 à 48h.
-          </p>
-          <div class="mt-9 flex flex-wrap items-center gap-4">
-            <a href="boutique.html" class="btn-navy-magnetic magnetic">Découvrir la boutique</a>
-            <a href="a-propos.html" class="btn-outline">Notre histoire</a>
-          </div>
-        </div>
-        <div class="relative mx-auto flex h-72 w-72 items-center justify-center rounded-full border border-azure/25 bg-ink-900/95 shadow-lifted backdrop-blur-sm sm:h-96 sm:w-96 animate-fadeUp [animation-delay:150ms] [perspective:800px]">
-          <div class="absolute inset-6 rounded-full border border-navy/15"></div>
-          <div class="h-48 w-48 sm:h-64 sm:w-64 animate-float">
-            <div class="h-full w-full animate-tinwobble" id="mn-hero-tin"></div>
-          </div>
+      <div class="container-page relative flex flex-col items-center gap-9 py-24 text-center lg:py-32">
+        <h1 class="animate-fadeUp font-display text-5xl font-semibold leading-[1.05] text-ink-50 sm:text-6xl lg:text-7xl">
+          L'art du caviar,<br /><span class="italic text-navy">sans compromis.</span>
+        </h1>
+        <div class="flex flex-wrap items-center justify-center gap-4 animate-fadeUp [animation-delay:150ms]">
+          <a href="boutique.html" class="btn-navy-magnetic magnetic">Découvrir la boutique</a>
+          <a href="a-propos.html" class="btn-outline">Notre histoire</a>
         </div>
       </div>
       <div class="relative pb-8 flex justify-center" id="mn-hero-wave"></div>
@@ -73,11 +59,6 @@
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Categories -->
-    <section class="flex flex-col justify-center bg-white text-white">
-      <div id="mn-categories-grid" class="grid grid-cols-1 md:grid-cols-3"></div>
     </section>
 
     <!-- Featured products -->
@@ -170,15 +151,10 @@
       mnStagger(document.getElementById("mn-trust-grid"), 80);
       mnStagger(document.getElementById("mn-testimonial-grid"), 90);
 
-      const categoriesGrid = document.getElementById("mn-categories-grid");
-      categoriesGrid.innerHTML = MN_CATEGORY_CARDS.map(mnCategoryCard).join("");
-      mnStagger(categoriesGrid, 150);
-
       document.getElementById("mn-trust-icon-1").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-trust-icon-2").innerHTML = MN_ICONS.truck;
       document.getElementById("mn-trust-icon-3").innerHTML = MN_ICONS.leaf;
 
-      document.getElementById("mn-hero-tin").innerHTML = mnTinSVG("amber");
       document.getElementById("mn-story-tin-1").innerHTML = mnTinSVG("onyx");
       document.getElementById("mn-story-tin-2").innerHTML = mnTinSVG("graphite");
       document.getElementById("mn-story-tin-3").innerHTML = mnTinSVG("champagne");

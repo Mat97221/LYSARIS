@@ -41,8 +41,12 @@ module.exports = {
         error: "#B3261E"
       },
       fontFamily: {
-        display: ["Cormorant", "serif"],
-        body: ["Montserrat", "sans-serif"]
+        // Bodoni Moda (Google Fonts) evokes the high-contrast Didot/Bodoni serif used in
+        // CHANEL's branding — not their actual (proprietary, unlicensed) typeface.
+        display: ["Bodoni Moda", "Didot", "Georgia", "serif"],
+        // Helvetica Neue system stack, matching the spare grotesque body type common to
+        // high-fashion sites — no separate font file needed, works everywhere.
+        body: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(60,50,20,0.08)",

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -137,67 +137,9 @@
     will-change: opacity, transform;
   }
 
-  /* Composes with .tilt-3d: on elements without tilt, --tilt-* are unset and default to 0, so
-     this resolves to a no-op transform. On elements with tilt, it keeps reflecting the live
-     JS-driven tilt instead of pinning `transform: none` once revealed (same rule specificity as
-     .reveal.is-visible would otherwise have, which was silently overriding .tilt-3d). */
   .reveal.is-visible {
     opacity: 1;
-    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(var(--tilt-z, 0px));
-  }
-
-  /* Category cards: full-bleed art background, vertical category name, shimmer CTA */
-  .cat-card {
-    @apply relative flex flex-col items-start justify-between overflow-hidden
-           p-6 sm:p-7 md:p-9 min-h-[220px] sm:min-h-[260px] md:min-h-[340px];
-  }
-
-  /* Ambient slow zoom gives the background life in place of video; hover feedback comes from
-     the overlay/text/button instead of a second competing transform on the same element. */
-  .cat-card-art {
-    @apply absolute inset-0 h-full w-full bg-cover bg-center animate-slowzoom;
-  }
-
-  .cat-card-overlay {
-    @apply absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/15 to-transparent
-           transition-colors duration-500 ease-fluid group-hover:from-charcoal/80;
-  }
-
-  .btn-shimmer {
-    @apply relative overflow-hidden inline-flex items-center justify-center rounded-full
-           bg-ink-900 px-8 py-3 text-sm font-semibold text-charcoal
-           transition-[transform,box-shadow] duration-300 ease-fluid
-           hover:-translate-y-0.5 hover:shadow-lifted active:translate-y-0;
-  }
-
-  .btn-shimmer::before {
-    content: "";
-    @apply absolute inset-0 -translate-x-full;
-    background: linear-gradient(120deg, transparent 0%, rgba(28, 58, 94, 0.18) 50%, transparent 100%);
-    transition: transform 500ms ease;
-  }
-
-  .btn-shimmer:hover::before {
-    @apply translate-x-full;
-  }
-
-  /* Subtle 3D tilt on pointer move (see mnInit3DTilt in ui.js) — reusable on any card. Owns the
-     full transition list itself so it isn't fighting another class's `transition-all`. */
-  .tilt-3d {
-    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(var(--tilt-z, 0px));
-    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease, box-shadow 350ms ease, background-color 300ms ease;
-    will-change: transform;
-  }
-
-  /* Soft light that follows the cursor, layered above tilt cards for a tactile, premium feel. */
-  .spot-glow {
-    @apply pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 ease-fluid;
-    background: radial-gradient(280px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, 0.4), transparent 65%);
-    mix-blend-mode: soft-light;
-  }
-
-  .group:hover .spot-glow {
-    @apply opacity-100;
+    transform: none;
   }
 
   /* Magnetic button: nudges toward the cursor within its own bounds (see mnInitMagnetic in ui.js) */
