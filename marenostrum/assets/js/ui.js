@@ -103,37 +103,29 @@ const MN_CATEGORY_CARDS = [
   {
     label: "caviars",
     href: "boutique.html?cat=caviar",
-    gradient: "linear-gradient(160deg, #2A2620 0%, #181410 55%, #0B0A08 100%)",
-    icon: "tin"
+    gradient: "linear-gradient(160deg, #2A2620 0%, #181410 55%, #0B0A08 100%)"
   },
   {
     label: "coffrets",
     href: "boutique.html?cat=coffrets",
-    gradient: "linear-gradient(160deg, #8A6D1A 0%, #5C4812 55%, #2A2010 100%)",
-    icon: "gift"
+    gradient: "linear-gradient(160deg, #8A6D1A 0%, #5C4812 55%, #2A2010 100%)"
   },
   {
     label: "accessoires",
     href: "boutique.html?cat=accessoires",
-    gradient: "linear-gradient(160deg, #2C6E8E 0%, #1C4B60 55%, #0F2C38 100%)",
-    icon: "spoon"
+    gradient: "linear-gradient(160deg, #2C6E8E 0%, #1C4B60 55%, #0F2C38 100%)"
   }
 ];
 
-/** Carte de catégorie plein cadre : fond illustré (pas de photo), nom en texte vertical, CTA. */
+/** Carte de catégorie plein cadre : emplacement photo vide (à venir), nom en texte vertical, CTA. */
 function mnCategoryCard(cat) {
-  const artInner =
-    cat.icon === "tin"
-      ? `<div class="absolute -right-6 -bottom-6 h-56 w-56 opacity-30 md:h-72 md:w-72">${mnTinSVG("amber")}</div>`
-      : `<span class="absolute -right-4 -bottom-4 h-48 w-48 text-white/15 md:h-64 md:w-64">${MN_ICONS[cat.icon]}</span>`;
-
   return `
   <a href="${cat.href}" class="cat-card tilt-3d group reveal">
-    <div class="cat-card-art" style="background-image:${cat.gradient}">${artInner}</div>
+    <div class="cat-card-art" style="background-image:${cat.gradient}"></div>
     <div class="cat-card-overlay"></div>
     <div class="spot-glow"></div>
     <h2
-      class="relative z-10 font-display text-5xl font-medium transition-transform duration-500 ease-fluid group-hover:-translate-y-2 sm:text-6xl md:text-7xl lg:text-8xl"
+      class="relative z-10 font-display text-3xl font-medium transition-transform duration-500 ease-fluid group-hover:-translate-y-2 sm:text-4xl md:text-5xl"
       style="writing-mode: vertical-lr; transform: rotate(180deg);"
     >${cat.label}</h2>
     <span class="btn-shimmer relative z-10 mt-auto">découvrir ${cat.label}</span>

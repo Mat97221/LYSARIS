@@ -1000,7 +1000,7 @@ a:focus-visible,
 .cat-card{
   position: relative;
   display: flex;
-  min-height: 400px;
+  min-height: 220px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
@@ -1010,15 +1010,15 @@ a:focus-visible,
 
 @media (min-width: 640px){
   .cat-card{
-    min-height: 500px;
-    padding: 2rem;
+    min-height: 260px;
+    padding: 1.75rem;
   }
 }
 
 @media (min-width: 768px){
   .cat-card{
-    min-height: 750px;
-    padding: 3rem;
+    min-height: 340px;
+    padding: 2.25rem;
   }
 }
 
@@ -1247,22 +1247,6 @@ a:focus-visible,
   inset: 1.5rem;
 }
 
-.-bottom-4{
-  bottom: -1rem;
-}
-
-.-bottom-6{
-  bottom: -1.5rem;
-}
-
-.-right-4{
-  right: -1rem;
-}
-
-.-right-6{
-  right: -1.5rem;
-}
-
 .left-3{
   left: 0.75rem;
 }
@@ -1477,10 +1461,6 @@ a:focus-visible,
   height: 1.25rem;
 }
 
-.h-56{
-  height: 14rem;
-}
-
 .h-6{
   height: 1.5rem;
 }
@@ -1516,10 +1496,6 @@ a:focus-visible,
 
 .min-h-\[44px\]{
   min-height: 44px;
-}
-
-.min-h-screen{
-  min-height: 100vh;
 }
 
 .w-10{
@@ -1564,10 +1540,6 @@ a:focus-visible,
 
 .w-5{
   width: 1.25rem;
-}
-
-.w-56{
-  width: 14rem;
 }
 
 .w-6{
@@ -2222,14 +2194,6 @@ a:focus-visible,
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.text-white\/15{
-  color: rgb(255 255 255 / 0.15);
-}
-
-.opacity-30{
-  opacity: 0.3;
-}
-
 .shadow-lifted{
   --tw-shadow: 0 18px 40px rgba(60,50,20,0.14);
   --tw-shadow-colored: 0 18px 40px var(--tw-shadow-color);
@@ -2441,28 +2405,12 @@ a:focus-visible,
     display: none;
   }
 
-  .md\:h-64{
-    height: 16rem;
-  }
-
-  .md\:h-72{
-    height: 18rem;
-  }
-
-  .md\:w-64{
-    width: 16rem;
-  }
-
-  .md\:w-72{
-    width: 18rem;
-  }
-
   .md\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .md\:text-7xl{
-    font-size: 4.5rem;
+  .md\:text-5xl{
+    font-size: 3rem;
     line-height: 1;
   }
 }
@@ -2499,11 +2447,6 @@ a:focus-visible,
 
   .lg\:text-7xl{
     font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .lg\:text-8xl{
-    font-size: 6rem;
     line-height: 1;
   }
 }
