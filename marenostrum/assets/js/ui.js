@@ -71,7 +71,7 @@ function mnProductCard(product) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600 to-ink-800 p-6">
-      <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
+      <img src="assets/img/product-tin-caviar.jpg" alt="Boîte de caviar MARENOSTRUM" class="h-full w-full object-contain transition-transform duration-300 ease-fluid group-hover:scale-105" />
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">

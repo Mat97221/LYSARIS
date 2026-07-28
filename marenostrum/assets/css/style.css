@@ -1518,20 +1518,6 @@ a:focus-visible,
   animation: slowzoom 14s ease-in-out infinite;
 }
 
-@keyframes tinwobble{
-  0%, 100%{
-    transform: rotateY(-7deg);
-  }
-
-  50%{
-    transform: rotateY(7deg);
-  }
-}
-
-.animate-tinwobble{
-  animation: tinwobble 9s ease-in-out infinite;
-}
-
 .resize-none{
   resize: none;
 }
@@ -1765,6 +1751,11 @@ a:focus-visible,
 
 .bg-top{
   background-position: top;
+}
+
+.object-contain{
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .p-5{
@@ -2105,8 +2096,18 @@ a:focus-visible,
   transition-duration: 150ms;
 }
 
+.transition-transform{
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .duration-200{
   transition-duration: 200ms;
+}
+
+.duration-300{
+  transition-duration: 300ms;
 }
 
 .ease-fluid{
@@ -2115,10 +2116,6 @@ a:focus-visible,
 
 .\[animation-delay\:150ms\]{
   animation-delay: 150ms;
-}
-
-.\[perspective\:900px\]{
-  perspective: 900px;
 }
 
 .\[text-shadow\:0_1px_12px_rgba\(0\2c 0\2c 0\2c 0\.5\)\]{
@@ -2391,6 +2388,12 @@ a:focus-visible,
 
 .hover\:underline:hover{
   text-decoration-line: underline;
+}
+
+.group:hover .group-hover\:scale-105{
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .group:hover .group-hover\:text-navy{
