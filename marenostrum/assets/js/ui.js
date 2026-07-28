@@ -108,10 +108,8 @@ function mnHeader(active) {
       <a href="index.html" class="flex items-center">
         <img src="assets/img/logo-marenostrum-horizontal-noir.png" alt="MARENOSTRUM" class="w-auto" style="width:231px;height:44px" />
       </a>
-      <nav class="hidden md:flex items-center gap-8">
-        ${link("index.html", "Accueil", "accueil")}
+      <nav class="hidden md:flex items-center gap-10">
         ${link("boutique.html", "Boutique", "boutique")}
-        ${link("boutique.html?cat=coffrets", "Coffrets", "coffrets")}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </nav>
@@ -127,9 +125,7 @@ function mnHeader(active) {
     </div>
     <nav id="mn-mobile-menu" class="hidden md:hidden border-t border-ink-600/50 bg-ink-900/95">
       <div class="container-page flex flex-col gap-4 py-5">
-        ${link("index.html", "Accueil", "accueil")}
         ${link("boutique.html", "Boutique", "boutique")}
-        ${link("boutique.html?cat=coffrets", "Coffrets", "coffrets")}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </div>
