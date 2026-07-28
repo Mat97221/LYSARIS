@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="assets/js/image-slot.js"></script>
 </head>
 <body data-page="boutique">
@@ -17,10 +18,10 @@
 
   <main>
     <section class="border-b border-ink-600/50 bg-ink-800">
-      <div class="container-page py-14 text-center reveal">
+      <div class="container-page py-14 text-center">
         <p class="eyebrow mb-3">La boutique</p>
-        <h1 class="font-display text-4xl font-semibold text-ink-50 sm:text-5xl">Nos caviars &amp; coffrets d'exception</h1>
-        <p class="mx-auto mt-4 max-w-2xl text-ink-200">Sélectionnez une catégorie ou parcourez l'ensemble de la gamme. Tous nos caviars sont expédiés réfrigérés sous 24 à 48h.</p>
+        <h1 class="font-display text-4xl font-semibold text-ink-50 sm:text-5xl" data-aos="fade-up">Nos caviars &amp; coffrets d'exception</h1>
+        <p class="mx-auto mt-4 max-w-2xl text-ink-200" data-aos="fade-up" data-aos-delay="100">Sélectionnez une catégorie ou parcourez l'ensemble de la gamme. Tous nos caviars sont expédiés réfrigérés sous 24 à 48h.</p>
       </div>
     </section>
 
@@ -42,7 +43,8 @@
       const empty = document.getElementById("mn-empty-state");
       const items = catId === "tous" ? MARENOSTRUM_PRODUCTS : MARENOSTRUM_PRODUCTS.filter((p) => p.category === catId);
       grid.innerHTML = items.map(mnProductCard).join("");
-      mnStagger(grid, 70);
+      mnStagger(grid, 70, true);
+      if (window.AOS) window.AOS.refresh();
       empty.classList.toggle("hidden", items.length > 0);
 
       document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
@@ -76,6 +78,14 @@
       });
 
       mnRenderCategory(activeCat);
+    });
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true,
+      offset: 80
     });
   </script>
 </body>

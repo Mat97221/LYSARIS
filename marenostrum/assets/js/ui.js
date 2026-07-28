@@ -222,15 +222,22 @@ function mnInitReveal(root) {
   }, 500);
 }
 
-/** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade). */
-function mnStagger(container, stepMs) {
+/** Ajoute `.reveal` (ou, si useAos, des attributs data-aos) à chaque enfant d'un conteneur avec
+    un décalage progressif (effet de cascade). En mode AOS, appelez AOS.refresh() juste après :
+    ces attributs sont posés après l'exécution de AOS.init(), donc invisibles pour lui sinon. */
+function mnStagger(container, stepMs, useAos) {
   if (!container) return;
   const step = stepMs || 70;
   Array.from(container.children).forEach((child, i) => {
-    child.classList.add("reveal");
-    child.style.transitionDelay = `${Math.min(i * step, 560)}ms`;
+    if (useAos) {
+      child.setAttribute("data-aos", "fade-up");
+      child.setAttribute("data-aos-delay", String(Math.min(i * step, 800)));
+    } else {
+      child.classList.add("reveal");
+      child.style.transitionDelay = `${Math.min(i * step, 560)}ms`;
+    }
   });
-  mnInitReveal(container);
+  if (!useAos) mnInitReveal(container);
   mnBindQuickAdd(container);
   mnInitTilt(container);
 }

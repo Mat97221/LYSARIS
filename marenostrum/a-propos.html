@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 <body data-page="apropos">
   <div id="site-bg"></div>
@@ -16,10 +17,10 @@
 
   <main>
     <section class="border-b border-ink-600/50">
-      <div class="container-page py-20 text-center animate-fadeUp">
+      <div class="container-page py-20 text-center">
         <p class="eyebrow mb-4">Depuis les bassins jusqu'à votre table</p>
-        <h1 class="font-display text-5xl font-semibold text-ink-50 sm:text-6xl">La Maison MARENOSTRUM</h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-ink-200 leading-relaxed">
+        <h1 class="font-display text-5xl font-semibold text-ink-50 sm:text-6xl" data-aos="fade-up">La Maison MARENOSTRUM</h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg text-ink-200 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
           Mare Nostrum — « notre mer » en latin. Un nom qui porte notre ambition : faire du caviar une expérience proche, transparente et sincère, loin des codes intimidants souvent associés à ce produit d'exception.
         </p>
       </div>
@@ -27,17 +28,17 @@
 
     <section class="container-page py-20">
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
-        <div class="reveal">
+        <div>
           <p class="eyebrow mb-4">Notre histoire</p>
-          <h2 class="font-display text-3xl font-semibold text-ink-50 mb-6">Une passion née en Aquitaine</h2>
-          <p class="text-ink-200 leading-relaxed mb-4">
+          <h2 class="font-display text-3xl font-semibold text-ink-50 mb-6" data-aos="fade-up">Une passion née en Aquitaine</h2>
+          <p class="text-ink-200 leading-relaxed mb-4" data-aos="fade-up" data-aos-delay="100">
             C'est au bord de la Dordogne, berceau historique de l'esturgeon en France, que MARENOSTRUM a vu le jour. Nos fondateurs, passionnés de gastronomie et convaincus qu'un caviar d'exception pouvait aussi être produit de façon responsable, ont noué des partenariats directs avec des maisons d'élevage familiales.
           </p>
-          <p class="text-ink-200 leading-relaxed">
+          <p class="text-ink-200 leading-relaxed" data-aos="fade-up" data-aos-delay="150">
             Chaque lot est goûté et validé par notre maître affineur avant d'être proposé à la vente. Notre rôle : sélectionner, affiner et transmettre — sans jamais transiger sur la qualité.
           </p>
         </div>
-        <div class="reveal [transition-delay:120ms] grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4" data-aos="fade-in" data-aos-delay="100">
           <div class="col-span-2 flex h-48 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 shadow-soft">
             <div class="h-28 w-28" id="mn-about-tin-1"></div>
           </div>
@@ -53,20 +54,20 @@
 
     <section class="border-y border-ink-600/50 bg-ink-800">
       <div class="container-page py-20">
-        <p class="eyebrow mb-4 text-center reveal">Nos engagements</p>
-        <h2 class="font-display text-3xl font-semibold text-ink-50 mb-14 text-center reveal">Ce qui nous distingue</h2>
+        <p class="eyebrow mb-4 text-center" data-aos="fade-up">Nos engagements</p>
+        <h2 class="font-display text-3xl font-semibold text-ink-50 mb-14 text-center" data-aos="fade-up">Ce qui nous distingue</h2>
         <div id="mn-values-grid" class="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
+          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft" data-aos="fade-up" data-aos-delay="0">
             <span class="mb-5 flex h-10 w-10 text-pine" id="mn-value-icon-1"></span>
             <h3 class="font-display text-xl text-ink-50 mb-3">Élevage responsable</h3>
             <p class="text-ink-200 leading-relaxed text-sm">Esturgeons élevés en eaux vives, en circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
           </div>
-          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
+          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft" data-aos="fade-up" data-aos-delay="100">
             <span class="mb-5 flex h-10 w-10 text-navy" id="mn-value-icon-2"></span>
             <h3 class="font-display text-xl text-ink-50 mb-3">Traçabilité totale</h3>
             <p class="text-ink-200 leading-relaxed text-sm">Chaque boîte porte un numéro de lot qui permet de remonter jusqu'au bassin d'élevage, à la date de récolte et au type d'affinage appliqué.</p>
           </div>
-          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
+          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft" data-aos="fade-up" data-aos-delay="200">
             <span class="mb-5 flex h-10 w-10 text-azure" id="mn-value-icon-3"></span>
             <h3 class="font-display text-xl text-ink-50 mb-3">Affinage Malossol</h3>
             <p class="text-ink-200 leading-relaxed text-sm">Un salage léger et traditionnel qui préserve la finesse du grain, réalisé à la main par notre maître affineur selon des méthodes séculaires.</p>
@@ -75,10 +76,10 @@
       </div>
     </section>
 
-    <section class="container-page py-20 text-center reveal">
+    <section class="container-page py-20 text-center">
       <p class="eyebrow mb-4">Prêt à découvrir nos caviars ?</p>
-      <h2 class="font-display text-3xl font-semibold text-ink-50 mb-8">Parcourez la boutique MARENOSTRUM</h2>
-      <a href="boutique.html" class="btn-navy">Découvrir la boutique</a>
+      <h2 class="font-display text-3xl font-semibold text-ink-50 mb-8" data-aos="fade-up">Parcourez la boutique MARENOSTRUM</h2>
+      <a href="boutique.html" class="btn-navy" data-aos="fade-up" data-aos-delay="100">Découvrir la boutique</a>
     </section>
   </main>
 
@@ -95,7 +96,14 @@
       document.getElementById("mn-value-icon-1").innerHTML = MN_ICONS.leaf;
       document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;
-      mnStagger(document.getElementById("mn-values-grid"), 90);
+    });
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true,
+      offset: 80
     });
   </script>
 </body>
