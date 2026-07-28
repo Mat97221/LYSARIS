@@ -1343,6 +1343,10 @@ a:focus-visible,
   height: 16rem;
 }
 
+.h-72{
+  height: 18rem;
+}
+
 .h-8{
   height: 2rem;
 }
@@ -1402,6 +1406,10 @@ a:focus-visible,
 
 .w-4{
   width: 1rem;
+}
+
+.w-40{
+  width: 10rem;
 }
 
 .w-5{
@@ -1766,6 +1774,10 @@ a:focus-visible,
 
 .to-ink-800\/70{
   --tw-gradient-to: rgb(241 234 220 / 0.7) var(--tw-gradient-to-position);
+}
+
+.to-ink-900{
+  --tw-gradient-to: #FAF6EF var(--tw-gradient-to-position);
 }
 
 .bg-cover{
@@ -2428,6 +2440,10 @@ a:focus-visible,
 
   .sm\:h-56{
     height: 14rem;
+  }
+
+  .sm\:h-96{
+    height: 24rem;
   }
 
   .sm\:w-auto{

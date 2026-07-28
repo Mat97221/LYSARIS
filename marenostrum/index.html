@@ -68,45 +68,33 @@
       </div>
     </section>
 
-    <!-- Featured products -->
+    <!-- Craft: image left / text right -->
     <section class="container-page py-20">
-      <div class="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end reveal">
-        <div>
-          <p class="eyebrow mb-3">Sélection de la Maison</p>
-          <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl">Nos caviars les plus appréciés</h2>
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div class="order-1 grid grid-cols-3 gap-4 reveal">
+          <div class="col-span-3 flex h-40 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-56 shadow-soft overflow-hidden">
+            <image-slot id="mn-craft-photo-1" shape="rect" placeholder="Photo : geste de salage à la main" style="width:100%;height:100%"></image-slot>
+          </div>
+          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft overflow-hidden">
+            <image-slot id="mn-craft-photo-2" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
+          </div>
+          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft overflow-hidden">
+            <image-slot id="mn-craft-photo-3" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
+          </div>
+          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft overflow-hidden">
+            <image-slot id="mn-craft-photo-4" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
+          </div>
         </div>
-        <a href="boutique.html" class="btn-ghost">Voir toute la boutique <span class="h-4 w-4">→</span></a>
-      </div>
-      <div id="mn-featured-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
-    </section>
-
-    <!-- Story teaser -->
-    <section class="border-y border-ink-600/50 bg-ink-800">
-      <div class="container-page grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2">
-        <div class="order-2 lg:order-1 reveal">
-          <p class="eyebrow mb-4">Notre engagement</p>
-          <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-6">Une tradition d'orfèvre, un élevage responsable</h2>
+        <div class="order-2 reveal [transition-delay:120ms]">
+          <p class="eyebrow mb-4">Notre savoir-faire</p>
+          <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-6">Le geste de l'affineur</h2>
           <p class="text-ink-200 leading-relaxed mb-4">
-            Depuis nos bassins d'Aquitaine et de Dordogne jusqu'à votre table, chaque lot est suivi, affiné et goûté avant d'être validé par notre maître affineur. Nos esturgeons sont élevés en circuit fermé, sans hormones ni antibiotiques de croissance, dans le respect des cycles naturels de l'espèce.
+            Chaque lot est salé à la main selon la méthode Malossol — un salage léger et traditionnel qui préserve la finesse du grain, loin des procédés industriels.
           </p>
           <p class="text-ink-200 leading-relaxed mb-8">
-            Chaque boîte est numérotée et traçable jusqu'au bassin d'élevage — la transparence est au cœur de notre métier.
+            Ce geste, transmis de génération en génération, demande une connaissance intime de chaque récolte : c'est lui qui distingue un caviar juste d'un caviar d'exception.
           </p>
-          <a href="a-propos.html" class="btn-outline">En savoir plus sur la Maison</a>
-        </div>
-        <div class="order-1 grid grid-cols-3 gap-4 lg:order-2 reveal [transition-delay:120ms]">
-          <div class="col-span-3 flex h-40 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-56 shadow-soft overflow-hidden">
-            <image-slot id="mn-story-tin-1" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
-          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft overflow-hidden">
-            <image-slot id="mn-story-tin-2" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
-          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft overflow-hidden">
-            <image-slot id="mn-story-tin-3" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
-          <div class="flex h-28 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-36 shadow-soft overflow-hidden">
-            <image-slot id="mn-story-tin-4" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
+          <a href="boutique.html" class="btn-outline">Découvrir la boutique</a>
         </div>
       </div>
     </section>
@@ -129,14 +117,115 @@
       </div>
     </section>
 
-    <!-- Coffrets banner -->
+    <!-- Wellness: text left / image right -->
     <section class="container-page py-20">
-      <div class="reveal flex flex-col items-center gap-8 rounded-md border border-navy/25 bg-gradient-to-br from-ink-700/70 to-ink-800/70 px-8 py-14 text-center shadow-soft">
-        <p class="eyebrow">Offrir l'exception</p>
-        <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl max-w-2xl">Des coffrets pensés pour marquer les grandes occasions</h2>
-        <div id="mn-coffret-wave" class="flex justify-center"></div>
-        <p class="max-w-xl text-ink-200">Coffret Découverte, Coffret Prestige — chaque écrin est livré avec cuillère de nacre et livret de dégustation.</p>
-        <a href="boutique.html?cat=coffrets" class="btn-navy-magnetic magnetic">Voir les coffrets</a>
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div class="order-2 lg:order-1 reveal">
+          <p class="eyebrow mb-4">L'art de la dégustation</p>
+          <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-6">Blinis tièdes, cuillère de nacre, rien de plus</h2>
+          <p class="text-ink-200 leading-relaxed mb-4">
+            Le caviar se suffit à lui-même. Une cuillère de nacre pour ne jamais altérer son goût, un blini tiède, une pointe de crème fraîche d'Isigny — et le silence qui accompagne une première bouchée.
+          </p>
+          <p class="text-ink-200 leading-relaxed mb-8">
+            Nos accessoires de service sont pensés pour la même exigence que nos caviars : sobres, fonctionnels, faits pour durer.
+          </p>
+          <a href="boutique.html?cat=accessoires" class="btn-outline">Voir les accessoires</a>
+        </div>
+        <div class="order-1 lg:order-2 reveal [transition-delay:120ms] flex h-72 items-center justify-center rounded-md border border-ink-600/60 bg-ink-700 sm:h-96 shadow-soft overflow-hidden">
+          <image-slot id="mn-degustation-photo" shape="rect" placeholder="Photo : table dressée, blinis et cuillère de nacre" style="width:100%;height:100%"></image-slot>
+        </div>
+      </div>
+    </section>
+
+    <!-- Format selector -->
+    <section class="border-y border-ink-600/50 bg-ink-800">
+      <div class="container-page py-20">
+        <p class="eyebrow mb-3 text-center reveal">Formats</p>
+        <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-12 text-center reveal">Choisissez votre format</h2>
+        <div id="mn-format-tabs" class="mb-10 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Choisir un format"></div>
+        <div id="mn-format-panels"></div>
+      </div>
+    </section>
+
+    <!-- Flagship showcase -->
+    <section class="border-b border-ink-600/50">
+      <div class="container-page grid grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2">
+        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600 to-ink-800 [perspective:900px]">
+          <span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">Best-seller</span>
+          <div class="h-64 w-64 animate-float">
+            <div id="mn-flagship-tin" class="h-full w-full animate-tinwobble"></div>
+          </div>
+        </div>
+        <div class="reveal [transition-delay:120ms]">
+          <p class="eyebrow mb-3">Notre pièce maîtresse</p>
+          <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-4">Osciètre Royal</h2>
+          <p class="text-ink-200 leading-relaxed mb-6">
+            Un grain ferme et doré, une texture qui éclate délicatement en bouche, et une longue finale sur des notes de beurre noisette et de fruits secs. Un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui le découvrent pour la première fois.
+          </p>
+          <ul class="mb-8 flex flex-wrap gap-2">
+            <li class="rounded-full border border-ink-500 bg-ink-900 px-3.5 py-1.5 text-xs text-ink-100 shadow-soft">Noisette grillée</li>
+            <li class="rounded-full border border-ink-500 bg-ink-900 px-3.5 py-1.5 text-xs text-ink-100 shadow-soft">Beurre frais</li>
+            <li class="rounded-full border border-ink-500 bg-ink-900 px-3.5 py-1.5 text-xs text-ink-100 shadow-soft">Finale iodée longue</li>
+          </ul>
+          <a href="produit.html?id=osciètre-royal" class="btn-navy-magnetic magnetic">Découvrir l'Osciètre Royal</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured products -->
+    <section class="container-page py-20">
+      <div class="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end reveal">
+        <div>
+          <p class="eyebrow mb-3">Sélection de la Maison</p>
+          <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl">Nos caviars les plus appréciés</h2>
+        </div>
+        <a href="boutique.html" class="btn-ghost">Voir toute la boutique <span class="h-4 w-4">→</span></a>
+      </div>
+      <div id="mn-featured-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
+    </section>
+
+    <!-- Sustainability -->
+    <section class="border-y border-ink-600/50 bg-ink-800">
+      <div class="container-page py-20">
+        <p class="eyebrow mb-4 text-center reveal">Nos engagements</p>
+        <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-14 text-center reveal">Ce qui nous distingue</h2>
+        <div id="mn-values-grid" class="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
+            <span class="mb-5 flex h-10 w-10 text-pine" id="mn-value-icon-1"></span>
+            <h3 class="font-display text-xl text-ink-50 mb-3">Élevage responsable</h3>
+            <p class="text-ink-200 leading-relaxed text-sm">Esturgeons élevés en eaux vives, en circuit fermé, sans hormones ni antibiotiques de croissance.</p>
+          </div>
+          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
+            <span class="mb-5 flex h-10 w-10 text-navy" id="mn-value-icon-2"></span>
+            <h3 class="font-display text-xl text-ink-50 mb-3">Traçabilité totale</h3>
+            <p class="text-ink-200 leading-relaxed text-sm">Chaque boîte porte un numéro de lot qui permet de remonter jusqu'au bassin d'élevage et à la date de récolte.</p>
+          </div>
+          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
+            <span class="mb-5 flex h-10 w-10 text-azure" id="mn-value-icon-3"></span>
+            <h3 class="font-display text-xl text-ink-50 mb-3">Affinage Malossol</h3>
+            <p class="text-ink-200 leading-relaxed text-sm">Un salage léger et traditionnel, réalisé à la main par notre maître affineur selon des méthodes séculaires.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container-page py-20">
+      <p class="eyebrow mb-3 text-center reveal">Ils nous font confiance</p>
+      <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-12 text-center reveal">La parole de nos convives</h2>
+      <div id="mn-testimonial-grid" class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
+          <p class="text-ink-100 leading-relaxed mb-5">« L'Osciètre Royal a fait l'unanimité pour notre réveillon. Grain parfait, livraison impeccable en 24h. »</p>
+          <footer class="text-sm text-ink-300">— Camille R., Bordeaux</footer>
+        </blockquote>
+        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
+          <p class="text-ink-100 leading-relaxed mb-5">« Le Coffret Découverte est une excellente porte d'entrée pour qui n'a jamais goûté de vrai caviar français. »</p>
+          <footer class="text-sm text-ink-300">— Julien M., Paris</footer>
+        </blockquote>
+        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
+          <p class="text-ink-100 leading-relaxed mb-5">« Le Beluga Impérial, servi seul avec la cuillère de nacre : un moment de dégustation rare. »</p>
+          <footer class="text-sm text-ink-300">— Sophie D., Lyon</footer>
+        </blockquote>
       </div>
     </section>
 
@@ -175,23 +264,14 @@
       </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Closing CTA -->
     <section class="container-page pb-24">
-      <p class="eyebrow mb-3 text-center reveal">Ils nous font confiance</p>
-      <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl mb-12 text-center reveal">La parole de nos convives</h2>
-      <div id="mn-testimonial-grid" class="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
-          <p class="text-ink-100 leading-relaxed mb-5">« L'Osciètre Royal a fait l'unanimité pour notre réveillon. Grain parfait, livraison impeccable en 24h. »</p>
-          <footer class="text-sm text-ink-300">— Camille R., Bordeaux</footer>
-        </blockquote>
-        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
-          <p class="text-ink-100 leading-relaxed mb-5">« Le Coffret Découverte est une excellente porte d'entrée pour qui n'a jamais goûté de vrai caviar français. »</p>
-          <footer class="text-sm text-ink-300">— Julien M., Paris</footer>
-        </blockquote>
-        <blockquote class="rounded-md border border-ink-600/60 bg-ink-700 p-7 shadow-soft">
-          <p class="text-ink-100 leading-relaxed mb-5">« Le Beluga Impérial, servi seul avec la cuillère de nacre : un moment de dégustation rare. »</p>
-          <footer class="text-sm text-ink-300">— Sophie D., Lyon</footer>
-        </blockquote>
+      <div class="reveal flex flex-col items-center gap-8 rounded-md border border-navy/25 bg-gradient-to-br from-ink-700/70 to-ink-800/70 px-8 py-14 text-center shadow-soft">
+        <p class="eyebrow">Offrir l'exception</p>
+        <h2 class="font-display text-3xl font-semibold text-ink-50 sm:text-4xl max-w-2xl">Prêt à composer votre coffret ?</h2>
+        <div id="mn-coffret-wave" class="flex justify-center"></div>
+        <p class="max-w-xl text-ink-200">Coffret Découverte, Coffret Prestige — chaque écrin est livré avec cuillère de nacre et livret de dégustation.</p>
+        <a href="boutique.html?cat=coffrets" class="btn-navy-magnetic magnetic">Voir les coffrets</a>
       </div>
     </section>
   </main>
@@ -203,21 +283,73 @@
   <script src="assets/js/ui.js"></script>
   <script src="assets/js/parallax.js"></script>
   <script>
+    const MN_FORMATS = [
+      { key: "30g", label: "30 g", title: "L'initiation", tint: "champagne", desc: "Le format idéal pour une première dégustation ou un apéritif à deux — juste assez pour découvrir la texture et le grain sans engagement.", serving: "2 à 3 personnes en dégustation pure" },
+      { key: "50g", label: "50 g", title: "Le tête-à-tête", tint: "amber", desc: "Notre format le plus commandé : de quoi composer un vrai moment à deux, blinis et crème fraîche à l'appui.", serving: "3 à 4 personnes à l'apéritif" },
+      { key: "125g", label: "125 g", title: "La réception", tint: "graphite", desc: "Pensé pour les dîners et les grandes occasions, ce format permet de recevoir sans compter.", serving: "6 à 8 convives" },
+      { key: "250g", label: "250 g", title: "La grande occasion", tint: "onyx", desc: "Notre plus grand format, réservé aux réceptions marquantes et aux amateurs qui ne transigent pas.", serving: "10 à 12 convives" }
+    ];
+
+    function mnRenderFormat(key) {
+      const format = MN_FORMATS.find((f) => f.key === key) || MN_FORMATS[0];
+      document.getElementById("mn-format-panels").innerHTML = `
+        <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+          <div class="reveal is-visible flex h-64 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600 to-ink-900 [perspective:900px]">
+            <div class="h-40 w-40 animate-float"><div class="h-full w-full animate-tinwobble">${mnTinSVG(format.tint)}</div></div>
+          </div>
+          <div class="reveal is-visible">
+            <p class="eyebrow mb-3">${format.label}</p>
+            <h3 class="font-display text-2xl font-semibold text-ink-50 mb-4">${format.title}</h3>
+            <p class="text-ink-200 leading-relaxed mb-4">${format.desc}</p>
+            <p class="text-sm text-ink-300 mb-6">Pour ${format.serving}</p>
+            <a href="boutique.html?cat=caviar" class="btn-outline">Voir les caviars en ${format.label}</a>
+          </div>
+        </div>`;
+    }
+
+    function mnSetActiveFormat(key) {
+      document.querySelectorAll("#mn-format-tabs button").forEach((btn) => {
+        const isActive = btn.dataset.format === key;
+        btn.classList.toggle("bg-navy", isActive);
+        btn.classList.toggle("text-white", isActive);
+        btn.classList.toggle("border-navy", isActive);
+        btn.classList.toggle("text-ink-100", !isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+      mnRenderFormat(key);
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const featuredIds = ["osciètre-royal", "beluga-imperial", "kaluga-reserve", "coffret-decouverte"];
       const grid = document.getElementById("mn-featured-grid");
       grid.innerHTML = featuredIds.map((id) => mnProductCard(mnFindProduct(id))).join("");
       mnStagger(grid, 90);
       mnStagger(document.getElementById("mn-trust-grid"), 80);
+      mnStagger(document.getElementById("mn-values-grid"), 90);
       mnStagger(document.getElementById("mn-univers-grid"), 90);
       mnStagger(document.getElementById("mn-testimonial-grid"), 90);
 
       document.getElementById("mn-trust-icon-1").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-trust-icon-2").innerHTML = MN_ICONS.truck;
       document.getElementById("mn-trust-icon-3").innerHTML = MN_ICONS.leaf;
+      document.getElementById("mn-value-icon-1").innerHTML = MN_ICONS.leaf;
+      document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
+      document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;
 
       document.getElementById("mn-hero-wave").innerHTML = mnWaveDivider("text-azure/50");
       document.getElementById("mn-coffret-wave").innerHTML = mnWaveDivider("text-navy/60");
+
+      document.getElementById("mn-flagship-tin").innerHTML = mnTinSVG("amber");
+
+      const tabs = document.getElementById("mn-format-tabs");
+      tabs.innerHTML = MN_FORMATS.map(
+        (f) =>
+          `<button type="button" role="tab" data-format="${f.key}" class="rounded-full border border-ink-500 bg-ink-900 px-5 py-2.5 min-h-[44px] text-sm font-medium text-ink-100 shadow-soft transition-all duration-200 ease-fluid hover:border-navy">${f.label}</button>`
+      ).join("");
+      tabs.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => mnSetActiveFormat(btn.dataset.format));
+      });
+      mnSetActiveFormat("30g");
     });
   </script>
 </body>
