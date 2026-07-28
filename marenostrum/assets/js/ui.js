@@ -125,7 +125,7 @@ function mnHeader(active) {
         </button>
       </div>
     </div>
-    <nav id="mn-mobile-menu" class="hidden md:hidden border-t border-ink-600/50 bg-ink-900/95">
+    <nav id="mn-mobile-menu" class="mn-menu-panel md:hidden border-t border-ink-600/50 bg-ink-900/95">
       <div class="container-page flex flex-col gap-4 py-5">
         ${link("index.html", "Accueil", "accueil")}
         ${link("boutique.html", "Boutique", "boutique")}
@@ -251,8 +251,10 @@ function mnBindQuickAdd(root) {
       MnCart.add(productId, sku, 1);
 
       btn.disabled = true;
+      btn.classList.add("is-added");
       btn.innerHTML = `<span class="h-3.5 w-3.5">${MN_ICONS.check}</span> Ajouté`;
       setTimeout(() => {
+        btn.classList.remove("is-added");
         btn.innerHTML = originalHTML;
         btn.disabled = false;
       }, 1400);
@@ -358,8 +360,8 @@ function mnMountLayout(activePage) {
   const mobileMenu = document.getElementById("mn-mobile-menu");
   if (toggle && mobileMenu) {
     toggle.addEventListener("click", () => {
-      const isOpen = !mobileMenu.classList.contains("hidden");
-      mobileMenu.classList.toggle("hidden");
+      const isOpen = mobileMenu.classList.contains("is-open");
+      mobileMenu.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", String(!isOpen));
       toggle.innerHTML = isOpen ? MN_ICONS.menu : MN_ICONS.close;
     });

@@ -988,7 +988,7 @@ a:focus-visible,
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 450ms cubic-bezier(0.4, 0, 0.2, 1), transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
@@ -1054,6 +1054,34 @@ a:focus-visible,
 
 .btn-quick-add:disabled{
   opacity: 0.7;
+}
+
+/* "Added" confirmation state — fills in smoothly via the transition-all above instead of
+     the icon/label swap alone reading as an abrupt flip. */
+
+.btn-quick-add.is-added{
+  --tw-border-opacity: 1;
+  border-color: rgb(196 163 90 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(196 163 90 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
+}
+
+/* Mobile nav panel: fades and unfurls open instead of the instant display:none jump.
+     max-height rather than height so we don't need to know the panel's real height in JS. */
+
+.mn-menu-panel {
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 220ms ease-out;
+}
+
+.mn-menu-panel.is-open {
+  max-height: 480px;
+  opacity: 1;
 }
 
 .sr-only{
@@ -2116,8 +2144,18 @@ a:focus-visible,
   transition-duration: 150ms;
 }
 
+.transition-opacity{
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .duration-200{
   transition-duration: 200ms;
+}
+
+.duration-300{
+  transition-duration: 300ms;
 }
 
 .ease-fluid{
@@ -2268,7 +2306,15 @@ a:focus-visible,
 
 .card-product {
   transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms, box-shadow 200ms;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), border-color 180ms, box-shadow 180ms;
+}
+
+/* Clean, fast lift on hover — composes with the pointer-tilt above via the same custom
+   properties instead of fighting it, and stays out of the way entirely once
+   prefers-reduced-motion zeroes out the transition duration below. */
+
+.card-product:hover {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-3px);
 }
 
 .card-product::before {
