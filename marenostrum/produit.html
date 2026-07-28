@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="mn-page-title">Produit — MARENOSTRUM</title>
   <meta name="description" content="Fiche produit MARENOSTRUM." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%231C3A5E' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C4A35A' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -35,7 +35,7 @@
       </section>
 
       <section class="container-page grid grid-cols-1 gap-12 py-14 lg:grid-cols-2">
-        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-ink-600 to-ink-800 [perspective:900px]">
+        <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-marine to-noir [perspective:900px]">
           <div id="mn-product-badge-slot"></div>
           <div class="h-64 w-64 animate-float">
             <div id="mn-product-tin" class="h-full w-full animate-tinwobble"></div>
@@ -188,7 +188,7 @@
       }
 
       document.getElementById("mn-product-badge-slot").innerHTML = product.badge
-        ? `<span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">${product.badge}</span>`
+        ? `<span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-ink-900">${product.badge}</span>`
         : "";
       document.getElementById("mn-product-tin").innerHTML = mnTinSVG(product.tint);
 

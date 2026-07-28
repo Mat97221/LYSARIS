@@ -1,44 +1,60 @@
 /** @type {import('tailwindcss').Config} */
+
+// Single source of truth for the MARENOSTRUM brand palette. Change a hex here and it
+// propagates everywhere — both the new bg-noir/text-ivoire/text-or/bg-marine utilities and
+// the legacy ink-*/navy/azure/pine aliases below, which every page already builds on, derive
+// from these four values alone.
+const BRAND = {
+  noir: "#111110", // dominant background, ~60% of the surface
+  ivoire: "#F4EFE6", // primary text and soft surfaces
+  or: "#C4A35A", // accent — small touches only (~10%): key buttons, hairlines, details
+  marine: "#123A3A" // secondary — sections and inserts, ~30%
+};
+
 module.exports = {
   content: ["./*.html", "./assets/js/**/*.js"],
   theme: {
     extend: {
       colors: {
+        noir: BRAND.noir,
+        ivoire: BRAND.ivoire,
+        or: BRAND.or,
+        marine: BRAND.marine,
+
         /**
-         * Token names are reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
-         * "Vivant & premium" pass: collapsed to a restrained two-tone navy/ivory system (see
-         * design_handoff_marenostrum_site) — ink-50 (primary text) now equals navy itself, and
-         * azure/pine (formerly separate accent hues) collapse to the same navy too, so the whole
-         * site reads as a single deliberate color instead of several competing accents.
+         * Legacy token names, reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
+         * Brand identity pass: every step below now derives from BRAND above instead of the old
+         * navy/ivory scheme, so the whole site inherits the new palette without any page having
+         * to change which class it reaches for.
          */
         ink: {
-          50: "#0A1F3D", // primary text — same value as navy
-          100: "#14304F", // secondary text
-          200: "#35506E", // muted paragraph text
-          300: "#6B7C90", // faint / footnote text
-          400: "#94A0AF",
-          500: "#C3C9D2", // input borders
-          600: "#D7DCE3", // hairline borders, gradient stops
-          700: "#FFFFFF", // card surfaces
-          800: "#F1EADC", // alternate section backgrounds / footer
-          900: "#FAF6EF" // page background / nav background (warm ivory)
+          50: BRAND.ivoire, // primary text
+          100: "#D9D2C2", // secondary text — ivoire stepped down
+          200: "#B6AD99", // muted paragraph text
+          300: "#8C8474", // faint / footnote text
+          400: "#5C5646", // unused today, kept for scale completeness
+          500: "#4A4438", // visible borders — inputs, filter pills, unselected variant buttons
+          600: BRAND.or, // hairline borders / dividers, always used at reduced opacity — thin gold "filets"
+          700: BRAND.marine, // card surfaces
+          800: "#152C2A", // alternate section backgrounds / footer — marine, darkened toward noir
+          900: BRAND.noir // page background
         },
         navy: {
-          DEFAULT: "#0A1F3D",
-          hover: "#15355C", // richer/lighter navy for hover feedback
-          dark: "#050D1A" // deepest shade — dividers, the "abysse" section
+          DEFAULT: BRAND.or, // primary accent — key buttons, prices, eyebrows
+          hover: "#D4B36E", // brighter gold for hover/active feedback
+          dark: "#0A0A09" // deepest shade — dividers, the "abysse" section (near-black, never pure #000)
         },
-        charcoal: "#0A1F3D",
+        charcoal: BRAND.noir,
         azure: {
-          DEFAULT: "#0A1F3D", // collapsed onto navy — no separate accent hue anymore
-          light: "#0A1F3D",
-          50: "#EAF3F6"
+          DEFAULT: BRAND.or, // collapsed onto the gold accent — no separate accent hue
+          light: BRAND.or,
+          50: "#2A2721"
         },
         pine: {
-          DEFAULT: "#0A1F3D", // collapsed onto navy — no separate accent hue anymore
-          light: "#0A1F3D"
+          DEFAULT: BRAND.or, // collapsed onto the gold accent — no separate accent hue
+          light: BRAND.or
         },
-        error: "#B3261E"
+        error: "#E2776B" // lightened from the previous #B3261E so it still reads on the new dark background
       },
       fontFamily: {
         // Bodoni Moda (Google Fonts) evokes the high-contrast Didot/Bodoni serif used in
@@ -49,9 +65,9 @@ module.exports = {
         body: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
       },
       boxShadow: {
-        soft: "0 4px 14px rgba(10,31,61,0.08)",
-        lifted: "0 18px 40px rgba(10,31,61,0.14)",
-        navy: "0 0 0 1px rgba(10,31,61,0.35)"
+        soft: "0 4px 14px rgba(17,17,16,0.35)",
+        lifted: "0 18px 40px rgba(17,17,16,0.5)",
+        navy: "0 0 0 1px rgba(196,163,90,0.45)"
       },
       letterSpacing: {
         widest2: "0.25em"

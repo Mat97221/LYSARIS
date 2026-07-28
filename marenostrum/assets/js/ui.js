@@ -42,10 +42,10 @@ function mnTinSVG(tint) {
         <stop offset="100%" stop-color="${c.side}" stop-opacity="0.55"/>
       </linearGradient>
     </defs>
-    <ellipse cx="80" cy="128" rx="46" ry="10" fill="#000" opacity="0.35"/>
+    <ellipse cx="80" cy="128" rx="46" ry="10" fill="#111110" opacity="0.35"/>
     <path d="M34 66 L34 108 A46 12 0 0 0 126 108 L126 66 Z" fill="url(#${id}-body)" stroke="${c.top}" stroke-opacity="0.4" stroke-width="1"/>
     <ellipse cx="80" cy="66" rx="46" ry="12" fill="${c.top}"/>
-    <ellipse cx="80" cy="66" rx="46" ry="12" fill="none" stroke="#000" stroke-opacity="0.15" stroke-width="1"/>
+    <ellipse cx="80" cy="66" rx="46" ry="12" fill="none" stroke="#111110" stroke-opacity="0.15" stroke-width="1"/>
     <ellipse cx="80" cy="63" rx="34" ry="8" fill="none" stroke="${c.label}" stroke-opacity="0.55" stroke-width="1.4"/>
     <text x="80" y="67" text-anchor="middle" font-family="Cormorant, serif" font-size="9" letter-spacing="2" fill="${c.label}" fill-opacity="0.8">MARENOSTRUM</text>
   </svg>`;
@@ -53,7 +53,7 @@ function mnTinSVG(tint) {
 
 function mnBadge(text) {
   if (!text) return "";
-  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white z-10">${text}</span>`;
+  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-ink-900 z-10">${text}</span>`;
 }
 
 /** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
@@ -70,7 +70,7 @@ function mnProductCard(product) {
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
-    <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-600 to-ink-800 p-6">
+    <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir p-6">
       <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">
@@ -338,7 +338,7 @@ function mnUpdateCartBadge() {
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 overflow-hidden bg-[#FAF6EF] pointer-events-none" aria-hidden="true">
+    <div class="fixed inset-0 -z-10 overflow-hidden bg-ink-900 pointer-events-none" aria-hidden="true">
       <div class="absolute inset-0 bg-cover bg-top sm:bg-center animate-slowzoom" style="background-image:url('assets/img/hero-caviar.jpg')"></div>
       <div class="absolute inset-0 bg-ink-900/70"></div>
     </div>
