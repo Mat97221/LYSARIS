@@ -7,8 +7,8 @@
 const BRAND = {
   noir: "#111110", // contrast / signature ground — hero, footer, a few impact sections only
   ivoire: "#F4EFE6", // DEFAULT background of most content sections; text on dark grounds
-  or: "#C4A35A", // accent — small touches only: key (primary) buttons, filets, details
-  marine: "#17263F" // secondary — secondary buttons, inserts, links, supporting sections
+  marine: "#17263F" // the single accent — buttons, active states, links, icons, details
+  // (a gold accent was removed entirely from the identity; nothing uses it anymore)
 };
 
 module.exports = {
@@ -18,7 +18,6 @@ module.exports = {
       colors: {
         noir: BRAND.noir,
         ivoire: BRAND.ivoire,
-        or: BRAND.or,
         marine: BRAND.marine,
 
         /**
@@ -41,8 +40,8 @@ module.exports = {
           900: BRAND.ivoire // page background
         },
         navy: {
-          DEFAULT: BRAND.or, // gold FILLS — primary buttons, badges, active-state chips (paired with noir text)
-          hover: "#B58F3F", // slightly deeper gold for hover/active feedback
+          DEFAULT: BRAND.marine, // marine FILLS — primary buttons, badges, active-state chips (paired with ivoire text)
+          hover: "#24395E", // slightly lighter marine for hover/active feedback
           dark: "#0A0A09" // deepest shade — the "abysse" section keylines (near-black, never pure #000)
         },
         charcoal: BRAND.noir,

@@ -23,11 +23,13 @@ const MN_ICONS = {
 };
 
 let mnTinCounter = 0;
+// Tin illustration tints — a set of metals with the gold removed entirely: brushed steel,
+// graphite, onyx and pearl. All read as light-on-dark against the marine→noir display panels.
 const MN_TINTS = {
-  amber: { top: "#E4C664", side: "#8A6D1A", label: "#22201A" },
-  graphite: { top: "#6B6252", side: "#3B372C", label: "#FBF6EA" },
-  onyx: { top: "#2A2620", side: "#181410", label: "#C9A227" },
-  champagne: { top: "#FBF6E4", side: "#8A6D1A", label: "#22201A" }
+  amber: { top: "#CDD3DC", side: "#6E7A8A", label: "#17263F" }, // acier / brushed steel
+  graphite: { top: "#8A8578", side: "#4A463C", label: "#F4EFE6" },
+  onyx: { top: "#2A2620", side: "#181410", label: "#F4EFE6" },
+  champagne: { top: "#F4EFE6", side: "#B8B2A4", label: "#17263F" } // nacre / pearl
 };
 
 /** Illustration vectorielle d'une boîte de caviar — pas de photo produit, teinte selon le type. */
@@ -53,7 +55,7 @@ function mnTinSVG(tint) {
 
 function mnBadge(text) {
   if (!text) return "";
-  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-noir z-10">${text}</span>`;
+  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-ivoire z-10">${text}</span>`;
 }
 
 /** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
@@ -70,10 +72,10 @@ function mnProductCard(product) {
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
-    <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir p-6">
+    <div class="relative flex h-56 items-center justify-center overflow-hidden rounded-md bg-gradient-to-b from-marine to-noir">
       <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
     </div>
-    <div class="flex flex-1 flex-col gap-3 p-6">
+    <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
         <h3 class="h-card group-hover:text-marine transition-colors">${product.name}</h3>
       </a>
@@ -102,8 +104,12 @@ function mnHeader(active) {
       active === key ? "text-marine is-active" : "text-ink-100"
     }">${label}</a>`;
 
+  // On the homepage the header overlays the full-bleed hero image (transparent + light),
+  // resolving to the standard solid light bar once scrolled past it (see .mn-hero-nav in CSS).
+  const heroNav = active === "accueil" ? " mn-hero-nav" : "";
+
   return `
-  <header class="nav-glass sticky top-0 z-40">
+  <header class="nav-glass sticky top-0 z-40${heroNav}">
     <div class="container-page flex h-20 items-center justify-between">
       <a href="index.html" class="flex items-center">
         <img src="assets/img/logo-marenostrum-horizontal-noir.png" alt="MARENOSTRUM" class="w-auto" style="width:231px;height:44px" />
@@ -143,37 +149,37 @@ function mnFooter() {
   <footer class="bg-noir text-ivoire mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-or">O</span>STRUM</p>
+        <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
         <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, livraison réfrigérée en 24-48h partout en France métropolitaine.</p>
       </div>
       <div>
-        <p class="eyebrow text-or mb-4">Boutique</p>
+        <p class="eyebrow text-ivoire mb-4">Boutique</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-or transition-colors" href="boutique.html">Tous les caviars</a></li>
-          <li><a class="hover:text-or transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
-          <li><a class="hover:text-or transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
-          <li><a class="hover:text-or transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html">Tous les caviars</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
         </ul>
       </div>
       <div>
-        <p class="eyebrow text-or mb-4">Informations</p>
+        <p class="eyebrow text-ivoire mb-4">Informations</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-or transition-colors" href="a-propos.html">La Maison</a></li>
-          <li><a class="hover:text-or transition-colors" href="contact.html">Contact</a></li>
-          <li><a class="hover:text-or transition-colors" href="cgv.html">Conditions générales de vente</a></li>
-          <li><a class="hover:text-or transition-colors" href="confidentialite.html">Confidentialité</a></li>
-          <li><a class="hover:text-or transition-colors" href="mentions-legales.html">Mentions légales</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="a-propos.html">La Maison</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="contact.html">Contact</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="cgv.html">Conditions générales de vente</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="confidentialite.html">Confidentialité</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
       <div>
-        <p class="eyebrow text-or mb-4">Restez informé</p>
+        <p class="eyebrow text-ivoire mb-4">Restez informé</p>
         <p class="text-sm text-ivoire/70 mb-4">Nouveautés, éditions limitées et accords de dégustation.</p>
         <form id="mn-newsletter-form" class="flex gap-2" novalidate>
           <label for="mn-newsletter-email" class="sr-only">Adresse e-mail</label>
-          <input id="mn-newsletter-email" type="email" required placeholder="Votre e-mail" class="input-field !py-2.5 text-sm !bg-noir !border-ivoire/25 !text-ivoire placeholder:!text-ivoire/40 focus:!border-or" />
+          <input id="mn-newsletter-email" type="email" required placeholder="Votre e-mail" class="input-field !py-2.5 text-sm !bg-noir !border-ivoire/25 !text-ivoire placeholder:!text-ivoire/40 focus:!border-ivoire" />
           <button type="submit" class="btn-navy !px-4 !py-2.5 shrink-0" aria-label="S'inscrire à la newsletter">${MN_ICONS.mail}</button>
         </form>
-        <p id="mn-newsletter-feedback" class="mt-3 text-xs text-or hidden" role="status"></p>
+        <p id="mn-newsletter-feedback" class="mt-3 text-xs text-ivoire hidden" role="status"></p>
       </div>
     </div>
     <div class="border-t border-ivoire/15">
@@ -378,9 +384,14 @@ function mnMountLayout(activePage) {
 
   const header = document.querySelector(".nav-glass");
   if (header) {
-    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+    // Over the homepage hero the bar stays transparent until the visitor has scrolled nearly
+    // past the full-screen image; every other page keeps the original 8px trigger.
+    const isHeroNav = header.classList.contains("mn-hero-nav");
+    const threshold = () => (isHeroNav ? window.innerHeight - 100 : 8);
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > threshold());
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
   }
 
   mnInitReveal();

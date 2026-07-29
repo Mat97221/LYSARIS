@@ -102,11 +102,10 @@
     @apply max-w-prose text-base sm:text-lg text-ink-200 leading-relaxed;
   }
 
-  /* Primary / key button — gold fill with noir text (the one place gold carries a solid area,
-     kept small and reserved for the strongest call to action). */
+  /* Primary / key button — solid marine fill with ivoire text. */
   .btn-navy {
     @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-noir
+           font-texte font-semibold text-sm tracking-wide uppercase text-ivoire
            transition-all duration-200 ease-fluid hover:bg-navy-hover hover:-translate-y-0.5
            active:translate-y-0 shadow-soft;
   }
@@ -115,7 +114,7 @@
      JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
   .btn-navy-magnetic {
     @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-noir
+           font-texte font-semibold text-sm tracking-wide uppercase text-ivoire
            transition-colors duration-200 ease-fluid hover:bg-navy-hover shadow-soft;
   }
 
@@ -133,9 +132,11 @@
            font-texte font-medium text-sm text-ink-200 transition-colors duration-200 ease-fluid hover:text-marine;
   }
 
+  /* Borderless product card — no frame, no surface: the product image sits directly on the
+     ivoire page with its text below, integrating seamlessly (only the image itself is rounded,
+     see the image wrapper in mnProductCard). */
   .card-product {
-    @apply relative flex flex-col overflow-hidden rounded-md border border-ink-600 bg-ink-700
-           hover:border-navy/50 hover:shadow-lifted;
+    @apply relative flex flex-col bg-transparent;
   }
 
   .nav-glass {
@@ -160,7 +161,7 @@
   }
 
   .badge-count {
-    @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-navy text-[11px] font-bold text-noir;
+    @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-navy text-[11px] font-bold text-ivoire;
   }
 
   .divider-navy {
@@ -269,7 +270,7 @@
   height: 60%;
   left: -10%;
   top: -15%;
-  background: radial-gradient(circle, rgba(196, 163, 90, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(120, 150, 190, 0.30), transparent 70%);
   animation: mn-caustic-drift-a 16s ease-in-out infinite;
 }
 
@@ -336,21 +337,6 @@
   transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-3px);
 }
 
-.card-product::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 40%, rgba(244, 239, 230, 0.35) 50%, transparent 60%);
-  transform: translateX(-120%);
-  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-product:hover::before {
-  transform: translateX(120%);
-}
-
 /* Sheen sweep on primary/outline buttons — a single quiet flash of light on hover, not a
    permanent gradient background. */
 .btn-navy::before, .btn-navy-magnetic::before, .btn-outline::before {
@@ -407,7 +393,7 @@
    no visible effect; restored as a working sweep, now genuinely gold as the comment always
    promised, using the ivoire/or brand pair.) */
 .mn-shine-text {
-  background-image: linear-gradient(100deg, #f4efe6 0%, #f4efe6 35%, #c4a35a 50%, #f4efe6 65%, #f4efe6 100%);
+  background-image: linear-gradient(100deg, #f4efe6 0%, #f4efe6 35%, #fbf8f1 50%, #f4efe6 65%, #f4efe6 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -433,4 +419,54 @@
 .mn-tile:hover {
   transform: translateY(-6px);
   box-shadow: 0 22px 44px rgba(17, 17, 16, 0.4);
+}
+
+/* ============================================================
+   Homepage hero navigation — full-bleed image, header overlaid
+   ============================================================
+   On the accueil page the header carries `.mn-hero-nav` (added in mnHeader): it becomes a
+   fixed, fully transparent bar over the edge-to-edge hero image, with its text and logo turned
+   ivoire so they stay legible on the dark photo. Once the visitor scrolls past the hero
+   (`.is-scrolled`, threshold set in mnMountLayout) it resolves to the normal solid ivoire bar
+   with dark text/logo, so it never sits unreadable over the light content below. */
+.nav-glass.mn-hero-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.nav-glass.mn-hero-nav .mn-nav-link,
+.nav-glass.mn-hero-nav a[aria-label="Voir le panier"],
+.nav-glass.mn-hero-nav #mn-menu-toggle {
+  color: #f4efe6;
+}
+
+/* Black wordmark PNG → white while overlaid on the dark hero image. */
+.nav-glass.mn-hero-nav img {
+  filter: brightness(0) invert(1);
+}
+
+/* Scrolled past the hero: fall back to the standard light bar. */
+.nav-glass.mn-hero-nav.is-scrolled {
+  background: rgba(244, 239, 230, 0.9);
+  border-color: rgba(228, 220, 203, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
+.nav-glass.mn-hero-nav.is-scrolled a[aria-label="Voir le panier"],
+.nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
+  color: #2e2b24;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active {
+  color: #17263f;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled img {
+  filter: none;
 }

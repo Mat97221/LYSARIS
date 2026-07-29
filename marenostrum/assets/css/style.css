@@ -814,8 +814,7 @@ a, button, [role="button"], input[type="submit"] {
   }
 }
 
-/* Primary / key button — gold fill with noir text (the one place gold carries a solid area,
-     kept small and reserved for the strongest call to action). */
+/* Primary / key button — solid marine fill with ivoire text. */
 
 .btn-navy{
   position: relative;
@@ -827,7 +826,7 @@ a, button, [role="button"], input[type="submit"] {
   overflow: hidden;
   border-radius: 0.125rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(196 163 90 / var(--tw-bg-opacity, 1));
+  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
   padding-left: 1.75rem;
   padding-right: 1.75rem;
   padding-top: 0.875rem;
@@ -839,7 +838,7 @@ a, button, [role="button"], input[type="submit"] {
   text-transform: uppercase;
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
+  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
   --tw-shadow: 0 4px 14px rgba(17,17,16,0.35);
   --tw-shadow-colored: 0 4px 14px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -852,7 +851,7 @@ a, button, [role="button"], input[type="submit"] {
   --tw-translate-y: -0.125rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-bg-opacity: 1;
-  background-color: rgb(181 143 63 / var(--tw-bg-opacity, 1));
+  background-color: rgb(36 57 94 / var(--tw-bg-opacity, 1));
 }
 
 .btn-navy:active{
@@ -873,7 +872,7 @@ a, button, [role="button"], input[type="submit"] {
   overflow: hidden;
   border-radius: 0.125rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(196 163 90 / var(--tw-bg-opacity, 1));
+  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
   padding-left: 1.75rem;
   padding-right: 1.75rem;
   padding-top: 0.875rem;
@@ -885,7 +884,7 @@ a, button, [role="button"], input[type="submit"] {
   text-transform: uppercase;
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
+  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
   --tw-shadow: 0 4px 14px rgba(17,17,16,0.35);
   --tw-shadow-colored: 0 4px 14px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -896,7 +895,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .btn-navy-magnetic:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(181 143 63 / var(--tw-bg-opacity, 1));
+  background-color: rgb(36 57 94 / var(--tw-bg-opacity, 1));
 }
 
 /* Secondary button — marine outline that fills marine on hover (marine = the supporting brand
@@ -972,24 +971,15 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
 }
 
+/* Borderless product card — no frame, no surface: the product image sits directly on the
+     ivoire page with its text below, integrating seamlessly (only the image itself is rounded,
+     see the image wrapper in mnProductCard). */
+
 .card-product{
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  border-radius: 0.375rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(228 220 203 / var(--tw-border-opacity, 1));
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 250 246 / var(--tw-bg-opacity, 1));
-}
-
-.card-product:hover{
-  border-color: rgb(196 163 90 / 0.5);
-  --tw-shadow: 0 18px 40px rgba(17,17,16,0.5);
-  --tw-shadow-colored: 0 18px 40px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  background-color: transparent;
 }
 
 .nav-glass{
@@ -1077,11 +1067,11 @@ a, button, [role="button"], input[type="submit"] {
   justify-content: center;
   border-radius: 9999px;
   --tw-bg-opacity: 1;
-  background-color: rgb(196 163 90 / var(--tw-bg-opacity, 1));
+  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
   font-size: 11px;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
+  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
 }
 
 /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js) */
@@ -1464,6 +1454,10 @@ a, button, [role="button"], input[type="submit"] {
   height: 1.25rem;
 }
 
+.h-56{
+  height: 14rem;
+}
+
 .h-6{
   height: 1.5rem;
 }
@@ -1499,6 +1493,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .min-h-\[44px\]{
   min-height: 44px;
+}
+
+.min-h-screen{
+  min-height: 100vh;
 }
 
 .w-10{
@@ -1836,19 +1834,24 @@ a, button, [role="button"], input[type="submit"] {
 
 .border-navy{
   --tw-border-opacity: 1;
-  border-color: rgb(196 163 90 / var(--tw-border-opacity, 1));
+  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
 }
 
 .border-navy\/25{
-  border-color: rgb(196 163 90 / 0.25);
+  border-color: rgb(23 38 63 / 0.25);
 }
 
 .border-navy\/30{
-  border-color: rgb(196 163 90 / 0.3);
+  border-color: rgb(23 38 63 / 0.3);
 }
 
 .border-navy\/40{
-  border-color: rgb(196 163 90 / 0.4);
+  border-color: rgb(23 38 63 / 0.4);
+}
+
+.\!bg-ivoire{
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(244 239 230 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .\!bg-noir{
@@ -1882,7 +1885,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .bg-navy{
   --tw-bg-opacity: 1;
-  background-color: rgb(196 163 90 / var(--tw-bg-opacity, 1));
+  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
 }
 
 .bg-noir{
@@ -1997,11 +2000,6 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 0.375rem;
 }
 
-.py-12{
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .py-16{
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -2027,6 +2025,11 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 7rem;
 }
 
+.py-32{
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -2042,12 +2045,12 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 1.5rem;
 }
 
-.pb-28{
-  padding-bottom: 7rem;
+.pb-10{
+  padding-bottom: 2.5rem;
 }
 
-.pb-8{
-  padding-bottom: 2rem;
+.pb-28{
+  padding-bottom: 7rem;
 }
 
 .pt-3{
@@ -2056,6 +2059,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .pt-4{
   padding-top: 1rem;
+}
+
+.pt-5{
+  padding-top: 1.25rem;
 }
 
 .pt-8{
@@ -2141,6 +2148,11 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(244 239 230 / var(--tw-text-opacity, 1)) !important;
 }
 
+.\!text-noir{
+  --tw-text-opacity: 1 !important;
+  color: rgb(17 17 16 / var(--tw-text-opacity, 1)) !important;
+}
+
 .text-azure{
   --tw-text-opacity: 1;
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
@@ -2179,6 +2191,10 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(244 239 230 / 0.7);
 }
 
+.text-ivoire\/80{
+  color: rgb(244 239 230 / 0.8);
+}
+
 .text-marine{
   --tw-text-opacity: 1;
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
@@ -2186,20 +2202,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .text-marine\/50{
   color: rgb(23 38 63 / 0.5);
-}
-
-.text-noir{
-  --tw-text-opacity: 1;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
-}
-
-.text-or{
-  --tw-text-opacity: 1;
-  color: rgb(196 163 90 / var(--tw-text-opacity, 1));
-}
-
-.text-or\/60{
-  color: rgb(196 163 90 / 0.6);
 }
 
 .text-pine{
@@ -2280,12 +2282,12 @@ a, button, [role="button"], input[type="submit"] {
   perspective: 900px;
 }
 
-.\[text-shadow\:0_1px_12px_rgba\(17\2c 17\2c 16\2c 0\.6\)\]{
-  text-shadow: 0 1px 12px rgba(17,17,16,0.6);
+.\[text-shadow\:0_1px_12px_rgba\(17\2c 17\2c 16\2c 0\.7\)\]{
+  text-shadow: 0 1px 12px rgba(17,17,16,0.7);
 }
 
-.\[text-shadow\:0_2px_20px_rgba\(17\2c 17\2c 16\2c 0\.45\)\]{
-  text-shadow: 0 2px 20px rgba(17,17,16,0.45);
+.\[text-shadow\:0_2px_24px_rgba\(17\2c 17\2c 16\2c 0\.5\)\]{
+  text-shadow: 0 2px 24px rgba(17,17,16,0.5);
 }
 
 .\[transition-delay\:120ms\]{
@@ -2337,7 +2339,7 @@ a, button, [role="button"], input[type="submit"] {
   height: 60%;
   left: -10%;
   top: -15%;
-  background: radial-gradient(circle, rgba(196, 163, 90, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(120, 150, 190, 0.30), transparent 70%);
   animation: mn-caustic-drift-a 16s ease-in-out infinite;
 }
 
@@ -2427,21 +2429,6 @@ a, button, [role="button"], input[type="submit"] {
   transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-3px);
 }
 
-.card-product::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 40%, rgba(244, 239, 230, 0.35) 50%, transparent 60%);
-  transform: translateX(-120%);
-  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-product:hover::before {
-  transform: translateX(120%);
-}
-
 /* Sheen sweep on primary/outline buttons — a single quiet flash of light on hover, not a
    permanent gradient background. */
 
@@ -2502,7 +2489,7 @@ a, button, [role="button"], input[type="submit"] {
    promised, using the ivoire/or brand pair.) */
 
 .mn-shine-text {
-  background-image: linear-gradient(100deg, #f4efe6 0%, #f4efe6 35%, #c4a35a 50%, #f4efe6 65%, #f4efe6 100%);
+  background-image: linear-gradient(100deg, #f4efe6 0%, #f4efe6 35%, #fbf8f1 50%, #f4efe6 65%, #f4efe6 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -2538,6 +2525,61 @@ a, button, [role="button"], input[type="submit"] {
   box-shadow: 0 22px 44px rgba(17, 17, 16, 0.4);
 }
 
+/* ============================================================
+   Homepage hero navigation — full-bleed image, header overlaid
+   ============================================================
+   On the accueil page the header carries `.mn-hero-nav` (added in mnHeader): it becomes a
+   fixed, fully transparent bar over the edge-to-edge hero image, with its text and logo turned
+   ivoire so they stay legible on the dark photo. Once the visitor scrolls past the hero
+   (`.is-scrolled`, threshold set in mnMountLayout) it resolves to the normal solid ivoire bar
+   with dark text/logo, so it never sits unreadable over the light content below. */
+
+.nav-glass.mn-hero-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+}
+
+.nav-glass.mn-hero-nav .mn-nav-link,
+.nav-glass.mn-hero-nav a[aria-label="Voir le panier"],
+.nav-glass.mn-hero-nav #mn-menu-toggle {
+  color: #f4efe6;
+}
+
+/* Black wordmark PNG → white while overlaid on the dark hero image. */
+
+.nav-glass.mn-hero-nav img {
+  filter: brightness(0) invert(1);
+}
+
+/* Scrolled past the hero: fall back to the standard light bar. */
+
+.nav-glass.mn-hero-nav.is-scrolled {
+  background: rgba(244, 239, 230, 0.9);
+  border-color: rgba(228, 220, 203, 0.5);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
+.nav-glass.mn-hero-nav.is-scrolled a[aria-label="Voir le panier"],
+.nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
+  color: #2e2b24;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active {
+  color: #17263f;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled img {
+  filter: none;
+}
+
 .placeholder\:\!text-ivoire\/40::-moz-placeholder{
   color: rgb(244 239 230 / 0.4) !important;
 }
@@ -2553,11 +2595,11 @@ a, button, [role="button"], input[type="submit"] {
 
 .hover\:border-navy:hover{
   --tw-border-opacity: 1;
-  border-color: rgb(196 163 90 / var(--tw-border-opacity, 1));
+  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
 }
 
 .hover\:border-navy\/60:hover{
-  border-color: rgb(196 163 90 / 0.6);
+  border-color: rgb(23 38 63 / 0.6);
 }
 
 .hover\:\!bg-ivoire:hover{
@@ -2575,23 +2617,23 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(179 38 30 / var(--tw-text-opacity, 1));
 }
 
+.hover\:text-ivoire:hover{
+  --tw-text-opacity: 1;
+  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-marine:hover{
   --tw-text-opacity: 1;
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-or:hover{
-  --tw-text-opacity: 1;
-  color: rgb(196 163 90 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover{
   text-decoration-line: underline;
 }
 
-.focus\:\!border-or:focus{
+.focus\:\!border-ivoire:focus{
   --tw-border-opacity: 1 !important;
-  border-color: rgb(196 163 90 / var(--tw-border-opacity, 1)) !important;
+  border-color: rgb(244 239 230 / var(--tw-border-opacity, 1)) !important;
 }
 
 .group:hover .group-hover\:text-marine{
@@ -2620,10 +2662,6 @@ a, button, [role="button"], input[type="submit"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sm\:grid-cols-3{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .sm\:flex-row{
     flex-direction: row;
   }
@@ -2648,6 +2686,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .md\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:gap-8{
+    gap: 2rem;
   }
 }
 
@@ -2678,10 +2720,5 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:gap-16{
     gap: 4rem;
-  }
-
-  .lg\:py-32{
-    padding-top: 8rem;
-    padding-bottom: 8rem;
   }
 }

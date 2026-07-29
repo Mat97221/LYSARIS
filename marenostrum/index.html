@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MARENOSTRUM — Caviar d'exception</title>
   <meta name="description" content="MARENOSTRUM, maison de caviar d'exception : Osciètre, Beluga, Sevruga et Kaluga, élevés en France, affinés selon la tradition Malossol. Livraison réfrigérée 24-48h." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23C4A35A' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -16,11 +16,13 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- Hero -->
-    <section class="relative overflow-hidden border-b border-ink-600/50">
+    <!-- Hero — full-bleed image, header overlaid -->
+    <section class="relative min-h-screen flex flex-col overflow-hidden">
       <div class="parallax-bg absolute inset-0 overflow-hidden" data-speed="0.15">
         <div class="absolute inset-0 bg-cover bg-center animate-slowzoom" style="background-image: url('assets/img/hero-caviar.jpg')"></div>
       </div>
+      <!-- Legibility veil: darker at the very top (under the transparent nav) and bottom. -->
+      <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0.2) 40%, rgba(17,17,16,0.55) 100%)"></div>
       <div aria-hidden="true">
         <span class="mn-sparkle" style="top:18%;left:12%;animation-delay:0.2s"></span>
         <span class="mn-sparkle" style="top:28%;left:82%;animation-delay:1.4s"></span>
@@ -28,43 +30,47 @@
         <span class="mn-sparkle" style="top:70%;left:75%;animation-delay:0.9s"></span>
         <span class="mn-sparkle" style="top:45%;left:50%;animation-delay:3.3s"></span>
       </div>
-      <div class="container-page relative flex flex-col items-center gap-9 py-24 text-center lg:py-32">
-        <p class="animate-fadeUp eyebrow text-or [text-shadow:0_1px_12px_rgba(17,17,16,0.6)]">Éleveur · Affineur</p>
-        <h1 class="h-hero text-ivoire animate-fadeUp [text-shadow:0_2px_20px_rgba(17,17,16,0.45)]">
+      <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-9 py-32 text-center">
+        <p class="animate-fadeUp eyebrow text-ivoire/80 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Éleveur · Affineur</p>
+        <h1 class="h-hero text-ivoire animate-fadeUp [text-shadow:0_2px_24px_rgba(17,17,16,0.5)]">
           L'art du caviar,<br /><span class="italic mn-shine-text">sans compromis.</span>
         </h1>
         <div class="flex flex-wrap items-center justify-center gap-4 animate-fadeUp [animation-delay:150ms]">
-          <a href="boutique.html" class="btn-navy-magnetic magnetic">Découvrir la boutique</a>
+          <a href="boutique.html" class="btn-navy-magnetic magnetic !bg-ivoire !text-noir hover:!bg-ivoire">Découvrir la boutique</a>
           <a href="a-propos.html" class="btn-outline !border-ivoire/70 !text-ivoire hover:!bg-ivoire hover:!text-noir hover:!border-ivoire">Notre histoire</a>
         </div>
       </div>
-      <div class="relative pb-8 flex justify-center" id="mn-hero-wave"></div>
+      <div class="relative z-10 pb-10 flex justify-center" id="mn-hero-wave"></div>
     </section>
 
-    <!-- Trust bar -->
-    <section class="border-b border-ink-600/50 bg-ink-800">
-      <div id="mn-trust-grid" class="container-page grid grid-cols-1 gap-10 py-12 sm:grid-cols-3">
-        <div class="flex items-center gap-4">
-          <span class="h-9 w-9 shrink-0 text-marine" id="mn-trust-icon-1"></span>
-          <div>
-            <p class="font-semibold text-ink-50 text-sm">Traçabilité totale</p>
-            <p class="text-xs text-ink-300">Chaque boîte numérotée, du bassin à la table</p>
+    <!-- Nos engagements — trois fiches illustrées -->
+    <section class="container-page py-28">
+      <div class="mb-16 text-center reveal">
+        <p class="eyebrow mb-3">Nos engagements</p>
+        <h2 class="h-section">Trois promesses, à chaque commande</h2>
+      </div>
+      <div id="mn-promesses-grid" class="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+        <article class="reveal flex flex-col">
+          <div class="mb-6 overflow-hidden rounded-md" style="aspect-ratio:4/3">
+            <image-slot id="mn-promesse-photo-1" shape="rect" placeholder="Photo : boîte numérotée, atelier de traçabilité" style="width:100%;height:100%"></image-slot>
           </div>
-        </div>
-        <div class="flex items-center gap-4">
-          <span class="h-9 w-9 shrink-0 text-azure" id="mn-trust-icon-2"></span>
-          <div>
-            <p class="font-semibold text-ink-50 text-sm">Livraison réfrigérée 24-48h</p>
-            <p class="text-xs text-ink-300">Colis isotherme, glace pilée incluse</p>
+          <h3 class="h-card mb-3">Traçabilité totale</h3>
+          <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot unique. On remonte du bassin d'élevage à la date de récolte et au type d'affinage — rien n'est laissé au hasard, tout se vérifie.</p>
+        </article>
+        <article class="reveal flex flex-col">
+          <div class="mb-6 overflow-hidden rounded-md" style="aspect-ratio:4/3">
+            <image-slot id="mn-promesse-photo-2" shape="rect" placeholder="Photo : colis isotherme, glace pilée" style="width:100%;height:100%"></image-slot>
           </div>
-        </div>
-        <div class="flex items-center gap-4">
-          <span class="h-9 w-9 shrink-0 text-pine" id="mn-trust-icon-3"></span>
-          <div>
-            <p class="font-semibold text-ink-50 text-sm">Élevage responsable</p>
-            <p class="text-xs text-ink-300">Sans hormones ni antibiotiques de croissance</p>
+          <h3 class="h-card mb-3">Livraison réfrigérée 24-48h</h3>
+          <p class="text-ink-200 leading-relaxed">Expédition en colis isotherme, glace pilée incluse, partout en France métropolitaine. Le caviar arrive à la bonne température, prêt à être dégusté dans les meilleures conditions.</p>
+        </article>
+        <article class="reveal flex flex-col">
+          <div class="mb-6 overflow-hidden rounded-md" style="aspect-ratio:4/3">
+            <image-slot id="mn-promesse-photo-3" shape="rect" placeholder="Photo : bassin en eaux vives, esturgeons" style="width:100%;height:100%"></image-slot>
           </div>
-        </div>
+          <h3 class="h-card mb-3">Élevage responsable</h3>
+          <p class="text-ink-200 leading-relaxed">Esturgeons élevés en eaux vives, en circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
+        </article>
       </div>
     </section>
 
@@ -111,7 +117,7 @@
       <span class="mn-sparkle" style="top:78%;left:60%;animation-delay:3.0s;z-index:2"></span>
       <span class="mn-sparkle" style="top:15%;left:55%;animation-delay:1.8s;z-index:2"></span>
       <div class="container-page relative flex flex-col items-center gap-6 py-28 text-center reveal" style="z-index:10">
-        <p class="eyebrow text-or">Là où tout commence</p>
+        <p class="eyebrow text-ivoire">Là où tout commence</p>
         <h2 class="h-section max-w-2xl text-ivoire">Des eaux vives d'Aquitaine à la Gironde, l'esturgeon grandit à son rythme</h2>
         <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Aucun raccourci : chaque esturgeon met de 7 à 12 ans à produire ses premiers œufs. Nous laissons le temps faire son œuvre, bassin après bassin, génération après génération.</p>
       </div>
@@ -151,7 +157,7 @@
     <section class="border-b border-ink-600/50">
       <div class="container-page grid grid-cols-1 items-center gap-12 py-28 lg:grid-cols-2 lg:gap-16">
         <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-marine to-noir [perspective:900px]">
-          <span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-noir">Best-seller</span>
+          <span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-ivoire">Best-seller</span>
           <div class="h-64 w-64 animate-float">
             <div id="mn-flagship-tin" class="h-full w-full animate-tinwobble"></div>
           </div>
@@ -182,31 +188,6 @@
         <a href="boutique.html" class="btn-ghost">Voir toute la boutique <span class="h-4 w-4">→</span></a>
       </div>
       <div id="mn-featured-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
-    </section>
-
-    <!-- Sustainability -->
-    <section class="border-y border-ink-600/50 bg-ink-800">
-      <div class="container-page py-28">
-        <p class="eyebrow mb-4 text-center reveal">Nos engagements</p>
-        <h2 class="h-section mb-16 text-center reveal">Ce qui nous distingue</h2>
-        <div id="mn-values-grid" class="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
-            <span class="mb-5 flex h-10 w-10 text-pine" id="mn-value-icon-1"></span>
-            <h3 class="h-card mb-3">Élevage responsable</h3>
-            <p class="text-ink-200 leading-relaxed">Esturgeons élevés en eaux vives, en circuit fermé, sans hormones ni antibiotiques de croissance.</p>
-          </div>
-          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
-            <span class="mb-5 flex h-10 w-10 text-marine" id="mn-value-icon-2"></span>
-            <h3 class="h-card mb-3">Traçabilité totale</h3>
-            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot qui permet de remonter jusqu'au bassin d'élevage et à la date de récolte.</p>
-          </div>
-          <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
-            <span class="mb-5 flex h-10 w-10 text-azure" id="mn-value-icon-3"></span>
-            <h3 class="h-card mb-3">Affinage Malossol</h3>
-            <p class="text-ink-200 leading-relaxed">Un salage léger et traditionnel, réalisé à la main par notre maître affineur selon des méthodes séculaires.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Testimonials -->
@@ -311,7 +292,7 @@
       document.querySelectorAll("#mn-format-tabs button").forEach((btn) => {
         const isActive = btn.dataset.format === key;
         btn.classList.toggle("bg-navy", isActive);
-        btn.classList.toggle("text-noir", isActive);
+        btn.classList.toggle("text-ivoire", isActive);
         btn.classList.toggle("border-navy", isActive);
         btn.classList.toggle("text-ink-100", !isActive);
         btn.setAttribute("aria-selected", String(isActive));
@@ -324,19 +305,11 @@
       const grid = document.getElementById("mn-featured-grid");
       grid.innerHTML = featuredIds.map((id) => mnProductCard(mnFindProduct(id))).join("");
       mnStagger(grid, 90);
-      mnStagger(document.getElementById("mn-trust-grid"), 80);
-      mnStagger(document.getElementById("mn-values-grid"), 90);
+      mnStagger(document.getElementById("mn-promesses-grid"), 90);
       mnStagger(document.getElementById("mn-univers-grid"), 90);
       mnStagger(document.getElementById("mn-testimonial-grid"), 90);
 
-      document.getElementById("mn-trust-icon-1").innerHTML = MN_ICONS.shield;
-      document.getElementById("mn-trust-icon-2").innerHTML = MN_ICONS.truck;
-      document.getElementById("mn-trust-icon-3").innerHTML = MN_ICONS.leaf;
-      document.getElementById("mn-value-icon-1").innerHTML = MN_ICONS.leaf;
-      document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
-      document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;
-
-      document.getElementById("mn-hero-wave").innerHTML = mnWaveDivider("text-or/60");
+      document.getElementById("mn-hero-wave").innerHTML = mnWaveDivider("text-ivoire/50");
       document.getElementById("mn-coffret-wave").innerHTML = mnWaveDivider("text-marine/50");
 
       document.getElementById("mn-flagship-tin").innerHTML = mnTinSVG("amber");
