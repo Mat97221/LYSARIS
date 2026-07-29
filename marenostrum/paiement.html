@@ -16,19 +16,19 @@
 
   <main>
     <section class="border-b border-ink-600/50 bg-ink-800">
-      <div class="container-page py-12">
+      <div class="container-page py-16">
         <p class="eyebrow mb-3">Étape 2 sur 3</p>
-        <h1 class="font-display text-4xl font-semibold text-ink-50">Livraison &amp; paiement</h1>
+        <h1 class="h-page">Livraison &amp; paiement</h1>
       </div>
     </section>
 
     <div id="mn-checkout-empty" class="hidden container-page py-24 text-center">
-      <p class="font-display text-2xl text-ink-50 mb-4">Votre panier est vide</p>
+      <p class="h-card mb-4">Votre panier est vide</p>
       <p class="text-ink-200 mb-8">Ajoutez des produits avant de passer commande.</p>
       <a href="boutique.html" class="btn-navy">Voir la boutique</a>
     </div>
 
-    <section id="mn-checkout-content" class="hidden container-page py-14">
+    <section id="mn-checkout-content" class="hidden container-page py-20">
       <div class="mb-8 rounded-md border border-navy/30 bg-ink-700 px-6 py-4 text-sm text-ink-100">
         <strong class="text-navy">Mode démonstration —</strong> aucune donnée bancaire réelle n'est collectée ni transmise. Ce formulaire simule un paiement afin de présenter le tunnel de commande.
       </div>
@@ -36,7 +36,7 @@
       <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
         <form id="mn-checkout-form" novalidate class="lg:col-span-2 flex flex-col gap-10">
           <fieldset>
-            <legend class="font-display text-xl text-ink-50 mb-5">Coordonnées</legend>
+            <legend class="h-card mb-5">Coordonnées</legend>
             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
                 <label class="field-label" for="ck-firstname">Prénom</label>
@@ -63,7 +63,7 @@
           </fieldset>
 
           <fieldset>
-            <legend class="font-display text-xl text-ink-50 mb-5">Adresse de livraison</legend>
+            <legend class="h-card mb-5">Adresse de livraison</legend>
             <div class="grid grid-cols-1 gap-5">
               <div>
                 <label class="field-label" for="ck-address">Adresse</label>
@@ -99,7 +99,7 @@
           </fieldset>
 
           <fieldset>
-            <legend class="font-display text-xl text-ink-50 mb-5">Paiement</legend>
+            <legend class="h-card mb-5">Paiement</legend>
             <div class="grid grid-cols-1 gap-5">
               <div>
                 <label class="field-label" for="ck-card-number">Numéro de carte</label>
@@ -125,7 +125,7 @@
         </form>
 
         <aside class="reveal rounded-md border border-ink-600/60 bg-ink-700 p-7 h-fit">
-          <h2 class="font-display text-xl font-semibold text-ink-50 mb-6">Votre commande</h2>
+          <h2 class="h-card mb-6">Votre commande</h2>
           <div id="mn-checkout-lines" class="flex flex-col gap-4 mb-6"></div>
           <div class="flex justify-between text-sm text-ink-200 mb-3 border-t border-ink-600/60 pt-4">
             <span>Sous-total</span>
@@ -135,7 +135,7 @@
             <span>Livraison réfrigérée</span>
             <span id="mn-ck-shipping" class="text-ink-50"></span>
           </div>
-          <div class="flex justify-between border-t border-ink-600/60 pt-4 font-display text-xl">
+          <div class="flex justify-between border-t border-ink-600/60 pt-4 font-titre text-xl">
             <span class="text-ink-50">Total</span>
             <span id="mn-ck-total" class="text-navy"></span>
           </div>

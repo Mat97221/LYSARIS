@@ -16,9 +16,9 @@
   <div id="site-header"></div>
 
   <main>
-    <div id="mn-product-not-found" class="hidden container-page py-24 text-center">
+    <div id="mn-product-not-found" class="hidden container-page py-28 text-center">
       <p class="eyebrow mb-3">Oups</p>
-      <h1 class="font-display text-3xl text-ink-50 mb-4">Produit introuvable</h1>
+      <h1 class="h-card mb-4">Produit introuvable</h1>
       <p class="text-ink-200 mb-8">Ce produit n'existe pas ou n'est plus disponible.</p>
       <a href="boutique.html" class="btn-navy">Retour à la boutique</a>
     </div>
@@ -34,7 +34,7 @@
         </div>
       </section>
 
-      <section class="container-page grid grid-cols-1 gap-12 py-14 lg:grid-cols-2">
+      <section class="container-page grid grid-cols-1 gap-12 py-20 lg:grid-cols-2 lg:gap-16">
         <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-marine to-noir [perspective:900px]">
           <div id="mn-product-badge-slot"></div>
           <div class="h-64 w-64 animate-float">
@@ -44,10 +44,10 @@
 
         <div class="reveal [transition-delay:120ms]">
           <p id="mn-product-species" class="eyebrow mb-3"></p>
-          <h1 id="mn-product-name" class="font-display text-4xl font-semibold text-ink-50 mb-3"></h1>
+          <h1 id="mn-product-name" class="h-section mb-3"></h1>
           <p id="mn-product-tagline" class="text-ink-200 text-lg mb-6"></p>
 
-          <p id="mn-product-price" class="font-display text-3xl text-navy mb-8"></p>
+          <p id="mn-product-price" class="font-titre text-4xl text-navy mb-8"></p>
 
           <div class="mb-8">
             <p class="field-label">Format</p>
@@ -75,7 +75,7 @@
           </p>
 
           <div class="mt-10 border-t border-ink-600/50 pt-8">
-            <p id="mn-product-description" class="text-ink-200 leading-relaxed"></p>
+            <p id="mn-product-description" class="prose-copy"></p>
           </div>
 
           <div id="mn-tasting-block" class="mt-8">
@@ -102,9 +102,9 @@
       </section>
 
       <section class="border-t border-ink-600/50 bg-ink-800">
-        <div class="container-page py-16">
-          <h2 class="font-display text-2xl font-semibold text-ink-50 mb-8">Vous aimerez aussi</h2>
-          <div id="mn-related-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
+        <div class="container-page py-24">
+          <h2 class="h-section mb-10">Vous aimerez aussi</h2>
+          <div id="mn-related-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"></div>
         </div>
       </section>
     </div>

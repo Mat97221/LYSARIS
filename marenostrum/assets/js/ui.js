@@ -73,13 +73,13 @@ function mnProductCard(product) {
     <div class="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir p-6">
       <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
     </div>
-    <div class="flex flex-1 flex-col gap-2 p-5">
+    <div class="flex flex-1 flex-col gap-3 p-6">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
-        <h3 class="font-display text-xl font-semibold text-ink-50 group-hover:text-navy transition-colors">${product.name}</h3>
+        <h3 class="h-card group-hover:text-navy transition-colors">${product.name}</h3>
       </a>
       <p class="text-sm text-ink-200 leading-snug">${product.tagline}</p>
       <div class="mt-auto flex items-center justify-between gap-3 pt-3">
-        <span class="font-body text-sm text-ink-100">
+        <span class="font-texte text-sm text-ink-100">
           ${product.variants.length > 1 ? "dès " : ""}<span class="text-navy font-semibold">${mnFormatPrice(price)}</span>
         </span>
         <button
@@ -143,7 +143,7 @@ function mnFooter() {
   <footer class="border-t border-ink-600/60 bg-ink-800 mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="font-display text-2xl text-ink-50 mb-3">MAREN<span class="text-navy">O</span>STRUM</p>
+        <p class="font-titre text-2xl text-ink-50 mb-3">MAREN<span class="text-navy">O</span>STRUM</p>
         <p class="text-sm text-ink-200 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, livraison réfrigérée en 24-48h partout en France métropolitaine.</p>
       </div>
       <div>

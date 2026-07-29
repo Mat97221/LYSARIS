@@ -57,12 +57,13 @@ module.exports = {
         error: "#E2776B" // lightened from the previous #B3261E so it still reads on the new dark background
       },
       fontFamily: {
-        // Bodoni Moda (Google Fonts) evokes the high-contrast Didot/Bodoni serif used in
-        // CHANEL's branding — not their actual (proprietary, unlicensed) typeface.
-        display: ["Bodoni Moda", "Didot", "Georgia", "serif"],
-        // Helvetica Neue system stack, matching the spare grotesque body type common to
-        // high-fashion sites — no separate font file needed, works everywhere.
-        body: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+        // Fraunces (Google Fonts, loaded once in src/input.css) — editorial serif for every
+        // heading. Its optical-size axis is requested up to 144 so large titles get the
+        // warmer, slightly raw display cut rather than a text-sized one scaled up.
+        titre: ["Fraunces", "Georgia", "serif"],
+        // Inter — neutral, highly legible sans for body copy and interface chrome. Also the
+        // default font on <body>, see src/input.css.
+        texte: ["Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",
@@ -71,6 +72,12 @@ module.exports = {
       },
       letterSpacing: {
         widest2: "0.25em"
+      },
+      lineHeight: {
+        // Overrides Tailwind's default 1.625 for `leading-relaxed`, used throughout for body
+        // copy — every existing use of the class picks up the airier editorial rhythm with no
+        // HTML change.
+        relaxed: "1.7"
       },
       transitionTimingFunction: {
         fluid: "cubic-bezier(0.4, 0, 0.2, 1)"
