@@ -53,9 +53,11 @@ function mnTinSVG(tint) {
   </svg>`;
 }
 
+/** Plain small-caps text label, no chip/fill — same quiet treatment as the homepage's
+    "Best-seller" flag on the flagship product. */
 function mnBadge(text) {
   if (!text) return "";
-  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-ivoire z-10">${text}</span>`;
+  return `<span class="absolute left-3 top-3 text-[10px] font-semibold uppercase tracking-widest2 text-ivoire z-10 [text-shadow:0_1px_6px_rgba(17,17,16,0.6)]">${text}</span>`;
 }
 
 /** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
@@ -72,7 +74,7 @@ function mnProductCard(product) {
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
-    <div class="relative flex h-56 items-center justify-center overflow-hidden rounded-md bg-gradient-to-b from-marine to-noir">
+    <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
       <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">

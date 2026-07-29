@@ -109,26 +109,28 @@
     @apply font-titre font-normal italic leading-snug text-ink-50 text-3xl sm:text-4xl lg:text-5xl;
   }
 
-  /* Primary / key button — solid marine fill with ivoire text. */
+  /* Primary / key button — quiet apothecary style, sharp corners: a thin border, no fill,
+     that fills in marine only on hover. Every page's "Ajouter au panier"-class action now
+     reads the same way as the homepage's CTAs — a considered rectangle, not a colour block. */
   .btn-navy {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-ivoire
-           transition-all duration-200 ease-fluid hover:bg-navy-hover hover:-translate-y-0.5
-           active:translate-y-0 shadow-soft;
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 border border-marine/40 px-7 py-3.5 min-h-[44px]
+           font-texte font-semibold text-sm tracking-wide uppercase text-marine
+           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire hover:-translate-y-0.5
+           active:translate-y-0;
   }
 
   /* Same look as .btn-navy, but the lift-on-hover is dropped: pair with .magnetic instead, whose
      JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
   .btn-navy-magnetic {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-ivoire
-           transition-colors duration-200 ease-fluid hover:bg-navy-hover shadow-soft;
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 border border-marine/40 px-7 py-3.5 min-h-[44px]
+           font-texte font-semibold text-sm tracking-wide uppercase text-marine
+           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire;
   }
 
-  /* Secondary button — marine outline that fills marine on hover (marine = the supporting brand
-     colour for secondary actions and links). */
+  /* Secondary button — identical quiet outline treatment; kept as a distinct class since some
+     pages use both in the same view and the source names still read clearly there. */
   .btn-outline {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm border border-marine/40 px-7 py-3.5 min-h-[44px]
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 border border-marine/40 px-7 py-3.5 min-h-[44px]
            font-texte font-semibold text-sm tracking-wide uppercase text-marine
            transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire hover:-translate-y-0.5
            active:translate-y-0;
@@ -158,12 +160,8 @@
     @apply bg-ink-900/85 backdrop-blur-md border-b border-ink-600/50 transition-shadow duration-300 ease-fluid;
   }
 
-  .nav-glass.is-scrolled {
-    @apply shadow-soft;
-  }
-
   .input-field {
-    @apply w-full rounded-sm border border-ink-500 bg-ink-700 px-4 py-3 min-h-[44px] text-ink-50 placeholder:text-ink-300
+    @apply w-full border border-ink-500 bg-ink-700 px-4 py-3 min-h-[44px] text-ink-50 placeholder:text-ink-300
            transition-colors duration-200 ease-fluid focus:border-marine outline-none;
   }
 
@@ -214,7 +212,7 @@
   }
 
   .btn-quick-add {
-    @apply relative z-[2] inline-flex shrink-0 items-center gap-1.5 rounded-full border border-marine/30
+    @apply relative z-[2] inline-flex shrink-0 items-center gap-1.5 border border-marine/30
            px-4 min-h-[44px] text-xs font-semibold uppercase tracking-wide text-marine
            transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire
            disabled:opacity-70;
@@ -433,7 +431,6 @@
 
 .mn-tile:hover {
   transform: translateY(-6px);
-  box-shadow: 0 22px 44px rgba(17, 17, 16, 0.4);
 }
 
 /* ============================================================
