@@ -48,7 +48,7 @@
       document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
         const isActive = btn.dataset.cat === catId;
         btn.classList.toggle("bg-navy", isActive);
-        btn.classList.toggle("text-ink-900", isActive);
+        btn.classList.toggle("text-noir", isActive);
         btn.classList.toggle("border-navy", isActive);
         btn.classList.toggle("text-ink-100", !isActive);
         btn.setAttribute("aria-selected", String(isActive));

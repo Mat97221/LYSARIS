@@ -39,11 +39,11 @@
      The body just needs its own solid fallback color underneath that layer. */
   body {
     @apply text-ink-50 font-texte antialiased;
-    background-color: #111110;
+    background-color: #F4EFE6;
   }
 
   ::selection {
-    @apply bg-navy/25 text-ink-50;
+    @apply bg-marine/15 text-noir;
   }
 
   a, button, [role="button"], input[type="submit"] {
@@ -57,7 +57,7 @@
   select:focus-visible,
   textarea:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid theme('colors.navy.DEFAULT');
+    outline: 2px solid theme('colors.marine.DEFAULT');
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -68,8 +68,10 @@
     @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
   }
 
+  /* Small letterspaced uppercase sur-titre — the signature detail. Marine by default (crisp on
+     the ivoire content sections); on dark grounds add `text-or` per-instance to switch to gold. */
   .eyebrow {
-    @apply text-xs sm:text-sm tracking-widest2 uppercase text-navy font-semibold;
+    @apply text-xs sm:text-sm tracking-widest2 uppercase text-marine font-semibold;
   }
 
   /*
@@ -100,9 +102,11 @@
     @apply max-w-prose text-base sm:text-lg text-ink-200 leading-relaxed;
   }
 
+  /* Primary / key button — gold fill with noir text (the one place gold carries a solid area,
+     kept small and reserved for the strongest call to action). */
   .btn-navy {
     @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-ink-900
+           font-texte font-semibold text-sm tracking-wide uppercase text-noir
            transition-all duration-200 ease-fluid hover:bg-navy-hover hover:-translate-y-0.5
            active:translate-y-0 shadow-soft;
   }
@@ -111,24 +115,26 @@
      JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
   .btn-navy-magnetic {
     @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-ink-900
+           font-texte font-semibold text-sm tracking-wide uppercase text-noir
            transition-colors duration-200 ease-fluid hover:bg-navy-hover shadow-soft;
   }
 
+  /* Secondary button — marine outline that fills marine on hover (marine = the supporting brand
+     colour for secondary actions and links). */
   .btn-outline {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm border border-ink-300/70 px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-ink-100
-           transition-all duration-200 ease-fluid hover:border-navy hover:text-navy hover:-translate-y-0.5
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm border border-marine/40 px-7 py-3.5 min-h-[44px]
+           font-texte font-semibold text-sm tracking-wide uppercase text-marine
+           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire hover:-translate-y-0.5
            active:translate-y-0;
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[44px]
-           font-texte font-medium text-sm text-ink-200 transition-colors duration-200 ease-fluid hover:text-navy;
+           font-texte font-medium text-sm text-ink-200 transition-colors duration-200 ease-fluid hover:text-marine;
   }
 
   .card-product {
-    @apply relative flex flex-col overflow-hidden rounded-md border border-ink-600/60 bg-ink-700
+    @apply relative flex flex-col overflow-hidden rounded-md border border-ink-600 bg-ink-700
            hover:border-navy/50 hover:shadow-lifted;
   }
 
@@ -141,8 +147,8 @@
   }
 
   .input-field {
-    @apply w-full rounded-sm border border-ink-500 bg-ink-800 px-4 py-3 min-h-[44px] text-ink-50 placeholder:text-ink-300
-           transition-colors duration-200 ease-fluid focus:border-navy outline-none;
+    @apply w-full rounded-sm border border-ink-500 bg-ink-700 px-4 py-3 min-h-[44px] text-ink-50 placeholder:text-ink-300
+           transition-colors duration-200 ease-fluid focus:border-marine outline-none;
   }
 
   .field-label {
@@ -154,7 +160,7 @@
   }
 
   .badge-count {
-    @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-navy text-[11px] font-bold text-ink-900;
+    @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-navy text-[11px] font-bold text-noir;
   }
 
   .divider-navy {
@@ -192,16 +198,16 @@
   }
 
   .btn-quick-add {
-    @apply relative z-[2] inline-flex shrink-0 items-center gap-1.5 rounded-full border border-navy/30
-           px-4 min-h-[44px] text-xs font-semibold uppercase tracking-wide text-navy
-           transition-all duration-200 ease-fluid hover:border-navy hover:bg-navy hover:text-ink-900
+    @apply relative z-[2] inline-flex shrink-0 items-center gap-1.5 rounded-full border border-marine/30
+           px-4 min-h-[44px] text-xs font-semibold uppercase tracking-wide text-marine
+           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire
            disabled:opacity-70;
   }
 
   /* "Added" confirmation state — fills in smoothly via the transition-all above instead of
      the icon/label swap alone reading as an abrupt flip. */
   .btn-quick-add.is-added {
-    @apply border-navy bg-navy text-ink-900;
+    @apply border-marine bg-marine text-ivoire;
   }
 
   /* Mobile nav panel: fades and unfurls open instead of the instant display:none jump.
@@ -244,7 +250,7 @@
 .mn-abyss {
   position: relative;
   overflow: hidden;
-  background: radial-gradient(ellipse 120% 100% at 50% -10%, #1b4a47 0%, #0a0a09 45%, #111110 100%);
+  background: radial-gradient(ellipse 120% 100% at 50% -10%, #23375c 0%, #0d1524 45%, #111110 100%);
   isolation: isolate;
 }
 

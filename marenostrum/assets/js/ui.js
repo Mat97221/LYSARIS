@@ -53,12 +53,12 @@ function mnTinSVG(tint) {
 
 function mnBadge(text) {
   if (!text) return "";
-  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-ink-900 z-10">${text}</span>`;
+  return `<span class="absolute left-3 top-3 rounded-sm bg-navy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-noir z-10">${text}</span>`;
 }
 
 /** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
 function mnWaveDivider(colorClass) {
-  const cls = colorClass || "text-navy/50";
+  const cls = colorClass || "text-marine/50";
   return `<svg viewBox="0 0 400 24" class="mx-auto h-5 w-36 ${cls}" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0 12 C 40 2, 80 22, 120 12 S 200 2, 240 12 S 320 22, 360 12 S 400 2 400 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" class="animate-drawline"/>
   </svg>`;
@@ -75,12 +75,12 @@ function mnProductCard(product) {
     </div>
     <div class="flex flex-1 flex-col gap-3 p-6">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
-        <h3 class="h-card group-hover:text-navy transition-colors">${product.name}</h3>
+        <h3 class="h-card group-hover:text-marine transition-colors">${product.name}</h3>
       </a>
       <p class="text-sm text-ink-200 leading-snug">${product.tagline}</p>
       <div class="mt-auto flex items-center justify-between gap-3 pt-3">
         <span class="font-texte text-sm text-ink-100">
-          ${product.variants.length > 1 ? "dès " : ""}<span class="text-navy font-semibold">${mnFormatPrice(price)}</span>
+          ${product.variants.length > 1 ? "dès " : ""}<span class="text-marine font-semibold">${mnFormatPrice(price)}</span>
         </span>
         <button
           type="button"
@@ -98,8 +98,8 @@ function mnProductCard(product) {
 
 function mnHeader(active) {
   const link = (href, label, key) =>
-    `<a href="${href}" class="mn-nav-link text-sm uppercase tracking-wide transition-colors duration-200 hover:text-navy ${
-      active === key ? "text-navy is-active" : "text-ink-100"
+    `<a href="${href}" class="mn-nav-link text-sm uppercase tracking-wide transition-colors duration-200 hover:text-marine ${
+      active === key ? "text-marine is-active" : "text-ink-100"
     }">${label}</a>`;
 
   return `
@@ -116,7 +116,7 @@ function mnHeader(active) {
         ${link("contact.html", "Contact", "contact")}
       </nav>
       <div class="flex items-center gap-4">
-        <a href="panier.html" aria-label="Voir le panier" class="relative h-6 w-6 text-ink-50 hover:text-navy transition-colors">
+        <a href="panier.html" aria-label="Voir le panier" class="relative h-6 w-6 text-ink-50 hover:text-marine transition-colors">
           ${MN_ICONS.cart}
           <span id="mn-cart-badge" class="badge-count hidden">0</span>
         </a>
@@ -140,46 +140,46 @@ function mnHeader(active) {
 function mnFooter() {
   const year = new Date().getFullYear();
   return `
-  <footer class="border-t border-ink-600/60 bg-ink-800 mt-24">
+  <footer class="bg-noir text-ivoire mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="font-titre text-2xl text-ink-50 mb-3">MAREN<span class="text-navy">O</span>STRUM</p>
-        <p class="text-sm text-ink-200 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, livraison réfrigérée en 24-48h partout en France métropolitaine.</p>
+        <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-or">O</span>STRUM</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, livraison réfrigérée en 24-48h partout en France métropolitaine.</p>
       </div>
       <div>
-        <p class="eyebrow mb-4">Boutique</p>
-        <ul class="space-y-2.5 text-sm text-ink-200">
-          <li><a class="hover:text-navy transition-colors" href="boutique.html">Tous les caviars</a></li>
-          <li><a class="hover:text-navy transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
-          <li><a class="hover:text-navy transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
-          <li><a class="hover:text-navy transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
+        <p class="eyebrow text-or mb-4">Boutique</p>
+        <ul class="space-y-2.5 text-sm text-ivoire/70">
+          <li><a class="hover:text-or transition-colors" href="boutique.html">Tous les caviars</a></li>
+          <li><a class="hover:text-or transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
+          <li><a class="hover:text-or transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
+          <li><a class="hover:text-or transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
         </ul>
       </div>
       <div>
-        <p class="eyebrow mb-4">Informations</p>
-        <ul class="space-y-2.5 text-sm text-ink-200">
-          <li><a class="hover:text-navy transition-colors" href="a-propos.html">La Maison</a></li>
-          <li><a class="hover:text-navy transition-colors" href="contact.html">Contact</a></li>
-          <li><a class="hover:text-navy transition-colors" href="cgv.html">Conditions générales de vente</a></li>
-          <li><a class="hover:text-navy transition-colors" href="confidentialite.html">Confidentialité</a></li>
-          <li><a class="hover:text-navy transition-colors" href="mentions-legales.html">Mentions légales</a></li>
+        <p class="eyebrow text-or mb-4">Informations</p>
+        <ul class="space-y-2.5 text-sm text-ivoire/70">
+          <li><a class="hover:text-or transition-colors" href="a-propos.html">La Maison</a></li>
+          <li><a class="hover:text-or transition-colors" href="contact.html">Contact</a></li>
+          <li><a class="hover:text-or transition-colors" href="cgv.html">Conditions générales de vente</a></li>
+          <li><a class="hover:text-or transition-colors" href="confidentialite.html">Confidentialité</a></li>
+          <li><a class="hover:text-or transition-colors" href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
       <div>
-        <p class="eyebrow mb-4">Restez informé</p>
-        <p class="text-sm text-ink-200 mb-4">Nouveautés, éditions limitées et accords de dégustation.</p>
+        <p class="eyebrow text-or mb-4">Restez informé</p>
+        <p class="text-sm text-ivoire/70 mb-4">Nouveautés, éditions limitées et accords de dégustation.</p>
         <form id="mn-newsletter-form" class="flex gap-2" novalidate>
           <label for="mn-newsletter-email" class="sr-only">Adresse e-mail</label>
-          <input id="mn-newsletter-email" type="email" required placeholder="Votre e-mail" class="input-field !py-2.5 text-sm" />
+          <input id="mn-newsletter-email" type="email" required placeholder="Votre e-mail" class="input-field !py-2.5 text-sm !bg-noir !border-ivoire/25 !text-ivoire placeholder:!text-ivoire/40 focus:!border-or" />
           <button type="submit" class="btn-navy !px-4 !py-2.5 shrink-0" aria-label="S'inscrire à la newsletter">${MN_ICONS.mail}</button>
         </form>
-        <p id="mn-newsletter-feedback" class="mt-3 text-xs text-navy hidden" role="status"></p>
+        <p id="mn-newsletter-feedback" class="mt-3 text-xs text-or hidden" role="status"></p>
       </div>
     </div>
-    <div class="border-t border-ink-600/60">
+    <div class="border-t border-ivoire/15">
       <div class="container-page flex flex-col-reverse items-center gap-3 py-6 sm:flex-row sm:justify-between">
-        <p class="text-xs text-ink-300">&copy; ${year} MARENOSTRUM. Tous droits réservés. Vente de caviar interdite aux mineurs.</p>
-        <p class="text-xs text-ink-300">Site de démonstration — contenu et prix fictifs.</p>
+        <p class="text-xs text-ivoire/50">&copy; ${year} MARENOSTRUM. Tous droits réservés. Vente de caviar interdite aux mineurs.</p>
+        <p class="text-xs text-ivoire/50">Site de démonstration — contenu et prix fictifs.</p>
       </div>
     </div>
   </footer>`;
@@ -329,21 +329,16 @@ function mnUpdateCartBadge() {
 }
 
 /**
- * Fond photo fixe, commun à toutes les pages. Injecté en JS (position: fixed) plutôt
- * qu'en CSS `background-attachment: fixed`, qui se révèle peu fiable selon les navigateurs
- * (image invisible hors de la page d'accueil sur certains moteurs/mobiles).
- * Voile uni (pas de dégradé) plutôt qu'un fondu multi-stops : assez léger pour que la photo
- * reste nettement visible, assez présent pour que le texte posé directement dessus reste
- * lisible (les cartes/pastilles de contenu ont, elles, un fond plein indépendant de ce voile).
- * `animate-slowzoom` donne un très léger mouvement respirant à l'image (substitut à une vraie
- * vidéo, qu'on ne peut pas générer ici).
+ * Fond de page uni ivoire, commun à toutes les pages — la composition claire et aérée repose
+ * sur ce fond ivoire par défaut ; les moments sombres (hero, pied de page, section « abysse »)
+ * posent leur propre fond noir par-dessus. Injecté en position: fixed pour rester stable au
+ * défilement. La photo océan n'habille plus tout le site (elle reste dans le hero d'accueil) :
+ * un grand aplat photographique sombre irait à l'encontre du parti pris ivoire.
+ * `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus l'ivoire.
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 overflow-hidden bg-ink-900 pointer-events-none" aria-hidden="true">
-      <div class="absolute inset-0 bg-cover bg-top sm:bg-center animate-slowzoom" style="background-image:url('assets/img/hero-caviar.jpg')"></div>
-      <div class="absolute inset-0 bg-ink-900/70"></div>
-    </div>
+    <div class="fixed inset-0 -z-10 bg-ivoire pointer-events-none" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 

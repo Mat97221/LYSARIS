@@ -1,14 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 
 // Single source of truth for the MARENOSTRUM brand palette. Change a hex here and it
-// propagates everywhere — both the new bg-noir/text-ivoire/text-or/bg-marine utilities and
-// the legacy ink-*/navy/azure/pine aliases below, which every page already builds on, derive
-// from these four values alone.
+// propagates everywhere — both the bg-noir/text-ivoire/text-or/bg-marine utilities and the
+// legacy ink-*/navy/azure/pine aliases below, which every page already builds on, derive from
+// these four values alone.
 const BRAND = {
-  noir: "#111110", // dominant background, ~60% of the surface
-  ivoire: "#F4EFE6", // primary text and soft surfaces
-  or: "#C4A35A", // accent — small touches only (~10%): key buttons, hairlines, details
-  marine: "#123A3A" // secondary — sections and inserts, ~30%
+  noir: "#111110", // contrast / signature ground — hero, footer, a few impact sections only
+  ivoire: "#F4EFE6", // DEFAULT background of most content sections; text on dark grounds
+  or: "#C4A35A", // accent — small touches only: key (primary) buttons, filets, details
+  marine: "#17263F" // secondary — secondary buttons, inserts, links, supporting sections
 };
 
 module.exports = {
@@ -23,38 +23,39 @@ module.exports = {
 
         /**
          * Legacy token names, reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
-         * Brand identity pass: every step below now derives from BRAND above instead of the old
-         * navy/ivory scheme, so the whole site inherits the new palette without any page having
-         * to change which class it reaches for.
+         * Light-composition pass: the scale now runs DARK-text → LIGHT-surface, so the site reads
+         * as ivoire-dominant with noir text by default. Dark grounds (hero, footer, the "abysse"
+         * break, the product-display panels) don't rely on this scale — they use the fixed
+         * noir/ivoire/or brand utilities directly, so flipping the scale can't wash them out.
          */
         ink: {
-          50: BRAND.ivoire, // primary text
-          100: "#D9D2C2", // secondary text — ivoire stepped down
-          200: "#B6AD99", // muted paragraph text
-          300: "#8C8474", // faint / footnote text
-          400: "#5C5646", // unused today, kept for scale completeness
-          500: "#4A4438", // visible borders — inputs, filter pills, unselected variant buttons
-          600: BRAND.or, // hairline borders / dividers, always used at reduced opacity — thin gold "filets"
-          700: BRAND.marine, // card surfaces
-          800: "#152C2A", // alternate section backgrounds / footer — marine, darkened toward noir
-          900: BRAND.noir // page background
+          50: BRAND.noir, // primary text — headings, strongest copy (dark on ivoire)
+          100: "#2E2B24", // strong secondary text — nav links, product names
+          200: "#46433B", // body / muted paragraph text — main reading colour (~8.5:1 on ivoire)
+          300: "#6B6557", // faint / footnote text
+          400: "#928B7A", // very faint decorative text
+          500: "#CFC7B4", // visible borders — inputs, filter pills, unselected variant buttons
+          600: "#E4DCCB", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
+          700: "#FBFAF6", // card surfaces — near-white, lifted just above the ivoire page
+          800: "#ECE5D7", // alternate section backgrounds — a tint just below ivoire for quiet alternation
+          900: BRAND.ivoire // page background
         },
         navy: {
-          DEFAULT: BRAND.or, // primary accent — key buttons, prices, eyebrows
-          hover: "#D4B36E", // brighter gold for hover/active feedback
-          dark: "#0A0A09" // deepest shade — dividers, the "abysse" section (near-black, never pure #000)
+          DEFAULT: BRAND.or, // gold FILLS — primary buttons, badges, active-state chips (paired with noir text)
+          hover: "#B58F3F", // slightly deeper gold for hover/active feedback
+          dark: "#0A0A09" // deepest shade — the "abysse" section keylines (near-black, never pure #000)
         },
         charcoal: BRAND.noir,
         azure: {
-          DEFAULT: BRAND.or, // collapsed onto the gold accent — no separate accent hue
-          light: BRAND.or,
-          50: "#2A2721"
+          DEFAULT: BRAND.marine, // supporting icons/details collapse onto marine (legible on ivoire)
+          light: BRAND.marine,
+          50: "#E7EAF0"
         },
         pine: {
-          DEFAULT: BRAND.or, // collapsed onto the gold accent — no separate accent hue
-          light: BRAND.or
+          DEFAULT: BRAND.marine, // supporting icons/details collapse onto marine
+          light: BRAND.marine
         },
-        error: "#E2776B" // lightened from the previous #B3261E so it still reads on the new dark background
+        error: "#B3261E" // deep red — reads correctly again now that form surfaces are light
       },
       fontFamily: {
         // Fraunces (Google Fonts, loaded once in src/input.css) — editorial serif for every

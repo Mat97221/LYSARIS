@@ -29,13 +29,13 @@
         <span class="mn-sparkle" style="top:45%;left:50%;animation-delay:3.3s"></span>
       </div>
       <div class="container-page relative flex flex-col items-center gap-9 py-24 text-center lg:py-32">
-        <p class="animate-fadeUp eyebrow text-ink-50 [text-shadow:0_1px_12px_rgba(17,17,16,0.5)]">Éleveur · Affineur</p>
-        <h1 class="h-hero animate-fadeUp [text-shadow:0_2px_20px_rgba(17,17,16,0.4)]">
+        <p class="animate-fadeUp eyebrow text-or [text-shadow:0_1px_12px_rgba(17,17,16,0.6)]">Éleveur · Affineur</p>
+        <h1 class="h-hero text-ivoire animate-fadeUp [text-shadow:0_2px_20px_rgba(17,17,16,0.45)]">
           L'art du caviar,<br /><span class="italic mn-shine-text">sans compromis.</span>
         </h1>
         <div class="flex flex-wrap items-center justify-center gap-4 animate-fadeUp [animation-delay:150ms]">
           <a href="boutique.html" class="btn-navy-magnetic magnetic">Découvrir la boutique</a>
-          <a href="a-propos.html" class="btn-outline !border-ink-50 !text-ink-50 hover:!border-navy-hover hover:!text-navy-hover">Notre histoire</a>
+          <a href="a-propos.html" class="btn-outline !border-ivoire/70 !text-ivoire hover:!bg-ivoire hover:!text-noir hover:!border-ivoire">Notre histoire</a>
         </div>
       </div>
       <div class="relative pb-8 flex justify-center" id="mn-hero-wave"></div>
@@ -45,7 +45,7 @@
     <section class="border-b border-ink-600/50 bg-ink-800">
       <div id="mn-trust-grid" class="container-page grid grid-cols-1 gap-10 py-12 sm:grid-cols-3">
         <div class="flex items-center gap-4">
-          <span class="h-9 w-9 shrink-0 text-navy" id="mn-trust-icon-1"></span>
+          <span class="h-9 w-9 shrink-0 text-marine" id="mn-trust-icon-1"></span>
           <div>
             <p class="font-semibold text-ink-50 text-sm">Traçabilité totale</p>
             <p class="text-xs text-ink-300">Chaque boîte numérotée, du bassin à la table</p>
@@ -111,8 +111,8 @@
       <span class="mn-sparkle" style="top:78%;left:60%;animation-delay:3.0s;z-index:2"></span>
       <span class="mn-sparkle" style="top:15%;left:55%;animation-delay:1.8s;z-index:2"></span>
       <div class="container-page relative flex flex-col items-center gap-6 py-28 text-center reveal" style="z-index:10">
-        <p class="eyebrow" style="color:#6B7C90">Là où tout commence</p>
-        <h2 class="h-section max-w-2xl">Des eaux vives d'Aquitaine à la Gironde, l'esturgeon grandit à son rythme</h2>
+        <p class="eyebrow text-or">Là où tout commence</p>
+        <h2 class="h-section max-w-2xl text-ivoire">Des eaux vives d'Aquitaine à la Gironde, l'esturgeon grandit à son rythme</h2>
         <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Aucun raccourci : chaque esturgeon met de 7 à 12 ans à produire ses premiers œufs. Nous laissons le temps faire son œuvre, bassin après bassin, génération après génération.</p>
       </div>
     </section>
@@ -151,7 +151,7 @@
     <section class="border-b border-ink-600/50">
       <div class="container-page grid grid-cols-1 items-center gap-12 py-28 lg:grid-cols-2 lg:gap-16">
         <div class="reveal relative flex h-96 items-center justify-center rounded-md border border-ink-600/60 bg-gradient-to-b from-marine to-noir [perspective:900px]">
-          <span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-ink-900">Best-seller</span>
+          <span class="absolute left-4 top-4 rounded-sm bg-navy px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-noir">Best-seller</span>
           <div class="h-64 w-64 animate-float">
             <div id="mn-flagship-tin" class="h-full w-full animate-tinwobble"></div>
           </div>
@@ -196,7 +196,7 @@
             <p class="text-ink-200 leading-relaxed">Esturgeons élevés en eaux vives, en circuit fermé, sans hormones ni antibiotiques de croissance.</p>
           </div>
           <div class="rounded-md border border-ink-600/60 bg-ink-700 p-8 shadow-soft">
-            <span class="mb-5 flex h-10 w-10 text-navy" id="mn-value-icon-2"></span>
+            <span class="mb-5 flex h-10 w-10 text-marine" id="mn-value-icon-2"></span>
             <h3 class="h-card mb-3">Traçabilité totale</h3>
             <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot qui permet de remonter jusqu'au bassin d'élevage et à la date de récolte.</p>
           </div>
@@ -311,7 +311,7 @@
       document.querySelectorAll("#mn-format-tabs button").forEach((btn) => {
         const isActive = btn.dataset.format === key;
         btn.classList.toggle("bg-navy", isActive);
-        btn.classList.toggle("text-ink-900", isActive);
+        btn.classList.toggle("text-noir", isActive);
         btn.classList.toggle("border-navy", isActive);
         btn.classList.toggle("text-ink-100", !isActive);
         btn.setAttribute("aria-selected", String(isActive));
@@ -336,8 +336,8 @@
       document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;
 
-      document.getElementById("mn-hero-wave").innerHTML = mnWaveDivider("text-azure/50");
-      document.getElementById("mn-coffret-wave").innerHTML = mnWaveDivider("text-navy/60");
+      document.getElementById("mn-hero-wave").innerHTML = mnWaveDivider("text-or/60");
+      document.getElementById("mn-coffret-wave").innerHTML = mnWaveDivider("text-marine/50");
 
       document.getElementById("mn-flagship-tin").innerHTML = mnTinSVG("amber");
 
