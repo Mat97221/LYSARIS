@@ -102,6 +102,13 @@
     @apply max-w-prose text-base sm:text-lg text-ink-200 leading-relaxed;
   }
 
+  /* Editorial quote break — large centered italic serif line on a plain ground, generous
+     padding either side. The signature device of quiet apothecary-style sites: one considered
+     sentence given a whole section of space rather than another content block. */
+  .h-quote {
+    @apply font-titre font-normal italic leading-snug text-ink-50 text-3xl sm:text-4xl lg:text-5xl;
+  }
+
   /* Primary / key button — solid marine fill with ivoire text. */
   .btn-navy {
     @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm bg-navy px-7 py-3.5 min-h-[44px]
@@ -125,6 +132,14 @@
            font-texte font-semibold text-sm tracking-wide uppercase text-marine
            transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire hover:-translate-y-0.5
            active:translate-y-0;
+  }
+
+  /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
+     homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
+  .btn-quiet {
+    @apply inline-flex items-center gap-2 border-b border-ink-50/40 pb-1
+           font-texte text-xs font-semibold uppercase tracking-widest2 text-ink-50
+           transition-colors duration-200 ease-fluid hover:border-marine hover:text-marine;
   }
 
   .btn-ghost {

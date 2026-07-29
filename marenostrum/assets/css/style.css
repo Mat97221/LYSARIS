@@ -814,6 +814,35 @@ a, button, [role="button"], input[type="submit"] {
   }
 }
 
+/* Editorial quote break — large centered italic serif line on a plain ground, generous
+     padding either side. The signature device of quiet apothecary-style sites: one considered
+     sentence given a whole section of space rather than another content block. */
+
+.h-quote{
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.375;
+  --tw-text-opacity: 1;
+  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
+}
+
+@media (min-width: 640px){
+  .h-quote{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px){
+  .h-quote{
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
 /* Primary / key button — solid marine fill with ivoire text. */
 
 .btn-navy{
@@ -943,6 +972,36 @@ a, button, [role="button"], input[type="submit"] {
 .btn-outline:active{
   --tw-translate-y: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
+     homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
+
+.btn-quiet{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom-width: 1px;
+  border-color: rgb(17 17 16 / 0.4);
+  padding-bottom: 0.25rem;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  --tw-text-opacity: 1;
+  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-quiet:hover{
+  --tw-border-opacity: 1;
+  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
 }
 
 .btn-ghost{
@@ -1236,6 +1295,10 @@ a, button, [role="button"], input[type="submit"] {
   bottom: 0px;
 }
 
+.left-0{
+  left: 0px;
+}
+
 .left-3{
   left: 0.75rem;
 }
@@ -1298,16 +1361,8 @@ a, button, [role="button"], input[type="submit"] {
   margin-right: auto;
 }
 
-.mb-1{
-  margin-bottom: 0.25rem;
-}
-
 .mb-10{
   margin-bottom: 2.5rem;
-}
-
-.mb-12{
-  margin-bottom: 3rem;
 }
 
 .mb-14{
@@ -1755,10 +1810,6 @@ a, button, [role="button"], input[type="submit"] {
   gap: 2rem;
 }
 
-.gap-9{
-  gap: 2.25rem;
-}
-
 .space-y-2\.5 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(0.625rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1798,6 +1849,10 @@ a, button, [role="button"], input[type="submit"] {
   border-bottom-width: 1px;
 }
 
+.border-b-2{
+  border-bottom-width: 2px;
+}
+
 .border-t{
   border-top-width: 1px;
 }
@@ -1811,13 +1866,18 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(244 239 230 / 0.25) !important;
 }
 
-.\!border-ivoire\/70{
-  border-color: rgb(244 239 230 / 0.7) !important;
+.\!border-ivoire\/50{
+  border-color: rgb(244 239 230 / 0.5) !important;
 }
 
 .border-ink-500{
   --tw-border-opacity: 1;
   border-color: rgb(207 199 180 / var(--tw-border-opacity, 1));
+}
+
+.border-ink-600{
+  --tw-border-opacity: 1;
+  border-color: rgb(228 220 203 / var(--tw-border-opacity, 1));
 }
 
 .border-ink-600\/50{
@@ -1830,6 +1890,11 @@ a, button, [role="button"], input[type="submit"] {
 
 .border-ivoire\/15{
   border-color: rgb(244 239 230 / 0.15);
+}
+
+.border-marine{
+  --tw-border-opacity: 1;
+  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
 }
 
 .border-navy{
@@ -1849,9 +1914,8 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(23 38 63 / 0.4);
 }
 
-.\!bg-ivoire{
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(244 239 230 / var(--tw-bg-opacity, 1)) !important;
+.border-transparent{
+  border-color: transparent;
 }
 
 .\!bg-noir{
@@ -1897,24 +1961,10 @@ a, button, [role="button"], input[type="submit"] {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
-.bg-gradient-to-br{
-  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
-}
-
-.from-ink-700\/70{
-  --tw-gradient-from: rgb(251 250 246 / 0.7) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(251 250 246 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .from-marine{
   --tw-gradient-from: #17263F var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(23 38 63 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.to-ink-800\/70{
-  --tw-gradient-to: rgb(236 229 215 / 0.7) var(--tw-gradient-to-position);
 }
 
 .to-noir{
@@ -1985,11 +2035,6 @@ a, button, [role="button"], input[type="submit"] {
   padding-right: 1.5rem;
 }
 
-.px-8{
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .py-1{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -2003,6 +2048,11 @@ a, button, [role="button"], input[type="submit"] {
 .py-16{
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .py-2\.5{
@@ -2045,12 +2095,8 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 1.5rem;
 }
 
-.pb-10{
-  padding-bottom: 2.5rem;
-}
-
-.pb-28{
-  padding-bottom: 7rem;
+.pb-4{
+  padding-bottom: 1rem;
 }
 
 .pt-3{
@@ -2127,10 +2173,6 @@ a, button, [role="button"], input[type="submit"] {
   text-transform: uppercase;
 }
 
-.italic{
-  font-style: italic;
-}
-
 .leading-relaxed{
   line-height: 1.7;
 }
@@ -2143,14 +2185,13 @@ a, button, [role="button"], input[type="submit"] {
   letter-spacing: 0.025em;
 }
 
+.tracking-widest2{
+  letter-spacing: 0.25em;
+}
+
 .\!text-ivoire{
   --tw-text-opacity: 1 !important;
   color: rgb(244 239 230 / var(--tw-text-opacity, 1)) !important;
-}
-
-.\!text-noir{
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-azure{
@@ -2191,6 +2232,10 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(244 239 230 / 0.7);
 }
 
+.text-ivoire\/75{
+  color: rgb(244 239 230 / 0.75);
+}
+
 .text-ivoire\/80{
   color: rgb(244 239 230 / 0.8);
 }
@@ -2207,6 +2252,10 @@ a, button, [role="button"], input[type="submit"] {
 .text-pine{
   --tw-text-opacity: 1;
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .opacity-0{
@@ -2602,14 +2651,9 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(23 38 63 / 0.6);
 }
 
-.hover\:\!bg-ivoire:hover{
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(244 239 230 / var(--tw-bg-opacity, 1)) !important;
-}
-
-.hover\:\!text-noir:hover{
+.hover\:\!text-ivoire:hover{
   --tw-text-opacity: 1 !important;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1)) !important;
+  color: rgb(244 239 230 / var(--tw-text-opacity, 1)) !important;
 }
 
 .hover\:text-error:hover{
@@ -2673,6 +2717,11 @@ a, button, [role="button"], input[type="submit"] {
   .sm\:justify-between{
     justify-content: space-between;
   }
+
+  .sm\:py-40{
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
 }
 
 @media (min-width: 768px){
@@ -2688,8 +2737,12 @@ a, button, [role="button"], input[type="submit"] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .md\:gap-8{
-    gap: 2rem;
+  .md\:gap-10{
+    gap: 2.5rem;
+  }
+
+  .md\:text-left{
+    text-align: left;
   }
 }
 
@@ -2720,5 +2773,9 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:gap-16{
     gap: 4rem;
+  }
+
+  .lg\:gap-20{
+    gap: 5rem;
   }
 }
