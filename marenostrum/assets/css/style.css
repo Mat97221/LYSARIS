@@ -932,49 +932,6 @@ a, button, [role="button"], input[type="submit"] {
 /* Secondary button — identical quiet outline treatment; kept as a distinct class since some
      pages use both in the same view and the source names still read clearly there. */
 
-.btn-outline{
-  position: relative;
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  overflow: hidden;
-  border-width: 1px;
-  border-color: rgb(23 38 63 / 0.4);
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
-  padding-top: 0.875rem;
-  padding-bottom: 0.875rem;
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
-  transition-property: all;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-outline:hover{
-  --tw-translate-y: -0.125rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
-  --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
-}
-
-.btn-outline:active{
-  --tw-translate-y: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
      homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
 
@@ -1001,32 +958,6 @@ a, button, [role="button"], input[type="submit"] {
 .btn-quiet:hover{
   --tw-border-opacity: 1;
   border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
-}
-
-.btn-ghost{
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  --tw-text-opacity: 1;
-  color: rgb(70 67 59 / var(--tw-text-opacity, 1));
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-ghost:hover{
   --tw-text-opacity: 1;
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
 }
@@ -1109,24 +1040,6 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(179 38 30 / var(--tw-text-opacity, 1));
 }
 
-.badge-count{
-  position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  display: flex;
-  height: 1.25rem;
-  width: 1.25rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
-  font-size: 11px;
-  font-weight: 700;
-  --tw-text-opacity: 1;
-  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
-}
-
 /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js) */
 
 .reveal {
@@ -1152,63 +1065,13 @@ a, button, [role="button"], input[type="submit"] {
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Makes the whole nearest `position:relative` ancestor clickable via this link, while any
-     sibling with a higher z-index (e.g. .btn-quick-add) stays independently clickable on top —
-     avoids nesting a real <button> inside an <a>, which is invalid HTML. */
+/* Makes the whole nearest `position:relative` ancestor clickable via this link
+     (product cards are entirely clickable through this). */
 
 .stretched-link::after {
   content: "";
   position: absolute;
   inset: 0px;
-}
-
-.btn-quick-add{
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  min-height: 44px;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 0.375rem;
-  border-width: 1px;
-  border-color: rgb(23 38 63 / 0.3);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
-  transition-property: all;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-quick-add:hover{
-  --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
-  --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
-}
-
-.btn-quick-add:disabled{
-  opacity: 0.7;
-}
-
-/* "Added" confirmation state — fills in smoothly via the transition-all above instead of
-     the icon/label swap alone reading as an abrupt flip. */
-
-.btn-quick-add.is-added{
-  --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
-  --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(244 239 230 / var(--tw-text-opacity, 1));
 }
 
 /* Mobile nav panel: fades and unfurls open instead of the instant display:none jump.
@@ -1358,10 +1221,6 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: 4rem;
 }
 
-.mb-2{
-  margin-bottom: 0.5rem;
-}
-
 .mb-3{
   margin-bottom: 0.75rem;
 }
@@ -1378,20 +1237,8 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: 1.5rem;
 }
 
-.mb-7{
-  margin-bottom: 1.75rem;
-}
-
 .mb-8{
   margin-bottom: 2rem;
-}
-
-.mt-1{
-  margin-top: 0.25rem;
-}
-
-.mt-1\.5{
-  margin-top: 0.375rem;
 }
 
 .mt-10{
@@ -1446,28 +1293,12 @@ a, button, [role="button"], input[type="submit"] {
   display: none;
 }
 
-.h-11{
-  height: 2.75rem;
-}
-
-.h-16{
-  height: 4rem;
-}
-
 .h-20{
   height: 5rem;
 }
 
-.h-24{
-  height: 6rem;
-}
-
 .h-28{
   height: 7rem;
-}
-
-.h-3\.5{
-  height: 0.875rem;
 }
 
 .h-36{
@@ -1506,21 +1337,12 @@ a, button, [role="button"], input[type="submit"] {
   height: 18rem;
 }
 
-.h-8{
-  height: 2rem;
-}
-
 .h-9{
   height: 2.25rem;
 }
 
 .h-96{
   height: 24rem;
-}
-
-.h-fit{
-  height: -moz-fit-content;
-  height: fit-content;
 }
 
 .h-full{
@@ -1535,28 +1357,12 @@ a, button, [role="button"], input[type="submit"] {
   min-height: 100vh;
 }
 
-.w-11{
-  width: 2.75rem;
-}
-
-.w-16{
-  width: 4rem;
-}
-
 .w-20{
   width: 5rem;
 }
 
-.w-24{
-  width: 6rem;
-}
-
 .w-28{
   width: 7rem;
-}
-
-.w-3\.5{
-  width: 0.875rem;
 }
 
 .w-36{
@@ -1583,10 +1389,6 @@ a, button, [role="button"], input[type="submit"] {
   width: 16rem;
 }
 
-.w-8{
-  width: 2rem;
-}
-
 .w-9{
   width: 2.25rem;
 }
@@ -1597,10 +1399,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .w-full{
   width: 100%;
-}
-
-.min-w-\[2ch\]{
-  min-width: 2ch;
 }
 
 .max-w-2xl{
@@ -1801,10 +1599,6 @@ a, button, [role="button"], input[type="submit"] {
   border-radius: 0.25rem;
 }
 
-.rounded-full{
-  border-radius: 9999px;
-}
-
 .border{
   border-width: 1px;
 }
@@ -1853,10 +1647,6 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(228 220 203 / 0.5);
 }
 
-.border-ink-600\/60{
-  border-color: rgb(228 220 203 / 0.6);
-}
-
 .border-ivoire\/15{
   border-color: rgb(244 239 230 / 0.15);
 }
@@ -1874,10 +1664,6 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(23 38 63 / 0.3);
 }
 
-.border-marine\/40{
-  border-color: rgb(23 38 63 / 0.4);
-}
-
 .border-navy{
   --tw-border-opacity: 1;
   border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
@@ -1890,11 +1676,6 @@ a, button, [role="button"], input[type="submit"] {
 .\!bg-noir{
   --tw-bg-opacity: 1 !important;
   background-color: rgb(17 17 16 / var(--tw-bg-opacity, 1)) !important;
-}
-
-.bg-ink-700{
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 250 246 / var(--tw-bg-opacity, 1));
 }
 
 .bg-ink-800{
@@ -1938,20 +1719,8 @@ a, button, [role="button"], input[type="submit"] {
   background-position: center;
 }
 
-.p-5{
-  padding: 1.25rem;
-}
-
 .p-6{
   padding: 1.5rem;
-}
-
-.p-7{
-  padding: 1.75rem;
-}
-
-.p-8{
-  padding: 2rem;
 }
 
 .\!px-4{
@@ -1972,11 +1741,6 @@ a, button, [role="button"], input[type="submit"] {
 .px-5{
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-
-.px-6{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
 }
 
 .py-16{
@@ -2037,10 +1801,6 @@ a, button, [role="button"], input[type="submit"] {
   padding-top: 0.75rem;
 }
 
-.pt-4{
-  padding-top: 1rem;
-}
-
 .pt-5{
   padding-top: 1.25rem;
 }
@@ -2083,11 +1843,6 @@ a, button, [role="button"], input[type="submit"] {
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-xl{
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .text-xs{
@@ -2202,11 +1957,6 @@ a, button, [role="button"], input[type="submit"] {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.blur{
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .filter{
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -2223,18 +1973,8 @@ a, button, [role="button"], input[type="submit"] {
   transition-duration: 150ms;
 }
 
-.transition-opacity{
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .duration-200{
   transition-duration: 200ms;
-}
-
-.duration-300{
-  transition-duration: 300ms;
 }
 
 .ease-fluid{
@@ -2516,9 +2256,18 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .nav-glass.mn-hero-nav .mn-nav-link,
-.nav-glass.mn-hero-nav a[aria-label="Voir le panier"],
 .nav-glass.mn-hero-nav #mn-menu-toggle {
   color: #f4efe6;
+}
+
+.nav-glass.mn-hero-nav .mn-nav-cta {
+  color: #f4efe6;
+  border-color: rgba(244, 239, 230, 0.5);
+}
+
+.nav-glass.mn-hero-nav .mn-nav-cta:hover {
+  color: #f4efe6;
+  border-color: #f4efe6;
 }
 
 /* Black wordmark PNG → white while overlaid on the dark hero image. */
@@ -2537,13 +2286,17 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
-.nav-glass.mn-hero-nav.is-scrolled a[aria-label="Voir le panier"],
 .nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
   color: #2e2b24;
 }
 
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active {
   color: #17263f;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-cta {
+  color: #17263f;
+  border-color: rgba(23, 38, 63, 0.4);
 }
 
 .nav-glass.mn-hero-nav.is-scrolled img {
@@ -2572,11 +2325,6 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(244 239 230 / var(--tw-text-opacity, 1)) !important;
 }
 
-.hover\:text-error:hover{
-  --tw-text-opacity: 1;
-  color: rgb(179 38 30 / var(--tw-text-opacity, 1));
-}
-
 .hover\:text-ivoire:hover{
   --tw-text-opacity: 1;
   color: rgb(244 239 230 / var(--tw-text-opacity, 1));
@@ -2602,6 +2350,10 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 @media (min-width: 640px){
+  .sm\:inline-flex{
+    display: inline-flex;
+  }
+
   .sm\:h-36{
     height: 9rem;
   }

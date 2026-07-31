@@ -54,25 +54,8 @@
             <div id="mn-variant-options" class="flex flex-wrap gap-3"></div>
           </div>
 
-          <div class="mb-8 flex items-center gap-6">
-            <div>
-              <p class="field-label">Quantité</p>
-              <div class="flex items-center gap-3 border border-ink-500">
-                <button type="button" id="mn-qty-minus" aria-label="Diminuer la quantité" class="flex h-11 w-11 items-center justify-center text-ink-100 hover:text-marine">
-                  <span class="h-4 w-4 block"></span>
-                </button>
-                <span id="mn-qty-value" class="min-w-[2ch] text-center text-ink-50 font-semibold">1</span>
-                <button type="button" id="mn-qty-plus" aria-label="Augmenter la quantité" class="flex h-11 w-11 items-center justify-center text-ink-100 hover:text-marine">
-                  <span class="h-4 w-4 block"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <button type="button" id="mn-add-to-cart" class="btn-navy w-full sm:w-auto">Ajouter au panier</button>
-          <p id="mn-add-feedback" class="mt-3 flex items-center gap-2 text-sm text-marine opacity-0 transition-opacity duration-300 ease-fluid" role="status">
-            <span class="h-4 w-4"></span> Ajouté au panier
-          </p>
+          <a id="mn-product-quote-link" href="contact.html" class="btn-navy w-full sm:w-auto">Demander un devis</a>
+          <p class="mt-3 text-xs text-ink-300">Prix indicatifs. Devis sous 48h selon quantité et destination.</p>
 
           <div class="mt-10 border-t border-ink-600/50 pt-8">
             <p id="mn-product-description" class="prose-copy"></p>
@@ -113,11 +96,9 @@
   <div id="site-footer"></div>
 
   <script src="assets/js/products.js"></script>
-  <script src="assets/js/cart.js"></script>
   <script src="assets/js/ui.js"></script>
   <script>
     let mnSelectedSku = null;
-    let mnQty = 1;
 
     function mnRenderVariants(product) {
       const wrap = document.getElementById("mn-variant-options");
@@ -193,9 +174,7 @@
       mnRenderVariants(product);
       mnUpdatePriceDisplay(product);
 
-      document.getElementById("mn-qty-minus").querySelector("span").innerHTML = MN_ICONS.minus;
-      document.getElementById("mn-qty-plus").querySelector("span").innerHTML = MN_ICONS.plus;
-      document.getElementById("mn-add-feedback").querySelector("span").innerHTML = MN_ICONS.check;
+      document.getElementById("mn-product-quote-link").href = `contact.html?produit=${encodeURIComponent(product.name)}`;
 
       const related = MARENOSTRUM_PRODUCTS.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
       const relatedGrid = document.getElementById("mn-related-grid");
@@ -213,22 +192,6 @@
       }
       document.getElementById("mn-product-content").classList.remove("hidden");
       mnRenderProduct(product);
-
-      document.getElementById("mn-qty-minus").addEventListener("click", () => {
-        mnQty = Math.max(1, mnQty - 1);
-        document.getElementById("mn-qty-value").textContent = mnQty;
-      });
-      document.getElementById("mn-qty-plus").addEventListener("click", () => {
-        mnQty = Math.min(20, mnQty + 1);
-        document.getElementById("mn-qty-value").textContent = mnQty;
-      });
-
-      document.getElementById("mn-add-to-cart").addEventListener("click", () => {
-        MnCart.add(product.id, mnSelectedSku, mnQty);
-        const feedback = document.getElementById("mn-add-feedback");
-        feedback.classList.remove("opacity-0");
-        setTimeout(() => feedback.classList.add("opacity-0"), 2500);
-      });
     });
   </script>
 </body>

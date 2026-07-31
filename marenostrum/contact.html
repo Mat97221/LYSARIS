@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — MARENOSTRUM</title>
-  <meta name="description" content="Contactez la Maison MARENOSTRUM pour toute question sur nos caviars, une commande ou un projet événementiel." />
+  <meta name="description" content="Contactez la Maison MARENOSTRUM pour un devis, une question sur nos caviars ou un partenariat professionnel." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,8 +41,9 @@
           <div>
             <label class="field-label" for="ct-subject">Sujet</label>
             <select id="ct-subject" class="input-field">
+              <option>Demande de devis</option>
               <option>Question sur un produit</option>
-              <option>Suivi de commande</option>
+              <option>Devenir revendeur / partenaire</option>
               <option>Demande professionnelle / événementiel</option>
               <option>Autre demande</option>
             </select>
@@ -94,7 +95,6 @@
   <div id="site-footer"></div>
 
   <script src="assets/js/products.js"></script>
-  <script src="assets/js/cart.js"></script>
   <script src="assets/js/ui.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -102,6 +102,13 @@
       document.getElementById("mn-contact-icon-phone").innerHTML = MN_ICONS.phone;
       document.getElementById("mn-contact-icon-pin").innerHTML = MN_ICONS.pin;
       document.getElementById("mn-contact-feedback-icon").innerHTML = MN_ICONS.check;
+
+      // Arrivée depuis une fiche produit ("Demander un devis") : pré-remplit le sujet et le message.
+      const produit = new URLSearchParams(window.location.search).get("produit");
+      if (produit) {
+        document.getElementById("ct-subject").value = "Demande de devis";
+        document.getElementById("ct-message").value = `Bonjour, je souhaite obtenir un devis pour : ${produit}.\n\n`;
+      }
 
       const form = document.getElementById("mn-contact-form");
       form.addEventListener("submit", (e) => {

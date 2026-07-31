@@ -70,7 +70,6 @@ function mnWaveDivider(colorClass) {
 
 function mnProductCard(product) {
   const price = mnLowestPrice(product);
-  const firstVariant = product.variants[0];
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
@@ -86,15 +85,7 @@ function mnProductCard(product) {
         <span class="font-texte text-sm text-ink-100">
           ${product.variants.length > 1 ? "dès " : ""}<span class="text-marine font-semibold">${mnFormatPrice(price)}</span>
         </span>
-        <button
-          type="button"
-          class="quick-add btn-quick-add"
-          data-product-id="${product.id}"
-          data-sku="${firstVariant.sku}"
-          aria-label="Ajouter ${product.name} (${firstVariant.size}) au panier"
-        >
-          <span class="h-3.5 w-3.5">${MN_ICONS.cart}</span> Ajouter
-        </button>
+        <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
       </div>
     </div>
   </div>`;
@@ -118,16 +109,13 @@ function mnHeader(active) {
       </a>
       <nav class="hidden md:flex items-center gap-8">
         ${link("index.html", "Accueil", "accueil")}
-        ${link("boutique.html", "Boutique", "boutique")}
+        ${link("boutique.html", "Nos produits", "boutique")}
         ${link("boutique.html?cat=coffrets", "Coffrets", "coffrets")}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </nav>
       <div class="flex items-center gap-4">
-        <a href="panier.html" aria-label="Voir le panier" class="relative h-6 w-6 text-ink-50 hover:text-marine transition-colors">
-          ${MN_ICONS.cart}
-          <span id="mn-cart-badge" class="badge-count hidden">0</span>
-        </a>
+        <a href="contact.html" class="mn-nav-cta btn-quiet hidden sm:inline-flex">Demander un devis</a>
         <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="md:hidden h-6 w-6 text-ink-50">
           ${MN_ICONS.menu}
         </button>
@@ -136,7 +124,7 @@ function mnHeader(active) {
     <nav id="mn-mobile-menu" class="mn-menu-panel md:hidden border-t border-ink-600/50 bg-ink-900/95">
       <div class="container-page flex flex-col gap-4 py-5">
         ${link("index.html", "Accueil", "accueil")}
-        ${link("boutique.html", "Boutique", "boutique")}
+        ${link("boutique.html", "Nos produits", "boutique")}
         ${link("boutique.html?cat=coffrets", "Coffrets", "coffrets")}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
@@ -152,10 +140,10 @@ function mnFooter() {
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
-        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, livraison réfrigérée en 24-48h partout en France métropolitaine.</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, fournisseur de la restauration et de l'épicerie fine.</p>
       </div>
       <div>
-        <p class="eyebrow text-ivoire mb-4">Boutique</p>
+        <p class="eyebrow text-ivoire mb-4">Produits</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
           <li><a class="hover:text-ivoire transition-colors" href="boutique.html">Tous les caviars</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
@@ -168,7 +156,6 @@ function mnFooter() {
         <ul class="space-y-2.5 text-sm text-ivoire/70">
           <li><a class="hover:text-ivoire transition-colors" href="a-propos.html">La Maison</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="contact.html">Contact</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="cgv.html">Conditions générales de vente</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="confidentialite.html">Confidentialité</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="mentions-legales.html">Mentions légales</a></li>
         </ul>
@@ -239,35 +226,7 @@ function mnStagger(container, stepMs) {
     child.style.transitionDelay = `${Math.min(i * step, 560)}ms`;
   });
   mnInitReveal(container);
-  mnBindQuickAdd(container);
   mnInitTilt(container);
-}
-
-/** Wires up `.quick-add` buttons on product cards: adds the card's default (smallest) variant
-    straight to the cart without navigating — the button sits outside the card's stretched-link
-    so a click on it never triggers the "go to product page" navigation. */
-function mnBindQuickAdd(root) {
-  const scope = root || document;
-  const buttons = Array.from(scope.querySelectorAll(".quick-add:not([data-quickadd-bound])"));
-
-  buttons.forEach((btn) => {
-    btn.dataset.quickaddBound = "true";
-    const originalHTML = btn.innerHTML;
-
-    btn.addEventListener("click", () => {
-      const { productId, sku } = btn.dataset;
-      MnCart.add(productId, sku, 1);
-
-      btn.disabled = true;
-      btn.classList.add("is-added");
-      btn.innerHTML = `<span class="h-3.5 w-3.5">${MN_ICONS.check}</span> Ajouté`;
-      setTimeout(() => {
-        btn.classList.remove("is-added");
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-      }, 1400);
-    });
-  });
 }
 
 function mnPrefersReducedMotion() {
@@ -328,14 +287,6 @@ function mnInitMagnetic(root) {
   });
 }
 
-function mnUpdateCartBadge() {
-  const badge = document.getElementById("mn-cart-badge");
-  if (!badge) return;
-  const count = MnCart.count();
-  badge.textContent = String(count);
-  badge.classList.toggle("hidden", count === 0);
-}
-
 /**
  * Fond de page uni ivoire, commun à toutes les pages — la composition claire et aérée repose
  * sur ce fond ivoire par défaut ; les moments sombres (hero, pied de page, section « abysse »)
@@ -380,9 +331,6 @@ function mnMountLayout(activePage) {
       newsletterForm.reset();
     });
   }
-
-  mnUpdateCartBadge();
-  window.addEventListener("mn:cart-updated", mnUpdateCartBadge);
 
   const header = document.querySelector(".nav-glass");
   if (header) {
