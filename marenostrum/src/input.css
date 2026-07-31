@@ -177,11 +177,14 @@
     @apply h-px w-16 bg-navy;
   }
 
-  /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js) */
+  /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js).
+     A base 120ms hold before motion starts (overridable via a `[transition-delay:...]` utility
+     or mnStagger's inline delay, both of which win over this) keeps the appearance measured
+     instead of snapping in the instant an element crosses the viewport edge. */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 450ms cubic-bezier(0.4, 0, 0.2, 1), transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 550ms cubic-bezier(0.4, 0, 0.2, 1) 120ms, transform 550ms cubic-bezier(0.4, 0, 0.2, 1) 120ms;
     will-change: opacity, transform;
   }
 

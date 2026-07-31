@@ -9,24 +9,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/image-slot.js"></script>
 </head>
 <body data-page="contact">
   <div id="site-bg"></div>
   <div id="site-header"></div>
 
   <main>
-    <section class="border-b border-ink-600/50 bg-ink-800">
-      <div class="container-page py-20 text-center animate-fadeUp">
-        <p class="eyebrow mb-3">Nous contacter</p>
+    <section class="border-b border-ink-600/50">
+      <div class="container-page py-24 text-center animate-fadeUp">
+        <p class="eyebrow mb-4">Nous contacter</p>
         <h1 class="h-page">Une question, un projet ?</h1>
-        <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-200">Notre équipe vous répond sous 24h ouvrées, du lundi au vendredi.</p>
+        <p class="prose-copy mx-auto mt-6 text-center text-lg">Notre équipe vous répond sous 24h ouvrées, du lundi au vendredi — pour un devis, une question sur nos caviars, ou un partenariat.</p>
       </div>
     </section>
 
-    <section class="container-page py-24">
-      <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-16">
-        <form id="mn-contact-form" novalidate class="reveal lg:col-span-2 flex flex-col gap-5">
-          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <section class="container-page py-28">
+      <div class="grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-20">
+        <form id="mn-contact-form" novalidate class="reveal lg:col-span-2 flex flex-col gap-6">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label class="field-label" for="ct-name">Nom complet</label>
               <input id="ct-name" type="text" class="input-field" required />
@@ -60,33 +61,36 @@
           <p class="text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucun message réel.</p>
         </form>
 
-        <aside class="reveal [transition-delay:120ms] flex flex-col gap-6">
-          <div class="border border-ink-600 bg-ink-800 p-6">
-            <div class="flex items-start gap-4 mb-5">
+        <aside class="reveal [transition-delay:260ms] flex flex-col">
+          <div class="flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir mb-10">
+            <image-slot id="mn-contact-photo" shape="rect" placeholder="Photo : la Maison, atelier ou salle de dégustation" style="width:100%;height:100%"></image-slot>
+          </div>
+
+          <div class="flex flex-col gap-6">
+            <div class="flex items-start gap-4">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-mail"></span>
               <div>
-                <p class="text-sm font-semibold text-ink-50">E-mail</p>
-                <p class="text-sm text-ink-200">contact@marenostrum.example</p>
+                <p class="field-label !mb-1">E-mail</p>
+                <p class="text-sm text-ink-100">contact@marenostrum.example</p>
               </div>
             </div>
-            <div class="flex items-start gap-4 mb-5">
+            <div class="flex items-start gap-4">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-phone"></span>
               <div>
-                <p class="text-sm font-semibold text-ink-50">Téléphone</p>
-                <p class="text-sm text-ink-200">01 23 45 67 89 — lun.–ven., 9h–18h</p>
+                <p class="field-label !mb-1">Téléphone</p>
+                <p class="text-sm text-ink-100">01 23 45 67 89 — lun.–ven., 9h–18h</p>
               </div>
             </div>
             <div class="flex items-start gap-4">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-pin"></span>
               <div>
-                <p class="text-sm font-semibold text-ink-50">Maison MARENOSTRUM</p>
-                <p class="text-sm text-ink-200">12 quai des Salinières, 33000 Bordeaux, France</p>
+                <p class="field-label !mb-1">Maison MARENOSTRUM</p>
+                <p class="text-sm text-ink-100">12 quai des Salinières, 33000 Bordeaux, France</p>
               </div>
             </div>
           </div>
-          <div class="border border-marine/25 bg-ink-800 p-6">
-            <p class="text-sm text-ink-200 leading-relaxed">Commande professionnelle, traiteur ou événement privé ? Contactez notre équipe dédiée aux commandes de volume — devis sous 48h.</p>
-          </div>
+
+          <p class="prose-copy mt-10 border-t border-ink-600/50 pt-8">Commande professionnelle, traiteur ou événement privé ? Notre équipe dédiée aux volumes vous répond sous 48h.</p>
         </aside>
       </div>
     </section>

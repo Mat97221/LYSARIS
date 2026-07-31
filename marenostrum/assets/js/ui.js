@@ -69,7 +69,6 @@ function mnWaveDivider(colorClass) {
 }
 
 function mnProductCard(product) {
-  const price = mnLowestPrice(product);
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
@@ -81,10 +80,7 @@ function mnProductCard(product) {
         <h3 class="h-card group-hover:text-marine transition-colors">${product.name}</h3>
       </a>
       <p class="text-sm text-ink-200 leading-snug">${product.tagline}</p>
-      <div class="mt-auto flex items-center justify-between gap-3 pt-3">
-        <span class="font-texte text-sm text-ink-100">
-          ${product.variants.length > 1 ? "dès " : ""}<span class="text-marine font-semibold">${mnFormatPrice(price)}</span>
-        </span>
+      <div class="mt-auto pt-3">
         <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
       </div>
     </div>
@@ -174,7 +170,7 @@ function mnFooter() {
     <div class="border-t border-ivoire/15">
       <div class="container-page flex flex-col-reverse items-center gap-3 py-6 sm:flex-row sm:justify-between">
         <p class="text-xs text-ivoire/50">&copy; ${year} MARENOSTRUM. Tous droits réservés. Vente de caviar interdite aux mineurs.</p>
-        <p class="text-xs text-ivoire/50">Site de démonstration — contenu et prix fictifs.</p>
+        <p class="text-xs text-ivoire/50">Site de démonstration — contenu fictif.</p>
       </div>
     </div>
   </footer>`;
@@ -217,13 +213,15 @@ function mnInitReveal(root) {
   }, 500);
 }
 
-/** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade). */
+/** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade).
+    Une base de 140ms avant le premier élément garde l'ensemble posé plutôt qu'instantané. */
 function mnStagger(container, stepMs) {
   if (!container) return;
-  const step = stepMs || 70;
+  const step = stepMs || 90;
+  const base = 140;
   Array.from(container.children).forEach((child, i) => {
     child.classList.add("reveal");
-    child.style.transitionDelay = `${Math.min(i * step, 560)}ms`;
+    child.style.transitionDelay = `${Math.min(base + i * step, 700)}ms`;
   });
   mnInitReveal(container);
   mnInitTilt(container);

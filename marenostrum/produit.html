@@ -42,12 +42,10 @@
           </div>
         </div>
 
-        <div class="reveal [transition-delay:120ms]">
+        <div class="reveal [transition-delay:260ms]">
           <p id="mn-product-species" class="eyebrow mb-3"></p>
           <h1 id="mn-product-name" class="h-section mb-3"></h1>
-          <p id="mn-product-tagline" class="text-ink-200 text-lg mb-6"></p>
-
-          <p id="mn-product-price" class="font-titre text-4xl text-marine mb-8"></p>
+          <p id="mn-product-tagline" class="text-ink-200 text-lg mb-8"></p>
 
           <div class="mb-8">
             <p class="field-label">Format</p>
@@ -55,7 +53,7 @@
           </div>
 
           <a id="mn-product-quote-link" href="contact.html" class="btn-navy w-full sm:w-auto">Demander un devis</a>
-          <p class="mt-3 text-xs text-ink-300">Prix indicatifs. Devis sous 48h selon quantité et destination.</p>
+          <p class="mt-3 text-xs text-ink-300">Devis personnalisé sous 48h selon quantité et destination.</p>
 
           <div class="mt-10 border-t border-ink-600/50 pt-8">
             <p id="mn-product-description" class="prose-copy"></p>
@@ -107,7 +105,7 @@
           (v, idx) =>
             `<button type="button" data-sku="${v.sku}" class="mn-variant-btn border px-4 py-2.5 min-h-[44px] text-sm transition-all duration-200 ease-fluid ${
               idx === 0 ? "border-navy text-marine" : "border-ink-500 text-ink-100 hover:border-navy/60"
-            }">${v.size} — ${mnFormatPrice(v.price)}</button>`
+            }">${v.size}</button>`
         )
         .join("");
 
@@ -120,16 +118,10 @@
           });
           btn.classList.remove("border-ink-500", "text-ink-100");
           btn.classList.add("border-navy", "text-marine");
-          mnUpdatePriceDisplay(product);
         });
       });
 
       mnSelectedSku = product.variants[0].sku;
-    }
-
-    function mnUpdatePriceDisplay(product) {
-      const variant = product.variants.find((v) => v.sku === mnSelectedSku);
-      document.getElementById("mn-product-price").textContent = mnFormatPrice(variant.price);
     }
 
     function mnRenderProduct(product) {
@@ -172,7 +164,6 @@
       document.getElementById("mn-product-tin").innerHTML = mnTinSVG(product.tint);
 
       mnRenderVariants(product);
-      mnUpdatePriceDisplay(product);
 
       document.getElementById("mn-product-quote-link").href = `contact.html?produit=${encodeURIComponent(product.name)}`;
 

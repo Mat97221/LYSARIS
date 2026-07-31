@@ -44,6 +44,14 @@
       mnStagger(grid, 70);
       empty.classList.toggle("hidden", items.length > 0);
 
+      // Une catégorie qui ne remplit pas la rangée (ex. Coffrets, 2 produits) se recentre
+      // au lieu de rester calée à gauche avec une colonne vide.
+      const isPartialRow = items.length > 0 && items.length < 3;
+      grid.classList.toggle("lg:grid-cols-3", !isPartialRow);
+      grid.classList.toggle("lg:grid-cols-2", isPartialRow);
+      grid.classList.toggle("mx-auto", isPartialRow);
+      grid.classList.toggle("max-w-3xl", isPartialRow);
+
       document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
         const isActive = btn.dataset.cat === catId;
         btn.classList.toggle("border-marine", isActive);
