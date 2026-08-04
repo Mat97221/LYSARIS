@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MARENOSTRUM — Caviar d'exception</title>
-  <meta name="description" content="MARENOSTRUM, maison de caviar d'exception : Osciètre, Beluga, Sevruga et Kaluga, élevés en France, affinés selon la tradition Malossol. Livraison réfrigérée 24-48h." />
+  <meta name="description" content="MARENOSTRUM, maison de caviar d'exception : Osciètre, Beluga hybride, Sevruga et Kaluga hybride, sélectionnés en Hongrie, affinés selon la tradition Malossol. Fournisseur professionnel pour restaurants, hôtels et grossistes." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,18 +16,18 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- Hero — full-bleed image, quiet overlay: one line, one understated link -->
-    <section class="relative min-h-screen flex flex-col overflow-hidden">
-      <div class="parallax-bg absolute inset-0 overflow-hidden" data-speed="0.15">
-        <div class="absolute inset-0 bg-cover bg-center animate-slowzoom" style="background-image: url('assets/img/hero-caviar.jpg')"></div>
+    <!-- Hero — quiet overlay: one line, one understated link. Empty image-slot: no photo yet. -->
+    <section class="relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-b from-marine to-noir">
+      <div class="absolute inset-0">
+        <image-slot shape="rect" placeholder="Photo : à venir" style="width:100%;height:100%"></image-slot>
       </div>
       <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.5) 0%, rgba(17,17,16,0.1) 35%, rgba(17,17,16,0.5) 100%)"></div>
       <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-8 py-32 text-center">
-        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/75 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Éleveur · Affineur</p>
+        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/75 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
         <h1 class="h-hero text-ivoire animate-fadeUp [animation-delay:280ms] [text-shadow:0_2px_24px_rgba(17,17,16,0.5)]">
           L'art du caviar, sans compromis.
         </h1>
-        <a href="boutique.html" class="btn-quiet animate-fadeUp [animation-delay:520ms] !text-ivoire !border-ivoire/50 hover:!text-ivoire hover:!border-ivoire">Découvrir la boutique</a>
+        <a href="contact.html" class="btn-quiet animate-fadeUp [animation-delay:520ms] !text-ivoire !border-ivoire/50 hover:!text-ivoire hover:!border-ivoire">Demander un devis professionnel</a>
       </div>
     </section>
 
@@ -65,7 +65,7 @@
           <p class="prose-copy mb-8">
             Ce geste, transmis de génération en génération, demande une connaissance intime de chaque récolte : c'est lui qui distingue un caviar juste d'un caviar d'exception.
           </p>
-          <a href="boutique.html" class="btn-quiet">Découvrir la boutique</a>
+          <a href="contact.html" class="btn-quiet">Demander un devis professionnel</a>
         </div>
       </div>
     </section>
@@ -73,13 +73,13 @@
     <!-- Deep-sea origin break -->
     <section class="mn-abyss" style="border-top:1px solid #0A0A09;border-bottom:1px solid #0A0A09">
       <div class="absolute inset-0" style="z-index:0">
-        <image-slot id="mn-origine-photo" shape="rect" placeholder="Photo : eaux vives, bassin d'esturgeons" style="width:100%;height:100%"></image-slot>
+        <image-slot id="mn-origine-photo" shape="rect" placeholder="Photo : sélection d'un lot chez notre éleveur partenaire, Hongrie" style="width:100%;height:100%"></image-slot>
       </div>
       <div class="absolute inset-0 pointer-events-none" style="z-index:1;background:linear-gradient(180deg, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0.8) 65%, rgba(17,17,16,0.92) 100%)"></div>
       <div class="container-page relative flex flex-col items-center gap-6 py-32 text-center reveal" style="z-index:10">
-        <p class="eyebrow text-ivoire">Là où tout commence</p>
-        <h2 class="h-section max-w-2xl text-ivoire">Des eaux vives d'Aquitaine à la Gironde, l'esturgeon grandit à son rythme</h2>
-        <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Aucun raccourci : chaque esturgeon met de 7 à 12 ans à produire ses premiers œufs. Nous laissons le temps faire son œuvre, bassin après bassin, génération après génération.</p>
+        <p class="eyebrow text-ivoire">Sélectionné avec exigence</p>
+        <h2 class="h-section max-w-2xl text-ivoire">Nous choisissons chaque lot directement chez notre éleveur partenaire, en Hongrie</h2>
+        <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Aucun raccourci : l'esturgeon met de 7 à 12 ans à produire ses premiers œufs. Nous nous rendons sur place pour sélectionner et valider chaque lot, bassin après bassin, avant de l'affiner nous-mêmes selon la méthode Malossol.</p>
       </div>
     </section>
 
@@ -116,7 +116,7 @@
               <image-slot id="mn-promesse-photo-1" shape="rect" placeholder="Photo : boîte numérotée, atelier de traçabilité" style="width:100%;height:100%"></image-slot>
             </div>
             <h3 class="h-card mb-3">Traçabilité totale</h3>
-            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot unique. On remonte du bassin d'élevage à la date de récolte et au type d'affinage — rien n'est laissé au hasard, tout se vérifie.</p>
+            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot unique. On remonte jusqu'à notre éleveur partenaire en Hongrie, à la date de récolte et au type d'affinage — rien n'est laissé au hasard, tout se vérifie.</p>
           </article>
           <article class="reveal flex flex-col">
             <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
@@ -127,10 +127,10 @@
           </article>
           <article class="reveal flex flex-col">
             <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
-              <image-slot id="mn-promesse-photo-3" shape="rect" placeholder="Photo : bassin en eaux vives, esturgeons" style="width:100%;height:100%"></image-slot>
+              <image-slot id="mn-promesse-photo-3" shape="rect" placeholder="Photo : visite de contrôle chez notre éleveur partenaire" style="width:100%;height:100%"></image-slot>
             </div>
-            <h3 class="h-card mb-3">Élevage responsable</h3>
-            <p class="text-ink-200 leading-relaxed">Esturgeons élevés en eaux vives, en circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
+            <h3 class="h-card mb-3">Sélection exigeante</h3>
+            <p class="text-ink-200 leading-relaxed">Nous sélectionnons nos lots directement chez notre éleveur partenaire en Hongrie, dont nous vérifions les pratiques : eaux vives, circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
           </article>
         </div>
       </div>
@@ -175,26 +175,6 @@
         <a href="boutique.html" class="btn-quiet">Voir toute la boutique</a>
       </div>
       <div id="mn-featured-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
-    </section>
-
-    <!-- Testimonials — plain text, no card chrome -->
-    <section class="container-page py-28">
-      <p class="eyebrow mb-3 text-center reveal">Ils nous font confiance</p>
-      <h2 class="h-section mb-16 text-center reveal">La parole de nos convives</h2>
-      <div id="mn-testimonial-grid" class="grid grid-cols-1 gap-12 md:grid-cols-3">
-        <blockquote class="reveal text-center md:text-left">
-          <p class="prose-copy mb-4">« L'Osciètre Royal a fait l'unanimité pour notre réveillon. Grain parfait, livraison impeccable en 24h. »</p>
-          <footer class="eyebrow">Camille R., Bordeaux</footer>
-        </blockquote>
-        <blockquote class="reveal text-center md:text-left">
-          <p class="prose-copy mb-4">« Le Coffret Découverte est une excellente porte d'entrée pour qui n'a jamais goûté de vrai caviar français. »</p>
-          <footer class="eyebrow">Julien M., Paris</footer>
-        </blockquote>
-        <blockquote class="reveal text-center md:text-left">
-          <p class="prose-copy mb-4">« Le Beluga Impérial, servi seul avec la cuillère de nacre : un moment de dégustation rare. »</p>
-          <footer class="eyebrow">Sophie D., Lyon</footer>
-        </blockquote>
-      </div>
     </section>
 
     <!-- Univers / category tiles -->
@@ -243,7 +223,6 @@
 
   <script src="assets/js/products.js"></script>
   <script src="assets/js/ui.js"></script>
-  <script src="assets/js/parallax.js"></script>
   <script>
     const MN_FORMATS = [
       { key: "30g", label: "30 g", title: "L'initiation", tint: "champagne", desc: "Le format idéal pour une première dégustation ou un apéritif à deux — juste assez pour découvrir la texture et le grain sans engagement.", serving: "2 à 3 personnes en dégustation pure" },
@@ -288,7 +267,6 @@
       mnStagger(grid, 90);
       mnStagger(document.getElementById("mn-promesses-grid"), 90);
       mnStagger(document.getElementById("mn-univers-grid"), 90);
-      mnStagger(document.getElementById("mn-testimonial-grid"), 90);
 
       document.getElementById("mn-flagship-tin").innerHTML = mnTinSVG("amber");
 

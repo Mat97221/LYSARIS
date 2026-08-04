@@ -101,39 +101,22 @@ front-end — seule la clé publique (`pk_...`) peut être exposée côté clien
 - Illustrations de produits en SVG généré (pas de photos) — à remplacer par
   de vraies photos produit en production pour un rendu plus premium.
 
-## Fond photo (caviar)
-
-`assets/img/hero-caviar.jpg` (photo Unsplash, libre de droits) sert de fond
-à tout le site, avec un voile uni (`bg-ink-900/70`, pas de dégradé) pour que
-le texte/les cartes posés directement dessus restent lisibles. Injecté en
-JS (`mnPageBackground()` dans `assets/js/ui.js`, monté dans `#site-bg` par
-`mnMountLayout()`) plutôt qu'en CSS `background-attachment: fixed`, qui est
-peu fiable selon les navigateurs.
-
-Pour changer cette photo : remplacez le fichier `assets/img/hero-caviar.jpg`
-(même nom), ou changez l'URL dans `mnPageBackground()` (ui.js) et dans le
-hero de `index.html` (`.parallax-bg`). Le fichier actuel (~570 Ko) n'est pas
-optimisé (pas d'outil de compression d'image disponible au moment de
-l'intégration) — le passer dans un compresseur (Squoosh, TinyPNG) ou générer
-une version WebP est recommandé avant mise en production.
-
 ## Emplacements photo à remplir (`<image-slot>`)
 
-`assets/js/image-slot.js` définit un composant `<image-slot>` : une case
-photo avec légende, utilisée partout où une vraie photo doit remplacer un
-espace vide (mosaïque « Notre histoire », section « abysse », tuiles
-« Univers » sur l'accueil). Ce composant vient d'un outil de design
-(claude.ai/design) et gère le glisser-déposer *dans cet outil* ; en dehors
-(site statique tel que déployé ici), il affiche simplement l'attribut `src`
-s'il est présent, sinon l'espace vide avec la légende `placeholder`. Pour
-remplir un emplacement définitivement, éditez le `src="..."` de l'élément
-correspondant dans le HTML de la page.
+Le site ne contient volontairement aucune photo de caviar : tous les
+emplacements image sont des espaces vides en attente d'un vrai shoot photo.
 
-Les cartes produit (`mnProductCard` dans `ui.js`) utilisent aussi
-`<image-slot>`, préremplies avec `assets/img/caviar-bowl-unsplash.jpg`
-(photo par défaut, Madeline Liu / Unsplash — attribution affichée
-automatiquement par le composant, obligatoire selon les conditions
-Unsplash). À remplacer par de vraies photos produit en production.
+`assets/js/image-slot.js` définit un composant `<image-slot>` : une case
+photo avec légende, utilisée partout où une photo doit un jour remplacer un
+espace vide (hero de l'accueil, mosaïque « Notre histoire », section
+« abysse », tuiles « Univers », cartes produit, page contact). Ce composant
+vient d'un outil de design (claude.ai/design) et gère le glisser-déposer
+*dans cet outil* ; en dehors (site statique tel que déployé ici), il
+affiche simplement l'attribut `src` s'il est présent, sinon l'espace vide
+avec la légende `placeholder`. Pour remplir un emplacement définitivement,
+ajoutez `src="..."` sur l'élément correspondant dans le HTML de la page (ou
+dans `mnProductCard()`/le hero de `index.html` pour les cartes produit et le
+hero, générés en JS).
 
 Le logo (`assets/img/logo-marenostrum-horizontal-noir.png`, fond
 transparent) vient du même outil de design et remplace le wordmark texte

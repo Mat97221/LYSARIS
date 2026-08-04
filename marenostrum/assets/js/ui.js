@@ -73,7 +73,7 @@ function mnProductCard(product) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <image-slot id="mn-slot-${product.id}" shape="rect" src="assets/img/caviar-bowl-unsplash.jpg" credit="Photo : Madeline Liu / Unsplash" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
+      <image-slot id="mn-slot-${product.id}" shape="rect" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
@@ -136,7 +136,7 @@ function mnFooter() {
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
-        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Élevage responsable, affinage traditionnel, fournisseur de la restauration et de l'épicerie fine.</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Sélection exigeante, affinage traditionnel, fournisseur de la restauration et de l'hôtellerie.</p>
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Produits</p>

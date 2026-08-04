@@ -44,7 +44,10 @@
 
         <div class="reveal [transition-delay:260ms]">
           <p id="mn-product-species" class="eyebrow mb-3"></p>
-          <h1 id="mn-product-name" class="h-section mb-3"></h1>
+          <h1 class="h-section mb-3">
+            <span id="mn-product-name"></span>
+            <span id="mn-product-latin" class="block sm:inline text-xl sm:text-2xl italic text-ink-300 font-texte"></span>
+          </h1>
           <p id="mn-product-tagline" class="text-ink-200 text-lg mb-8"></p>
 
           <div class="mb-8">
@@ -128,8 +131,9 @@
       document.title = `${product.name} — MARENOSTRUM`;
       document.getElementById("mn-page-title").textContent = `${product.name} — MARENOSTRUM`;
       document.getElementById("mn-breadcrumb-name").textContent = product.name;
-      document.getElementById("mn-product-species").textContent = product.species || "Épicerie fine MARENOSTRUM";
+      document.getElementById("mn-product-species").textContent = product.species ? "Caviar d'exception" : "Épicerie fine MARENOSTRUM";
       document.getElementById("mn-product-name").textContent = product.name;
+      document.getElementById("mn-product-latin").textContent = product.species ? `(${product.species})` : "";
       document.getElementById("mn-product-tagline").textContent = product.tagline;
       document.getElementById("mn-product-description").textContent = product.description;
       document.getElementById("mn-product-origin").textContent = product.origin || "—";

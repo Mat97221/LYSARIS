@@ -11,10 +11,10 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "amber",
     tagline: "Grain doré, notes de noisette grillée",
     badge: "Best-seller",
-    origin: "Aquitaine, France — élevage en eaux vives",
+    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
     affinage: "Affiné 90 jours, salage traditionnel Malossol",
     description:
-      "Notre Osciètre Royal est l'expression la plus aboutie du savoir-faire aquitain : un grain ferme et doré, une texture qui éclate délicatement en bouche, et une longue finale sur des notes de beurre noisette et de fruits secs. Un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui découvrent l'Osciètre pour la première fois.",
+      "Notre Osciètre Royal est l'expression la plus aboutie de notre exigence de sélection : un grain ferme et doré, une texture qui éclate délicatement en bouche, et une longue finale sur des notes de beurre noisette et de fruits secs. Un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui découvrent l'Osciètre pour la première fois.",
     tastingNotes: ["Noisette grillée", "Beurre frais", "Finale iodée longue"],
     pairing: "Blinis tièdes, crème fraîche d'Isigny, vodka polonaise glacée ou Champagne blanc de blancs.",
     variants: [
@@ -27,16 +27,16 @@ const MARENOSTRUM_PRODUCTS = [
   },
   {
     id: "beluga-imperial",
-    name: "Beluga Impérial",
-    species: "Huso huso",
+    name: "Beluga hybride Impérial",
+    species: "Huso huso × Acipenser baerii",
     category: "caviar",
     tint: "graphite",
     tagline: "Le plus grand des grains, la plus grande des rondeurs",
     badge: "Édition limitée",
-    origin: "Bassin de la Caspienne — élevage certifié CITES",
+    origin: "Hongrie — élevage partenaire certifié CITES",
     affinage: "Affiné 120 jours, salage Malossol léger",
     description:
-      "Le Beluga Impérial est la pièce maîtresse de toute table d'exception. Ses grains, parmi les plus gros qui existent, offrent une texture crémeuse et fondante, presque beurrée, avec une salinité extrêmement délicate. Une rareté produite en quantités volontairement limitées chaque saison.",
+      "Le Beluga hybride Impérial est la pièce maîtresse de toute table d'exception. Ses grains, parmi les plus gros qui existent, offrent une texture crémeuse et fondante, presque beurrée, avec une salinité extrêmement délicate. Une rareté sélectionnée en quantités volontairement limitées chaque saison.",
     tastingNotes: ["Crémeux, presque beurré", "Salinité délicate", "Arômes marins subtils"],
     pairing: "À la cuillère de nacre, seul, tempéré 5 minutes hors du froid. Champagne millésimé.",
     variants: [
@@ -54,7 +54,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "onyx",
     tagline: "Grain fin, caractère affirmé",
     badge: null,
-    origin: "Gironde, France",
+    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
     affinage: "Affiné 60 jours, salage Malossol",
     description:
       "Le Sevruga séduit par son grain plus petit et son caractère plus marqué : des notes iodées franches, une texture ferme et un léger croquant. Un caviar au tempérament affirmé, parfait pour les amateurs qui recherchent de l'intensité.",
@@ -70,16 +70,16 @@ const MARENOSTRUM_PRODUCTS = [
   },
   {
     id: "kaluga-reserve",
-    name: "Kaluga Réserve",
-    species: "Huso dauricus",
+    name: "Kaluga hybride Réserve",
+    species: "Acipenser schrenckii × Huso dauricus",
     category: "caviar",
     tint: "amber",
     tagline: "Rondeur généreuse, rareté du fleuve Amour",
     badge: "Nouveauté",
-    origin: "Élevage d'altitude, Chine — cousin du Beluga",
+    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
     affinage: "Affiné 100 jours, salage Malossol léger",
     description:
-      "Cousin du Beluga, le Kaluga Réserve partage sa générosité et sa rondeur en bouche, avec une pointe de douceur supplémentaire. Un grain large, brillant, à la texture soyeuse — une alternative rare et remarquable pour les grandes occasions.",
+      "Cousin du Beluga, le Kaluga hybride Réserve partage sa générosité et sa rondeur en bouche, avec une pointe de douceur supplémentaire. Un grain large, brillant, à la texture soyeuse — une alternative rare et remarquable pour les grandes occasions.",
     tastingNotes: ["Doux et rond", "Grain brillant", "Notes lactées"],
     pairing: "Toast brioché, beurre cru, un trait de citron.",
     variants: [
@@ -91,16 +91,16 @@ const MARENOSTRUM_PRODUCTS = [
   },
   {
     id: "baeri-prestige",
-    name: "Baeri Prestige",
+    name: "Sibérien Prestige",
     species: "Acipenser baerii",
     category: "caviar",
     tint: "onyx",
     tagline: "L'équilibre parfait pour découvrir le caviar",
     badge: null,
-    origin: "Dordogne, France",
+    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
     affinage: "Affiné 75 jours, salage Malossol",
     description:
-      "Le Baeri est l'esturgeon le plus élevé en France, garantissant une qualité constante et une traçabilité totale. Son grain gris-brun offre une texture souple et un goût délicat aux notes beurrées — l'entrée idéale dans l'univers du caviar d'exception.",
+      "Le Sibérien est l'esturgeon le plus élevé au monde, un gage de constance et de traçabilité. Nous sélectionnons directement ce lot chez notre éleveur partenaire. Son grain gris-brun offre une texture souple et un goût délicat aux notes beurrées — l'entrée idéale dans l'univers du caviar d'exception.",
     tastingNotes: ["Beurré et doux", "Texture souple", "Finale discrète"],
     pairing: "Blinis nature, crème épaisse, ciboulette fraîche.",
     variants: [
@@ -119,7 +119,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "champagne",
     tagline: "La rareté ultime, réservée aux grandes occasions",
     badge: "Édition limitée",
-    origin: "Aquitaine, France — moins de 300 kg produits par an",
+    origin: "Hongrie — moins de 300 kg sélectionnés par an",
     affinage: "Affiné 90 jours, salage Malossol minimal",
     description:
       "Issues d'une mutation naturelle extrêmement rare de l'esturgeon Osciètre, les Perles Blondes affichent une robe dorée unique et un raffinement incomparable. Une pièce de collection, souvent présentée dans un coffret nacré et servie à la cuillère devant les convives.",
@@ -142,7 +142,7 @@ const MARENOSTRUM_PRODUCTS = [
     origin: "Assemblage MARENOSTRUM",
     affinage: null,
     description:
-      "Un coffret pensé pour explorer la diversité du caviar en une seule dégustation : Baeri Prestige, Sevruga Tradition et Osciètre Royal, chacun en portion de 30 g, accompagnés d'une cuillère de nacre et d'un livret de dégustation. L'écrin parfait pour offrir ou pour se faire plaisir.",
+      "Un coffret pensé pour explorer la diversité du caviar en une seule dégustation : Sibérien Prestige, Sevruga Tradition et Osciètre Royal, chacun en portion de 30 g, accompagnés d'une cuillère de nacre et d'un livret de dégustation. L'écrin parfait pour offrir ou pour se faire plaisir.",
     tastingNotes: ["3 grains, 3 caractères", "Livret de dégustation inclus", "Cuillère de nacre offerte"],
     pairing: "Idéal en apéritif dînatoire, à partager à deux ou trois convives curieux.",
     variants: [{ size: "3 x 30 g", sku: "COF-DEC" }],
@@ -154,12 +154,12 @@ const MARENOSTRUM_PRODUCTS = [
     species: null,
     category: "coffrets",
     tint: "amber",
-    tagline: "Beluga, Kaluga et Osciètre pour une table d'exception",
+    tagline: "Beluga hybride, Kaluga hybride et Osciètre pour une table d'exception",
     badge: null,
     origin: "Assemblage MARENOSTRUM",
     affinage: null,
     description:
-      "Le coffret des grandes occasions : Beluga Impérial, Kaluga Réserve et Osciètre Royal en portions de 50 g, présentés dans un écrin en bois laqué avec cuillère de nacre et glacière d'accompagnement. Pensé pour sublimer un dîner de fête.",
+      "Le coffret des grandes occasions : Beluga hybride Impérial, Kaluga hybride Réserve et Osciètre Royal en portions de 50 g, présentés dans un écrin en bois laqué avec cuillère de nacre et glacière d'accompagnement. Pensé pour sublimer un dîner de fête.",
     tastingNotes: ["Écrin en bois laqué", "Glacière incluse", "3 caviars d'exception"],
     pairing: "Réveillon, anniversaire, dîner de fiançailles — pour marquer un moment rare.",
     variants: [{ size: "3 x 50 g", sku: "COF-PRE" }],

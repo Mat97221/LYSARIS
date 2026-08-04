@@ -29,14 +29,48 @@
         <form id="mn-contact-form" novalidate class="reveal lg:col-span-2 flex flex-col gap-6">
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label class="field-label" for="ct-name">Nom complet</label>
+              <label class="field-label" for="ct-establishment">Nom de l'établissement</label>
+              <input id="ct-establishment" type="text" class="input-field" required />
+              <p id="ct-establishment-error" class="field-error hidden">Merci d'indiquer le nom de votre établissement.</p>
+            </div>
+            <div>
+              <label class="field-label" for="ct-name">Nom du contact</label>
               <input id="ct-name" type="text" class="input-field" required />
               <p id="ct-name-error" class="field-error hidden">Merci d'indiquer votre nom.</p>
             </div>
+          </div>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label class="field-label" for="ct-email">E-mail</label>
               <input id="ct-email" type="email" class="input-field" required />
               <p id="ct-email-error" class="field-error hidden">Adresse e-mail invalide.</p>
+            </div>
+            <div>
+              <label class="field-label" for="ct-phone">Téléphone</label>
+              <input id="ct-phone" type="tel" class="input-field" />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div>
+              <label class="field-label" for="ct-activity">Type d'activité</label>
+              <select id="ct-activity" class="input-field" required>
+                <option value="">Sélectionnez...</option>
+                <option>Restaurant</option>
+                <option>Hôtel</option>
+                <option>Grossiste / mareyeur</option>
+                <option>Autre</option>
+              </select>
+              <p id="ct-activity-error" class="field-error hidden">Merci de préciser votre activité.</p>
+            </div>
+            <div>
+              <label class="field-label" for="ct-volume">Volume mensuel estimé</label>
+              <select id="ct-volume" class="input-field">
+                <option>À définir</option>
+                <option>Moins de 1 kg</option>
+                <option>1 à 5 kg</option>
+                <option>5 à 20 kg</option>
+                <option>Plus de 20 kg</option>
+              </select>
             </div>
           </div>
           <div>
@@ -54,7 +88,7 @@
             <textarea id="ct-message" rows="6" class="input-field resize-none" required></textarea>
             <p id="ct-message-error" class="field-error hidden">Merci de rédiger un message.</p>
           </div>
-          <button type="submit" class="btn-navy w-full sm:w-auto">Envoyer le message</button>
+          <button type="submit" class="btn-navy w-full sm:w-auto">Envoyer la demande</button>
           <p id="mn-contact-feedback" class="hidden flex items-center gap-2 text-sm text-marine" role="status">
             <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre message a bien été envoyé. Nous revenons vers vous rapidement.
           </p>
@@ -117,22 +151,30 @@
       const form = document.getElementById("mn-contact-form");
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        const establishment = document.getElementById("ct-establishment");
         const name = document.getElementById("ct-name");
         const email = document.getElementById("ct-email");
+        const activity = document.getElementById("ct-activity");
         const message = document.getElementById("ct-message");
 
+        const establishmentValid = establishment.value.trim().length > 0;
         const nameValid = name.value.trim().length > 0;
         const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        const activityValid = activity.value.trim().length > 0;
         const messageValid = message.value.trim().length > 0;
 
+        document.getElementById("ct-establishment-error").classList.toggle("hidden", establishmentValid);
+        establishment.classList.toggle("!border-error", !establishmentValid);
         document.getElementById("ct-name-error").classList.toggle("hidden", nameValid);
         name.classList.toggle("!border-error", !nameValid);
         document.getElementById("ct-email-error").classList.toggle("hidden", emailValid);
         email.classList.toggle("!border-error", !emailValid);
+        document.getElementById("ct-activity-error").classList.toggle("hidden", activityValid);
+        activity.classList.toggle("!border-error", !activityValid);
         document.getElementById("ct-message-error").classList.toggle("hidden", messageValid);
         message.classList.toggle("!border-error", !messageValid);
 
-        if (!(nameValid && emailValid && messageValid)) return;
+        if (!(establishmentValid && nameValid && emailValid && activityValid && messageValid)) return;
 
         document.getElementById("mn-contact-feedback").classList.remove("hidden");
         form.reset();
