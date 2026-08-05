@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-/* Single loading point for both brand typefaces — change weights/styles here only.
-   Fraunces: editorial serif for headings (opsz axis requested up to 144 for a warmer, more
-   "brut" cut at display sizes; italic included for the hero's accent word).
-   Inter: neutral sans for body copy and interface chrome, and the default body font. */
+/* Single loading point for the brand typeface — change weights here only.
+   Space Grotesk: a single geometric grotesque used for both headings and body copy/interface
+   chrome (titre and texte roles both map to it — see tailwind.config.js). */
 
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
@@ -591,7 +590,7 @@ html {
      The body just needs its own solid fallback color underneath that layer. */
 
 body{
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
   -webkit-font-smoothing: antialiased;
@@ -718,14 +717,14 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 /*
-   * Editorial heading scale — four tiers, all Fraunces, all regular weight (a "brut" display
-   * serif reads heavy at large sizes in semibold; regular keeps the sober, restrained tone).
+   * Editorial heading scale — four tiers, all Space Grotesk, all regular weight (keeps the
+   * sober, restrained tone rather than reading heavy at large display sizes).
    * Margin/alignment/max-width stay as per-instance utility classes alongside these, since
    * that's genuinely contextual — but font, size, weight and color live here once.
    */
 
 .h-hero{
-  font-family: Fraunces, Georgia, serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 3rem;
   font-weight: 400;
   line-height: 1.05;
@@ -748,7 +747,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .h-page{
-  font-family: Fraunces, Georgia, serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 3rem;
   line-height: 1;
   font-weight: 400;
@@ -764,7 +763,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .h-section{
-  font-family: Fraunces, Georgia, serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 2.25rem;
   line-height: 2.5rem;
   font-weight: 400;
@@ -780,7 +779,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .h-card{
-  font-family: Fraunces, Georgia, serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 400;
@@ -814,12 +813,12 @@ a, button, [role="button"], input[type="submit"] {
   }
 }
 
-/* Editorial quote break — large centered italic serif line on a plain ground, generous
+/* Editorial quote break — large centered italic line on a plain ground, generous
      padding either side. The signature device of quiet apothecary-style sites: one considered
      sentence given a whole section of space rather than another content block. */
 
 .h-quote{
-  font-family: Fraunces, Georgia, serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 1.875rem;
   line-height: 2.25rem;
   font-weight: 400;
@@ -861,7 +860,7 @@ a, button, [role="button"], input[type="submit"] {
   padding-right: 1.75rem;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
@@ -907,7 +906,7 @@ a, button, [role="button"], input[type="submit"] {
   padding-right: 1.75rem;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
@@ -942,7 +941,7 @@ a, button, [role="button"], input[type="submit"] {
   border-bottom-width: 1px;
   border-color: rgb(17 17 16 / 0.4);
   padding-bottom: 0.25rem;
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;
@@ -1336,10 +1335,6 @@ a, button, [role="button"], input[type="submit"] {
   height: 1.5rem;
 }
 
-.h-64{
-  height: 16rem;
-}
-
 .h-72{
   height: 18rem;
 }
@@ -1380,20 +1375,12 @@ a, button, [role="button"], input[type="submit"] {
   width: 1rem;
 }
 
-.w-40{
-  width: 10rem;
-}
-
 .w-5{
   width: 1.25rem;
 }
 
 .w-6{
   width: 1.5rem;
-}
-
-.w-64{
-  width: 16rem;
 }
 
 .w-9{
@@ -1468,34 +1455,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .animate-fadeUp{
   animation: fadeUp 800ms cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-@keyframes float{
-  0%, 100%{
-    transform: translateY(0px);
-  }
-
-  50%{
-    transform: translateY(-14px);
-  }
-}
-
-.animate-float{
-  animation: float 5s ease-in-out infinite;
-}
-
-@keyframes tinwobble{
-  0%, 100%{
-    transform: rotateY(-7deg);
-  }
-
-  50%{
-    transform: rotateY(7deg);
-  }
-}
-
-.animate-tinwobble{
-  animation: tinwobble 9s ease-in-out infinite;
 }
 
 .resize-none{
@@ -1676,9 +1635,8 @@ a, button, [role="button"], input[type="submit"] {
   background-color: rgb(244 239 230 / 0.95);
 }
 
-.bg-ivoire{
-  --tw-bg-opacity: 1;
-  background-color: rgb(244 239 230 / var(--tw-bg-opacity, 1));
+.bg-ivoire\/55{
+  background-color: rgb(244 239 230 / 0.55);
 }
 
 .bg-noir{
@@ -1698,6 +1656,19 @@ a, button, [role="button"], input[type="submit"] {
 
 .to-noir{
   --tw-gradient-to: #111110 var(--tw-gradient-to-position);
+}
+
+.bg-cover{
+  background-size: cover;
+}
+
+.bg-center{
+  background-position: center;
+}
+
+.object-cover{
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-6{
@@ -1799,11 +1770,11 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .font-texte{
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .font-titre{
-  font-family: Fraunces, Georgia, serif;
+  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .text-2xl{
@@ -1922,10 +1893,6 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(23 38 63 / 0.5);
 }
 
-.underline{
-  text-decoration-line: underline;
-}
-
 .opacity-0{
   opacity: 0;
 }
@@ -1980,10 +1947,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .\[animation-delay\:520ms\]{
   animation-delay: 520ms;
-}
-
-.\[perspective\:900px\]{
-  perspective: 900px;
 }
 
 .\[text-shadow\:0_1px_12px_rgba\(17\2c 17\2c 16\2c 0\.7\)\]{

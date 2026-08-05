@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MARENOSTRUM — Caviar d'exception</title>
-  <meta name="description" content="MARENOSTRUM, maison de caviar d'exception : Osciètre, Beluga hybride, Sevruga et Kaluga hybride, sélectionnés en Hongrie, affinés selon la tradition Malossol. Fournisseur professionnel pour restaurants, hôtels et grossistes." />
+  <meta name="description" content="MARENOSTRUM, maison de caviar et de délicatesses d'exception : caviar d'esturgeon et de saumon, poissons fumés, épicerie fine, sélectionnés en Hongrie. Fournisseur professionnel pour restaurants, hôtels et grossistes." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,11 +16,12 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- Hero — quiet overlay: one line, one understated link. Empty image-slot: no photo yet. -->
+    <!-- Hero — full-bleed video, quiet overlay: one line, one understated link -->
     <section class="relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <div class="absolute inset-0">
-        <image-slot shape="rect" placeholder="Photo : à venir" style="width:100%;height:100%"></image-slot>
-      </div>
+      <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline preload="auto">
+        <source src="assets/video/hero-mer.webm" type="video/webm" />
+        <source src="assets/video/hero-mer.mp4" type="video/mp4" />
+      </video>
       <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.5) 0%, rgba(17,17,16,0.1) 35%, rgba(17,17,16,0.5) 100%)"></div>
       <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-8 py-32 text-center">
         <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/75 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
@@ -90,12 +91,12 @@
           <p class="eyebrow mb-4">L'art de la dégustation</p>
           <h2 class="h-section mb-8">Blinis tièdes, cuillère de nacre, rien de plus</h2>
           <p class="prose-copy mb-4">
-            Le caviar se suffit à lui-même. Une cuillère de nacre pour ne jamais altérer son goût, un blini tiède, une pointe de crème fraîche d'Isigny — et le silence qui accompagne une première bouchée.
+            Le caviar se suffit à lui-même. Une cuillère de nacre pour ne jamais altérer son goût, un blini tiède, une pointe de crème fraîche — et le silence qui accompagne une première bouchée.
           </p>
           <p class="prose-copy mb-8">
-            Nos accessoires de service sont pensés pour la même exigence que nos caviars : sobres, fonctionnels, faits pour durer.
+            De l'esturgeon au saumon, du fumé à la conserve, notre gamme d'épicerie fine est pensée pour la même exigence que nos caviars.
           </p>
-          <a href="boutique.html?cat=accessoires" class="btn-quiet">Voir les accessoires</a>
+          <a href="boutique.html?cat=epicerie-fine" class="btn-quiet">Voir l'épicerie fine</a>
         </div>
         <div class="order-1 lg:order-2 reveal [transition-delay:260ms] flex h-72 items-center justify-center overflow-hidden bg-ink-800 sm:h-96">
           <image-slot id="mn-degustation-photo" shape="rect" placeholder="Photo : table dressée, blinis et cuillère de nacre" style="width:100%;height:100%"></image-slot>
@@ -136,31 +137,21 @@
       </div>
     </section>
 
-    <!-- Format selector — plain underline tabs, no fill -->
-    <section class="container-page py-28">
-      <p class="eyebrow mb-3 text-center reveal">Formats</p>
-      <h2 class="h-section mb-16 text-center reveal">Choisissez votre format</h2>
-      <div id="mn-format-tabs" class="mb-14 flex flex-wrap justify-center gap-8 border-b border-ink-600" role="tablist" aria-label="Choisir un format"></div>
-      <div id="mn-format-panels"></div>
-    </section>
-
     <!-- Flagship showcase -->
     <section class="border-y border-ink-600/50 bg-ink-800">
       <div class="container-page grid grid-cols-1 items-center gap-12 py-28 lg:grid-cols-2 lg:gap-20">
-        <div class="reveal relative flex h-96 items-center justify-center bg-gradient-to-b from-marine to-noir [perspective:900px]">
+        <div class="reveal relative flex h-96 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
           <span class="absolute left-0 top-0 px-4 py-2 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80">Best-seller</span>
-          <div class="h-64 w-64 animate-float">
-            <div id="mn-flagship-tin" class="h-full w-full animate-tinwobble"></div>
-          </div>
+          <image-slot id="mn-flagship-photo" shape="rect" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
         </div>
         <div class="reveal [transition-delay:260ms]">
           <p class="eyebrow mb-3">Notre pièce maîtresse</p>
-          <h2 class="h-section mb-6">Osciètre Royal</h2>
+          <h2 class="h-section mb-6">Esturgeon Russe</h2>
           <p class="prose-copy mb-6">
-            Un grain ferme et doré, une texture qui éclate délicatement en bouche, et une longue finale sur des notes de beurre noisette et de fruits secs. Un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui le découvrent pour la première fois.
+            L'Esturgeon Russe (Osciètre) offre un grain ferme aux notes de noisette, référence classique de la caviarculture — un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui le découvrent pour la première fois.
           </p>
-          <p class="mb-8 text-sm text-ink-300">Noisette grillée · Beurre frais · Finale iodée longue</p>
-          <a href="produit.html?id=osciètre-royal" class="btn-quiet">Découvrir l'Osciètre Royal</a>
+          <p class="mb-8 text-sm text-ink-300">Noisette grillée · Grain ferme</p>
+          <a href="produit.html?id=esturgeon-russe" class="btn-quiet">Découvrir l'Esturgeon Russe</a>
         </div>
       </div>
     </section>
@@ -170,7 +161,7 @@
       <div class="mb-14 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end reveal">
         <div>
           <p class="eyebrow mb-3">Sélection de la Maison</p>
-          <h2 class="h-section">Nos caviars les plus appréciés</h2>
+          <h2 class="h-section">Nos produits les plus appréciés</h2>
         </div>
         <a href="boutique.html" class="btn-quiet">Voir toute la boutique</a>
       </div>
@@ -182,19 +173,33 @@
       <div class="container-page py-28">
         <p class="eyebrow mb-3 text-center reveal">Tout l'univers Maison</p>
         <h2 class="h-section mb-16 text-center reveal">Découvrez nos gammes</h2>
-        <div id="mn-univers-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <a href="boutique.html?cat=caviar" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-caviar" shape="rect" placeholder="Photo : grain de caviar en gros plan" style="width:100%;height:100%"></image-slot>
+        <div id="mn-univers-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <a href="boutique.html?cat=caviar-esturgeon" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
+            <image-slot id="mn-univers-caviar-esturgeon" shape="rect" placeholder="Photo : grain de caviar en gros plan" style="width:100%;height:100%"></image-slot>
             <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
             <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Caviars</h3>
+              <h3 class="h-card">Caviar d'esturgeon</h3>
             </div>
           </a>
-          <a href="boutique.html?cat=epicerie" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-epicerie" shape="rect" placeholder="Photo : blinis et crème fraîche, table dressée" style="width:100%;height:100%"></image-slot>
+          <a href="boutique.html?cat=caviar-saumon" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
+            <image-slot id="mn-univers-caviar-saumon" shape="rect" placeholder="Photo : œufs de saumon" style="width:100%;height:100%"></image-slot>
             <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
             <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Épicerie fine &amp; accessoires</h3>
+              <h3 class="h-card">Caviar de saumon</h3>
+            </div>
+          </a>
+          <a href="boutique.html?cat=poissons-fumes" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
+            <image-slot id="mn-univers-poissons-fumes" shape="rect" placeholder="Photo : poisson fumé, tranché" style="width:100%;height:100%"></image-slot>
+            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
+            <div class="absolute inset-x-0 bottom-0 p-6">
+              <h3 class="h-card">Poissons fumés</h3>
+            </div>
+          </a>
+          <a href="boutique.html?cat=epicerie-fine" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
+            <image-slot id="mn-univers-epicerie-fine" shape="rect" placeholder="Photo : table dressée, épicerie fine" style="width:100%;height:100%"></image-slot>
+            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
+            <div class="absolute inset-x-0 bottom-0 p-6">
+              <h3 class="h-card">Épicerie fine</h3>
             </div>
           </a>
         </div>
@@ -217,61 +222,13 @@
   <script src="assets/js/products.js"></script>
   <script src="assets/js/ui.js"></script>
   <script>
-    const MN_FORMATS = [
-      { key: "30g", label: "30 g", title: "L'initiation", tint: "champagne", desc: "Le format idéal pour une première dégustation ou un apéritif à deux — juste assez pour découvrir la texture et le grain sans engagement.", serving: "2 à 3 personnes en dégustation pure" },
-      { key: "50g", label: "50 g", title: "Le tête-à-tête", tint: "amber", desc: "Notre format le plus commandé : de quoi composer un vrai moment à deux, blinis et crème fraîche à l'appui.", serving: "3 à 4 personnes à l'apéritif" },
-      { key: "125g", label: "125 g", title: "La réception", tint: "graphite", desc: "Pensé pour les dîners et les grandes occasions, ce format permet de recevoir sans compter.", serving: "6 à 8 convives" },
-      { key: "250g", label: "250 g", title: "La grande occasion", tint: "onyx", desc: "Notre plus grand format, réservé aux réceptions marquantes et aux amateurs qui ne transigent pas.", serving: "10 à 12 convives" }
-    ];
-
-    function mnRenderFormat(key) {
-      const format = MN_FORMATS.find((f) => f.key === key) || MN_FORMATS[0];
-      document.getElementById("mn-format-panels").innerHTML = `
-        <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
-          <div class="reveal is-visible flex h-64 items-center justify-center bg-gradient-to-b from-marine to-noir [perspective:900px]">
-            <div class="h-40 w-40 animate-float"><div class="h-full w-full animate-tinwobble">${mnTinSVG(format.tint)}</div></div>
-          </div>
-          <div class="reveal is-visible">
-            <p class="eyebrow mb-3">${format.label}</p>
-            <h3 class="h-card mb-4">${format.title}</h3>
-            <p class="prose-copy mb-4">${format.desc}</p>
-            <p class="text-sm text-ink-300 mb-6">Pour ${format.serving}</p>
-            <a href="boutique.html?cat=caviar" class="btn-quiet">Voir les caviars en ${format.label}</a>
-          </div>
-        </div>`;
-    }
-
-    function mnSetActiveFormat(key) {
-      document.querySelectorAll("#mn-format-tabs button").forEach((btn) => {
-        const isActive = btn.dataset.format === key;
-        btn.classList.toggle("border-marine", isActive);
-        btn.classList.toggle("text-marine", isActive);
-        btn.classList.toggle("border-transparent", !isActive);
-        btn.classList.toggle("text-ink-300", !isActive);
-        btn.setAttribute("aria-selected", String(isActive));
-      });
-      mnRenderFormat(key);
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
-      const featuredIds = ["osciètre-royal", "beluga-imperial", "kaluga-reserve", "baeri-prestige"];
+      const featuredIds = ["esturgeon-russe", "beluga", "kaluga", "siberien"];
       const grid = document.getElementById("mn-featured-grid");
       grid.innerHTML = featuredIds.map((id) => mnProductCard(mnFindProduct(id))).join("");
       mnStagger(grid, 90);
       mnStagger(document.getElementById("mn-promesses-grid"), 90);
       mnStagger(document.getElementById("mn-univers-grid"), 90);
-
-      document.getElementById("mn-flagship-tin").innerHTML = mnTinSVG("amber");
-
-      const tabs = document.getElementById("mn-format-tabs");
-      tabs.innerHTML = MN_FORMATS.map(
-        (f) =>
-          `<button type="button" role="tab" data-format="${f.key}" class="border-b-2 border-transparent pb-4 text-sm font-medium uppercase tracking-wide text-ink-300 transition-colors duration-200 ease-fluid hover:text-marine">${f.label}</button>`
-      ).join("");
-      tabs.querySelectorAll("button").forEach((btn) => {
-        btn.addEventListener("click", () => mnSetActiveFormat(btn.dataset.format));
-      });
-      mnSetActiveFormat("30g");
     });
   </script>
 </body>

@@ -4,208 +4,655 @@
  */
 const MARENOSTRUM_PRODUCTS = [
   {
-    id: "osciètre-royal",
-    name: "Osciètre Royal",
-    species: "Acipenser gueldenstaedtii",
-    category: "caviar",
-    tint: "amber",
-    tagline: "Grain doré, notes de noisette grillée",
-    badge: "Best-seller",
-    origin: "Hongrie — ferme Kovács, éleveur partenaire",
-    affinage: "Affiné 90 jours, salage traditionnel Malossol",
+    id: "bottarga-yastik",
+    name: "Bottarga Yastik",
+    species: null,
+    category: "caviar-esturgeon",
+    tagline: "Caviar pressé en pochon de cuir, tradition caspienne",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
     description:
-      "Notre Osciètre Royal est l'expression la plus aboutie de notre exigence de sélection : un grain ferme et doré, une texture qui éclate délicatement en bouche, et une longue finale sur des notes de beurre noisette et de fruits secs. Un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui découvrent l'Osciètre pour la première fois.",
-    tastingNotes: ["Noisette grillée", "Beurre frais", "Finale iodée longue"],
-    pairing: "Blinis tièdes, crème fraîche d'Isigny, vodka polonaise glacée ou Champagne blanc de blancs.",
-    variants: [
-      { size: "30 g", sku: "OSC-030" },
-      { size: "50 g", sku: "OSC-050" },
-      { size: "125 g", sku: "OSC-125" },
-      { size: "250 g", sku: "OSC-250" }
-    ],
-    inStock: true
+      "Le Bottarga Yastik est un caviar pressé conditionné en pochon, selon une tradition caspienne ancienne — un format concentré, pensé pour la cuisine autant que pour la dégustation.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "150 g (pièce)", sku: "BOT-150" }]
   },
   {
-    id: "beluga-imperial",
-    name: "Beluga hybride Impérial",
-    species: "Huso huso × Acipenser baerii",
-    category: "caviar",
-    tint: "graphite",
-    tagline: "Le plus grand des grains, la plus grande des rondeurs",
+    id: "caviar-gold",
+    name: "Caviar Gold",
+    species: null,
+    category: "caviar-esturgeon",
+    tagline: "Grain doré, robe rare",
     badge: "Édition limitée",
-    origin: "Hongrie — ferme Kovács, certifié CITES",
-    affinage: "Affiné 120 jours, salage Malossol léger",
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
     description:
-      "Le Beluga hybride Impérial est la pièce maîtresse de toute table d'exception. Ses grains, parmi les plus gros qui existent, offrent une texture crémeuse et fondante, presque beurrée, avec une salinité extrêmement délicate. Une rareté sélectionnée en quantités volontairement limitées chaque saison.",
-    tastingNotes: ["Crémeux, presque beurré", "Salinité délicate", "Arômes marins subtils"],
-    pairing: "À la cuillère de nacre, seul, tempéré 5 minutes hors du froid. Champagne millésimé.",
+      "Le Caviar Gold se distingue par sa robe dorée, rare et recherchée, réservée aux lots les plus exceptionnels de la saison.",
+    tastingNotes: [],
+    pairing: null,
     variants: [
-      { size: "30 g", sku: "BEL-030" },
-      { size: "50 g", sku: "BEL-050" },
-      { size: "125 g", sku: "BEL-125" }
-    ],
-    inStock: true
+      { size: "30 g", sku: "GOL-030" },
+      { size: "50 g", sku: "GOL-050" },
+      { size: "100 g", sku: "GOL-100" },
+      { size: "1 kg", sku: "GOL-1000" }
+    ]
   },
   {
-    id: "sevruga-tradition",
-    name: "Sevruga Tradition",
+    id: "caviar-presse",
+    name: "Caviar Pressé",
+    species: null,
+    category: "caviar-esturgeon",
+    tagline: "Concentré de grains mêlés, texture dense",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Le Caviar Pressé rassemble des grains de plusieurs récoltes en une pâte dense et intensément parfumée — un format traditionnel, apprécié des connaisseurs.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "100 g", sku: "PRE-100" },
+      { size: "1 kg", sku: "PRE-1000" }
+    ]
+  },
+  {
+    id: "sevruga",
+    name: "Sevruga",
     species: "Acipenser stellatus",
-    category: "caviar",
-    tint: "onyx",
+    category: "caviar-esturgeon",
     tagline: "Grain fin, caractère affirmé",
     badge: null,
     origin: "Hongrie — ferme Kovács, éleveur partenaire",
-    affinage: "Affiné 60 jours, salage Malossol",
+    affinage: null,
     description:
-      "Le Sevruga séduit par son grain plus petit et son caractère plus marqué : des notes iodées franches, une texture ferme et un léger croquant. Un caviar au tempérament affirmé, parfait pour les amateurs qui recherchent de l'intensité.",
-    tastingNotes: ["Iodé franc", "Léger croquant", "Notes minérales"],
-    pairing: "Œuf mollet, pomme de terre tiède, beurre demi-sel.",
+      "Le Sevruga séduit par son grain plus petit et son caractère affirmé, aux notes iodées franches.",
+    tastingNotes: ["Iodé franc", "Grain fin"],
+    pairing: "Blinis, crème fraîche, vodka glacée.",
     variants: [
       { size: "30 g", sku: "SEV-030" },
       { size: "50 g", sku: "SEV-050" },
-      { size: "125 g", sku: "SEV-125" },
-      { size: "250 g", sku: "SEV-250" }
-    ],
-    inStock: true
+      { size: "100 g", sku: "SEV-100" },
+      { size: "1 kg", sku: "SEV-1000" }
+    ]
   },
   {
-    id: "kaluga-reserve",
-    name: "Kaluga hybride Réserve",
-    species: "Acipenser schrenckii × Huso dauricus",
-    category: "caviar",
-    tint: "amber",
+    id: "tradition-russe",
+    name: "Tradition Russe",
+    species: null,
+    category: "caviar-esturgeon",
+    tagline: "Salage traditionnel, équilibre classique",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Salage Malossol traditionnel",
+    description:
+      "La Tradition Russe perpétue le salage Malossol classique, pour un équilibre entre douceur et minéralité.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "30 g", sku: "TRU-030" },
+      { size: "50 g", sku: "TRU-050" },
+      { size: "100 g", sku: "TRU-100" },
+      { size: "250 g", sku: "TRU-250" },
+      { size: "1 kg", sku: "TRU-1000" }
+    ]
+  },
+  {
+    id: "selection-premium",
+    name: "Sélection Premium",
+    species: null,
+    category: "caviar-esturgeon",
+    tagline: "Le meilleur de chaque récolte",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "La Sélection Premium réunit les lots les plus réguliers de chaque récolte, disponible dans l'ensemble de nos formats.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "30 g", sku: "PRM-030" },
+      { size: "50 g", sku: "PRM-050" },
+      { size: "100 g", sku: "PRM-100" },
+      { size: "250 g", sku: "PRM-250" },
+      { size: "500 g", sku: "PRM-500" },
+      { size: "1 kg", sku: "PRM-1000" }
+    ]
+  },
+  {
+    id: "sterlet",
+    name: "Sterlet",
+    species: "Acipenser ruthenus",
+    category: "caviar-esturgeon",
+    tagline: "Le plus délicat des esturgeons",
+    badge: null,
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
+    affinage: null,
+    description:
+      "Le Sterlet, plus petit esturgeon d'Europe, offre un grain délicat et une finale tout en finesse.",
+    tastingNotes: ["Délicat", "Finale fine"],
+    pairing: null,
+    variants: [
+      { size: "100 g", sku: "STE-100" },
+      { size: "250 g", sku: "STE-250" },
+      { size: "1 kg", sku: "STE-1000" }
+    ]
+  },
+  {
+    id: "esturgeon-russe",
+    name: "Esturgeon Russe",
+    species: "Acipenser gueldenstaedtii",
+    category: "caviar-esturgeon",
+    tagline: "Grain ferme, notes de noisette",
+    badge: "Best-seller",
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
+    affinage: null,
+    description:
+      "L'Esturgeon Russe (Osciètre) offre un grain ferme aux notes de noisette, référence classique de la caviarculture.",
+    tastingNotes: ["Noisette grillée", "Grain ferme"],
+    pairing: "Blinis tièdes, crème fraîche, Champagne blanc de blancs.",
+    variants: [
+      { size: "30 g", sku: "RUS-030" },
+      { size: "50 g", sku: "RUS-050" },
+      { size: "100 g", sku: "RUS-100" },
+      { size: "250 g", sku: "RUS-250" },
+      { size: "500 g", sku: "RUS-500" },
+      { size: "1 kg", sku: "RUS-1000" }
+    ]
+  },
+  {
+    id: "kaluga",
+    name: "Kaluga",
+    species: "Huso dauricus",
+    category: "caviar-esturgeon",
     tagline: "Rondeur généreuse, rareté du fleuve Amour",
     badge: "Nouveauté",
     origin: "Hongrie — ferme Kovács, éleveur partenaire",
-    affinage: "Affiné 100 jours, salage Malossol léger",
+    affinage: null,
     description:
-      "Cousin du Beluga, le Kaluga hybride Réserve partage sa générosité et sa rondeur en bouche, avec une pointe de douceur supplémentaire. Un grain large, brillant, à la texture soyeuse — une alternative rare et remarquable pour les grandes occasions.",
-    tastingNotes: ["Doux et rond", "Grain brillant", "Notes lactées"],
-    pairing: "Toast brioché, beurre cru, un trait de citron.",
+      "Cousin du Beluga, le Kaluga partage sa générosité en bouche avec une pointe de douceur supplémentaire.",
+    tastingNotes: ["Doux et rond", "Grain brillant"],
+    pairing: null,
     variants: [
       { size: "30 g", sku: "KAL-030" },
       { size: "50 g", sku: "KAL-050" },
-      { size: "125 g", sku: "KAL-125" }
-    ],
-    inStock: true
+      { size: "100 g", sku: "KAL-100" },
+      { size: "250 g", sku: "KAL-250" },
+      { size: "500 g", sku: "KAL-500" },
+      { size: "1 kg", sku: "KAL-1000" }
+    ]
   },
   {
-    id: "baeri-prestige",
-    name: "Sibérien Prestige",
+    id: "classique-persan",
+    name: "Classique Persan",
+    species: null,
+    category: "caviar-esturgeon",
+    tagline: "L'école caspienne dans sa forme la plus pure",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Le Classique Persan perpétue l'école caspienne traditionnelle de préparation du caviar.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "30 g", sku: "PER-030" },
+      { size: "50 g", sku: "PER-050" },
+      { size: "100 g", sku: "PER-100" },
+      { size: "250 g", sku: "PER-250" },
+      { size: "500 g", sku: "PER-500" },
+      { size: "1 kg", sku: "PER-1000" }
+    ]
+  },
+  {
+    id: "amur",
+    name: "Amur",
+    species: "Acipenser schrenckii",
+    category: "caviar-esturgeon",
+    tagline: "Rareté du fleuve Amour, grain soutenu",
+    badge: null,
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
+    affinage: null,
+    description:
+      "Originaire du bassin de l'Amour, cet esturgeon offre un grain soutenu et une texture ferme.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "30 g", sku: "AMU-030" },
+      { size: "50 g", sku: "AMU-050" },
+      { size: "100 g", sku: "AMU-100" },
+      { size: "250 g", sku: "AMU-250" },
+      { size: "500 g", sku: "AMU-500" },
+      { size: "1 kg", sku: "AMU-1000" }
+    ]
+  },
+  {
+    id: "kaluga-premium",
+    name: "Kaluga Premium",
+    species: "Huso dauricus",
+    category: "caviar-esturgeon",
+    tagline: "Grands formats, sélection supérieure",
+    badge: null,
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
+    affinage: null,
+    description:
+      "Le Kaluga Premium réserve les lots les plus réguliers de la récolte à nos plus grands formats.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "100 g", sku: "KLP-100" },
+      { size: "1 kg", sku: "KLP-1000" }
+    ]
+  },
+  {
+    id: "siberien",
+    name: "Sibérien",
     species: "Acipenser baerii",
-    category: "caviar",
-    tint: "onyx",
+    category: "caviar-esturgeon",
     tagline: "L'équilibre parfait pour découvrir le caviar",
     badge: null,
     origin: "Hongrie — ferme Kovács, éleveur partenaire",
-    affinage: "Affiné 75 jours, salage Malossol",
+    affinage: null,
     description:
-      "Le Sibérien est l'esturgeon le plus élevé au monde, un gage de constance et de traçabilité. Nous sélectionnons directement ce lot chez la ferme Kovács, notre éleveur partenaire. Son grain gris-brun offre une texture souple et un goût délicat aux notes beurrées — l'entrée idéale dans l'univers du caviar d'exception.",
-    tastingNotes: ["Beurré et doux", "Texture souple", "Finale discrète"],
+      "Le Sibérien, esturgeon le plus élevé au monde, offre une constance et une texture souple idéales pour découvrir le caviar.",
+    tastingNotes: ["Beurré et doux", "Texture souple"],
     pairing: "Blinis nature, crème épaisse, ciboulette fraîche.",
     variants: [
-      { size: "30 g", sku: "BAE-030" },
-      { size: "50 g", sku: "BAE-050" },
-      { size: "125 g", sku: "BAE-125" },
-      { size: "250 g", sku: "BAE-250" }
-    ],
-    inStock: true
+      { size: "30 g", sku: "SIB-030" },
+      { size: "50 g", sku: "SIB-050" },
+      { size: "100 g", sku: "SIB-100" },
+      { size: "250 g", sku: "SIB-250" },
+      { size: "1 kg", sku: "SIB-1000" }
+    ]
   },
   {
-    id: "perles-blondes",
-    name: "Perles Blondes",
-    species: "Acipenser gueldenstaedtii — mutation albinos",
-    category: "caviar",
-    tint: "champagne",
-    tagline: "La rareté ultime, réservée aux grandes occasions",
+    id: "beluga",
+    name: "Beluga",
+    species: "Huso huso",
+    category: "caviar-esturgeon",
+    tagline: "Le plus grand des grains, la plus grande des rondeurs",
     badge: "Édition limitée",
-    origin: "Hongrie — ferme Kovács, moins de 300 kg sélectionnés par an",
-    affinage: "Affiné 90 jours, salage Malossol minimal",
+    origin: "Hongrie — ferme Kovács, certifié CITES",
+    affinage: null,
     description:
-      "Issues d'une mutation naturelle extrêmement rare de l'esturgeon Osciètre, les Perles Blondes affichent une robe dorée unique et un raffinement incomparable. Une pièce de collection, souvent présentée dans un coffret nacré et servie à la cuillère devant les convives.",
-    tastingNotes: ["Délicatesse extrême", "Notes de miel et de noisette", "Grain translucide"],
-    pairing: "Servi seul, à température, dans son écrin de glace pilée.",
+      "Le Beluga offre les grains les plus gros et la texture la plus crémeuse de tous les esturgeons, une rareté certifiée CITES.",
+    tastingNotes: ["Crémeux, presque beurré", "Salinité délicate"],
+    pairing: "À la cuillère de nacre, seul, tempéré 5 minutes hors du froid.",
     variants: [
-      { size: "30 g", sku: "PBL-030" },
-      { size: "50 g", sku: "PBL-050" }
-    ],
-    inStock: true
+      { size: "30 g", sku: "BEL-030" },
+      { size: "50 g", sku: "BEL-050" },
+      { size: "100 g", sku: "BEL-100" },
+      { size: "1 kg", sku: "BEL-1000" }
+    ]
   },
   {
-    id: "cuillere-nacre",
-    name: "Cuillère de Nacre",
-    species: null,
-    category: "accessoires",
-    tint: "champagne",
-    tagline: "L'ustensile traditionnel, sans altération du goût",
+    id: "keta",
+    name: "Keta",
+    species: "Oncorhynchus keta",
+    category: "caviar-saumon",
+    tagline: "Grain ambré, texture ferme",
     badge: null,
-    origin: "Fabrication artisanale, nacre naturelle",
+    origin: "Hongrie, sélection MARENOSTRUM",
     affinage: null,
     description:
-      "Contrairement au métal, la nacre ne réagit pas avec le caviar et préserve intégralement la pureté de ses arômes. Chaque cuillère est taillée à la main dans une nacre naturelle, légèrement différente d'une pièce à l'autre.",
+      "Le Keta offre un grain ambré et ferme, l'un des caviars de saumon les plus appréciés.",
     tastingNotes: [],
     pairing: null,
-    variants: [{ size: "Unité", sku: "ACC-CUI" }],
-    inStock: true
+    variants: [{ size: "1 kg", sku: "KET-1000" }]
   },
   {
-    id: "plateau-service",
-    name: "Plateau de Service Glacé",
-    species: null,
-    category: "accessoires",
-    tint: "graphite",
-    tagline: "Maintient le caviar à température idéale pendant le service",
+    id: "corbusha",
+    name: "Corbusha",
+    species: "Oncorhynchus gorbuscha",
+    category: "caviar-saumon",
+    tagline: "Grain fin, saveur douce",
     badge: null,
-    origin: "Verre et acier inoxydable",
+    origin: "Hongrie, sélection MARENOSTRUM",
     affinage: null,
     description:
-      "Un plateau à double paroi qui se glace au congélateur et maintient le caviar entre 0 et 4°C pendant toute la durée du service, sans jamais le mettre en contact direct avec la glace.",
+      "Le Corbusha (saumon rose) offre un grain fin et une saveur douce, accessible à tous les palais.",
     tastingNotes: [],
     pairing: null,
-    variants: [{ size: "Ø 20 cm", sku: "ACC-PLA" }],
-    inStock: true
+    variants: [{ size: "1 kg", sku: "COR-1000" }]
   },
   {
-    id: "blinis-artisanaux",
-    name: "Blinis Artisanaux",
-    species: null,
-    category: "epicerie",
-    tint: "champagne",
-    tagline: "La garniture traditionnelle, moelleuse et légère",
+    id: "truite",
+    name: "Truite",
+    species: "Oncorhynchus mykiss",
+    category: "caviar-saumon",
+    tagline: "Petit grain, orange vif",
     badge: null,
-    origin: "Fabrication française, farine de sarrasin",
+    origin: "Hongrie, sélection MARENOSTRUM",
     affinage: null,
     description:
-      "Réalisés selon la recette traditionnelle russe, ces blinis moelleux à la farine de sarrasin subliment le caviar sans jamais masquer sa finesse. Livrés frais, à réchauffer 2 minutes avant dégustation.",
+      "Les œufs de truite offrent un petit grain orangé, croquant et légèrement salé.",
     tastingNotes: [],
-    pairing: "Accompagnement traditionnel de tous nos caviars.",
-    variants: [{ size: "Boîte de 12", sku: "EPI-BLI" }],
-    inStock: true
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "TRO-1000" }]
   },
   {
-    id: "creme-fraiche-isigny",
-    name: "Crème Fraîche d'Isigny AOP",
-    species: null,
-    category: "epicerie",
-    tint: "onyx",
-    tagline: "Onctuosité et fraîcheur pour accompagner le grain",
+    id: "brochet",
+    name: "Brochet",
+    species: "Esox lucius",
+    category: "caviar-saumon",
+    tagline: "Grain menu, caractère d'eau douce",
     badge: null,
-    origin: "Isigny-sur-Mer, Normandie",
+    origin: "Hongrie, sélection MARENOSTRUM",
     affinage: null,
     description:
-      "Une crème fraîche épaisse et légèrement acidulée, AOP Isigny, qui apporte de la fraîcheur en bouche et fait ressortir la salinité délicate du caviar.",
+      "Les œufs de brochet, plus rares, offrent un grain menu au caractère affirmé d'eau douce.",
     tastingNotes: [],
-    pairing: "Blinis, œuf mollet, pomme de terre tiède.",
-    variants: [{ size: "200 g", sku: "EPI-CRE" }],
-    inStock: true
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "BRO-1000" }]
+  },
+  {
+    id: "nerka",
+    name: "Nerka",
+    species: "Oncorhynchus nerka",
+    category: "caviar-saumon",
+    tagline: "Rouge profond, grain moyen",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Le Nerka (saumon rouge) se distingue par sa teinte profonde et son grain moyen bien affirmé.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "NER-1000" }]
+  },
+  {
+    id: "kisutch",
+    name: "Kisutch",
+    species: "Oncorhynchus kisutch",
+    category: "caviar-saumon",
+    tagline: "Grain moyen, équilibre iodé",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Le Kisutch (saumon coho) offre un grain moyen à l'équilibre iodé harmonieux.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "KIS-1000" }]
+  },
+  {
+    id: "saumon-chinook",
+    name: "Saumon Chinook",
+    species: "Oncorhynchus tshawytscha",
+    category: "caviar-saumon",
+    tagline: "Le plus grand des saumons du Pacifique",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Issus du plus grand saumon du Pacifique, ces œufs offrent un grain généreux et une saveur riche.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "CHI-1000" }]
+  },
+  {
+    id: "saumon-atlantique",
+    name: "Saumon Atlantique",
+    species: "Salmo salar",
+    category: "caviar-saumon",
+    tagline: "Grain classique, disponible toute l'année",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Le Saumon Atlantique offre un grain classique et régulier, apprécié pour sa constance.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "ATL-1000" }]
+  },
+  {
+    id: "balik-esturgeon-blanc",
+    name: "Balik d'Esturgeon Blanc",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumé à froid, tradition caspienne",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à froid",
+    description:
+      "Le Balik d'Esturgeon Blanc est fumé à froid selon la tradition caspienne, pour une chair fondante.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "Tranché, au kg", sku: "BALESB-TR" },
+      { size: "Sur peau, au kg", sku: "BALESB-PE" }
+    ]
+  },
+  {
+    id: "balik-beluga",
+    name: "Balik de Beluga",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumé à froid, chair fondante",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à froid",
+    description:
+      "Le Balik de Beluga est fumé à froid, pour une chair particulièrement fondante et parfumée.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "Tranché, au kg", sku: "BALBEL-TR" },
+      { size: "Sur peau, au kg", sku: "BALBEL-PE" }
+    ]
+  },
+  {
+    id: "balik-saumon",
+    name: "Balik de Saumon",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumé à froid, tradition caspienne",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à froid",
+    description:
+      "Le Balik de Saumon est fumé à froid selon la même tradition que nos esturgeons.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "Tranché, au kg", sku: "BALSAU-TR" },
+      { size: "Sur peau, au kg", sku: "BALSAU-PE" }
+    ]
+  },
+  {
+    id: "fletan-fume",
+    name: "Flétan Fumé",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumé à froid",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à froid",
+    description: "Le flétan fumé à froid offre une chair délicate et légèrement fumée.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "Au kg", sku: "FLE-KG" }]
+  },
+  {
+    id: "saumon-fume-chaud",
+    name: "Saumon Fumé à Chaud",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumage à chaud, texture cuite",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à chaud",
+    description: "Ce saumon fumé à chaud offre une texture cuite et un goût fumé plus prononcé.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "Au kg", sku: "SFC-KG" }]
+  },
+  {
+    id: "esturgeon-blanc-fume-chaud",
+    name: "Esturgeon Blanc Fumé à Chaud",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumage à chaud",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à chaud",
+    description: "Cet esturgeon blanc fumé à chaud offre une chair ferme et un goût fumé prononcé.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "Au kg", sku: "EBFC-KG" }]
+  },
+  {
+    id: "esturgeon-russe-fume-chaud",
+    name: "Esturgeon Russe Fumé à Chaud",
+    species: null,
+    category: "poissons-fumes",
+    tagline: "Fumage à chaud",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage à chaud",
+    description: "Cet esturgeon russe fumé à chaud offre une chair ferme et un goût fumé prononcé.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "Au kg", sku: "ERFC-KG" }]
+  },
+  {
+    id: "quenelles-esturgeon-beluga-saumon",
+    name: "Quenelles Esturgeon, Beluga & Saumon",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Trois poissons, une seule quenelle",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Ces quenelles associent esturgeon, beluga et saumon pour un plat prêt à réchauffer, raffiné et généreux.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "500 g", sku: "QUE-500" },
+      { size: "1 kg", sku: "QUE-1000" }
+    ]
+  },
+  {
+    id: "escalopes-esturgeon-saumon",
+    name: "Escalopes Esturgeon & Saumon",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Prêtes à poêler",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Ces escalopes associent esturgeon et saumon, prêtes à poêler pour un plat rapide et raffiné.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "500 g", sku: "ESC-500" }]
+  },
+  {
+    id: "saucisses-esturgeon-saumon",
+    name: "Saucisses Esturgeon & Saumon",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Une charcuterie de la mer",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description: "Ces saucisses associent esturgeon et saumon pour une charcuterie de la mer originale.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "1 kg", sku: "SAU-1000" }]
+  },
+  {
+    id: "esturgeon-conserve-huile-olive",
+    name: "Esturgeon en Conserve, Huile d'Olive",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Prêt à servir, longue conservation",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description:
+      "Cet esturgeon en conserve à l'huile d'olive se garde longtemps et se sert à température ambiante.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "500 g", sku: "CON-500" }]
+  },
+  {
+    id: "king-crab",
+    name: "King Crab",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Le roi des crustacés",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description: "Le King Crab (crabe royal) offre une chair généreuse et délicatement sucrée, servi en pièces.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "250 g", sku: "KGC-250" }]
+  },
+  {
+    id: "foie-gras-canard-miel",
+    name: "Foie Gras de Canard au Miel",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Une pointe de douceur",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description: "Ce foie gras de canard au miel équilibre onctuosité et une pointe de douceur florale.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "50 g", sku: "FGC-050" },
+      { size: "70 g", sku: "FGC-070" },
+      { size: "100 g", sku: "FGC-100" },
+      { size: "150 g", sku: "FGC-150" },
+      { size: "250 g", sku: "FGC-250" }
+    ]
+  },
+  {
+    id: "foie-gras-oie-miel",
+    name: "Foie Gras d'Oie au Miel",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Texture fine, douceur miellée",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: null,
+    description: "Ce foie gras d'oie au miel offre une texture plus fine, relevée d'une douceur miellée.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [
+      { size: "50 g", sku: "FGO-050" },
+      { size: "70 g", sku: "FGO-070" },
+      { size: "100 g", sku: "FGO-100" },
+      { size: "150 g", sku: "FGO-150" },
+      { size: "250 g", sku: "FGO-250" }
+    ]
+  },
+  {
+    id: "foie-gras-oie-fume-miel",
+    name: "Foie Gras d'Oie Fumé au Miel",
+    species: null,
+    category: "epicerie-fine",
+    tagline: "Fumé, relevé de miel",
+    badge: null,
+    origin: "Hongrie, sélection MARENOSTRUM",
+    affinage: "Fumage",
+    description: "Ce foie gras d'oie fumé et relevé de miel offre un profil plus intense, entre fumaison et douceur.",
+    tastingNotes: [],
+    pairing: null,
+    variants: [{ size: "Au kg", sku: "FGF-KG" }]
   }
 ];
 
 const MARENOSTRUM_CATEGORIES = [
   { id: "tous", label: "Tous les produits" },
-  { id: "caviar", label: "Caviars" },
-  { id: "accessoires", label: "Accessoires" },
-  { id: "epicerie", label: "Épicerie fine" }
+  { id: "caviar-esturgeon", label: "Caviar d'esturgeon" },
+  { id: "caviar-saumon", label: "Caviar de saumon" },
+  { id: "poissons-fumes", label: "Poissons fumés" },
+  { id: "epicerie-fine", label: "Épicerie fine" }
 ];
 
 function mnFindProduct(id) {

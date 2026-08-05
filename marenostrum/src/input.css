@@ -1,8 +1,7 @@
-/* Single loading point for both brand typefaces — change weights/styles here only.
-   Fraunces: editorial serif for headings (opsz axis requested up to 144 for a warmer, more
-   "brut" cut at display sizes; italic included for the hero's accent word).
-   Inter: neutral sans for body copy and interface chrome, and the default body font. */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+/* Single loading point for the brand typeface — change weights here only.
+   Space Grotesk: a single geometric grotesque used for both headings and body copy/interface
+   chrome (titre and texte roles both map to it — see tailwind.config.js). */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -75,8 +74,8 @@
   }
 
   /*
-   * Editorial heading scale — four tiers, all Fraunces, all regular weight (a "brut" display
-   * serif reads heavy at large sizes in semibold; regular keeps the sober, restrained tone).
+   * Editorial heading scale — four tiers, all Space Grotesk, all regular weight (keeps the
+   * sober, restrained tone rather than reading heavy at large display sizes).
    * Margin/alignment/max-width stay as per-instance utility classes alongside these, since
    * that's genuinely contextual — but font, size, weight and color live here once.
    */
@@ -102,7 +101,7 @@
     @apply max-w-prose text-base sm:text-lg text-ink-200 leading-relaxed;
   }
 
-  /* Editorial quote break — large centered italic serif line on a plain ground, generous
+  /* Editorial quote break — large centered italic line on a plain ground, generous
      padding either side. The signature device of quiet apothecary-style sites: one considered
      sentence given a whole section of space rather than another content block. */
   .h-quote {

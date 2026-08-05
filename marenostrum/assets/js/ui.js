@@ -134,14 +134,16 @@ function mnFooter() {
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
-        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar d'exception. Sélection exigeante, affinage traditionnel, fournisseur de la restauration et de l'hôtellerie.</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar et de délicatesses d'exception. Sélection exigeante, fournisseur de la restauration et de l'hôtellerie.</p>
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Produits</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html">Tous les caviars</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html">Tous les produits</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=caviar-esturgeon">Caviar d'esturgeon</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=caviar-saumon">Caviar de saumon</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=poissons-fumes">Poissons fumés</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=epicerie-fine">Épicerie fine</a></li>
         </ul>
       </div>
       <div>
@@ -283,16 +285,17 @@ function mnInitMagnetic(root) {
 }
 
 /**
- * Fond de page uni ivoire, commun à toutes les pages — la composition claire et aérée repose
- * sur ce fond ivoire par défaut ; les moments sombres (hero, pied de page, section « abysse »)
- * posent leur propre fond noir par-dessus. Injecté en position: fixed pour rester stable au
- * défilement. La photo océan n'habille plus tout le site (elle reste dans le hero d'accueil) :
- * un grand aplat photographique sombre irait à l'encontre du parti pris ivoire.
- * `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus l'ivoire.
+ * Fond de page commun à toutes les pages : la photo mer (eaux vives, vue aérienne), avec un
+ * voile ivoire volontairement léger pour que la photo reste bien visible derrière le texte
+ * (contrairement à un voile lourd qui l'effacerait presque). Les sections à fond opaque (hero
+ * vidéo, pied de page, bandes bg-ink-800/bg-noir) recouvrent simplement ce fond là où elles
+ * s'affichent. Injecté en position: fixed pour rester stable au défilement. `.mn-grain`
+ * conserve un très léger grain (texture « argentique ») par-dessus.
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 bg-ivoire pointer-events-none" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-cover bg-center pointer-events-none" style="background-image:url('assets/img/fond-mer.jpg')" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-ivoire/55 pointer-events-none" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 

@@ -57,13 +57,11 @@ module.exports = {
         error: "#B3261E" // deep red — reads correctly again now that form surfaces are light
       },
       fontFamily: {
-        // Fraunces (Google Fonts, loaded once in src/input.css) — editorial serif for every
-        // heading. Its optical-size axis is requested up to 144 so large titles get the
-        // warmer, slightly raw display cut rather than a text-sized one scaled up.
-        titre: ["Fraunces", "Georgia", "serif"],
-        // Inter — neutral, highly legible sans for body copy and interface chrome. Also the
-        // default font on <body>, see src/input.css.
-        texte: ["Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+        // Space Grotesk (Google Fonts, loaded once in src/input.css) — single typeface for
+        // both roles: "titre" (headings) and "texte" (body copy, interface chrome, default
+        // font on <body>, see src/input.css).
+        titre: ["Space Grotesk", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        texte: ["Space Grotesk", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",
