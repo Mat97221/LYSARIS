@@ -1457,6 +1457,20 @@ a, button, [role="button"], input[type="submit"] {
   animation: fadeUp 800ms cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
+@keyframes slowzoom{
+  0%, 100%{
+    transform: scale(1);
+  }
+
+  50%{
+    transform: scale(1.06);
+  }
+}
+
+.animate-slowzoom{
+  animation: slowzoom 14s ease-in-out infinite;
+}
+
 .resize-none{
   resize: none;
 }
