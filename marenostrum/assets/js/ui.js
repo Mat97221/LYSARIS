@@ -285,17 +285,14 @@ function mnInitMagnetic(root) {
 }
 
 /**
- * Fond de page commun à toutes les pages : la photo mer (eaux vives, vue aérienne), avec un
- * voile ivoire volontairement léger pour que la photo reste bien visible derrière le texte
- * (contrairement à un voile lourd qui l'effacerait presque). Les sections à fond opaque (hero
- * vidéo, pied de page, bandes bg-ink-800/bg-noir) recouvrent simplement ce fond là où elles
- * s'affichent. Injecté en position: fixed pour rester stable au défilement. `.mn-grain`
- * conserve un très léger grain (texture « argentique ») par-dessus.
+ * Fond de page commun à toutes les pages : un dégradé ivoire dans les tons de la charte (pas de
+ * photo). Les sections à fond opaque (hero, pied de page, bandes bg-ink-800/bg-noir) recouvrent
+ * simplement ce fond là où elles s'affichent. Injecté en position: fixed pour rester stable au
+ * défilement. `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus.
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 bg-cover bg-center pointer-events-none" style="background-image:url('assets/img/fond-mer.jpg')" aria-hidden="true"></div>
-    <div class="fixed inset-0 -z-10 bg-ivoire/55 pointer-events-none" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 pointer-events-none" style="background:linear-gradient(160deg, #F4EFE6 0%, #ECE5D7 45%, #E4DCCB 75%, #F4EFE6 100%)" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 
