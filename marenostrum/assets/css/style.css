@@ -2330,6 +2330,10 @@ a, button, [role="button"], input[type="submit"] {
     height: 14rem;
   }
 
+  .sm\:h-64{
+    height: 16rem;
+  }
+
   .sm\:h-96{
     height: 24rem;
   }
