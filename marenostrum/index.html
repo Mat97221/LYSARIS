@@ -16,10 +16,10 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- Hero — full-bleed image, quiet overlay: one line, one understated link -->
-    <section class="relative min-h-screen flex flex-col overflow-hidden">
-      <div class="parallax-bg absolute inset-0 overflow-hidden" data-speed="0.15">
-        <div class="absolute inset-0 bg-cover bg-center animate-slowzoom" style="background-image: url('assets/img/hero-caviar.jpg')"></div>
+    <!-- Hero — quiet overlay: one line, one understated link. Empty image-slot: no photo yet. -->
+    <section class="relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-b from-marine to-noir">
+      <div class="absolute inset-0">
+        <image-slot shape="rect" placeholder="Photo : à venir" style="width:100%;height:100%"></image-slot>
       </div>
       <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.5) 0%, rgba(17,17,16,0.1) 35%, rgba(17,17,16,0.5) 100%)"></div>
       <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-8 py-32 text-center">
@@ -73,13 +73,13 @@
     <!-- Deep-sea origin break -->
     <section class="mn-abyss" style="border-top:1px solid #0A0A09;border-bottom:1px solid #0A0A09">
       <div class="absolute inset-0" style="z-index:0">
-        <image-slot id="mn-origine-photo" shape="rect" placeholder="Photo : sélection d'un lot chez notre éleveur partenaire, Hongrie" style="width:100%;height:100%"></image-slot>
+        <image-slot id="mn-origine-photo" shape="rect" placeholder="Photo : bassins de la ferme Kovács, notre éleveur partenaire, Hongrie" style="width:100%;height:100%"></image-slot>
       </div>
       <div class="absolute inset-0 pointer-events-none" style="z-index:1;background:linear-gradient(180deg, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0.8) 65%, rgba(17,17,16,0.92) 100%)"></div>
       <div class="container-page relative flex flex-col items-center gap-6 py-32 text-center reveal" style="z-index:10">
         <p class="eyebrow text-ivoire">Sélectionné avec exigence</p>
-        <h2 class="h-section max-w-2xl text-ivoire">Nous choisissons chaque lot directement chez notre éleveur partenaire, en Hongrie</h2>
-        <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Aucun raccourci : l'esturgeon met de 7 à 12 ans à produire ses premiers œufs. Nous nous rendons sur place pour sélectionner et valider chaque lot, bassin après bassin, avant de l'affiner nous-mêmes selon la méthode Malossol.</p>
+        <h2 class="h-section max-w-2xl text-ivoire">Nous choisissons chaque lot chez la ferme Kovács, notre éleveur partenaire hongrois</h2>
+        <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Aucun raccourci : l'esturgeon met de 7 à 12 ans à produire ses premiers œufs. Sur les rives de la Tisza, cette famille d'éleveurs élève en eaux vives depuis trois générations. Nous nous rendons sur place pour sélectionner et valider chaque lot, bassin après bassin, avant de l'affiner nous-mêmes selon la méthode Malossol.</p>
       </div>
     </section>
 
@@ -116,7 +116,7 @@
               <image-slot id="mn-promesse-photo-1" shape="rect" placeholder="Photo : boîte numérotée, atelier de traçabilité" style="width:100%;height:100%"></image-slot>
             </div>
             <h3 class="h-card mb-3">Traçabilité totale</h3>
-            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot unique. On remonte jusqu'à notre éleveur partenaire en Hongrie, à la date de récolte et au type d'affinage — rien n'est laissé au hasard, tout se vérifie.</p>
+            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot unique. On remonte jusqu'à la ferme Kovács, notre éleveur partenaire en Hongrie, à la date de récolte et au type d'affinage — rien n'est laissé au hasard, tout se vérifie.</p>
           </article>
           <article class="reveal flex flex-col">
             <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
@@ -127,10 +127,10 @@
           </article>
           <article class="reveal flex flex-col">
             <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
-              <image-slot id="mn-promesse-photo-3" shape="rect" placeholder="Photo : visite de contrôle chez notre éleveur partenaire" style="width:100%;height:100%"></image-slot>
+              <image-slot id="mn-promesse-photo-3" shape="rect" placeholder="Photo : visite de contrôle chez la ferme Kovács" style="width:100%;height:100%"></image-slot>
             </div>
             <h3 class="h-card mb-3">Sélection exigeante</h3>
-            <p class="text-ink-200 leading-relaxed">Nous sélectionnons nos lots directement chez notre éleveur partenaire en Hongrie, dont nous vérifions les pratiques : eaux vives, circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
+            <p class="text-ink-200 leading-relaxed">Nous sélectionnons nos lots directement chez la ferme Kovács, notre éleveur partenaire en Hongrie, dont nous vérifions les pratiques : eaux vives, circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
           </article>
         </div>
       </div>
@@ -216,7 +216,6 @@
 
   <script src="assets/js/products.js"></script>
   <script src="assets/js/ui.js"></script>
-  <script src="assets/js/parallax.js"></script>
   <script>
     const MN_FORMATS = [
       { key: "30g", label: "30 g", title: "L'initiation", tint: "champagne", desc: "Le format idéal pour une première dégustation ou un apéritif à deux — juste assez pour découvrir la texture et le grain sans engagement.", serving: "2 à 3 personnes en dégustation pure" },

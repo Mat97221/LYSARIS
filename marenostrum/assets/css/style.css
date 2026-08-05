@@ -1484,20 +1484,6 @@ a, button, [role="button"], input[type="submit"] {
   animation: float 5s ease-in-out infinite;
 }
 
-@keyframes slowzoom{
-  0%, 100%{
-    transform: scale(1);
-  }
-
-  50%{
-    transform: scale(1.06);
-  }
-}
-
-.animate-slowzoom{
-  animation: slowzoom 14s ease-in-out infinite;
-}
-
 @keyframes tinwobble{
   0%, 100%{
     transform: rotateY(-7deg);
@@ -1714,14 +1700,6 @@ a, button, [role="button"], input[type="submit"] {
   --tw-gradient-to: #111110 var(--tw-gradient-to-position);
 }
 
-.bg-cover{
-  background-size: cover;
-}
-
-.bg-center{
-  background-position: center;
-}
-
 .p-6{
   padding: 1.5rem;
 }
@@ -1806,6 +1784,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .pt-5{
   padding-top: 1.25rem;
+}
+
+.pt-6{
+  padding-top: 1.5rem;
 }
 
 .pt-8{
@@ -2014,6 +1996,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .\[text-shadow\:0_2px_24px_rgba\(17\2c 17\2c 16\2c 0\.5\)\]{
   text-shadow: 0 2px 24px rgba(17,17,16,0.5);
+}
+
+.\[transition-delay\:120ms\]{
+  transition-delay: 120ms;
 }
 
 .\[transition-delay\:260ms\]{

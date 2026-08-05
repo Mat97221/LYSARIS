@@ -11,7 +11,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "amber",
     tagline: "Grain doré, notes de noisette grillée",
     badge: "Best-seller",
-    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
     affinage: "Affiné 90 jours, salage traditionnel Malossol",
     description:
       "Notre Osciètre Royal est l'expression la plus aboutie de notre exigence de sélection : un grain ferme et doré, une texture qui éclate délicatement en bouche, et une longue finale sur des notes de beurre noisette et de fruits secs. Un caviar de référence, apprécié aussi bien des connaisseurs que des curieux qui découvrent l'Osciètre pour la première fois.",
@@ -33,7 +33,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "graphite",
     tagline: "Le plus grand des grains, la plus grande des rondeurs",
     badge: "Édition limitée",
-    origin: "Hongrie — élevage partenaire certifié CITES",
+    origin: "Hongrie — ferme Kovács, certifié CITES",
     affinage: "Affiné 120 jours, salage Malossol léger",
     description:
       "Le Beluga hybride Impérial est la pièce maîtresse de toute table d'exception. Ses grains, parmi les plus gros qui existent, offrent une texture crémeuse et fondante, presque beurrée, avec une salinité extrêmement délicate. Une rareté sélectionnée en quantités volontairement limitées chaque saison.",
@@ -54,7 +54,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "onyx",
     tagline: "Grain fin, caractère affirmé",
     badge: null,
-    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
     affinage: "Affiné 60 jours, salage Malossol",
     description:
       "Le Sevruga séduit par son grain plus petit et son caractère plus marqué : des notes iodées franches, une texture ferme et un léger croquant. Un caviar au tempérament affirmé, parfait pour les amateurs qui recherchent de l'intensité.",
@@ -76,7 +76,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "amber",
     tagline: "Rondeur généreuse, rareté du fleuve Amour",
     badge: "Nouveauté",
-    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
     affinage: "Affiné 100 jours, salage Malossol léger",
     description:
       "Cousin du Beluga, le Kaluga hybride Réserve partage sa générosité et sa rondeur en bouche, avec une pointe de douceur supplémentaire. Un grain large, brillant, à la texture soyeuse — une alternative rare et remarquable pour les grandes occasions.",
@@ -97,10 +97,10 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "onyx",
     tagline: "L'équilibre parfait pour découvrir le caviar",
     badge: null,
-    origin: "Hongrie — élevage partenaire, sélection MARENOSTRUM",
+    origin: "Hongrie — ferme Kovács, éleveur partenaire",
     affinage: "Affiné 75 jours, salage Malossol",
     description:
-      "Le Sibérien est l'esturgeon le plus élevé au monde, un gage de constance et de traçabilité. Nous sélectionnons directement ce lot chez notre éleveur partenaire. Son grain gris-brun offre une texture souple et un goût délicat aux notes beurrées — l'entrée idéale dans l'univers du caviar d'exception.",
+      "Le Sibérien est l'esturgeon le plus élevé au monde, un gage de constance et de traçabilité. Nous sélectionnons directement ce lot chez la ferme Kovács, notre éleveur partenaire. Son grain gris-brun offre une texture souple et un goût délicat aux notes beurrées — l'entrée idéale dans l'univers du caviar d'exception.",
     tastingNotes: ["Beurré et doux", "Texture souple", "Finale discrète"],
     pairing: "Blinis nature, crème épaisse, ciboulette fraîche.",
     variants: [
@@ -119,7 +119,7 @@ const MARENOSTRUM_PRODUCTS = [
     tint: "champagne",
     tagline: "La rareté ultime, réservée aux grandes occasions",
     badge: "Édition limitée",
-    origin: "Hongrie — moins de 300 kg sélectionnés par an",
+    origin: "Hongrie — ferme Kovács, moins de 300 kg sélectionnés par an",
     affinage: "Affiné 90 jours, salage Malossol minimal",
     description:
       "Issues d'une mutation naturelle extrêmement rare de l'esturgeon Osciètre, les Perles Blondes affichent une robe dorée unique et un raffinement incomparable. Une pièce de collection, souvent présentée dans un coffret nacré et servie à la cuillère devant les convives.",

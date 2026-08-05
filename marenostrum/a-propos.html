@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/image-slot.js"></script>
 </head>
 <body data-page="apropos">
   <div id="site-bg"></div>
@@ -51,6 +52,42 @@
       </div>
     </section>
 
+    <section class="container-page py-28">
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1 reveal flex h-72 items-center justify-center overflow-hidden bg-ink-800 sm:h-96">
+          <image-slot id="mn-eleveur-photo" shape="rect" placeholder="Photo : bassins de la ferme Kovács, bord de la Tisza, Hongrie" style="width:100%;height:100%"></image-slot>
+        </div>
+        <div class="order-1 lg:order-2 reveal [transition-delay:120ms]">
+          <p class="eyebrow mb-4">Notre partenaire</p>
+          <h2 class="h-section mb-8">Un éleveur hongrois d'exception</h2>
+          <p class="prose-copy mb-4">
+            Sur les rives de la Tisza, dans l'est de la Hongrie, la ferme Kovács élève l'esturgeon en famille depuis trois générations. Bassins en eaux vives, circuit fermé, densité d'élevage volontairement limitée : un savoir-faire patient, à contre-courant des élevages intensifs, que nous avons choisi de faire nôtre.
+          </p>
+          <p class="prose-copy mb-8">
+            Nous nous rendons sur place plusieurs fois par an pour goûter chaque récolte, vérifier les conditions d'élevage et valider la certification CITES de chaque lot. Cette exigence partagée est la garantie d'un caviar constant et traçable, du bassin hongrois à notre atelier d'affinage à Bordeaux.
+          </p>
+          <dl class="grid grid-cols-2 gap-6 border-t border-ink-600/50 pt-6">
+            <div>
+              <dt class="field-label">Depuis</dt>
+              <dd class="text-ink-100 text-sm">3 générations</dd>
+            </div>
+            <div>
+              <dt class="field-label">Élevage</dt>
+              <dd class="text-ink-100 text-sm">Eaux vives, circuit fermé</dd>
+            </div>
+            <div>
+              <dt class="field-label">Certification</dt>
+              <dd class="text-ink-100 text-sm">CITES</dd>
+            </div>
+            <div>
+              <dt class="field-label">Visites</dt>
+              <dd class="text-ink-100 text-sm">Plusieurs fois par an</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
     <section class="border-y border-ink-600/50 bg-ink-800">
       <div class="container-page py-28">
         <p class="eyebrow mb-4 text-center reveal">Nos engagements</p>
@@ -59,12 +96,12 @@
           <div>
             <span class="mb-5 flex h-9 w-9 text-marine" id="mn-value-icon-1"></span>
             <h3 class="h-card mb-3">Sélection exigeante</h3>
-            <p class="text-ink-200 leading-relaxed">Nous sélectionnons nos lots directement chez notre éleveur partenaire en Hongrie, dont nous vérifions les pratiques : eaux vives, circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
+            <p class="text-ink-200 leading-relaxed">Nous sélectionnons nos lots directement chez la ferme Kovács, notre éleveur partenaire en Hongrie, dont nous vérifions les pratiques : eaux vives, circuit fermé, sans hormones ni antibiotiques de croissance. Une espèce protégée que nous traitons avec le plus grand respect.</p>
           </div>
           <div>
             <span class="mb-5 flex h-9 w-9 text-marine" id="mn-value-icon-2"></span>
             <h3 class="h-card mb-3">Traçabilité totale</h3>
-            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot qui permet de remonter jusqu'à notre éleveur partenaire en Hongrie, à la date de récolte et au type d'affinage appliqué.</p>
+            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot qui permet de remonter jusqu'à la ferme Kovács, notre éleveur partenaire en Hongrie, à la date de récolte et au type d'affinage appliqué.</p>
           </div>
           <div>
             <span class="mb-5 flex h-9 w-9 text-marine" id="mn-value-icon-3"></span>
