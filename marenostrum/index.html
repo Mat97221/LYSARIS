@@ -16,10 +16,10 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- Hero — quiet overlay: one line, one understated link. Empty image-slot: no photo yet. -->
-    <section class="relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <div class="absolute inset-0">
-        <image-slot shape="rect" placeholder="Photo : à venir" style="width:100%;height:100%"></image-slot>
+    <!-- Hero — full-bleed image, quiet overlay: one line, one understated link -->
+    <section class="relative min-h-screen flex flex-col overflow-hidden">
+      <div class="parallax-bg absolute inset-0 overflow-hidden" data-speed="0.15">
+        <div class="absolute inset-0 bg-cover bg-center animate-slowzoom" style="background-image: url('assets/img/hero-caviar.jpg')"></div>
       </div>
       <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.5) 0%, rgba(17,17,16,0.1) 35%, rgba(17,17,16,0.5) 100%)"></div>
       <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-8 py-32 text-center">
@@ -216,6 +216,7 @@
 
   <script src="assets/js/products.js"></script>
   <script src="assets/js/ui.js"></script>
+  <script src="assets/js/parallax.js"></script>
   <script>
     const MN_FORMATS = [
       { key: "30g", label: "30 g", title: "L'initiation", tint: "champagne", desc: "Le format idéal pour une première dégustation ou un apéritif à deux — juste assez pour découvrir la texture et le grain sans engagement.", serving: "2 à 3 personnes en dégustation pure" },

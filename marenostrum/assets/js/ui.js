@@ -283,16 +283,16 @@ function mnInitMagnetic(root) {
 }
 
 /**
- * Fond de page commun à toutes les pages : une photo fixe (paysage de montagne), atténuée par
- * un voile ivoire pour que le texte et les sections claires posées par-dessus restent lisibles.
- * Les sections à fond opaque (hero, pied de page, bandes bg-ink-800/bg-noir) recouvrent
- * simplement ce fond là où elles s'affichent. Injecté en position: fixed pour rester stable au
- * défilement. `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus.
+ * Fond de page uni ivoire, commun à toutes les pages — la composition claire et aérée repose
+ * sur ce fond ivoire par défaut ; les moments sombres (hero, pied de page, section « abysse »)
+ * posent leur propre fond noir par-dessus. Injecté en position: fixed pour rester stable au
+ * défilement. La photo océan n'habille plus tout le site (elle reste dans le hero d'accueil) :
+ * un grand aplat photographique sombre irait à l'encontre du parti pris ivoire.
+ * `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus l'ivoire.
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 bg-cover bg-center pointer-events-none" style="background-image:url('assets/img/site-background.jpg')" aria-hidden="true"></div>
-    <div class="fixed inset-0 -z-10 bg-ivoire/90 pointer-events-none" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-ivoire pointer-events-none" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 
