@@ -182,19 +182,12 @@
       <div class="container-page py-28">
         <p class="eyebrow mb-3 text-center reveal">Tout l'univers Maison</p>
         <h2 class="h-section mb-16 text-center reveal">Découvrez nos gammes</h2>
-        <div id="mn-univers-grid" class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div id="mn-univers-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2">
           <a href="boutique.html?cat=caviar" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
             <image-slot id="mn-univers-caviar" shape="rect" placeholder="Photo : grain de caviar en gros plan" style="width:100%;height:100%"></image-slot>
             <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
             <div class="absolute inset-x-0 bottom-0 p-6">
               <h3 class="h-card">Caviars</h3>
-            </div>
-          </a>
-          <a href="boutique.html?cat=coffrets" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-coffrets" shape="rect" placeholder="Photo : coffret ouvert, cuillère de nacre" style="width:100%;height:100%"></image-slot>
-            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
-            <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Coffrets &amp; cadeaux</h3>
             </div>
           </a>
           <a href="boutique.html?cat=epicerie" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
@@ -211,10 +204,10 @@
     <!-- Closing CTA — plain block, no card chrome -->
     <section class="container-page py-32 text-center">
       <div class="reveal mx-auto max-w-xl">
-        <p class="eyebrow mb-4">Offrir l'exception</p>
-        <h2 class="h-section mb-6">Prêt à composer votre coffret ?</h2>
-        <p class="prose-copy mx-auto mb-8">Coffret Découverte, Coffret Prestige — chaque écrin est livré avec cuillère de nacre et livret de dégustation.</p>
-        <a href="boutique.html?cat=coffrets" class="btn-quiet">Voir les coffrets</a>
+        <p class="eyebrow mb-4">Restaurant, hôtel, grossiste ?</p>
+        <h2 class="h-section mb-6">Demandez votre devis professionnel</h2>
+        <p class="prose-copy mx-auto mb-8">Notre équipe vous répond sous 24h ouvrées pour toute demande de devis, de partenariat ou de renseignement.</p>
+        <a href="contact.html" class="btn-quiet">Demander un devis professionnel</a>
       </div>
     </section>
   </main>
@@ -261,7 +254,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const featuredIds = ["osciètre-royal", "beluga-imperial", "kaluga-reserve", "coffret-decouverte"];
+      const featuredIds = ["osciètre-royal", "beluga-imperial", "kaluga-reserve", "baeri-prestige"];
       const grid = document.getElementById("mn-featured-grid");
       grid.innerHTML = featuredIds.map((id) => mnProductCard(mnFindProduct(id))).join("");
       mnStagger(grid, 90);

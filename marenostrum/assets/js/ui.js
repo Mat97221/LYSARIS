@@ -106,7 +106,6 @@ function mnHeader(active) {
       <nav class="hidden md:flex items-center gap-8">
         ${link("index.html", "Accueil", "accueil")}
         ${link("boutique.html", "Nos produits", "boutique")}
-        ${link("boutique.html?cat=coffrets", "Coffrets", "coffrets")}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </nav>
@@ -121,7 +120,6 @@ function mnHeader(active) {
       <div class="container-page flex flex-col gap-4 py-5">
         ${link("index.html", "Accueil", "accueil")}
         ${link("boutique.html", "Nos produits", "boutique")}
-        ${link("boutique.html?cat=coffrets", "Coffrets", "coffrets")}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </div>
@@ -142,7 +140,6 @@ function mnFooter() {
         <p class="eyebrow text-ivoire mb-4">Produits</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
           <li><a class="hover:text-ivoire transition-colors" href="boutique.html">Tous les caviars</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=coffrets">Coffrets &amp; cadeaux</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=accessoires">Accessoires</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=epicerie">Épicerie fine</a></li>
         </ul>
@@ -286,16 +283,16 @@ function mnInitMagnetic(root) {
 }
 
 /**
- * Fond de page uni ivoire, commun à toutes les pages — la composition claire et aérée repose
- * sur ce fond ivoire par défaut ; les moments sombres (hero, pied de page, section « abysse »)
- * posent leur propre fond noir par-dessus. Injecté en position: fixed pour rester stable au
- * défilement. La photo océan n'habille plus tout le site (elle reste dans le hero d'accueil) :
- * un grand aplat photographique sombre irait à l'encontre du parti pris ivoire.
- * `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus l'ivoire.
+ * Fond de page commun à toutes les pages : une photo fixe (paysage de montagne), atténuée par
+ * un voile ivoire pour que le texte et les sections claires posées par-dessus restent lisibles.
+ * Les sections à fond opaque (hero, pied de page, bandes bg-ink-800/bg-noir) recouvrent
+ * simplement ce fond là où elles s'affichent. Injecté en position: fixed pour rester stable au
+ * défilement. `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus.
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 bg-ivoire pointer-events-none" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-cover bg-center pointer-events-none" style="background-image:url('assets/img/site-background.jpg')" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-ivoire/90 pointer-events-none" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 

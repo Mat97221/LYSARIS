@@ -132,40 +132,6 @@ const MARENOSTRUM_PRODUCTS = [
     inStock: true
   },
   {
-    id: "coffret-decouverte",
-    name: "Coffret Découverte",
-    species: null,
-    category: "coffrets",
-    tint: "onyx",
-    tagline: "3 caviars, 1 voyage de dégustation",
-    badge: "Idéal cadeau",
-    origin: "Assemblage MARENOSTRUM",
-    affinage: null,
-    description:
-      "Un coffret pensé pour explorer la diversité du caviar en une seule dégustation : Sibérien Prestige, Sevruga Tradition et Osciètre Royal, chacun en portion de 30 g, accompagnés d'une cuillère de nacre et d'un livret de dégustation. L'écrin parfait pour offrir ou pour se faire plaisir.",
-    tastingNotes: ["3 grains, 3 caractères", "Livret de dégustation inclus", "Cuillère de nacre offerte"],
-    pairing: "Idéal en apéritif dînatoire, à partager à deux ou trois convives curieux.",
-    variants: [{ size: "3 x 30 g", sku: "COF-DEC" }],
-    inStock: true
-  },
-  {
-    id: "coffret-prestige",
-    name: "Coffret Prestige",
-    species: null,
-    category: "coffrets",
-    tint: "amber",
-    tagline: "Beluga hybride, Kaluga hybride et Osciètre pour une table d'exception",
-    badge: null,
-    origin: "Assemblage MARENOSTRUM",
-    affinage: null,
-    description:
-      "Le coffret des grandes occasions : Beluga hybride Impérial, Kaluga hybride Réserve et Osciètre Royal en portions de 50 g, présentés dans un écrin en bois laqué avec cuillère de nacre et glacière d'accompagnement. Pensé pour sublimer un dîner de fête.",
-    tastingNotes: ["Écrin en bois laqué", "Glacière incluse", "3 caviars d'exception"],
-    pairing: "Réveillon, anniversaire, dîner de fiançailles — pour marquer un moment rare.",
-    variants: [{ size: "3 x 50 g", sku: "COF-PRE" }],
-    inStock: true
-  },
-  {
     id: "cuillere-nacre",
     name: "Cuillère de Nacre",
     species: null,
@@ -238,7 +204,6 @@ const MARENOSTRUM_PRODUCTS = [
 const MARENOSTRUM_CATEGORIES = [
   { id: "tous", label: "Tous les produits" },
   { id: "caviar", label: "Caviars" },
-  { id: "coffrets", label: "Coffrets & cadeaux" },
   { id: "accessoires", label: "Accessoires" },
   { id: "epicerie", label: "Épicerie fine" }
 ];
