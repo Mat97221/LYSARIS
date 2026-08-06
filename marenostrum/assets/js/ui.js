@@ -105,7 +105,7 @@ function mnHeader(active) {
   // and épicerie fine stay as single links in a third column. Kept open via CSS
   // (:hover/:focus-within on the wrapping .group) — no JS needed, matches the mobile menu's
   // lack of a dedicated toggle-per-item. The appearance uses a slow, soft "water" easing
-  // (duration-700, ease-water — see tailwind.config.js) instead of the site's usual quick
+  // (duration-1000, ease-water — see tailwind.config.js) instead of the site's usual quick
   // ease-fluid, so the panel surfaces gently rather than snapping open.
   const caviarColumn = (categoryId, label) => {
     const items = MARENOSTRUM_PRODUCTS.filter((p) => p.category === categoryId)
@@ -134,9 +134,9 @@ function mnHeader(active) {
           active === "boutique" ? "text-marine is-active" : "text-ink-100"
         }">
           Nos produits
-          <span class="h-3 w-3 transition-transform duration-700 ease-water group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
+          <span class="h-3 w-3 transition-transform duration-1000 ease-water group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
         </a>
-        <div class="absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 invisible translate-y-3 transition-all duration-700 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
+        <div class="absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 invisible translate-y-3 transition-all duration-1000 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
           <div class="grid grid-cols-3 gap-10 bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:640px">
             ${caviarColumn("caviar-esturgeon", "Caviar d'esturgeon")}
             ${caviarColumn("caviar-saumon", "Caviar de saumon")}

@@ -79,9 +79,12 @@ module.exports = {
       },
       transitionTimingFunction: {
         fluid: "cubic-bezier(0.4, 0, 0.2, 1)",
-        // Slow, soft deceleration — used for the "Nos produits" mega-menu so it surfaces like
+        // Slow, even ease-in-out — used for the "Nos produits" mega-menu so it surfaces like
         // water rising rather than snapping open like the rest of the site's UI transitions.
-        water: "cubic-bezier(0.19, 1, 0.22, 1)"
+        // Unlike an ease-out curve (front-loaded, feels fast despite a long duration), this
+        // spreads the motion evenly across the whole transition so the full 1000ms actually
+        // reads as slow throughout, not just long.
+        water: "cubic-bezier(0.65, 0, 0.35, 1)"
       },
       keyframes: {
         float: {
