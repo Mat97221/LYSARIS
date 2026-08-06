@@ -11,6 +11,7 @@ const MN_ICONS = {
   plus: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`,
   trash: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-8 0 1 12.2A2 2 0 0 0 9 21h6a2 2 0 0 0 2-1.8L18 7"/></svg>`,
   chevronRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>`,
+  chevronDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`,
   shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>`,
   truck: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="7" width="12" height="9"/><path d="M13.5 10h4l3 3v3h-7z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></svg>`,
   leaf: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c8 0 14-6 16-16-10 0-16 6-16 16z"/><path d="M4 20c2-6 5-9 11-12"/></svg>`,
@@ -97,6 +98,32 @@ function mnHeader(active) {
   // resolving to the standard solid light bar once scrolled past it (see .mn-hero-nav in CSS).
   const heroNav = active === "accueil" ? " mn-hero-nav" : "";
 
+  // "Nos produits" opens a hover dropdown listing every catalog category (products.js loads
+  // before ui.js on every page, so MARENOSTRUM_CATEGORIES is already defined here). Kept open
+  // via CSS (:hover/:focus-within on the wrapping .group) — no JS needed, matches the mobile
+  // menu's lack of a dedicated toggle-per-item.
+  const categoryLinks = MARENOSTRUM_CATEGORIES.filter((c) => c.id !== "tous")
+    .map(
+      (c) =>
+        `<a href="boutique.html?cat=${c.id}" class="block px-5 py-2.5 text-sm text-ink-100 hover:bg-ink-800 hover:text-marine transition-colors duration-200 ease-fluid">${c.label}</a>`
+    )
+    .join("");
+
+  const productsNav = `
+      <div class="relative group">
+        <a href="boutique.html" class="mn-nav-link inline-flex items-center gap-1.5 text-sm uppercase tracking-wide transition-colors duration-200 hover:text-marine ${
+          active === "boutique" ? "text-marine is-active" : "text-ink-100"
+        }">
+          Nos produits
+          <span class="h-3 w-3 transition-transform duration-200 ease-fluid group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
+        </a>
+        <div class="absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 invisible translate-y-1 transition-all duration-200 ease-fluid group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
+          <div class="min-w-[230px] bg-ivoire border border-ink-600/50 shadow-lifted py-2">
+            ${categoryLinks}
+          </div>
+        </div>
+      </div>`;
+
   return `
   <header class="nav-glass sticky top-0 z-40${heroNav}">
     <div class="container-page flex h-20 items-center justify-between">
@@ -105,7 +132,7 @@ function mnHeader(active) {
       </a>
       <nav class="hidden md:flex items-center gap-8">
         ${link("index.html", "Accueil", "accueil")}
-        ${link("boutique.html", "Nos produits", "boutique")}
+        ${productsNav}
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </nav>

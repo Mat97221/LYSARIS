@@ -39,7 +39,13 @@
     function mnRenderCategory(catId) {
       const grid = document.getElementById("mn-product-grid");
       const empty = document.getElementById("mn-empty-state");
-      const items = catId === "tous" ? MARENOSTRUM_PRODUCTS : MARENOSTRUM_PRODUCTS.filter((p) => p.category === catId);
+      let items = catId === "tous" ? MARENOSTRUM_PRODUCTS : MARENOSTRUM_PRODUCTS.filter((p) => p.category === catId);
+      // Sur "Tous les produits" (l'atterrissage par défaut, y compris depuis l'onglet "Nos
+      // produits"), les produits mis en avant (badge Best-seller/Nouveauté/Édition limitée)
+      // passent en tête, tri stable donc le reste garde son ordre.
+      if (catId === "tous") {
+        items = [...items].sort((a, b) => (a.badge ? 0 : 1) - (b.badge ? 0 : 1));
+      }
       grid.innerHTML = items.map(mnProductCard).join("");
       mnStagger(grid, 70);
       empty.classList.toggle("hidden", items.length > 0);
