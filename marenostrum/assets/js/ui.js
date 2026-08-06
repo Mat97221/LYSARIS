@@ -98,14 +98,33 @@ function mnHeader(active) {
   // resolving to the standard solid light bar once scrolled past it (see .mn-hero-nav in CSS).
   const heroNav = active === "accueil" ? " mn-hero-nav" : "";
 
-  // "Nos produits" opens a hover dropdown listing every catalog category (products.js loads
-  // before ui.js on every page, so MARENOSTRUM_CATEGORIES is already defined here). Kept open
-  // via CSS (:hover/:focus-within on the wrapping .group) — no JS needed, matches the mobile
-  // menu's lack of a dedicated toggle-per-item.
-  const categoryLinks = MARENOSTRUM_CATEGORIES.filter((c) => c.id !== "tous")
+  // "Nos produits" opens a hover mega-menu (products.js loads before ui.js on every page, so
+  // MARENOSTRUM_PRODUCTS/MARENOSTRUM_CATEGORIES are already defined here). The two caviar
+  // categories are expanded into the actual caviar types available, each under its own column
+  // heading, instead of one flat "Caviar d'esturgeon"/"Caviar de saumon" link; poissons fumés
+  // and épicerie fine stay as single links in a third column. Kept open via CSS
+  // (:hover/:focus-within on the wrapping .group) — no JS needed, matches the mobile menu's
+  // lack of a dedicated toggle-per-item. The appearance uses a slow, soft "water" easing
+  // (duration-700, ease-water — see tailwind.config.js) instead of the site's usual quick
+  // ease-fluid, so the panel surfaces gently rather than snapping open.
+  const caviarColumn = (categoryId, label) => {
+    const items = MARENOSTRUM_PRODUCTS.filter((p) => p.category === categoryId)
+      .map(
+        (p) =>
+          `<a href="produit.html?id=${p.id}" class="block py-1.5 text-sm text-ink-100 hover:text-marine transition-colors duration-200 ease-fluid">${p.name}</a>`
+      )
+      .join("");
+    return `
+      <div>
+        <a href="boutique.html?cat=${categoryId}" class="eyebrow mb-4 block hover:underline">${label}</a>
+        <div class="flex flex-col">${items}</div>
+      </div>`;
+  };
+
+  const otherCategoryLinks = MARENOSTRUM_CATEGORIES.filter((c) => c.id === "poissons-fumes" || c.id === "epicerie-fine")
     .map(
       (c) =>
-        `<a href="boutique.html?cat=${c.id}" class="block px-5 py-2.5 text-sm text-ink-100 hover:bg-ink-800 hover:text-marine transition-colors duration-200 ease-fluid">${c.label}</a>`
+        `<a href="boutique.html?cat=${c.id}" class="block py-1.5 text-sm text-ink-100 hover:text-marine transition-colors duration-200 ease-fluid">${c.label}</a>`
     )
     .join("");
 
@@ -115,11 +134,16 @@ function mnHeader(active) {
           active === "boutique" ? "text-marine is-active" : "text-ink-100"
         }">
           Nos produits
-          <span class="h-3 w-3 transition-transform duration-200 ease-fluid group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
+          <span class="h-3 w-3 transition-transform duration-700 ease-water group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
         </a>
-        <div class="absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 invisible translate-y-1 transition-all duration-200 ease-fluid group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
-          <div class="min-w-[230px] bg-ivoire border border-ink-600/50 shadow-lifted py-2">
-            ${categoryLinks}
+        <div class="absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 invisible translate-y-3 transition-all duration-700 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
+          <div class="grid grid-cols-3 gap-10 bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:640px">
+            ${caviarColumn("caviar-esturgeon", "Caviar d'esturgeon")}
+            ${caviarColumn("caviar-saumon", "Caviar de saumon")}
+            <div>
+              <p class="eyebrow mb-4">Autres gammes</p>
+              <div class="flex flex-col">${otherCategoryLinks}</div>
+            </div>
           </div>
         </div>
       </div>`;

@@ -78,7 +78,10 @@ module.exports = {
         relaxed: "1.7"
       },
       transitionTimingFunction: {
-        fluid: "cubic-bezier(0.4, 0, 0.2, 1)"
+        fluid: "cubic-bezier(0.4, 0, 0.2, 1)",
+        // Slow, soft deceleration — used for the "Nos produits" mega-menu so it surfaces like
+        // water rising rather than snapping open like the rest of the site's UI transitions.
+        water: "cubic-bezier(0.19, 1, 0.22, 1)"
       },
       keyframes: {
         float: {
