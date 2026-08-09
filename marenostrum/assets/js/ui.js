@@ -360,7 +360,7 @@ function mnInitMagnetic(root) {
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 pointer-events-none" style="background:linear-gradient(160deg, #F4EFE6 0%, #ECE5D7 45%, #E4DCCB 75%, #F4EFE6 100%)" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 pointer-events-none" style="background:linear-gradient(160deg, #EEE9DC 0%, #E6DFCD 45%, #DED6C1 75%, #EEE9DC 100%)" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 

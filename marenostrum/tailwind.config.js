@@ -6,7 +6,9 @@
 // these four values alone.
 const BRAND = {
   noir: "#111110", // contrast / signature ground — hero, footer, a few impact sections only
-  ivoire: "#F4EFE6", // DEFAULT background of most content sections; text on dark grounds
+  ivoire: "#EEE9DC", // DEFAULT background of most content sections; text on dark grounds
+  // (sampled from the product tin photo's studio backdrop — assets/img/produit-boite.jpg —
+  // so the page background matches it seamlessly wherever the photo appears)
   marine: "#17263F" // the single accent — buttons, active states, links, icons, details
   // (a gold accent was removed entirely from the identity; nothing uses it anymore)
 };
@@ -33,10 +35,10 @@ module.exports = {
           200: "#46433B", // body / muted paragraph text — main reading colour (~8.5:1 on ivoire)
           300: "#6B6557", // faint / footnote text
           400: "#928B7A", // very faint decorative text
-          500: "#CFC7B4", // visible borders — inputs, filter pills, unselected variant buttons
-          600: "#E4DCCB", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
-          700: "#FBFAF6", // card surfaces — near-white, lifted just above the ivoire page
-          800: "#ECE5D7", // alternate section backgrounds — a tint just below ivoire for quiet alternation
+          500: "#C9C1AA", // visible borders — inputs, filter pills, unselected variant buttons
+          600: "#DED6C1", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
+          700: "#F5F4EC", // card surfaces — near-white, lifted just above the ivoire page
+          800: "#E6DFCD", // alternate section backgrounds — a tint just below ivoire for quiet alternation
           900: BRAND.ivoire // page background
         },
         navy: {
