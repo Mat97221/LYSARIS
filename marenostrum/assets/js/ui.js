@@ -69,7 +69,26 @@ function mnWaveDivider(colorClass) {
   </svg>`;
 }
 
-function mnProductCard(product) {
+/**
+ * `compact` (used by the homepage's "Nos produits les plus appréciés" section only — boutique.html
+ * and the "vous aimerez aussi" grid on produit.html keep the default look): the product name runs
+ * 20% smaller, and "Découvrir" becomes a centered navy-outline box instead of a plain text link.
+ * That box is a <span>, not an <a> — the whole card is already a click target via the title's
+ * .stretched-link overlay (position:absolute, painted above normal-flow siblings regardless of DOM
+ * order), so a real link here would just sit under it, unclickable; a styled span avoids that trap
+ * while still reading as a button.
+ */
+function mnProductCard(product, { compact = false } = {}) {
+  const titleClass = compact
+    ? "h-card text-[1rem] sm:text-[1.2rem] group-hover:text-marine transition-colors"
+    : "h-card group-hover:text-marine transition-colors";
+  const cta = compact
+    ? `<div class="mt-auto pt-3 text-center">
+        <span class="inline-flex items-center justify-center border border-marine/40 px-5 py-2 text-xs font-semibold uppercase tracking-widest2 text-marine transition-colors duration-200 ease-fluid group-hover:bg-marine group-hover:text-ivoire">Découvrir</span>
+      </div>`
+    : `<div class="mt-auto pt-3">
+        <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
+      </div>`;
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
@@ -78,12 +97,10 @@ function mnProductCard(product) {
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
-        <h3 class="h-card group-hover:text-marine transition-colors">${product.name}</h3>
+        <h3 class="${titleClass}">${product.name}</h3>
       </a>
       <p class="text-sm text-ink-200 leading-snug">${product.tagline}</p>
-      <div class="mt-auto pt-3">
-        <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
-      </div>
+      ${cta}
     </div>
   </div>`;
 }
