@@ -354,14 +354,15 @@ function mnInitMagnetic(root) {
 }
 
 /**
- * Fond de page commun à toutes les pages : un dégradé ivoire dans les tons de la charte (pas de
- * photo). Les sections à fond opaque (hero, pied de page, bandes bg-ink-800/bg-noir) recouvrent
- * simplement ce fond là où elles s'affichent. Injecté en position: fixed pour rester stable au
- * défilement. `.mn-grain` conserve un très léger grain (texture « argentique ») par-dessus.
+ * Fond de page commun à toutes les pages : une couleur ivoire unique et plate (pas de dégradé,
+ * pas de photo) — le même blanc partout sur le site. Les sections à fond opaque (hero, pied de
+ * page, bandes bg-ink-800/bg-noir) recouvrent simplement ce fond là où elles s'affichent.
+ * Injecté en position: fixed pour rester stable au défilement. `.mn-grain` conserve un très
+ * léger grain (texture « argentique ») par-dessus.
  */
 function mnPageBackground() {
   return `
-    <div class="fixed inset-0 -z-10 pointer-events-none" style="background:linear-gradient(160deg, #EEE9DC 0%, #E6DFCD 45%, #DED6C1 75%, #EEE9DC 100%)" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-ivoire pointer-events-none" aria-hidden="true"></div>
     <div class="mn-grain" aria-hidden="true"></div>`;
 }
 
