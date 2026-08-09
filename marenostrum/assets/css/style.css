@@ -1696,6 +1696,11 @@ a, button, [role="button"], input[type="submit"] {
   background-color: rgb(238 233 220 / var(--tw-bg-opacity, 1));
 }
 
+.bg-marine{
+  --tw-bg-opacity: 1;
+  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
+}
+
 .bg-noir{
   --tw-bg-opacity: 1;
   background-color: rgb(17 17 16 / var(--tw-bg-opacity, 1));
@@ -1738,6 +1743,11 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 0.625rem !important;
 }
 
+.px-2\.5{
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1746,6 +1756,11 @@ a, button, [role="button"], input[type="submit"] {
 .px-5{
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+}
+
+.py-1{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-1\.5{
@@ -1946,10 +1961,6 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(238 233 220 / 0.75);
 }
 
-.text-ivoire\/80{
-  color: rgb(238 233 220 / 0.8);
-}
-
 .text-marine{
   --tw-text-opacity: 1;
   color: rgb(23 38 63 / var(--tw-text-opacity, 1));
@@ -2037,10 +2048,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .\[text-shadow\:0_1px_12px_rgba\(17\2c 17\2c 16\2c 0\.7\)\]{
   text-shadow: 0 1px 12px rgba(17,17,16,0.7);
-}
-
-.\[text-shadow\:0_1px_6px_rgba\(17\2c 17\2c 16\2c 0\.6\)\]{
-  text-shadow: 0 1px 6px rgba(17,17,16,0.6);
 }
 
 .\[text-shadow\:0_2px_24px_rgba\(17\2c 17\2c 16\2c 0\.5\)\]{

@@ -54,11 +54,12 @@ function mnTinSVG(tint) {
   </svg>`;
 }
 
-/** Plain small-caps text label, no chip/fill — same quiet treatment as the homepage's
-    "Best-seller" flag on the flagship product. */
+/** Small-caps label on a solid marine chip — legible over the product photo regardless of
+    what's under it (a plain text-shadow treatment worked against the old dark placeholder
+    gradient but disappears against the ivoire-toned product photo now filling the slot). */
 function mnBadge(text) {
   if (!text) return "";
-  return `<span class="absolute left-3 top-3 text-[10px] font-semibold uppercase tracking-widest2 text-ivoire z-10 [text-shadow:0_1px_6px_rgba(17,17,16,0.6)]">${text}</span>`;
+  return `<span class="absolute left-3 top-3 z-10 bg-marine px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest2 text-ivoire">${text}</span>`;
 }
 
 /** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
@@ -93,7 +94,7 @@ function mnProductCard(product, { compact = false } = {}) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <image-slot id="mn-slot-${product.id}" shape="rect" placeholder="Photo produit" style="width:100%;height:100%"></image-slot>
+      <image-slot id="mn-slot-${product.id}" shape="rect" placeholder="Photo produit" src="assets/img/produit-boite.jpg" style="width:100%;height:100%"></image-slot>
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
