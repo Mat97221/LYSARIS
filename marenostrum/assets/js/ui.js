@@ -353,6 +353,19 @@ function mnInitMagnetic(root) {
   });
 }
 
+/** Crossfade between the closed and open tin (see .jar-swap in input.css) on hover, desktop-only
+    via the CSS `(hover: hover)` query. Click toggles `.is-open` so tap works on touch devices,
+    where :hover doesn't. Class-based (not an id) so it binds every occurrence independently,
+    should more than the product page and homepage flagship end up using it later. */
+function mnInitJarSwap(root) {
+  const scope = root || document;
+  const elements = Array.from(scope.querySelectorAll(".jar-swap:not([data-jar-bound])"));
+  elements.forEach((el) => {
+    el.dataset.jarBound = "true";
+    el.addEventListener("click", () => el.classList.toggle("is-open"));
+  });
+}
+
 /**
  * Fond de page commun à toutes les pages : une couleur ivoire unique et plate (pas de dégradé,
  * pas de photo) — le même blanc partout sur le site. Les sections à fond opaque (hero, pied de
@@ -411,6 +424,7 @@ function mnMountLayout(activePage) {
 
   mnInitReveal();
   mnInitMagnetic();
+  mnInitJarSwap();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

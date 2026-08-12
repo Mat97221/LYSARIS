@@ -2292,6 +2292,62 @@ a, button, [role="button"], input[type="submit"] {
   transform: translateY(-6px);
 }
 
+/* Jar crossfade — the closed tin fades into the open tin (caviar visible) on hover (desktop)
+   or tap (mobile, via .is-open toggled in mnInitJarSwap). Fills whatever box it's placed in
+   (the existing Tailwind-sized wrapper around the product photo), rather than imposing its own
+   width/aspect-ratio, so it drops into that layout without disturbing it. */
+
+.jar-swap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.jar-img {
+  position: absolute;
+  inset: 0;
+  transition: opacity 600ms ease;
+}
+
+.jar-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.jar-closed {
+  opacity: 1;
+}
+
+.jar-open {
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .jar-swap:hover .jar-closed {
+    opacity: 0;
+  }
+
+  .jar-swap:hover .jar-open {
+    opacity: 1;
+  }
+}
+
+.jar-swap.is-open .jar-closed {
+  opacity: 0;
+}
+
+.jar-swap.is-open .jar-open {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jar-img {
+    transition: none;
+  }
+}
+
 /* ============================================================
    Homepage hero navigation — full-bleed image, header overlaid
    ============================================================
