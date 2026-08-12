@@ -445,6 +445,13 @@
 @media (hover: hover) {
   .jar-swap:hover .jar-closed { opacity: 0; }
   .jar-swap:hover .jar-open { opacity: 1; }
+  /* Product cards (.card-product.group) cover themselves with a full-card .stretched-link for
+     click-through navigation — that overlay sits above .jar-swap in paint order, so it (not the
+     photo) is what actually receives :hover there. Same reason the card's "Découvrir" chip and
+     title use group-hover instead of their own :hover — mirrored here so the card thumbnail
+     crossfades too. */
+  .group:hover .jar-swap .jar-closed { opacity: 0; }
+  .group:hover .jar-swap .jar-open { opacity: 1; }
 }
 
 .jar-swap.is-open .jar-closed { opacity: 0; }

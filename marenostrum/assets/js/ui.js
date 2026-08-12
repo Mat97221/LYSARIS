@@ -94,7 +94,16 @@ function mnProductCard(product, { compact = false } = {}) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <image-slot id="mn-slot-${product.id}" shape="rect" placeholder="Photo produit" src="assets/img/produit-boite.jpg" style="width:100%;height:100%"></image-slot>
+      <div class="jar-swap">
+        <picture class="jar-img jar-closed">
+          <source srcset="assets/img/marenostrum-fermee.webp" type="image/webp" />
+          <img src="assets/img/marenostrum-fermee.png" alt="Boîte MARENOSTRUM fermée" />
+        </picture>
+        <picture class="jar-img jar-open">
+          <source srcset="assets/img/marenostrum-ouverte.webp" type="image/webp" />
+          <img src="assets/img/marenostrum-ouverte.png" alt="Boîte MARENOSTRUM ouverte, caviar visible" />
+        </picture>
+      </div>
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
