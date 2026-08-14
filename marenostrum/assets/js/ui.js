@@ -94,16 +94,7 @@ function mnProductCard(product, { compact = false } = {}) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <div class="jar-swap">
-        <picture class="jar-img jar-closed">
-          <source srcset="assets/img/marenostrum-fermee.webp" type="image/webp" />
-          <img src="assets/img/marenostrum-fermee.png" alt="Boîte MARENOSTRUM fermée" />
-        </picture>
-        <picture class="jar-img jar-open">
-          <source srcset="assets/img/marenostrum-ouverte.webp" type="image/webp" />
-          <img src="assets/img/marenostrum-ouverte.png" alt="Boîte MARENOSTRUM ouverte, caviar visible" />
-        </picture>
-      </div>
+      <img src="assets/img/produit-glacier.jpg" alt="Boîte MARENOSTRUM, ouverte et fermée" class="h-full w-full object-contain" />
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
@@ -362,18 +353,6 @@ function mnInitMagnetic(root) {
   });
 }
 
-/** Crossfade between the closed and open tin (see .jar-swap in input.css) on hover, desktop-only
-    via the CSS `(hover: hover)` query. Click toggles `.is-open` so tap works on touch devices,
-    where :hover doesn't. Class-based (not an id) so it binds every occurrence independently,
-    should more than the product page and homepage flagship end up using it later. */
-function mnInitJarSwap(root) {
-  const scope = root || document;
-  const elements = Array.from(scope.querySelectorAll(".jar-swap:not([data-jar-bound])"));
-  elements.forEach((el) => {
-    el.dataset.jarBound = "true";
-    el.addEventListener("click", () => el.classList.toggle("is-open"));
-  });
-}
 
 /**
  * Fond de page commun à toutes les pages : une couleur ivoire unique et plate (pas de dégradé,
@@ -433,7 +412,6 @@ function mnMountLayout(activePage) {
 
   mnInitReveal();
   mnInitMagnetic();
-  mnInitJarSwap();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
