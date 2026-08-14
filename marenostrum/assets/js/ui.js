@@ -100,6 +100,9 @@ function mnTinReveal() {
  * order), so a real link here would just sit under it, unclickable; a styled span avoids that trap
  * while still reading as a button.
  */
+// Photo wrapper below keeps overflow-hidden (unlike the two large standalone mnTinReveal()
+// placements, which need overflow-visible) so the lid clips at the card edge on hover instead
+// of spilling into the neighboring card in a tight grid.
 function mnProductCard(product, { compact = false } = {}) {
   const titleClass = compact
     ? "h-card text-[1rem] sm:text-[1.2rem] group-hover:text-marine transition-colors"
@@ -115,7 +118,7 @@ function mnProductCard(product, { compact = false } = {}) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <img src="assets/img/produit-glacier.jpg" alt="Boîte MARENOSTRUM, ouverte et fermée" class="h-full w-full object-contain" />
+      ${mnTinReveal()}
     </div>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
