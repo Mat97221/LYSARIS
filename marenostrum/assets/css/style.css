@@ -1245,6 +1245,10 @@ a, button, [role="button"], input[type="submit"] {
   left: 0px;
 }
 
+.left-1\/2{
+  left: 50%;
+}
+
 .left-3{
   left: 0.75rem;
 }
@@ -1257,12 +1261,12 @@ a, button, [role="button"], input[type="submit"] {
   top: 0px;
 }
 
-.top-3{
-  top: 0.75rem;
+.top-20{
+  top: 5rem;
 }
 
-.top-full{
-  top: 100%;
+.top-3{
+  top: 0.75rem;
 }
 
 .-z-10{
@@ -1569,6 +1573,11 @@ a, button, [role="button"], input[type="submit"] {
 
 .grow{
   flex-grow: 1;
+}
+
+.-translate-x-1\/2{
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .translate-y-3{

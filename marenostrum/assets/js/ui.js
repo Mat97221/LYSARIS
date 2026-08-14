@@ -121,7 +121,7 @@ function mnProductCard(product, { compact = false } = {}) {
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
-    <a href="produit.html?id=${product.id}" aria-hidden="true" tabindex="-1" class="relative z-[5] flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
+    <a href="produit.html?id=${product.id}" aria-hidden="true" tabindex="-1" class="relative z-[5] flex h-56 items-center justify-center overflow-hidden bg-ivoire">
       ${mnTinReveal()}
     </a>
     <div class="flex flex-1 flex-col gap-3 pt-5">
@@ -152,12 +152,14 @@ function mnHeader(active) {
   // (:hover/:focus-within on the wrapping .group) — no JS needed. The appearance uses a slow,
   // soft "water" easing (duration-1000, ease-water — see tailwind.config.js) instead of the
   // site's usual quick ease-fluid, so the panel surfaces gently rather than snapping open.
-  // Panel anchored `left-0` (not centered under the trigger) and sized with `min(640px, 100vw -
-  // 2rem)` rather than a flat 640px, as a safety cap against very narrow viewports. That alone
-  // isn't enough on its own though — at md (768px), "Nos produits" sits far enough right in the
-  // row that a 640px panel starting at its left edge runs off the right of the viewport, whatever
-  // the anchor. So the desktop nav (and this hover mega-menu with it) only shows at lg (1024px)
-  // and up, where 640px reliably fits regardless of where the trigger falls in the row; tablets
+  // Panel is `fixed` (viewport-relative), not `absolute` under the trigger link — centering it
+  // with `left-1/2 -translate-x-1/2` this way keeps it dead-center on the page regardless of
+  // where "Nos produits" happens to fall in the nav row, and sidesteps the overflow risk an
+  // absolute panel would have on either edge at that position. `top-20` matches the header's own
+  // height (h-20) so the panel sits flush under it — accurate on every page: fixed nav-glass
+  // itself on the homepage hero, and a `sticky top-0` bar elsewhere that's already at the top of
+  // the viewport whenever this menu is reachable. Width still capped at `min(640px, 100vw -
+  // 2rem)` as a safety margin on narrow viewports. Only shown at lg (1024px) and up — tablets
   // get the same compact, always-visible category links as phones, inside #mn-mobile-menu below
   // — arguably a better fit for touch anyway, since :hover doesn't behave consistently there.
   const caviarColumn = (categoryId, label) => {
@@ -189,7 +191,7 @@ function mnHeader(active) {
           Nos produits
           <span class="h-3 w-3 transition-transform duration-1000 ease-water group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
         </a>
-        <div class="absolute left-0 top-full pt-4 opacity-0 invisible translate-y-3 transition-all duration-1000 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
+        <div class="fixed left-1/2 top-20 -translate-x-1/2 pt-4 opacity-0 invisible translate-y-3 transition-all duration-1000 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
           <div class="grid grid-cols-3 gap-10 bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:min(640px, calc(100vw - 2rem))">
             ${caviarColumn("caviar-esturgeon", "Caviar d'esturgeon")}
             ${caviarColumn("caviar-saumon", "Caviar de saumon")}
