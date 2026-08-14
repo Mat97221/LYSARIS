@@ -417,6 +417,30 @@
   transform: translateY(-6px);
 }
 
+/* Caviar tin whose lid slides open on hover — see mnTinReveal() in ui.js. Mouse only: gated
+   behind (hover: hover) so a tap on touch devices can't leave :hover "stuck" with the lid
+   hanging open — touch just shows the closed tin, which is the safer default there anyway.
+   Two trigger rules because this can be dropped into two different contexts: `.mn-tin-reveal:hover`
+   for a standalone placement (the product page, the homepage "pièce maîtresse"), and
+   `.group:hover …` for use inside a product card (.card-product.group) — a card's full-cover
+   .stretched-link (for click-through navigation) paints above .mn-tin-reveal, so it's what
+   actually receives the pointer there, not the tin itself (same reason the card's "Découvrir"
+   chip and title use group-hover instead of their own :hover). */
+.mn-tin-lid {
+  transition: transform 500ms ease-in-out;
+}
+
+@media (hover: hover) {
+  .mn-tin-reveal:hover .mn-tin-lid,
+  .group:hover .mn-tin-reveal .mn-tin-lid {
+    transform: translateX(70%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-tin-lid { transition: none; }
+}
+
 /* ============================================================
    Homepage hero navigation — full-bleed image, header overlaid
    ============================================================

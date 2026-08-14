@@ -71,6 +71,27 @@ function mnWaveDivider(colorClass) {
 }
 
 /**
+ * Boîte de caviar dont le couvercle glisse vers la droite au survol pour révéler les grains
+ * dessous — souris uniquement (voir la garde `@media (hover: hover)` sur .mn-tin-lid dans
+ * input.css) ; au tactile :hover peut rester "collé" après un tap, la boîte reste donc
+ * simplement fermée sur mobile. Pur CSS, aucun JS pour l'interaction elle-même.
+ *
+ * Réutilisable : placer `<div id="un-id" data-tin-reveal></div>` n'importe où, puis dans le
+ * script de la page, une fois le DOM prêt :
+ *   document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
+ * (voir les appels dans produit.html et le "pièce maîtresse" de index.html). Le conteneur a
+ * besoin d'un ancêtre non `overflow-hidden` pour laisser le couvercle déborder à droite sans
+ * être coupé pendant le glissement.
+ */
+function mnTinReveal() {
+  return `
+  <div class="mn-tin-reveal relative h-full w-full">
+    <img src="assets/img/boite-ouverte.png" alt="Boîte de caviar Marenostrum 50g" class="absolute inset-0 h-full w-full object-contain" />
+    <img src="assets/img/couvercle.png" alt="" class="mn-tin-lid absolute inset-0 h-full w-full object-contain" />
+  </div>`;
+}
+
+/**
  * `compact` (used by the homepage's "Nos produits les plus appréciés" section only — boutique.html
  * and the "vous aimerez aussi" grid on produit.html keep the default look): the product name runs
  * 20% smaller, and "Découvrir" becomes a centered navy-outline box instead of a plain text link.
