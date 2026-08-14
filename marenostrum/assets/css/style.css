@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap');
 
-/* Single loading point for the brand typeface — change weights here only.
-   Space Grotesk: a single geometric grotesque used for both headings and body copy/interface
-   chrome (titre and texte roles both map to it — see tailwind.config.js). */
+/* Single loading point for the brand typefaces — change weights here only. Two roles (see
+   tailwind.config.js): Cormorant Garamond, a high-contrast serif, for display headings only
+   ("titre"); Inter for body copy and all interface chrome ("texte"). */
 
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
@@ -590,22 +590,22 @@ html {
      The body just needs its own solid fallback color underneath that layer. */
 
 body{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #E7E3DA;
+  background-color: #F6F2EA;
 }
 
 ::-moz-selection{
-  background-color: rgb(23 38 63 / 0.15);
+  background-color: rgb(30 44 58 / 0.15);
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
 }
 
 ::selection{
-  background-color: rgb(23 38 63 / 0.15);
+  background-color: rgb(30 44 58 / 0.15);
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
 }
@@ -706,7 +706,7 @@ a, button, [role="button"], input[type="submit"] {
   text-transform: uppercase;
   letter-spacing: 0.25em;
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 640px){
@@ -717,17 +717,20 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 /*
-   * Editorial heading scale — four tiers, all Space Grotesk, all regular weight (keeps the
-   * sober, restrained tone rather than reading heavy at large display sizes).
+   * Editorial heading scale — four tiers, all Cormorant Garamond at a medium weight (400 read
+   * too faint for a high-contrast serif at display sizes; 500 keeps it elegant without going
+   * heavy). Sizes run larger than the old single-typeface scale to compensate for a serif's
+   * lighter visual weight against Inter body copy.
    * Margin/alignment/max-width stay as per-instance utility classes alongside these, since
    * that's genuinely contextual — but font, size, weight and color live here once.
    */
 
 .h-hero{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 3rem;
-  font-weight: 400;
-  line-height: 1.05;
+  font-family: Cormorant Garamond, Georgia, serif;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  line-height: 1.08;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
 }
@@ -741,16 +744,16 @@ a, button, [role="button"], input[type="submit"] {
 
 @media (min-width: 1024px){
   .h-hero{
-    font-size: 4.5rem;
+    font-size: 6rem;
     line-height: 1;
   }
 }
 
 .h-page{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Cormorant Garamond, Georgia, serif;
   font-size: 3rem;
-  line-height: 1;
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 1.25;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
 }
@@ -762,11 +765,19 @@ a, button, [role="button"], input[type="submit"] {
   }
 }
 
+@media (min-width: 1024px){
+  .h-page{
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+}
+
 .h-section{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Cormorant Garamond, Georgia, serif;
   font-size: 2.25rem;
   line-height: 2.5rem;
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 1.25;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
 }
@@ -779,18 +790,18 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .h-card{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 400;
+  font-family: Cormorant Garamond, Georgia, serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 640px){
   .h-card{
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 }
 
@@ -817,34 +828,10 @@ a, button, [role="button"], input[type="submit"] {
      padding either side. The signature device of quiet apothecary-style sites: one considered
      sentence given a whole section of space rather than another content block. */
 
-.h-quote{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.375;
-  --tw-text-opacity: 1;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
-}
-
-@media (min-width: 640px){
-  .h-quote{
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-}
-
-@media (min-width: 1024px){
-  .h-quote{
-    font-size: 3rem;
-    line-height: 1;
-  }
-}
-
-/* Primary / key button — quiet apothecary style, sharp corners: a thin border, no fill,
-     that fills in marine only on hover. Every page's "Ajouter au panier"-class action now
-     reads the same way as the homepage's CTAs — a considered rectangle, not a colour block. */
+/* Primary button — filled encre, softly rounded (2-4px, not sharp, not pill), lightens a touch
+     on hover rather than swapping to a different colour. This is now the site's one filled
+     button style; every page's key action ("Ajouter au panier", "Envoyer la demande", "Demander
+     un devis") reads the same way. */
 
 .btn-navy{
   position: relative;
@@ -854,43 +841,38 @@ a, button, [role="button"], input[type="submit"] {
   justify-content: center;
   gap: 0.5rem;
   overflow: hidden;
+  border-radius: 0.25rem;
   border-width: 1px;
-  border-color: rgb(23 38 63 / 0.4);
+  --tw-border-opacity: 1;
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
   padding-left: 1.75rem;
   padding-right: 1.75rem;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
-  transition-property: all;
+  color: rgb(246 242 234 / var(--tw-text-opacity, 1));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-navy:hover{
-  --tw-translate-y: -0.125rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  border-color: rgb(43 63 89 / var(--tw-border-opacity, 1));
   --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
+  background-color: rgb(43 63 89 / var(--tw-bg-opacity, 1));
 }
 
-.btn-navy:active{
-  --tw-translate-y: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-/* Same look as .btn-navy, but the lift-on-hover is dropped: pair with .magnetic instead, whose
-     JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
+/* Same look as .btn-navy, but drops any transform-based hover: pairs with .magnetic, whose
+     JS-driven `transform` would otherwise fight a CSS one. */
 
 .btn-navy-magnetic{
   position: relative;
@@ -900,36 +882,72 @@ a, button, [role="button"], input[type="submit"] {
   justify-content: center;
   gap: 0.5rem;
   overflow: hidden;
+  border-radius: 0.25rem;
   border-width: 1px;
-  border-color: rgb(23 38 63 / 0.4);
+  --tw-border-opacity: 1;
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
   padding-left: 1.75rem;
   padding-right: 1.75rem;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
-  transition-property: all;
+  color: rgb(246 242 234 / var(--tw-text-opacity, 1));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-navy-magnetic:hover{
   --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  border-color: rgb(43 63 89 / var(--tw-border-opacity, 1));
   --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
+  background-color: rgb(43 63 89 / var(--tw-bg-opacity, 1));
 }
 
-/* Secondary button — identical quiet outline treatment; kept as a distinct class since some
-     pages use both in the same view and the source names still read clearly there. */
+/* Secondary button — thin encre outline, transparent fill; same rounding and rhythm as the
+     primary so the two read as one family. Hover washes in a faint tint rather than a hard fill,
+     keeping the fill/outline distinction legible even mid-transition. */
+
+.btn-outline{
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-outline:hover{
+  background-color: rgb(30 44 58 / 0.05);
+}
 
 /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
      homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
@@ -941,7 +959,7 @@ a, button, [role="button"], input[type="submit"] {
   border-bottom-width: 1px;
   border-color: rgb(17 17 16 / 0.4);
   padding-bottom: 0.25rem;
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;
@@ -956,9 +974,9 @@ a, button, [role="button"], input[type="submit"] {
 
 .btn-quiet:hover{
   --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
 }
 
 /* Borderless product card — no frame, no surface: the product image sits directly on the
@@ -974,8 +992,8 @@ a, button, [role="button"], input[type="submit"] {
 
 .nav-glass{
   border-bottom-width: 1px;
-  border-color: rgb(213 208 195 / 0.5);
-  background-color: rgb(231 227 218 / 0.85);
+  border-color: rgb(228 223 211 / 0.5);
+  background-color: rgb(246 242 234 / 0.85);
   --tw-backdrop-blur: blur(12px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -989,9 +1007,9 @@ a, button, [role="button"], input[type="submit"] {
   width: 100%;
   border-width: 1px;
   --tw-border-opacity: 1;
-  border-color: rgb(193 187 170 / var(--tw-border-opacity, 1));
+  border-color: rgb(208 202 186 / var(--tw-border-opacity, 1));
   --tw-bg-opacity: 1;
-  background-color: rgb(236 233 225 / var(--tw-bg-opacity, 1));
+  background-color: rgb(251 248 241 / var(--tw-bg-opacity, 1));
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.75rem;
@@ -1017,7 +1035,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .input-field:focus{
   --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
 }
 
 .field-label{
@@ -1039,6 +1057,81 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(179 38 30 / var(--tw-text-opacity, 1));
 }
 
+/* ============================================================
+     Editorial homepage — manifesto chapters, caviar carousel, texture band
+     ============================================================
+     Section builders live in assets/js/home.js (mnHomeManifesto, mnHomeCaviarCarousel,
+     mnHomeTextureGallery, …), mounted from index.html only — these classes aren't referenced
+     from any other page. */
+
+/* Large thin chapter numeral ("1/4") — Cormorant Garamond at a light weight reads as a quiet
+     mark, not a heading; sits beside/above the eyebrow label in each manifesto chapter. */
+
+.mn-chapter-num{
+  font-family: Cormorant Garamond, Georgia, serif;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+  color: rgb(30 44 58 / 0.5);
+}
+
+@media (min-width: 640px){
+  .mn-chapter-num{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* "Les caviars" — a single scroll-snapped row rather than a wrapping grid, so it reads as one
+     horizontal gesture (mouse wheel, trackpad, or a swipe on touch) instead of a boxed-in
+     catalogue grid; boutique.html remains the grid view for actual browsing/filtering. Native
+     scroll-snap, no JS and no library. Scrollbar hidden (`.mn-scrollbar-hidden`) since the
+     row's own edge-peeking next card is the scroll affordance. */
+
+.mn-carousel{
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .mn-carousel {
+    scroll-padding-left: 2rem;
+  }
+}
+
+.mn-carousel > * {
+  scroll-snap-align: start;
+}
+
+.mn-scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.mn-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Texture gallery band: full-bleed strip of near-abstract macro shots, "quasi sans texte" per
+     the brief — captions (if any) stay in a plain small label, never overlaid on the image. */
+
+.mn-texture-band{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 1024px){
+  .mn-texture-band{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js).
      A base 120ms hold before motion starts (overridable via a `[transition-delay:...]` utility
      or mnStagger's inline delay, both of which win over this) keeps the appearance measured
@@ -1047,7 +1140,7 @@ a, button, [role="button"], input[type="submit"] {
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 550ms cubic-bezier(0.4, 0, 0.2, 1) 120ms, transform 550ms cubic-bezier(0.4, 0, 0.2, 1) 120ms;
+  transition: opacity 500ms ease-in-out 120ms, transform 500ms ease-in-out 120ms;
   will-change: opacity, transform;
 }
 
@@ -1144,13 +1237,8 @@ a, button, [role="button"], input[type="submit"] {
   inset: 0px;
 }
 
-.inset-x-0{
-  left: 0px;
-  right: 0px;
-}
-
-.bottom-0{
-  bottom: 0px;
+.bottom-4{
+  bottom: 1rem;
 }
 
 .left-0{
@@ -1159,6 +1247,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .left-3{
   left: 0.75rem;
+}
+
+.left-4{
+  left: 1rem;
 }
 
 .top-0{
@@ -1201,10 +1293,6 @@ a, button, [role="button"], input[type="submit"] {
   grid-column: span 2 / span 2;
 }
 
-.col-span-3{
-  grid-column: span 3 / span 3;
-}
-
 .col-span-full{
   grid-column: 1 / -1;
 }
@@ -1223,6 +1311,10 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: 0.25rem !important;
 }
 
+.mb-1{
+  margin-bottom: 0.25rem;
+}
+
 .mb-10{
   margin-bottom: 2.5rem;
 }
@@ -1233,6 +1325,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .mb-16{
   margin-bottom: 4rem;
+}
+
+.mb-2{
+  margin-bottom: 0.5rem;
 }
 
 .mb-3{
@@ -1263,8 +1359,8 @@ a, button, [role="button"], input[type="submit"] {
   margin-top: 2.5rem;
 }
 
-.mt-12{
-  margin-top: 3rem;
+.mt-16{
+  margin-top: 4rem;
 }
 
 .mt-2{
@@ -1323,6 +1419,10 @@ a, button, [role="button"], input[type="submit"] {
   aspect-ratio: 1 / 1;
 }
 
+.h-11{
+  height: 2.75rem;
+}
+
 .h-20{
   height: 5rem;
 }
@@ -1343,10 +1443,6 @@ a, button, [role="button"], input[type="submit"] {
   height: 1rem;
 }
 
-.h-40{
-  height: 10rem;
-}
-
 .h-48{
   height: 12rem;
 }
@@ -1363,8 +1459,16 @@ a, button, [role="button"], input[type="submit"] {
   height: 1.5rem;
 }
 
+.h-64{
+  height: 16rem;
+}
+
 .h-72{
   height: 18rem;
+}
+
+.h-80{
+  height: 20rem;
 }
 
 .h-9{
@@ -1373,6 +1477,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .h-96{
   height: 24rem;
+}
+
+.h-\[26rem\]{
+  height: 26rem;
 }
 
 .h-full{
@@ -1385,6 +1493,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .min-h-screen{
   min-height: 100vh;
+}
+
+.w-11{
+  width: 2.75rem;
 }
 
 .w-20{
@@ -1417,6 +1529,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .w-9{
   width: 2.25rem;
+}
+
+.w-\[78vw\]{
+  width: 78vw;
 }
 
 .w-auto{
@@ -1457,6 +1573,11 @@ a, button, [role="button"], input[type="submit"] {
 
 .translate-y-3{
   --tw-translate-y: 0.75rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rotate-180{
+  --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1606,6 +1727,10 @@ a, button, [role="button"], input[type="submit"] {
   overflow: hidden;
 }
 
+.whitespace-nowrap{
+  white-space: nowrap;
+}
+
 .rounded{
   border-radius: 0.25rem;
 }
@@ -1640,52 +1765,70 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(179 38 30 / var(--tw-border-opacity, 1)) !important;
 }
 
-.\!border-ivoire\/25{
-  border-color: rgb(231 227 218 / 0.25) !important;
+.\!border-ivoire{
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(246 242 234 / var(--tw-border-opacity, 1)) !important;
 }
 
-.\!border-ivoire\/50{
-  border-color: rgb(231 227 218 / 0.5) !important;
+.\!border-ivoire\/25{
+  border-color: rgb(246 242 234 / 0.25) !important;
 }
 
 .border-ink-500{
   --tw-border-opacity: 1;
-  border-color: rgb(193 187 170 / var(--tw-border-opacity, 1));
+  border-color: rgb(208 202 186 / var(--tw-border-opacity, 1));
 }
 
 .border-ink-600{
   --tw-border-opacity: 1;
-  border-color: rgb(213 208 195 / var(--tw-border-opacity, 1));
+  border-color: rgb(228 223 211 / var(--tw-border-opacity, 1));
 }
 
 .border-ink-600\/50{
-  border-color: rgb(213 208 195 / 0.5);
+  border-color: rgb(228 223 211 / 0.5);
 }
 
 .border-ivoire\/15{
-  border-color: rgb(231 227 218 / 0.15);
+  border-color: rgb(246 242 234 / 0.15);
+}
+
+.border-ivoire\/20{
+  border-color: rgb(246 242 234 / 0.2);
+}
+
+.border-ivoire\/30{
+  border-color: rgb(246 242 234 / 0.3);
 }
 
 .border-marine{
   --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
+}
+
+.border-marine\/15{
+  border-color: rgb(30 44 58 / 0.15);
 }
 
 .border-marine\/30{
-  border-color: rgb(23 38 63 / 0.3);
+  border-color: rgb(30 44 58 / 0.3);
 }
 
 .border-marine\/40{
-  border-color: rgb(23 38 63 / 0.4);
+  border-color: rgb(30 44 58 / 0.4);
 }
 
 .border-navy{
   --tw-border-opacity: 1;
-  border-color: rgb(23 38 63 / var(--tw-border-opacity, 1));
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
 }
 
 .border-transparent{
   border-color: transparent;
+}
+
+.\!bg-ivoire{
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(246 242 234 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .\!bg-noir{
@@ -1693,23 +1836,28 @@ a, button, [role="button"], input[type="submit"] {
   background-color: rgb(17 17 16 / var(--tw-bg-opacity, 1)) !important;
 }
 
+.bg-glacier{
+  --tw-bg-opacity: 1;
+  background-color: rgb(198 210 212 / var(--tw-bg-opacity, 1));
+}
+
 .bg-ink-800{
   --tw-bg-opacity: 1;
-  background-color: rgb(225 221 210 / var(--tw-bg-opacity, 1));
+  background-color: rgb(240 236 226 / var(--tw-bg-opacity, 1));
 }
 
 .bg-ink-900\/95{
-  background-color: rgb(231 227 218 / 0.95);
+  background-color: rgb(246 242 234 / 0.95);
 }
 
 .bg-ivoire{
   --tw-bg-opacity: 1;
-  background-color: rgb(231 227 218 / var(--tw-bg-opacity, 1));
+  background-color: rgb(246 242 234 / var(--tw-bg-opacity, 1));
 }
 
 .bg-marine{
   --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
 }
 
 .bg-noir{
@@ -1722,8 +1870,8 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .from-marine{
-  --tw-gradient-from: #17263F var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(23 38 63 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-from: #1E2C3A var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(30 44 58 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -1739,10 +1887,6 @@ a, button, [role="button"], input[type="submit"] {
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.p-6{
-  padding: 1.5rem;
 }
 
 .p-8{
@@ -1842,6 +1986,18 @@ a, button, [role="button"], input[type="submit"] {
   padding-left: 1rem;
 }
 
+.pl-5{
+  padding-left: 1.25rem;
+}
+
+.pr-5{
+  padding-right: 1.25rem;
+}
+
+.pt-12{
+  padding-top: 3rem;
+}
+
 .pt-3{
   padding-top: 0.75rem;
 }
@@ -1867,11 +2023,11 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .font-texte{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .font-titre{
-  font-family: Space Grotesk, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: Cormorant Garamond, Georgia, serif;
 }
 
 .text-2xl{
@@ -1941,7 +2097,12 @@ a, button, [role="button"], input[type="submit"] {
 
 .\!text-ivoire{
   --tw-text-opacity: 1 !important;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1)) !important;
+  color: rgb(246 242 234 / var(--tw-text-opacity, 1)) !important;
+}
+
+.\!text-marine{
+  --tw-text-opacity: 1 !important;
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-ink-100{
@@ -1966,28 +2127,36 @@ a, button, [role="button"], input[type="submit"] {
 
 .text-ivoire{
   --tw-text-opacity: 1;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
+  color: rgb(246 242 234 / var(--tw-text-opacity, 1));
 }
 
 .text-ivoire\/50{
-  color: rgb(231 227 218 / 0.5);
+  color: rgb(246 242 234 / 0.5);
 }
 
 .text-ivoire\/70{
-  color: rgb(231 227 218 / 0.7);
+  color: rgb(246 242 234 / 0.7);
 }
 
 .text-ivoire\/75{
-  color: rgb(231 227 218 / 0.75);
+  color: rgb(246 242 234 / 0.75);
+}
+
+.text-ivoire\/80{
+  color: rgb(246 242 234 / 0.8);
 }
 
 .text-marine{
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
+}
+
+.text-marine\/30{
+  color: rgb(30 44 58 / 0.3);
 }
 
 .text-marine\/50{
-  color: rgb(23 38 63 / 0.5);
+  color: rgb(30 44 58 / 0.5);
 }
 
 .opacity-0{
@@ -2070,6 +2239,10 @@ a, button, [role="button"], input[type="submit"] {
   text-shadow: 0 1px 12px rgba(17,17,16,0.7);
 }
 
+.\[text-shadow\:0_1px_8px_rgba\(17\2c 17\2c 16\2c 0\.6\)\]{
+  text-shadow: 0 1px 8px rgba(17,17,16,0.6);
+}
+
 .\[text-shadow\:0_2px_24px_rgba\(17\2c 17\2c 16\2c 0\.5\)\]{
   text-shadow: 0 2px 24px rgba(17,17,16,0.5);
 }
@@ -2078,8 +2251,24 @@ a, button, [role="button"], input[type="submit"] {
   transition-delay: 120ms;
 }
 
+.\[transition-delay\:150ms\]{
+  transition-delay: 150ms;
+}
+
+.\[transition-delay\:160ms\]{
+  transition-delay: 160ms;
+}
+
+.\[transition-delay\:240ms\]{
+  transition-delay: 240ms;
+}
+
 .\[transition-delay\:260ms\]{
   transition-delay: 260ms;
+}
+
+.\[transition-delay\:80ms\]{
+  transition-delay: 80ms;
 }
 
 /* ============================================================
@@ -2408,8 +2597,8 @@ a, button, [role="button"], input[type="submit"] {
    off-white "stain" on scroll). */
 
 .nav-glass.mn-hero-nav.is-scrolled {
-  background: rgba(231, 227, 218, 0.9);
-  border-color: rgba(213, 208, 195, 0.5);
+  background: rgba(246, 242, 234, 0.9);
+  border-color: rgba(228, 223, 211, 0.5);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
 }
@@ -2433,35 +2622,40 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .placeholder\:\!text-ivoire\/40::-moz-placeholder{
-  color: rgb(231 227 218 / 0.4) !important;
+  color: rgb(246 242 234 / 0.4) !important;
 }
 
 .placeholder\:\!text-ivoire\/40::placeholder{
-  color: rgb(231 227 218 / 0.4) !important;
+  color: rgb(246 242 234 / 0.4) !important;
 }
 
-.hover\:\!border-ivoire:hover{
+.hover\:\!border-sable:hover{
   --tw-border-opacity: 1 !important;
-  border-color: rgb(231 227 218 / var(--tw-border-opacity, 1)) !important;
+  border-color: rgb(232 223 208 / var(--tw-border-opacity, 1)) !important;
 }
 
 .hover\:border-navy\/60:hover{
-  border-color: rgb(23 38 63 / 0.6);
+  border-color: rgb(30 44 58 / 0.6);
 }
 
-.hover\:\!text-ivoire:hover{
-  --tw-text-opacity: 1 !important;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1)) !important;
+.hover\:\!bg-sable:hover{
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(232 223 208 / var(--tw-bg-opacity, 1)) !important;
+}
+
+.hover\:bg-marine:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-ivoire:hover{
   --tw-text-opacity: 1;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
+  color: rgb(246 242 234 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-marine:hover{
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover{
@@ -2470,7 +2664,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .focus\:\!border-ivoire:focus{
   --tw-border-opacity: 1 !important;
-  border-color: rgb(231 227 218 / var(--tw-border-opacity, 1)) !important;
+  border-color: rgb(246 242 234 / var(--tw-border-opacity, 1)) !important;
 }
 
 .group:focus-within .group-focus-within\:visible{
@@ -2507,17 +2701,17 @@ a, button, [role="button"], input[type="submit"] {
 
 .group:hover .group-hover\:bg-marine{
   --tw-bg-opacity: 1;
-  background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
 }
 
 .group:hover .group-hover\:text-ivoire{
   --tw-text-opacity: 1;
-  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
+  color: rgb(246 242 234 / var(--tw-text-opacity, 1));
 }
 
 .group:hover .group-hover\:text-marine{
   --tw-text-opacity: 1;
-  color: rgb(23 38 63 / var(--tw-text-opacity, 1));
+  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
 }
 
 .group:hover .group-hover\:opacity-100{
@@ -2529,20 +2723,36 @@ a, button, [role="button"], input[type="submit"] {
     display: inline;
   }
 
+  .sm\:flex{
+    display: flex;
+  }
+
   .sm\:inline-flex{
     display: inline-flex;
   }
 
-  .sm\:h-36{
-    height: 9rem;
+  .sm\:h-72{
+    height: 18rem;
   }
 
-  .sm\:h-56{
-    height: 14rem;
+  .sm\:h-80{
+    height: 20rem;
   }
 
   .sm\:h-96{
     height: 24rem;
+  }
+
+  .sm\:h-\[28rem\]{
+    height: 28rem;
+  }
+
+  .sm\:h-\[32rem\]{
+    height: 32rem;
+  }
+
+  .sm\:w-\[340px\]{
+    width: 340px;
   }
 
   .sm\:w-auto{
@@ -2561,13 +2771,20 @@ a, button, [role="button"], input[type="submit"] {
     flex-direction: row;
   }
 
+  .sm\:items-center{
+    align-items: center;
+  }
+
   .sm\:justify-between{
     justify-content: space-between;
   }
 
-  .sm\:py-40{
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+  .sm\:pl-8{
+    padding-left: 2rem;
+  }
+
+  .sm\:pr-8{
+    padding-right: 2rem;
   }
 
   .sm\:text-2xl{
@@ -2581,16 +2798,8 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 @media (min-width: 768px){
-  .md\:grid-cols-2{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .md\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .md\:gap-10{
-    gap: 2.5rem;
   }
 }
 
@@ -2605,6 +2814,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:col-span-2{
     grid-column: span 2 / span 2;
+  }
+
+  .lg\:col-span-3{
+    grid-column: span 3 / span 3;
   }
 
   .lg\:flex{
@@ -2627,11 +2840,20 @@ a, button, [role="button"], input[type="submit"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-5{
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
   .lg\:gap-16{
     gap: 4rem;
   }
 
   .lg\:gap-20{
     gap: 5rem;
+  }
+
+  .lg\:py-32{
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 }

@@ -1,7 +1,7 @@
-/* Single loading point for the brand typeface — change weights here only.
-   Space Grotesk: a single geometric grotesque used for both headings and body copy/interface
-   chrome (titre and texte roles both map to it — see tailwind.config.js). */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+/* Single loading point for the brand typefaces — change weights here only. Two roles (see
+   tailwind.config.js): Cormorant Garamond, a high-contrast serif, for display headings only
+   ("titre"); Inter for body copy and all interface chrome ("texte"). */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -38,7 +38,7 @@
      The body just needs its own solid fallback color underneath that layer. */
   body {
     @apply text-ink-50 font-texte antialiased;
-    background-color: #E7E3DA;
+    background-color: #F6F2EA;
   }
 
   ::selection {
@@ -74,25 +74,27 @@
   }
 
   /*
-   * Editorial heading scale — four tiers, all Space Grotesk, all regular weight (keeps the
-   * sober, restrained tone rather than reading heavy at large display sizes).
+   * Editorial heading scale — four tiers, all Cormorant Garamond at a medium weight (400 read
+   * too faint for a high-contrast serif at display sizes; 500 keeps it elegant without going
+   * heavy). Sizes run larger than the old single-typeface scale to compensate for a serif's
+   * lighter visual weight against Inter body copy.
    * Margin/alignment/max-width stay as per-instance utility classes alongside these, since
    * that's genuinely contextual — but font, size, weight and color live here once.
    */
   .h-hero {
-    @apply font-titre font-normal leading-[1.05] text-ink-50 text-5xl sm:text-6xl lg:text-7xl;
+    @apply font-titre font-medium leading-[1.08] text-ink-50 text-4xl sm:text-6xl lg:text-8xl;
   }
 
   .h-page {
-    @apply font-titre font-normal text-ink-50 text-5xl sm:text-6xl;
+    @apply font-titre font-medium leading-tight text-ink-50 text-5xl sm:text-6xl lg:text-7xl;
   }
 
   .h-section {
-    @apply font-titre font-normal text-ink-50 text-4xl sm:text-5xl;
+    @apply font-titre font-medium leading-tight text-ink-50 text-4xl sm:text-5xl;
   }
 
   .h-card {
-    @apply font-titre font-normal text-ink-50 text-xl sm:text-2xl;
+    @apply font-titre font-medium text-ink-50 text-2xl sm:text-3xl;
   }
 
   /* Reading copy: comfortable size, airy line-height (see theme.lineHeight.relaxed), and a
@@ -105,34 +107,34 @@
      padding either side. The signature device of quiet apothecary-style sites: one considered
      sentence given a whole section of space rather than another content block. */
   .h-quote {
-    @apply font-titre font-normal italic leading-snug text-ink-50 text-3xl sm:text-4xl lg:text-5xl;
+    @apply font-titre font-medium italic leading-snug text-ink-50 text-3xl sm:text-4xl lg:text-5xl;
   }
 
-  /* Primary / key button — quiet apothecary style, sharp corners: a thin border, no fill,
-     that fills in marine only on hover. Every page's "Ajouter au panier"-class action now
-     reads the same way as the homepage's CTAs — a considered rectangle, not a colour block. */
+  /* Primary button — filled encre, softly rounded (2-4px, not sharp, not pill), lightens a touch
+     on hover rather than swapping to a different colour. This is now the site's one filled
+     button style; every page's key action ("Ajouter au panier", "Envoyer la demande", "Demander
+     un devis") reads the same way. */
   .btn-navy {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 border border-marine/40 px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-marine
-           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire hover:-translate-y-0.5
-           active:translate-y-0;
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-marine bg-marine px-7 py-3.5 min-h-[44px]
+           font-texte font-semibold text-sm tracking-wide uppercase text-ivoire
+           transition-colors duration-200 ease-fluid hover:bg-navy-hover hover:border-navy-hover;
   }
 
-  /* Same look as .btn-navy, but the lift-on-hover is dropped: pair with .magnetic instead, whose
-     JS-driven `transform` would otherwise fight the utility-based hover:-translate-y-0.5 above. */
+  /* Same look as .btn-navy, but drops any transform-based hover: pairs with .magnetic, whose
+     JS-driven `transform` would otherwise fight a CSS one. */
   .btn-navy-magnetic {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 border border-marine/40 px-7 py-3.5 min-h-[44px]
-           font-texte font-semibold text-sm tracking-wide uppercase text-marine
-           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire;
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-marine bg-marine px-7 py-3.5 min-h-[44px]
+           font-texte font-semibold text-sm tracking-wide uppercase text-ivoire
+           transition-colors duration-200 ease-fluid hover:bg-navy-hover hover:border-navy-hover;
   }
 
-  /* Secondary button — identical quiet outline treatment; kept as a distinct class since some
-     pages use both in the same view and the source names still read clearly there. */
+  /* Secondary button — thin encre outline, transparent fill; same rounding and rhythm as the
+     primary so the two read as one family. Hover washes in a faint tint rather than a hard fill,
+     keeping the fill/outline distinction legible even mid-transition. */
   .btn-outline {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 border border-marine/40 px-7 py-3.5 min-h-[44px]
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-marine px-7 py-3.5 min-h-[44px]
            font-texte font-semibold text-sm tracking-wide uppercase text-marine
-           transition-all duration-200 ease-fluid hover:border-marine hover:bg-marine hover:text-ivoire hover:-translate-y-0.5
-           active:translate-y-0;
+           transition-colors duration-200 ease-fluid hover:bg-marine/5;
   }
 
   /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
@@ -176,6 +178,55 @@
     @apply h-px w-16 bg-navy;
   }
 
+  /* ============================================================
+     Editorial homepage — manifesto chapters, caviar carousel, texture band
+     ============================================================
+     Section builders live in assets/js/home.js (mnHomeManifesto, mnHomeCaviarCarousel,
+     mnHomeTextureGallery, …), mounted from index.html only — these classes aren't referenced
+     from any other page. */
+
+  /* Large thin chapter numeral ("1/4") — Cormorant Garamond at a light weight reads as a quiet
+     mark, not a heading; sits beside/above the eyebrow label in each manifesto chapter. */
+  .mn-chapter-num {
+    @apply font-titre font-normal text-marine/50 text-3xl sm:text-4xl tabular-nums;
+  }
+
+  /* "Les caviars" — a single scroll-snapped row rather than a wrapping grid, so it reads as one
+     horizontal gesture (mouse wheel, trackpad, or a swipe on touch) instead of a boxed-in
+     catalogue grid; boutique.html remains the grid view for actual browsing/filtering. Native
+     scroll-snap, no JS and no library. Scrollbar hidden (`.mn-scrollbar-hidden`) since the
+     row's own edge-peeking next card is the scroll affordance. */
+  .mn-carousel {
+    @apply flex gap-6 overflow-x-auto pb-2;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: theme('spacing.5');
+  }
+
+  @media (min-width: theme('screens.sm')) {
+    .mn-carousel {
+      scroll-padding-left: theme('spacing.8');
+    }
+  }
+
+  .mn-carousel > * {
+    scroll-snap-align: start;
+  }
+
+  .mn-scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .mn-scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Texture gallery band: full-bleed strip of near-abstract macro shots, "quasi sans texte" per
+     the brief — captions (if any) stay in a plain small label, never overlaid on the image. */
+  .mn-texture-band {
+    @apply grid grid-cols-2 lg:grid-cols-4;
+  }
+
   /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js).
      A base 120ms hold before motion starts (overridable via a `[transition-delay:...]` utility
      or mnStagger's inline delay, both of which win over this) keeps the appearance measured
@@ -183,7 +234,7 @@
   .reveal {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 550ms cubic-bezier(0.4, 0, 0.2, 1) 120ms, transform 550ms cubic-bezier(0.4, 0, 0.2, 1) 120ms;
+    transition: opacity 500ms ease-in-out 120ms, transform 500ms ease-in-out 120ms;
     will-change: opacity, transform;
   }
 
@@ -505,8 +556,8 @@
    #F4EFE6 ivoire long after the palette moved to a cool #ECEEF3, a mismatch visible as an
    off-white "stain" on scroll). */
 .nav-glass.mn-hero-nav.is-scrolled {
-  background: rgba(231, 227, 218, 0.9);
-  border-color: rgba(213, 208, 195, 0.5);
+  background: rgba(246, 242, 234, 0.9);
+  border-color: rgba(228, 223, 211, 0.5);
   backdrop-filter: blur(12px);
 }
 

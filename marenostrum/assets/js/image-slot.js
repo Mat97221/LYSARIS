@@ -438,7 +438,7 @@
 
   class ImageSlot extends HTMLElement {
     static get observedAttributes() {
-      return ['shape', 'radius', 'mask', 'fit', 'placeholder', 'src', 'id', 'credit', 'credit-href'];
+      return ['shape', 'radius', 'mask', 'fit', 'placeholder', 'src', 'id', 'credit', 'credit-href', 'alt'];
     }
 
     /** Duplicate-slide hook (called by deck-stage, see its
@@ -1066,6 +1066,11 @@
     }
 
     _render() {
+      // Meaningful-content slots can carry a real `alt`; decorative ones (the vast majority,
+      // background tiles/mosaics) simply omit it and keep the empty default — never inferred
+      // from `placeholder`, which is an authoring label, not alt text.
+      this._img.alt = this.getAttribute('alt') || '';
+
       // Shape / mask. Presets use border-radius so the dashed ring can
       // follow the rounded outline; clip-path is only applied for an
       // explicit `mask` (the ring is hidden there since a rectangle

@@ -16,213 +16,60 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- Hero — full-bleed image, quiet overlay: one line, one understated link -->
-    <section class="relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-b from-marine to-noir">
-      <img src="assets/img/riviere.jpg" alt="" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" />
-      <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.5) 0%, rgba(17,17,16,0.1) 35%, rgba(17,17,16,0.5) 100%)"></div>
+    <!-- 1) HERO — plein écran, image d'eau douce, un intertitre, un titre, un bouton primaire -->
+    <section class="relative min-h-screen flex flex-col overflow-hidden bg-marine">
+      <img src="assets/img/riviere.jpg" alt="Lac de montagne brumeux au lever du jour" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" />
+      <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.45) 0%, rgba(17,17,16,0.05) 40%, rgba(17,17,16,0.55) 100%)"></div>
       <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-8 py-32 text-center">
-        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/75 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
+        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/80 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
         <h1 class="h-hero text-ivoire animate-fadeUp [animation-delay:280ms] [text-shadow:0_2px_24px_rgba(17,17,16,0.5)]">
-          L'art du caviar, sans compromis.
+          MARENOSTRUM — l'art du caviar, sans compromis.
         </h1>
-        <a href="contact.html" class="btn-quiet animate-fadeUp [animation-delay:520ms] !text-ivoire !border-ivoire/50 hover:!text-ivoire hover:!border-ivoire">Demander un devis professionnel</a>
+        <a href="contact.html" class="btn-navy animate-fadeUp [animation-delay:520ms]">Demander un devis</a>
       </div>
     </section>
 
-    <!-- Featured products — 3 only, right below the hero -->
-    <section class="container-page py-28">
-      <div class="mb-14 text-center reveal">
-        <p class="eyebrow mb-3">Sélection de la Maison</p>
-        <h2 class="h-section">Nos produits les plus appréciés</h2>
-      </div>
-      <div id="mn-featured-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-3"></div>
-      <div class="mt-12 text-center reveal">
-        <a href="boutique.html" class="btn-quiet">Voir tous les produits</a>
-      </div>
-    </section>
+    <!-- 2) MANIFESTE — 4 chapitres numérotés, plein largeur, fond ivoire/glacier alterné -->
+    <div id="mn-manifesto-slot" data-manifesto></div>
 
-    <!-- Quote break — one considered line, its own section -->
-    <section class="container-page py-32 sm:py-40">
-      <blockquote class="mx-auto max-w-3xl text-center reveal">
-        <p class="h-quote">« Le caviar ne se fabrique pas. Il se laisse le temps d'exister. »</p>
-        <footer class="mt-8 eyebrow">La Maison MARENOSTRUM</footer>
-      </blockquote>
-    </section>
+    <!-- 3) LES CAVIARS — carrousel horizontal, oriente vers le devis -->
+    <div id="mn-carousel-slot" data-caviar-carousel></div>
 
-    <!-- Craft: image left / text right -->
-    <section class="container-page py-28">
-      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div class="order-1 grid grid-cols-3 gap-3 reveal">
-          <div class="col-span-3 flex h-40 items-center justify-center overflow-hidden bg-ink-800 sm:h-56">
-            <image-slot id="mn-craft-photo-1" shape="rect" placeholder="Photo : geste de salage à la main" style="width:100%;height:100%"></image-slot>
-          </div>
-          <div class="flex h-28 items-center justify-center overflow-hidden bg-ink-800 sm:h-36">
-            <image-slot id="mn-craft-photo-2" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
-          <div class="flex h-28 items-center justify-center overflow-hidden bg-ink-800 sm:h-36">
-            <image-slot id="mn-craft-photo-3" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
-          <div class="flex h-28 items-center justify-center overflow-hidden bg-ink-800 sm:h-36">
-            <image-slot id="mn-craft-photo-4" shape="rect" placeholder="Photo" style="width:100%;height:100%"></image-slot>
-          </div>
-        </div>
-        <div class="order-2 reveal [transition-delay:260ms]">
-          <p class="eyebrow mb-4">Notre savoir-faire</p>
-          <h2 class="h-section mb-8">Le geste de l'affineur</h2>
-          <p class="prose-copy mb-8">
-            Chaque lot est salé à la main selon la méthode Malossol — un geste précis, transmis de génération en génération, qui distingue un caviar juste d'un caviar d'exception.
-          </p>
-          <a href="contact.html" class="btn-quiet">Demander un devis professionnel</a>
-        </div>
-      </div>
-    </section>
+    <!-- 4) L'AFFINEUR / SAVOIR-FAIRE — récit + gros plans texture -->
+    <div id="mn-craft-slot" data-craft></div>
 
-    <!-- Deep-sea origin break -->
-    <section class="mn-abyss" style="border-top:1px solid #0A0A09;border-bottom:1px solid #0A0A09">
-      <div class="absolute inset-0" style="z-index:0">
-        <image-slot id="mn-origine-photo" shape="rect" placeholder="Photo : bassins de la ferme Kovács, notre éleveur partenaire, Hongrie" style="width:100%;height:100%"></image-slot>
-      </div>
-      <div class="absolute inset-0 pointer-events-none" style="z-index:1;background:linear-gradient(180deg, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0.8) 65%, rgba(17,17,16,0.92) 100%)"></div>
-      <div class="container-page relative flex flex-col items-center gap-6 py-32 text-center reveal" style="z-index:10">
-        <p class="eyebrow text-ivoire">Sélectionné avec exigence</p>
-        <h2 class="h-section max-w-2xl text-ivoire">Un élevage d'exception, sélectionné avec exigence</h2>
-        <p class="max-w-2xl text-lg leading-relaxed" style="color:rgba(244,239,230,0.75)">Un élevage en eaux vives, en Hongrie, affiné selon la méthode Malossol jusqu'à l'exigence de la Maison.</p>
-        <a href="a-propos.html" class="btn-quiet !text-ivoire !border-ivoire/50 hover:!text-ivoire hover:!border-ivoire">Découvrir notre maison</a>
-      </div>
-    </section>
+    <!-- 5) GALERIE TEXTURE — bande plein largeur -->
+    <div id="mn-texture-slot" data-texture-gallery></div>
 
-    <!-- Wellness: text left / image right -->
-    <section class="container-page py-28">
-      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div class="order-2 lg:order-1 reveal">
-          <p class="eyebrow mb-4">L'art de la dégustation</p>
-          <h2 class="h-section mb-8">Blinis tièdes, cuillère de nacre, rien de plus</h2>
-          <p class="prose-copy mb-8">
-            Une cuillère de nacre, un blini tiède, une pointe de crème fraîche — le caviar se suffit à lui-même.
-          </p>
-          <a href="boutique.html?cat=epicerie-fine" class="btn-quiet">Voir l'épicerie fine</a>
-        </div>
-        <div class="order-1 lg:order-2 reveal [transition-delay:260ms] flex h-72 items-center justify-center overflow-hidden bg-ink-800 sm:h-96">
-          <image-slot id="mn-degustation-photo" shape="rect" placeholder="Photo : table dressée, blinis et cuillère de nacre" style="width:100%;height:100%"></image-slot>
-        </div>
-      </div>
-    </section>
+    <!-- 6) POUR LES PROFESSIONNELS — cœur commercial B2B -->
+    <div id="mn-b2b-slot" data-b2b></div>
 
-    <!-- Nos engagements — trois fiches illustrées -->
-    <section class="border-y border-ink-600/50 bg-ink-800">
-      <div class="container-page py-28">
-        <div class="mb-16 text-center reveal">
-          <p class="eyebrow mb-3">Nos engagements</p>
-          <h2 class="h-section">Trois promesses, à chaque commande</h2>
-        </div>
-        <div id="mn-promesses-grid" class="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-10">
-          <article class="reveal flex flex-col">
-            <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
-              <image-slot id="mn-promesse-photo-1" shape="rect" placeholder="Photo : boîte numérotée, atelier de traçabilité" style="width:100%;height:100%"></image-slot>
-            </div>
-            <h3 class="h-card mb-3">Traçabilité totale</h3>
-            <p class="text-ink-200 leading-relaxed">Chaque boîte porte un numéro de lot unique, retraçable jusqu'à la ferme Kovács et à la date de récolte.</p>
-          </article>
-          <article class="reveal flex flex-col">
-            <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
-              <image-slot id="mn-promesse-photo-2" shape="rect" placeholder="Photo : colis isotherme, glace pilée" style="width:100%;height:100%"></image-slot>
-            </div>
-            <h3 class="h-card mb-3">Livraison réfrigérée 24-48h</h3>
-            <p class="text-ink-200 leading-relaxed">Colis isotherme et glace pilée, partout en France métropolitaine.</p>
-          </article>
-          <article class="reveal flex flex-col">
-            <div class="mb-6 overflow-hidden" style="aspect-ratio:4/3">
-              <image-slot id="mn-promesse-photo-3" shape="rect" placeholder="Photo : visite de contrôle chez la ferme Kovács" style="width:100%;height:100%"></image-slot>
-            </div>
-            <h3 class="h-card mb-3">Sélection exigeante</h3>
-            <p class="text-ink-200 leading-relaxed">Chez la ferme Kovács, notre éleveur partenaire : eaux vives, circuit fermé, sans hormones ni antibiotiques.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Flagship showcase -->
-    <section class="border-y border-ink-600/50 bg-ink-800">
-      <div class="container-page grid grid-cols-1 items-center gap-12 py-28 lg:grid-cols-2 lg:gap-20">
-        <div class="reveal relative flex h-96 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
-          <span class="absolute left-0 top-0 z-10 bg-marine px-4 py-2 text-xs font-semibold uppercase tracking-widest2 text-ivoire">Best-seller</span>
-          <div id="mn-flagship-tin" data-tin-reveal></div>
-        </div>
-        <div class="reveal [transition-delay:260ms]">
-          <p class="eyebrow mb-3">Notre pièce maîtresse</p>
-          <h2 class="h-section mb-6">Esturgeon Russe</h2>
-          <p class="prose-copy mb-6">
-            Grain ferme, notes de noisette — la référence classique de la caviarculture.
-          </p>
-          <p class="mb-8 text-sm text-ink-300">Noisette grillée · Grain ferme</p>
-          <a href="produit.html?id=esturgeon-russe" class="btn-quiet">Découvrir l'Esturgeon Russe</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Univers / category tiles -->
-    <section class="border-t border-ink-600/50 bg-ink-800">
-      <div class="container-page py-28">
-        <p class="eyebrow mb-3 text-center reveal">Tout l'univers Maison</p>
-        <h2 class="h-section mb-16 text-center reveal">Découvrez nos gammes</h2>
-        <div id="mn-univers-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <a href="boutique.html?cat=caviar-esturgeon" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-caviar-esturgeon" shape="rect" placeholder="Photo : grain de caviar en gros plan" style="width:100%;height:100%"></image-slot>
-            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
-            <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Caviar d'esturgeon</h3>
-            </div>
-          </a>
-          <a href="boutique.html?cat=caviar-saumon" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-caviar-saumon" shape="rect" placeholder="Photo : œufs de saumon" style="width:100%;height:100%"></image-slot>
-            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
-            <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Caviar de saumon</h3>
-            </div>
-          </a>
-          <a href="boutique.html?cat=poissons-fumes" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-poissons-fumes" shape="rect" placeholder="Photo : poisson fumé, tranché" style="width:100%;height:100%"></image-slot>
-            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
-            <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Poissons fumés</h3>
-            </div>
-          </a>
-          <a href="boutique.html?cat=epicerie-fine" class="mn-tile group relative block overflow-hidden" style="aspect-ratio:3/4">
-            <image-slot id="mn-univers-epicerie-fine" shape="rect" placeholder="Photo : table dressée, épicerie fine" style="width:100%;height:100%"></image-slot>
-            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 55%, rgba(17,17,16,0.75) 100%)"></div>
-            <div class="absolute inset-x-0 bottom-0 p-6">
-              <h3 class="h-card">Épicerie fine</h3>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Closing CTA — plain block, no card chrome -->
-    <section class="container-page py-32 text-center">
-      <div class="reveal mx-auto max-w-xl">
-        <p class="eyebrow mb-4">Restaurant, hôtel, grossiste ?</p>
-        <h2 class="h-section mb-6">Demandez votre devis professionnel</h2>
-        <p class="prose-copy mx-auto mb-8">Notre équipe vous répond sous 24h ouvrées.</p>
-        <a href="contact.html" class="btn-quiet">Demander un devis professionnel</a>
-      </div>
-    </section>
+    <!-- 7) CONTACT / DEVIS + newsletter -->
+    <div id="mn-contact-devis-slot" data-contact-devis></div>
   </main>
 
   <div id="site-footer"></div>
 
   <script src="assets/js/products.js"></script>
   <script src="assets/js/ui.js"></script>
+  <script src="assets/js/home.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector("[data-manifesto]").outerHTML = mnHomeManifesto();
+      document.querySelector("[data-caviar-carousel]").outerHTML = mnHomeCaviarCarousel();
+      document.querySelector("[data-craft]").outerHTML = mnHomeCraft();
+      document.querySelector("[data-texture-gallery]").outerHTML = mnHomeTextureGallery();
+      document.querySelector("[data-b2b]").outerHTML = mnHomeB2B();
+      document.querySelector("[data-contact-devis]").outerHTML = mnHomeContactDevis();
       document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
 
-      const featuredIds = ["esturgeon-russe", "kaluga", "beluga"];
-      const grid = document.getElementById("mn-featured-grid");
-      grid.innerHTML = featuredIds.map((id) => mnProductCard(mnFindProduct(id), { compact: true })).join("");
-      mnStagger(grid, 90);
-      mnStagger(document.getElementById("mn-promesses-grid"), 90);
-      mnStagger(document.getElementById("mn-univers-grid"), 90);
+      mnInitCaviarCarousel();
+      mnInitHomeForms();
+
+      // mnMountLayout() already ran mnInitReveal() once on DOMContentLoaded, before any of the
+      // sections above existed — their .reveal elements need their own pass (mnInitReveal skips
+      // anything already bound via data-reveal-bound, so this only picks up what's new).
+      mnInitReveal();
     });
   </script>
 </body>

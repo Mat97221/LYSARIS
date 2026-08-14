@@ -5,14 +5,16 @@
 // legacy ink-*/navy/azure/pine aliases below, which every page already builds on, derive from
 // these four values alone.
 const BRAND = {
-  noir: "#111110", // contrast / signature ground — hero, footer, a few impact sections only
-  ivoire: "#E7E3DA", // the site's single background — a soft warm parchment/ivory. The previous
-  // cool glacier blue-grey (#ECEEF3) sat at ~94% lightness with almost no warmth, which read as
-  // near-white and was reported as glaring/tiring to look at; this drops lightness to ~88% and
-  // brings back a warm (not blue) hue, both of which cut perceived glare while staying light
-  // enough to read as a neutral background, not a colored block.
-  marine: "#17263F" // the single accent — buttons, active states, links, icons, details
-  // (a gold accent was removed entirely from the identity; nothing uses it anymore)
+  noir: "#111110", // deep ground — hero overlay, footer; a few full-bleed dark sections only
+  ivoire: "#F6F2EA", // primary page background — warm off-white
+  marine: "#1E2C3A", // "encre" — the single ink accent: buttons, active states, links, headings
+  glacier: "#C6D2D4", // alternate section background — pairs with ivoire to give the editorial
+  // homepage a light/light rhythm from section to section (see mnPageBackground and the home
+  // section builders in assets/js/home.js) without ever going dark or introducing a second hue
+  sable: "#E8DFD0", // warm accent, used sparingly (a divider, a small fill) — never a full section
+  anthracite: "#35322C" // rare dark accent for small marks/icons that need more weight than
+  // marine but shouldn't reach for the noir grounds — not used as a background
+  // (no gold, no pure black anywhere in the palette)
 };
 
 module.exports = {
@@ -23,6 +25,9 @@ module.exports = {
         noir: BRAND.noir,
         ivoire: BRAND.ivoire,
         marine: BRAND.marine,
+        glacier: BRAND.glacier,
+        sable: BRAND.sable,
+        anthracite: BRAND.anthracite,
 
         /**
          * Legacy token names, reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
@@ -37,15 +42,15 @@ module.exports = {
           200: "#46433B", // body / muted paragraph text — main reading colour (~8.5:1 on ivoire)
           300: "#6B6557", // faint / footnote text
           400: "#928B7A", // very faint decorative text
-          500: "#C1BBAA", // visible borders — inputs, filter pills, unselected variant buttons
-          600: "#D5D0C3", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
-          700: "#ECE9E1", // card surfaces — near-white, lifted just above the ivoire page
-          800: "#E1DDD2", // alternate section backgrounds — a tint just below ivoire for quiet alternation
+          500: "#D0CABA", // visible borders — inputs, filter pills, unselected variant buttons
+          600: "#E4DFD3", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
+          700: "#FBF8F1", // card surfaces — near-white, lifted just above the ivoire page
+          800: "#F0ECE2", // alternate section backgrounds — a tint just below ivoire for quiet alternation
           900: BRAND.ivoire // page background
         },
         navy: {
           DEFAULT: BRAND.marine, // marine FILLS — primary buttons, badges, active-state chips (paired with ivoire text)
-          hover: "#24395E", // slightly lighter marine for hover/active feedback
+          hover: "#2B3F59", // slightly lighter marine for hover/active feedback
           dark: "#0A0A09" // deepest shade — the "abysse" section keylines (near-black, never pure #000)
         },
         charcoal: BRAND.noir,
@@ -61,11 +66,13 @@ module.exports = {
         error: "#B3261E" // deep red — reads correctly again now that form surfaces are light
       },
       fontFamily: {
-        // Space Grotesk (Google Fonts, loaded once in src/input.css) — single typeface for
-        // both roles: "titre" (headings) and "texte" (body copy, interface chrome, default
-        // font on <body>, see src/input.css).
-        titre: ["Space Grotesk", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-        texte: ["Space Grotesk", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+        // Two-typeface system (Google Fonts, loaded once in src/input.css): Cormorant Garamond,
+        // a high-contrast serif, for display headings only ("titre" — h1/h2/quotes, never body
+        // copy or UI chrome); Inter for everything else ("texte" — paragraphs, nav, buttons,
+        // form fields, default font on <body>). Small "eyebrow" labels use texte too, spaced out
+        // via .eyebrow's own letter-spacing rather than a third typeface.
+        titre: ["Cormorant Garamond", "Georgia", "serif"],
+        texte: ["Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",
