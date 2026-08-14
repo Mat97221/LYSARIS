@@ -38,7 +38,7 @@
      The body just needs its own solid fallback color underneath that layer. */
   body {
     @apply text-ink-50 font-texte antialiased;
-    background-color: #ECEEF3;
+    background-color: #E7E3DA;
   }
 
   ::selection {
@@ -502,11 +502,11 @@
    bg-ivoire/90 utility) because .mn-hero-nav needs a hard override of the base .nav-glass
    background — kept in sync by hand with BRAND.ivoire / ink.600 in tailwind.config.js whenever
    the palette changes (this pair drifted out of sync once already: it shipped the old warm
-   #F4EFE6 ivoire long after the palette moved to the current cool #ECEEF3, a mismatch visible as
-   an off-white "stain" on scroll). */
+   #F4EFE6 ivoire long after the palette moved to a cool #ECEEF3, a mismatch visible as an
+   off-white "stain" on scroll). */
 .nav-glass.mn-hero-nav.is-scrolled {
-  background: rgba(236, 238, 243, 0.9);
-  border-color: rgba(218, 219, 220, 0.5);
+  background: rgba(231, 227, 218, 0.9);
+  border-color: rgba(213, 208, 195, 0.5);
   backdrop-filter: blur(12px);
 }
 

@@ -6,11 +6,11 @@
 // these four values alone.
 const BRAND = {
   noir: "#111110", // contrast / signature ground — hero, footer, a few impact sections only
-  ivoire: "#ECEEF3", // the site's single background — a pale, cool glacier blue-grey (sampled
-  // from the reference mountain-lake/misty-morning mood and the new tin's own blue-grey body),
-  // prepping the palette ahead of the upcoming glacier-toned product photography. Kept light
-  // enough to read as a neutral background, not a colored block. Retains the "ivoire" name for
-  // now — every ivoire-* utility across the site derives from this one value.
+  ivoire: "#E7E3DA", // the site's single background — a soft warm parchment/ivory. The previous
+  // cool glacier blue-grey (#ECEEF3) sat at ~94% lightness with almost no warmth, which read as
+  // near-white and was reported as glaring/tiring to look at; this drops lightness to ~88% and
+  // brings back a warm (not blue) hue, both of which cut perceived glare while staying light
+  // enough to read as a neutral background, not a colored block.
   marine: "#17263F" // the single accent — buttons, active states, links, icons, details
   // (a gold accent was removed entirely from the identity; nothing uses it anymore)
 };
@@ -37,10 +37,10 @@ module.exports = {
           200: "#46433B", // body / muted paragraph text — main reading colour (~8.5:1 on ivoire)
           300: "#6B6557", // faint / footnote text
           400: "#928B7A", // very faint decorative text
-          500: "#C6C6C3", // visible borders — inputs, filter pills, unselected variant buttons
-          600: "#DADBDC", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
-          700: "#F1F4FA", // card surfaces — near-white, lifted just above the ivoire page
-          800: "#E6E8EB", // alternate section backgrounds — a tint just below ivoire for quiet alternation
+          500: "#C1BBAA", // visible borders — inputs, filter pills, unselected variant buttons
+          600: "#D5D0C3", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
+          700: "#ECE9E1", // card surfaces — near-white, lifted just above the ivoire page
+          800: "#E1DDD2", // alternate section backgrounds — a tint just below ivoire for quiet alternation
           900: BRAND.ivoire // page background
         },
         navy: {

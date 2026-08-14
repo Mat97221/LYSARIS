@@ -595,7 +595,7 @@ body{
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ECEEF3;
+  background-color: #E7E3DA;
 }
 
 ::-moz-selection{
@@ -881,7 +881,7 @@ a, button, [role="button"], input[type="submit"] {
   --tw-bg-opacity: 1;
   background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1));
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
 }
 
 .btn-navy:active{
@@ -925,7 +925,7 @@ a, button, [role="button"], input[type="submit"] {
   --tw-bg-opacity: 1;
   background-color: rgb(23 38 63 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1));
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
 }
 
 /* Secondary button — identical quiet outline treatment; kept as a distinct class since some
@@ -974,8 +974,8 @@ a, button, [role="button"], input[type="submit"] {
 
 .nav-glass{
   border-bottom-width: 1px;
-  border-color: rgb(218 219 220 / 0.5);
-  background-color: rgb(236 238 243 / 0.85);
+  border-color: rgb(213 208 195 / 0.5);
+  background-color: rgb(231 227 218 / 0.85);
   --tw-backdrop-blur: blur(12px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -989,9 +989,9 @@ a, button, [role="button"], input[type="submit"] {
   width: 100%;
   border-width: 1px;
   --tw-border-opacity: 1;
-  border-color: rgb(198 198 195 / var(--tw-border-opacity, 1));
+  border-color: rgb(193 187 170 / var(--tw-border-opacity, 1));
   --tw-bg-opacity: 1;
-  background-color: rgb(241 244 250 / var(--tw-bg-opacity, 1));
+  background-color: rgb(236 233 225 / var(--tw-bg-opacity, 1));
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.75rem;
@@ -1641,29 +1641,29 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .\!border-ivoire\/25{
-  border-color: rgb(236 238 243 / 0.25) !important;
+  border-color: rgb(231 227 218 / 0.25) !important;
 }
 
 .\!border-ivoire\/50{
-  border-color: rgb(236 238 243 / 0.5) !important;
+  border-color: rgb(231 227 218 / 0.5) !important;
 }
 
 .border-ink-500{
   --tw-border-opacity: 1;
-  border-color: rgb(198 198 195 / var(--tw-border-opacity, 1));
+  border-color: rgb(193 187 170 / var(--tw-border-opacity, 1));
 }
 
 .border-ink-600{
   --tw-border-opacity: 1;
-  border-color: rgb(218 219 220 / var(--tw-border-opacity, 1));
+  border-color: rgb(213 208 195 / var(--tw-border-opacity, 1));
 }
 
 .border-ink-600\/50{
-  border-color: rgb(218 219 220 / 0.5);
+  border-color: rgb(213 208 195 / 0.5);
 }
 
 .border-ivoire\/15{
-  border-color: rgb(236 238 243 / 0.15);
+  border-color: rgb(231 227 218 / 0.15);
 }
 
 .border-marine{
@@ -1695,16 +1695,16 @@ a, button, [role="button"], input[type="submit"] {
 
 .bg-ink-800{
   --tw-bg-opacity: 1;
-  background-color: rgb(230 232 235 / var(--tw-bg-opacity, 1));
+  background-color: rgb(225 221 210 / var(--tw-bg-opacity, 1));
 }
 
 .bg-ink-900\/95{
-  background-color: rgb(236 238 243 / 0.95);
+  background-color: rgb(231 227 218 / 0.95);
 }
 
 .bg-ivoire{
   --tw-bg-opacity: 1;
-  background-color: rgb(236 238 243 / var(--tw-bg-opacity, 1));
+  background-color: rgb(231 227 218 / var(--tw-bg-opacity, 1));
 }
 
 .bg-marine{
@@ -1941,7 +1941,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .\!text-ivoire{
   --tw-text-opacity: 1 !important;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1)) !important;
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-ink-100{
@@ -1966,19 +1966,19 @@ a, button, [role="button"], input[type="submit"] {
 
 .text-ivoire{
   --tw-text-opacity: 1;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1));
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
 }
 
 .text-ivoire\/50{
-  color: rgb(236 238 243 / 0.5);
+  color: rgb(231 227 218 / 0.5);
 }
 
 .text-ivoire\/70{
-  color: rgb(236 238 243 / 0.7);
+  color: rgb(231 227 218 / 0.7);
 }
 
 .text-ivoire\/75{
-  color: rgb(236 238 243 / 0.75);
+  color: rgb(231 227 218 / 0.75);
 }
 
 .text-marine{
@@ -2404,12 +2404,12 @@ a, button, [role="button"], input[type="submit"] {
    bg-ivoire/90 utility) because .mn-hero-nav needs a hard override of the base .nav-glass
    background — kept in sync by hand with BRAND.ivoire / ink.600 in tailwind.config.js whenever
    the palette changes (this pair drifted out of sync once already: it shipped the old warm
-   #F4EFE6 ivoire long after the palette moved to the current cool #ECEEF3, a mismatch visible as
-   an off-white "stain" on scroll). */
+   #F4EFE6 ivoire long after the palette moved to a cool #ECEEF3, a mismatch visible as an
+   off-white "stain" on scroll). */
 
 .nav-glass.mn-hero-nav.is-scrolled {
-  background: rgba(236, 238, 243, 0.9);
-  border-color: rgba(218, 219, 220, 0.5);
+  background: rgba(231, 227, 218, 0.9);
+  border-color: rgba(213, 208, 195, 0.5);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
 }
@@ -2433,16 +2433,16 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .placeholder\:\!text-ivoire\/40::-moz-placeholder{
-  color: rgb(236 238 243 / 0.4) !important;
+  color: rgb(231 227 218 / 0.4) !important;
 }
 
 .placeholder\:\!text-ivoire\/40::placeholder{
-  color: rgb(236 238 243 / 0.4) !important;
+  color: rgb(231 227 218 / 0.4) !important;
 }
 
 .hover\:\!border-ivoire:hover{
   --tw-border-opacity: 1 !important;
-  border-color: rgb(236 238 243 / var(--tw-border-opacity, 1)) !important;
+  border-color: rgb(231 227 218 / var(--tw-border-opacity, 1)) !important;
 }
 
 .hover\:border-navy\/60:hover{
@@ -2451,12 +2451,12 @@ a, button, [role="button"], input[type="submit"] {
 
 .hover\:\!text-ivoire:hover{
   --tw-text-opacity: 1 !important;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1)) !important;
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1)) !important;
 }
 
 .hover\:text-ivoire:hover{
   --tw-text-opacity: 1;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1));
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-marine:hover{
@@ -2470,7 +2470,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .focus\:\!border-ivoire:focus{
   --tw-border-opacity: 1 !important;
-  border-color: rgb(236 238 243 / var(--tw-border-opacity, 1)) !important;
+  border-color: rgb(231 227 218 / var(--tw-border-opacity, 1)) !important;
 }
 
 .group:focus-within .group-focus-within\:visible{
@@ -2512,7 +2512,7 @@ a, button, [role="button"], input[type="submit"] {
 
 .group:hover .group-hover\:text-ivoire{
   --tw-text-opacity: 1;
-  color: rgb(236 238 243 / var(--tw-text-opacity, 1));
+  color: rgb(231 227 218 / var(--tw-text-opacity, 1));
 }
 
 .group:hover .group-hover\:text-marine{
