@@ -417,29 +417,30 @@
   transform: translateY(-6px);
 }
 
-/* Caviar tin whose lid slides open on hover — see mnTinReveal() in ui.js. Mouse only: gated
-   behind (hover: hover) so a tap on touch devices can't leave :hover "stuck" with the lid
-   hanging open — touch just shows the closed tin, which is the safer default there anyway.
-   Two trigger rules because this can be dropped into two different contexts: `.mn-tin-reveal:hover`
-   for a standalone placement (the product page, the homepage "pièce maîtresse"), and
-   `.group:hover …` for use inside a product card (.card-product.group) — a card's full-cover
-   .stretched-link (for click-through navigation) paints above .mn-tin-reveal, so it's what
-   actually receives the pointer there, not the tin itself (same reason the card's "Découvrir"
-   chip and title use group-hover instead of their own :hover).
-   translateX is a % of the <img> tag's own box, which is stretched to fill the whole container
-   (h-full w-full) — not the size of the visible lid disc drawn inside it by object-contain. That
-   disc is letterboxed and often much narrower than its box, so 100% (a full box-width shift) can
-   still leave a sliver of the disc's near edge inside the container. 170% clears the disc in every
-   layout this component is used in (fixed-height product photo, fixed-height card thumbnail),
-   with room to spare; the container clips it with overflow-hidden, so overshoot is free. */
+/* Caviar tin whose lid slides open (and fades out, so it doesn't visibly drag across the grains
+   mid-slide) on hover — see mnTinReveal() in ui.js. A single trigger rule, `.mn-tin-reveal:hover`,
+   covers every placement: on the two standalone photos (product page, homepage "pièce maîtresse")
+   .mn-tin-reveal already matches the visible tin exactly (aspect-square, see mnTinReveal()). Inside
+   a product card, mnProductCard() wraps the photo in its own small link (z-[5]) sitting above the
+   card's full-cover .stretched-link (z-index:auto — see that class below), so the tin genuinely
+   receives the pointer there too instead of the click-through overlay swallowing it; this also
+   means hovering the rest of the card (title, "Découvrir") no longer opens the lid, only the photo
+   itself does. Mouse only: gated behind (hover: hover) so a tap on touch devices can't leave
+   :hover "stuck" with the lid hanging open — touch just shows the closed tin, the safer default.
+   translateX is a % of the <img> tag's own box, which mnTinReveal() now sizes to match the visible
+   lid disc (aspect-square) — so unlike a plain 100%, a shift a bit past that (150%) reliably clears
+   the disc's far edge with margin, in every fixed-height layout this is used in (product photo,
+   card thumbnail); the container clips it with overflow-hidden, so overshoot is free. Duration
+   700ms and the site's "water" easing (see tailwind.config.js) for a slow, fluid glide rather than
+   a mechanical snap. */
 .mn-tin-lid {
-  transition: transform 500ms ease-in-out;
+  transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1), opacity 700ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @media (hover: hover) {
-  .mn-tin-reveal:hover .mn-tin-lid,
-  .group:hover .mn-tin-reveal .mn-tin-lid {
-    transform: translateX(170%);
+  .mn-tin-reveal:hover .mn-tin-lid {
+    transform: translateX(150%);
+    opacity: 0;
   }
 }
 
@@ -470,6 +471,18 @@
   color: #f4efe6;
 }
 
+/* #mn-mobile-menu has its own opaque bg-ink-900/95 backdrop once open — unlike the transparent
+   bar above it, it's never sitting directly on the hero photo, so the light hero-overlay text
+   color above would be near-invisible on it. Higher specificity (adds the #mn-mobile-menu id)
+   wins over the rule above regardless of source order. */
+.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link {
+  color: #2e2b24;
+}
+
+.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link.is-active {
+  color: #17263f;
+}
+
 .nav-glass.mn-hero-nav .mn-nav-cta {
   color: #f4efe6;
   border-color: rgba(244, 239, 230, 0.5);
@@ -485,10 +498,15 @@
   filter: brightness(0) invert(1);
 }
 
-/* Scrolled past the hero: fall back to the standard light bar. */
+/* Scrolled past the hero: fall back to the standard light bar. rgba literals here (not a Tailwind
+   bg-ivoire/90 utility) because .mn-hero-nav needs a hard override of the base .nav-glass
+   background — kept in sync by hand with BRAND.ivoire / ink.600 in tailwind.config.js whenever
+   the palette changes (this pair drifted out of sync once already: it shipped the old warm
+   #F4EFE6 ivoire long after the palette moved to the current cool #ECEEF3, a mismatch visible as
+   an off-white "stain" on scroll). */
 .nav-glass.mn-hero-nav.is-scrolled {
-  background: rgba(244, 239, 230, 0.9);
-  border-color: rgba(228, 220, 203, 0.5);
+  background: rgba(236, 238, 243, 0.9);
+  border-color: rgba(218, 219, 220, 0.5);
   backdrop-filter: blur(12px);
 }
 

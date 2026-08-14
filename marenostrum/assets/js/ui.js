@@ -71,10 +71,15 @@ function mnWaveDivider(colorClass) {
 }
 
 /**
- * Boîte de caviar dont le couvercle glisse vers la droite au survol pour révéler les grains
- * dessous — souris uniquement (voir la garde `@media (hover: hover)` sur .mn-tin-lid dans
- * input.css) ; au tactile :hover peut rester "collé" après un tap, la boîte reste donc
+ * Boîte de caviar dont le couvercle glisse vers la droite et s'estompe au survol, pour révéler
+ * les grains dessous — souris uniquement (voir la garde `@media (hover: hover)` sur .mn-tin-lid
+ * dans input.css) ; au tactile :hover peut rester "collé" après un tap, la boîte reste donc
  * simplement fermée sur mobile. Pur CSS, aucun JS pour l'interaction elle-même.
+ *
+ * `aspect-square h-full mx-auto` (plutôt que `h-full w-full`) fait correspondre la zone de survol
+ * au carré réellement dessiné par `object-contain` (l'image source est carrée), pas à toute la
+ * largeur du conteneur ambiant : le survol ne déclenche donc que quand le curseur est vraiment
+ * sur la boîte, pas sur les marges de la vignette autour.
  *
  * Réutilisable : placer `<div id="un-id" data-tin-reveal></div>` n'importe où, puis dans le
  * script de la page, une fois le DOM prêt :
@@ -87,7 +92,7 @@ function mnWaveDivider(colorClass) {
  */
 function mnTinReveal() {
   return `
-  <div class="mn-tin-reveal relative h-full w-full">
+  <div class="mn-tin-reveal relative mx-auto aspect-square h-full">
     <img src="assets/img/boite-ouverte.png" alt="Boîte de caviar Marenostrum 50g" class="absolute inset-0 h-full w-full object-contain" />
     <img src="assets/img/couvercle.png" alt="" class="mn-tin-lid absolute inset-0 h-full w-full object-contain" />
   </div>`;
@@ -116,9 +121,9 @@ function mnProductCard(product, { compact = false } = {}) {
   return `
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
-    <div class="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
+    <a href="produit.html?id=${product.id}" aria-hidden="true" tabindex="-1" class="relative z-[5] flex h-56 items-center justify-center overflow-hidden bg-gradient-to-b from-marine to-noir">
       ${mnTinReveal()}
-    </div>
+    </a>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
         <h3 class="${titleClass}">${product.name}</h3>
@@ -144,10 +149,17 @@ function mnHeader(active) {
   // categories are expanded into the actual caviar types available, each under its own column
   // heading, instead of one flat "Caviar d'esturgeon"/"Caviar de saumon" link; poissons fumés
   // and épicerie fine stay as single links in a third column. Kept open via CSS
-  // (:hover/:focus-within on the wrapping .group) — no JS needed, matches the mobile menu's
-  // lack of a dedicated toggle-per-item. The appearance uses a slow, soft "water" easing
-  // (duration-1000, ease-water — see tailwind.config.js) instead of the site's usual quick
-  // ease-fluid, so the panel surfaces gently rather than snapping open.
+  // (:hover/:focus-within on the wrapping .group) — no JS needed. The appearance uses a slow,
+  // soft "water" easing (duration-1000, ease-water — see tailwind.config.js) instead of the
+  // site's usual quick ease-fluid, so the panel surfaces gently rather than snapping open.
+  // Panel anchored `left-0` (not centered under the trigger) and sized with `min(640px, 100vw -
+  // 2rem)` rather than a flat 640px, as a safety cap against very narrow viewports. That alone
+  // isn't enough on its own though — at md (768px), "Nos produits" sits far enough right in the
+  // row that a 640px panel starting at its left edge runs off the right of the viewport, whatever
+  // the anchor. So the desktop nav (and this hover mega-menu with it) only shows at lg (1024px)
+  // and up, where 640px reliably fits regardless of where the trigger falls in the row; tablets
+  // get the same compact, always-visible category links as phones, inside #mn-mobile-menu below
+  // — arguably a better fit for touch anyway, since :hover doesn't behave consistently there.
   const caviarColumn = (categoryId, label) => {
     const items = MARENOSTRUM_PRODUCTS.filter((p) => p.category === categoryId)
       .map(
@@ -177,8 +189,8 @@ function mnHeader(active) {
           Nos produits
           <span class="h-3 w-3 transition-transform duration-1000 ease-water group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
         </a>
-        <div class="absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 invisible translate-y-3 transition-all duration-1000 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
-          <div class="grid grid-cols-3 gap-10 bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:640px">
+        <div class="absolute left-0 top-full pt-4 opacity-0 invisible translate-y-3 transition-all duration-1000 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
+          <div class="grid grid-cols-3 gap-10 bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:min(640px, calc(100vw - 2rem))">
             ${caviarColumn("caviar-esturgeon", "Caviar d'esturgeon")}
             ${caviarColumn("caviar-saumon", "Caviar de saumon")}
             <div>
@@ -195,7 +207,7 @@ function mnHeader(active) {
       <a href="index.html" class="flex items-center">
         <img src="assets/img/logo-marenostrum-horizontal-noir.png" alt="MARENOSTRUM" class="w-auto" style="width:231px;height:44px" />
       </a>
-      <nav class="hidden md:flex items-center gap-8">
+      <nav class="hidden lg:flex items-center gap-8">
         ${link("index.html", "Accueil", "accueil")}
         ${productsNav}
         ${link("a-propos.html", "La Maison", "apropos")}
@@ -203,15 +215,25 @@ function mnHeader(active) {
       </nav>
       <div class="flex items-center gap-4">
         <a href="contact.html" class="mn-nav-cta btn-quiet hidden sm:inline-flex">Demander un devis</a>
-        <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="md:hidden h-6 w-6 text-ink-50">
+        <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="lg:hidden h-6 w-6 text-ink-50">
           ${MN_ICONS.menu}
         </button>
       </div>
     </div>
-    <nav id="mn-mobile-menu" class="mn-menu-panel md:hidden border-t border-ink-600/50 bg-ink-900/95">
+    <nav id="mn-mobile-menu" class="mn-menu-panel lg:hidden border-t border-ink-600/50 bg-ink-900/95">
       <div class="container-page flex flex-col gap-4 py-5">
         ${link("index.html", "Accueil", "accueil")}
-        ${link("boutique.html", "Nos produits", "boutique")}
+        <div class="flex flex-col gap-3">
+          ${link("boutique.html", "Nos produits", "boutique")}
+          <div class="ml-3 flex flex-col gap-2.5 border-l border-ink-600/50 pl-4">
+            ${MARENOSTRUM_CATEGORIES.filter((c) => c.id !== "tous")
+              .map(
+                (c) =>
+                  `<a href="boutique.html?cat=${c.id}" class="mn-nav-link text-xs uppercase tracking-wide text-ink-200 transition-colors duration-200 hover:text-marine">${c.label}</a>`
+              )
+              .join("")}
+          </div>
+        </div>
         ${link("a-propos.html", "La Maison", "apropos")}
         ${link("contact.html", "Contact", "contact")}
       </div>
