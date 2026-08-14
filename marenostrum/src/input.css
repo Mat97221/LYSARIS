@@ -38,7 +38,7 @@
      The body just needs its own solid fallback color underneath that layer. */
   body {
     @apply text-ink-50 font-texte antialiased;
-    background-color: #F5F3EF;
+    background-color: #ECEEF3;
   }
 
   ::selection {

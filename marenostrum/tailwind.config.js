@@ -6,9 +6,11 @@
 // these four values alone.
 const BRAND = {
   noir: "#111110", // contrast / signature ground — hero, footer, a few impact sections only
-  ivoire: "#F5F3EF", // the site's single background white — a soft, warm, muted off-white in
-  // the spirit of the Aesop brand's quiet neutral palette, used flat (no gradient/photo tint)
-  // everywhere the page background shows.
+  ivoire: "#ECEEF3", // the site's single background — a pale, cool glacier blue-grey (sampled
+  // from the reference mountain-lake/misty-morning mood and the new tin's own blue-grey body),
+  // prepping the palette ahead of the upcoming glacier-toned product photography. Kept light
+  // enough to read as a neutral background, not a colored block. Retains the "ivoire" name for
+  // now — every ivoire-* utility across the site derives from this one value.
   marine: "#17263F" // the single accent — buttons, active states, links, icons, details
   // (a gold accent was removed entirely from the identity; nothing uses it anymore)
 };
@@ -35,10 +37,10 @@ module.exports = {
           200: "#46433B", // body / muted paragraph text — main reading colour (~8.5:1 on ivoire)
           300: "#6B6557", // faint / footnote text
           400: "#928B7A", // very faint decorative text
-          500: "#CFCBBF", // visible borders — inputs, filter pills, unselected variant buttons
-          600: "#E3E0D8", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
-          700: "#FAF9F6", // card surfaces — near-white, lifted just above the ivoire page
-          800: "#EFEDE7", // alternate section backgrounds — a tint just below ivoire for quiet alternation
+          500: "#C6C6C3", // visible borders — inputs, filter pills, unselected variant buttons
+          600: "#DADBDC", // subtle neutral hairlines / section dividers (gold filets are applied on purpose, not here)
+          700: "#F1F4FA", // card surfaces — near-white, lifted just above the ivoire page
+          800: "#E6E8EB", // alternate section backgrounds — a tint just below ivoire for quiet alternation
           900: BRAND.ivoire // page background
         },
         navy: {
