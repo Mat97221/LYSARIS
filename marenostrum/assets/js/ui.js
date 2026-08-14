@@ -79,9 +79,11 @@ function mnWaveDivider(colorClass) {
  * Réutilisable : placer `<div id="un-id" data-tin-reveal></div>` n'importe où, puis dans le
  * script de la page, une fois le DOM prêt :
  *   document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
- * (voir les appels dans produit.html et le "pièce maîtresse" de index.html). Le conteneur a
- * besoin d'un ancêtre non `overflow-hidden` pour laisser le couvercle déborder à droite sans
- * être coupé pendant le glissement.
+ * (voir les appels dans produit.html, le "pièce maîtresse" de index.html, et mnProductCard()
+ * ci-dessous). Le conteneur direct doit garder `overflow-hidden` : le glissement dépasse très
+ * largement sa propre largeur pour garantir que le disque du couvercle sorte entièrement du
+ * cadre (voir le commentaire sur .mn-tin-lid dans input.css) — sans ce clip, le couvercle
+ * déborderait sur le contenu voisin (texte, carte suivante dans une grille).
  */
 function mnTinReveal() {
   return `
@@ -100,9 +102,6 @@ function mnTinReveal() {
  * order), so a real link here would just sit under it, unclickable; a styled span avoids that trap
  * while still reading as a button.
  */
-// Photo wrapper below keeps overflow-hidden (unlike the two large standalone mnTinReveal()
-// placements, which need overflow-visible) so the lid clips at the card edge on hover instead
-// of spilling into the neighboring card in a tight grid.
 function mnProductCard(product, { compact = false } = {}) {
   const titleClass = compact
     ? "h-card text-[1rem] sm:text-[1.2rem] group-hover:text-marine transition-colors"

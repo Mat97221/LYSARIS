@@ -1599,10 +1599,6 @@ a, button, [role="button"], input[type="submit"] {
   overflow: hidden;
 }
 
-.overflow-visible{
-  overflow: visible;
-}
-
 .rounded{
   border-radius: 0.25rem;
 }
@@ -2309,7 +2305,13 @@ a, button, [role="button"], input[type="submit"] {
    `.group:hover …` for use inside a product card (.card-product.group) — a card's full-cover
    .stretched-link (for click-through navigation) paints above .mn-tin-reveal, so it's what
    actually receives the pointer there, not the tin itself (same reason the card's "Découvrir"
-   chip and title use group-hover instead of their own :hover). */
+   chip and title use group-hover instead of their own :hover).
+   translateX is a % of the <img> tag's own box, which is stretched to fill the whole container
+   (h-full w-full) — not the size of the visible lid disc drawn inside it by object-contain. That
+   disc is letterboxed and often much narrower than its box, so 100% (a full box-width shift) can
+   still leave a sliver of the disc's near edge inside the container. 170% clears the disc in every
+   layout this component is used in (fixed-height product photo, fixed-height card thumbnail),
+   with room to spare; the container clips it with overflow-hidden, so overshoot is free. */
 
 .mn-tin-lid {
   transition: transform 500ms ease-in-out;
@@ -2318,7 +2320,7 @@ a, button, [role="button"], input[type="submit"] {
 @media (hover: hover) {
   .mn-tin-reveal:hover .mn-tin-lid,
   .group:hover .mn-tin-reveal .mn-tin-lid {
-    transform: translateX(70%);
+    transform: translateX(170%);
   }
 }
 
