@@ -6,7 +6,7 @@
  * Seul index.html charge ce fichier — les autres pages n'en ont pas besoin.
  *
  * Structure volontairement resserrée (une idée par section, peu de texte, beaucoup de vide) pour
- * une page rapide et calme : hero → bande immersive → sélection → gamme professionnels → pied de
+ * une page rapide et calme : hero silencieux → bande "L'eau vive" → sélection → gamme professionnels → pied de
  * page. Les 4 photos (hero-montagne.webp, eau-vive.webp, grain-macro.webp, gamme-boites.webp)
  * sont des fichiers nommés en dur dans assets/img/, encodés en WebP pour le poids (26-40% du
  * JPEG d'origine) — pas de mécanisme <image-slot> ici puisque ce ne sont pas des visuels en
@@ -14,36 +14,29 @@
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * 1) HERO — plein écran, hero-montagne.webp, texte aligné à gauche sur voile dégradé
+ * 1) HERO — plein écran, hero-montagne.webp, silencieux (pas de texte superposé)
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
   return `
-  <section class="relative min-h-screen flex flex-col overflow-hidden bg-marine">
-    <img src="assets/img/hero-montagne.webp" alt="Boîtes de caviar Marenostrum dans un paysage de lac de montagne enneigé" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(90deg, rgba(17,17,16,0.68) 0%, rgba(17,17,16,0.4) 45%, rgba(17,17,16,0.12) 75%)"></div>
-    <div class="container-page relative z-10 flex flex-1 flex-col justify-center gap-8 py-32">
-      <div class="max-w-xl">
-        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/80 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
-        <h1 class="h-hero text-ivoire animate-fadeUp [animation-delay:280ms] mt-6 [text-shadow:0_2px_24px_rgba(17,17,16,0.5)]">
-          MARENOSTRUM — l'art du caviar, sans compromis.
-        </h1>
-        <a href="contact.html" class="btn-navy animate-fadeUp [animation-delay:520ms] mt-8 inline-flex">Demander un devis</a>
-      </div>
-    </div>
+  <section class="relative min-h-screen overflow-hidden bg-marine">
+    <img src="assets/img/hero-montagne.webp" alt="Paysage de lac de montagne brumeux au lever du jour" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
   </section>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 2) BANDE IMMERSIVE — « L'eau vive », eau-vive.webp plein largeur, texte minimal
+ * 2) L'EAU VIVE — bande de photo alignée à droite, séparée du hero par de l'espace
  * ------------------------------------------------------------------------------------------ */
 function mnHomeEauVive() {
   return `
-  <section class="relative flex min-h-[60vh] items-end overflow-hidden bg-marine sm:min-h-[75vh]">
-    <img src="assets/img/eau-vive.webp" alt="Boîte de caviar Marenostrum dans un ruisseau d'eau vive, éclaboussures" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 50%, rgba(17,17,16,0.65) 100%)"></div>
-    <div class="reveal container-page relative z-10 pb-16 sm:pb-20">
-      <p class="eyebrow text-ivoire/85 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">L'eau vive</p>
-      <p class="mt-3 max-w-md font-titre text-2xl italic text-ivoire sm:text-3xl [text-shadow:0_2px_16px_rgba(17,17,16,0.6)]">Un caviar d'eau douce, sélectionné à sa fraîcheur.</p>
+  <section class="bg-ivoire">
+    <div class="container-page grid grid-cols-1 items-center gap-8 pt-20 pb-24 lg:grid-cols-[1fr_1.6fr] lg:gap-12 lg:pt-28 lg:pb-32">
+      <div class="reveal">
+        <p class="eyebrow mb-4">L'eau vive</p>
+        <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Un caviar d'eau douce, sélectionné à sa fraîcheur.</p>
+      </div>
+      <div class="reveal [transition-delay:120ms] flex h-56 items-center justify-center overflow-hidden sm:h-72 lg:ml-auto lg:h-80 lg:w-full">
+        <img src="assets/img/eau-vive.webp" alt="Boîtes de caviar Marenostrum, vue rapprochée en rangée" loading="lazy" class="h-full w-full object-cover" />
+      </div>
     </div>
   </section>`;
 }
