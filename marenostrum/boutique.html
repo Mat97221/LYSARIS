@@ -25,7 +25,7 @@
     </section>
 
     <section class="container-page py-20">
-      <div id="mn-category-filters" class="mb-16 flex flex-wrap justify-center gap-8 border-b border-ink-600" role="tablist" aria-label="Filtrer par catégorie"></div>
+      <div id="mn-category-filters" class="mb-16 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Filtrer par catégorie"></div>
       <div id="mn-product-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
       <p id="mn-empty-state" class="hidden py-16 text-center text-ink-300">Aucun produit dans cette catégorie pour le moment.</p>
     </section>
@@ -60,10 +60,11 @@
 
       document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
         const isActive = btn.dataset.cat === catId;
-        btn.classList.toggle("border-marine", isActive);
-        btn.classList.toggle("text-marine", isActive);
-        btn.classList.toggle("border-transparent", !isActive);
-        btn.classList.toggle("text-ink-300", !isActive);
+        btn.classList.toggle("border-navy", isActive);
+        btn.classList.toggle("bg-navy", isActive);
+        btn.classList.toggle("text-ivoire", isActive);
+        btn.classList.toggle("border-ink-500", !isActive);
+        btn.classList.toggle("text-ink-200", !isActive);
         btn.setAttribute("aria-selected", String(isActive));
       });
     }
@@ -73,10 +74,13 @@
       const requestedCat = params.get("cat") || "tous";
       const activeCat = MARENOSTRUM_CATEGORIES.some((c) => c.id === requestedCat) ? requestedCat : "tous";
 
+      // Repère visuel clair par catégorie : chaque onglet est une puce à contour ; l'onglet actif
+      // se remplit en bleu marine (pas seulement une couleur de texte/soulignement) pour rester
+      // identifiable au premier coup d'œil, même en parcourant vite la page.
       const filters = document.getElementById("mn-category-filters");
       filters.innerHTML = MARENOSTRUM_CATEGORIES.map(
         (c) =>
-          `<button type="button" role="tab" data-cat="${c.id}" class="border-b-2 border-transparent pb-4 text-sm font-medium uppercase tracking-wide text-ink-300 transition-colors duration-200 ease-fluid hover:text-marine">${c.label}</button>`
+          `<button type="button" role="tab" data-cat="${c.id}" class="border-2 border-ink-500 px-5 py-2.5 min-h-[44px] text-sm font-medium uppercase tracking-wide text-ink-200 transition-colors duration-200 ease-fluid hover:border-navy/60">${c.label}</button>`
       ).join("");
 
       filters.querySelectorAll("button").forEach((btn) => {
