@@ -1198,10 +1198,6 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: 2.5rem;
 }
 
-.mb-12{
-  margin-bottom: 3rem;
-}
-
 .mb-16{
   margin-bottom: 4rem;
 }
@@ -1346,6 +1342,10 @@ a, button, [role="button"], input[type="submit"] {
   height: 24rem;
 }
 
+.h-\[60vh\]{
+  height: 60vh;
+}
+
 .h-full{
   height: 100%;
 }
@@ -1400,10 +1400,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .max-w-3xl{
   max-width: 48rem;
-}
-
-.max-w-4xl{
-  max-width: 56rem;
 }
 
 .max-w-7xl{
@@ -1819,6 +1815,14 @@ a, button, [role="button"], input[type="submit"] {
 
 .pl-4{
   padding-left: 1rem;
+}
+
+.pt-10{
+  padding-top: 2.5rem;
+}
+
+.pt-24{
+  padding-top: 6rem;
 }
 
 .pt-28{
@@ -2518,12 +2522,12 @@ a, button, [role="button"], input[type="submit"] {
     height: 24rem;
   }
 
-  .sm\:h-\[28rem\]{
-    height: 28rem;
-  }
-
   .sm\:h-\[30rem\]{
     height: 30rem;
+  }
+
+  .sm\:h-\[70vh\]{
+    height: 70vh;
   }
 
   .sm\:w-auto{
@@ -2644,6 +2648,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:pr-0{
     padding-right: 0px;
+  }
+
+  .lg\:pt-32{
+    padding-top: 8rem;
   }
 
   .lg\:pt-40{

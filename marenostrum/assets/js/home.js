@@ -88,11 +88,11 @@ function mnHomeSelection() {
 function mnHomeGammePro() {
   return `
   <section class="bg-ivoire">
-    <div class="container-page py-24 text-center lg:py-32">
-      <p class="reveal eyebrow mb-4">Pour les professionnels</p>
-      <div class="reveal [transition-delay:100ms] mx-auto mb-12 flex h-72 max-w-4xl items-center justify-center overflow-hidden sm:h-[28rem]">
-        <img src="assets/img/gamme-boites.webp" alt="Gamme de boîtes de caviar Marenostrum disposées sur une pierre claire" loading="lazy" class="h-full w-full object-cover" />
-      </div>
+    <p class="reveal eyebrow container-page pt-24 text-center lg:pt-32">Pour les professionnels</p>
+    <div class="reveal [transition-delay:100ms] mt-8 flex h-[60vh] items-center justify-center overflow-hidden sm:h-[70vh]">
+      <img src="assets/img/gamme-boites.webp" alt="Gamme de boîtes de caviar Marenostrum disposées sur une pierre claire" loading="lazy" class="h-full w-full object-cover" />
+    </div>
+    <div class="container-page pb-24 pt-10 text-center lg:pb-32">
       <p class="reveal [transition-delay:150ms] mx-auto mb-10 max-w-lg text-lg leading-relaxed text-ink-200">Formats de 30 g à 500 g. Restaurants, hôtels et grossistes.</p>
       <a href="contact.html" class="reveal [transition-delay:200ms] btn-navy inline-flex">Demander un devis</a>
     </div>
