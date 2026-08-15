@@ -14,12 +14,24 @@
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * 1) HERO — plein écran, hero-montagne.webp, silencieux (pas de texte superposé)
+ * 1) HERO — plein écran, hero-montagne.webp, accroche discrète en bas à gauche
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
   return `
   <section class="relative min-h-screen overflow-hidden bg-marine">
     <img src="assets/img/hero-montagne.webp" alt="Paysage de lac de montagne brumeux au lever du jour" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
+    <!-- Dégradé plaqué en bas uniquement (pas sur toute l'image, la photo reste lisible en soi) —
+         les arrêts sont calés pour que le texte, positionné dans le dernier quart de l'écran via
+         justify-end + pb-20, tombe toujours dans la zone la plus sombre (contraste AA garanti
+         quelle que soit la luminosité du ciel/lac à cet endroit de la photo). -->
+    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(0deg, rgba(17,17,16,0.72) 0%, rgba(17,17,16,0.5) 22%, rgba(17,17,16,0.15) 45%, transparent 65%)"></div>
+    <div class="container-page relative z-10 flex min-h-screen flex-col justify-end gap-6 pb-20 sm:pb-24">
+      <div class="max-w-lg">
+        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/85">Sélectionneur · Affineur</p>
+        <p class="animate-fadeUp [animation-delay:260ms] mt-3 font-titre text-2xl italic text-ivoire sm:text-3xl">Un caviar d'exception, choisi avec exigence.</p>
+        <a href="boutique.html" class="animate-fadeUp [animation-delay:440ms] btn-navy mt-6 inline-flex">Découvrir la sélection</a>
+      </div>
+    </div>
   </section>`;
 }
 

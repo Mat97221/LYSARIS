@@ -1524,6 +1524,10 @@ a, button, [role="button"], input[type="submit"] {
   align-items: center;
 }
 
+.justify-end{
+  justify-content: flex-end;
+}
+
 .justify-center{
   justify-content: center;
 }
@@ -1797,6 +1801,10 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 1.5rem;
 }
 
+.pb-20{
+  padding-bottom: 5rem;
+}
+
 .pb-24{
   padding-bottom: 6rem;
 }
@@ -1948,6 +1956,10 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(246 242 234 / 0.7);
 }
 
+.text-ivoire\/85{
+  color: rgb(246 242 234 / 0.85);
+}
+
 .text-marine{
   --tw-text-opacity: 1;
   color: rgb(30 44 58 / var(--tw-text-opacity, 1));
@@ -2019,6 +2031,18 @@ a, button, [role="button"], input[type="submit"] {
 
 .ease-water{
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.\[animation-delay\:100ms\]{
+  animation-delay: 100ms;
+}
+
+.\[animation-delay\:260ms\]{
+  animation-delay: 260ms;
+}
+
+.\[animation-delay\:440ms\]{
+  animation-delay: 440ms;
 }
 
 .\[transition-delay\:100ms\]{
@@ -2512,6 +2536,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .sm\:justify-between{
     justify-content: space-between;
+  }
+
+  .sm\:pb-24{
+    padding-bottom: 6rem;
   }
 
   .sm\:text-2xl{
