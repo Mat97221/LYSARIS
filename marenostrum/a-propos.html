@@ -118,6 +118,28 @@
       </div>
     </section>
 
+    <section class="container-page py-28">
+      <p class="eyebrow mb-4 text-center reveal">Notre service</p>
+      <h2 class="h-section mb-16 text-center reveal">Une exigence qui ne s'arrête pas au produit</h2>
+      <div id="mn-service-grid" class="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div>
+          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-service-icon-1"></span>
+          <h3 class="h-card mb-3">Un interlocuteur dédié</h3>
+          <p class="text-ink-200 leading-relaxed">Le même contact vous suit de la première demande au réassort, pour une relation professionnelle simple et directe.</p>
+        </div>
+        <div>
+          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-service-icon-2"></span>
+          <h3 class="h-card mb-3">Devis sous 48h</h3>
+          <p class="text-ink-200 leading-relaxed">Une réponse personnalisée, adaptée à vos volumes et à votre destination, sans détour ni relance à faire.</p>
+        </div>
+        <div>
+          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-service-icon-3"></span>
+          <h3 class="h-card mb-3">Livraison réfrigérée 24-48h</h3>
+          <p class="text-ink-200 leading-relaxed">Colis isotherme et glace pilée, sur commande ponctuelle ou réassort planifié.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="container-page py-28 text-center reveal">
       <p class="eyebrow mb-4">Restaurant, hôtel, grossiste ?</p>
       <h2 class="h-section mb-8">Demandez votre devis professionnel</h2>
@@ -138,6 +160,11 @@
       document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;
       mnStagger(document.getElementById("mn-values-grid"), 90);
+
+      document.getElementById("mn-service-icon-1").innerHTML = MN_ICONS.phone;
+      document.getElementById("mn-service-icon-2").innerHTML = MN_ICONS.check;
+      document.getElementById("mn-service-icon-3").innerHTML = MN_ICONS.truck;
+      mnStagger(document.getElementById("mn-service-grid"), 90);
     });
   </script>
 </body>
