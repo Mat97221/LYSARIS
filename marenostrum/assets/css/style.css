@@ -1406,6 +1406,10 @@ a, button, [role="button"], input[type="submit"] {
   max-width: 56rem;
 }
 
+.max-w-7xl{
+  max-width: 80rem;
+}
+
 .max-w-lg{
   max-width: 32rem;
 }
@@ -2538,6 +2542,11 @@ a, button, [role="button"], input[type="submit"] {
     justify-content: space-between;
   }
 
+  .sm\:px-8{
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   .sm\:pb-24{
     padding-bottom: 6rem;
   }
@@ -2576,10 +2585,6 @@ a, button, [role="button"], input[type="submit"] {
     grid-column: span 2 / span 2;
   }
 
-  .lg\:ml-auto{
-    margin-left: auto;
-  }
-
   .lg\:flex{
     display: flex;
   }
@@ -2588,12 +2593,8 @@ a, button, [role="button"], input[type="submit"] {
     display: none;
   }
 
-  .lg\:h-80{
-    height: 20rem;
-  }
-
-  .lg\:w-full{
-    width: 100%;
+  .lg\:h-auto{
+    height: auto;
   }
 
   .lg\:grid-cols-2{
@@ -2610,6 +2611,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:grid-cols-\[1fr_1\.6fr\]{
     grid-template-columns: 1fr 1.6fr;
+  }
+
+  .lg\:items-stretch{
+    align-items: stretch;
   }
 
   .lg\:gap-12{
@@ -2631,6 +2636,14 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:pb-32{
     padding-bottom: 8rem;
+  }
+
+  .lg\:pl-10{
+    padding-left: 2.5rem;
+  }
+
+  .lg\:pr-0{
+    padding-right: 0px;
   }
 
   .lg\:pt-40{

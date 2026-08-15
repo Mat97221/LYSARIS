@@ -39,14 +39,22 @@ function mnHomeHero() {
  * 2) L'EAU VIVE — bande de photo alignée à droite, séparée du hero par de l'espace
  * ------------------------------------------------------------------------------------------ */
 function mnHomeEauVive() {
+  // Pas de container-page ici : cette section a besoin que sa colonne image atteigne le bord
+  // droit réel du viewport, pas seulement celui de container-page (max-w-7xl) — impossible si
+  // toute la grille est enfermée dans ce conteneur. La colonne texte recrée donc son propre
+  // inset gauche (px-5 sm:px-8 lg:pl-10, mêmes valeurs que container-page) pour rester alignée
+  // avec le reste du site, pendant que la colonne image garde un padding nul des deux côtés :
+  // sur mobile/tablette (empilées, grid-cols-1) elle est donc bord à bord ; sur desktop
+  // (lg:grid-cols-[1fr_1.6fr], sans gap ni padding à droite) son bord droit coïncide avec le
+  // bord droit du viewport.
   return `
-  <section class="bg-ivoire">
-    <div class="container-page grid grid-cols-1 items-center gap-8 pt-28 pb-24 lg:grid-cols-[1fr_1.6fr] lg:gap-12 lg:pt-40 lg:pb-32">
-      <div class="reveal">
+  <section class="bg-ivoire overflow-hidden">
+    <div class="grid grid-cols-1 items-center gap-8 pt-28 pb-24 lg:grid-cols-[1fr_1.6fr] lg:items-stretch lg:gap-12 lg:pt-40 lg:pb-32">
+      <div class="reveal px-5 sm:px-8 lg:pl-10 lg:pr-0">
         <p class="eyebrow mb-4">L'eau vive</p>
         <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Un caviar d'eau douce, sélectionné à sa fraîcheur.</p>
       </div>
-      <div class="reveal [transition-delay:120ms] flex h-56 items-center justify-center overflow-hidden sm:h-72 lg:ml-auto lg:h-80 lg:w-full">
+      <div class="reveal [transition-delay:120ms] flex h-56 items-center justify-center overflow-hidden sm:h-72 lg:h-auto">
         <img src="assets/img/eau-vive.webp" alt="Boîtes de caviar Marenostrum, vue rapprochée en rangée" loading="lazy" class="h-full w-full object-cover" />
       </div>
     </div>
