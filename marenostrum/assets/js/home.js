@@ -19,7 +19,7 @@
 function mnHomeHero() {
   return `
   <section class="relative h-[70vh] overflow-hidden bg-marine">
-    <img src="assets/img/hero-montagne.webp" alt="Paysage de lac de montagne brumeux au lever du jour" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
+    <img src="assets/img/hero-montagne.webp" alt="Boîte de caviar Marenostrum posée sur un lit de galets" class="absolute inset-0 h-full w-full object-contain animate-slowzoom" fetchpriority="high" />
     <!-- Deux dégradés superposés : un voile en haut pour que la nav (transparente sur cette page)
          reste lisible quelle que soit la luminosité du ciel à cet endroit, et un voile horizontal
          à gauche pour la phrase, centrée verticalement — même logique de contraste AA que
