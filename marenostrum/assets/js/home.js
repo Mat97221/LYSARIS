@@ -7,18 +7,19 @@
  *
  * Structure volontairement resserrée (une idée par section, peu de texte, beaucoup de vide) pour
  * une page rapide et calme : hero → bande immersive → sélection → gamme professionnels → pied de
- * page. Les 4 photos (hero-montagne.jpg, eau-vive.jpg, grain-macro.jpg, gamme-boites.jpg) sont
- * des fichiers nommés en dur dans assets/img/ — à déposer par vos soins avec ces noms exacts, pas
- * de mécanisme <image-slot> ici puisque ce ne sont pas des visuels en attente.
+ * page. Les 4 photos (hero-montagne.webp, eau-vive.webp, grain-macro.webp, gamme-boites.webp)
+ * sont des fichiers nommés en dur dans assets/img/, encodés en WebP pour le poids (26-40% du
+ * JPEG d'origine) — pas de mécanisme <image-slot> ici puisque ce ne sont pas des visuels en
+ * attente. Pour remplacer l'une d'elles, déposez un nouveau fichier sous le même nom.
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * 1) HERO — plein écran, hero-montagne.jpg, texte aligné à gauche sur voile dégradé
+ * 1) HERO — plein écran, hero-montagne.webp, texte aligné à gauche sur voile dégradé
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
   return `
   <section class="relative min-h-screen flex flex-col overflow-hidden bg-marine">
-    <img src="assets/img/hero-montagne.jpg" alt="Boîtes de caviar Marenostrum dans un paysage de lac de montagne enneigé" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
+    <img src="assets/img/hero-montagne.webp" alt="Boîtes de caviar Marenostrum dans un paysage de lac de montagne enneigé" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
     <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(90deg, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0.15) 45%, rgba(17,17,16,0.05) 70%)"></div>
     <div class="container-page relative z-10 flex flex-1 flex-col justify-center gap-8 py-32">
       <div class="max-w-xl">
@@ -33,12 +34,12 @@ function mnHomeHero() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 2) BANDE IMMERSIVE — « L'eau vive », eau-vive.jpg plein largeur, texte minimal
+ * 2) BANDE IMMERSIVE — « L'eau vive », eau-vive.webp plein largeur, texte minimal
  * ------------------------------------------------------------------------------------------ */
 function mnHomeEauVive() {
   return `
   <section class="relative flex min-h-[60vh] items-end overflow-hidden bg-marine sm:min-h-[75vh]">
-    <img src="assets/img/eau-vive.jpg" alt="Boîte de caviar Marenostrum dans un ruisseau d'eau vive, éclaboussures" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+    <img src="assets/img/eau-vive.webp" alt="Boîte de caviar Marenostrum dans un ruisseau d'eau vive, éclaboussures" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
     <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, transparent 50%, rgba(17,17,16,0.65) 100%)"></div>
     <div class="reveal container-page relative z-10 pb-16 sm:pb-20">
       <p class="eyebrow text-ivoire/85 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">L'eau vive</p>
@@ -48,14 +49,14 @@ function mnHomeEauVive() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 3) LA SÉLECTION — deux colonnes, grain-macro.jpg
+ * 3) LA SÉLECTION — deux colonnes, grain-macro.webp
  * ------------------------------------------------------------------------------------------ */
 function mnHomeSelection() {
   return `
   <section class="bg-ivoire">
     <div class="container-page grid grid-cols-1 items-center gap-12 py-24 lg:grid-cols-2 lg:gap-20 lg:py-32">
       <div class="reveal order-1 flex h-80 items-center justify-center overflow-hidden sm:h-[30rem]">
-        <img src="assets/img/grain-macro.jpg" alt="Vue macro plongeante du grain de caviar, boîte ouverte" loading="lazy" class="h-full w-full object-cover" />
+        <img src="assets/img/grain-macro.webp" alt="Vue macro plongeante du grain de caviar, boîte ouverte" loading="lazy" class="h-full w-full object-cover" />
       </div>
       <div class="reveal order-2 [transition-delay:150ms]">
         <p class="eyebrow mb-4">La sélection</p>
@@ -69,7 +70,7 @@ function mnHomeSelection() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 4) LA GAMME / POUR LES PROFESSIONNELS — gamme-boites.jpg, grand, centré, très aéré
+ * 4) LA GAMME / POUR LES PROFESSIONNELS — gamme-boites.webp, grand, centré, très aéré
  * ------------------------------------------------------------------------------------------ */
 function mnHomeGammePro() {
   return `
@@ -77,7 +78,7 @@ function mnHomeGammePro() {
     <div class="container-page py-24 text-center lg:py-32">
       <p class="reveal eyebrow mb-4">Pour les professionnels</p>
       <div class="reveal [transition-delay:100ms] mx-auto mb-12 flex h-72 max-w-4xl items-center justify-center overflow-hidden sm:h-[28rem]">
-        <img src="assets/img/gamme-boites.jpg" alt="Gamme de boîtes de caviar Marenostrum disposées sur une pierre claire" loading="lazy" class="h-full w-full object-cover" />
+        <img src="assets/img/gamme-boites.webp" alt="Gamme de boîtes de caviar Marenostrum disposées sur une pierre claire" loading="lazy" class="h-full w-full object-cover" />
       </div>
       <p class="reveal [transition-delay:150ms] mx-auto mb-10 max-w-lg text-lg leading-relaxed text-ink-200">Formats de 30 g à 500 g. Restaurants, hôtels et grossistes.</p>
       <a href="contact.html" class="reveal [transition-delay:200ms] btn-navy inline-flex">Demander un devis</a>
