@@ -35,7 +35,7 @@
       </section>
 
       <section class="container-page grid grid-cols-1 gap-12 py-20 lg:grid-cols-2 lg:gap-16">
-        <div class="reveal relative flex h-96 items-center justify-center overflow-hidden bg-ivoire">
+        <div class="reveal relative flex h-96 items-center justify-center overflow-hidden rounded border border-glacier/50 bg-glacier/15 lg:h-[32rem]">
           <div id="mn-product-badge-slot"></div>
           <div id="mn-product-tin" data-tin-reveal></div>
         </div>
@@ -58,6 +58,21 @@
 
           <div class="mt-10 border-t border-ink-600/50 pt-8">
             <p id="mn-product-description" class="prose-copy"></p>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-6 border-t border-ink-600/50 pt-8 sm:grid-cols-3">
+            <div class="flex items-start gap-3">
+              <span class="h-5 w-5 shrink-0 text-marine" id="mn-reassurance-icon-1"></span>
+              <p class="text-sm text-ink-200 leading-snug">Traçabilité<br />CITES</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="h-5 w-5 shrink-0 text-marine" id="mn-reassurance-icon-2"></span>
+              <p class="text-sm text-ink-200 leading-snug">Expédition réfrigérée<br />24-48h</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="h-5 w-5 shrink-0 text-marine" id="mn-reassurance-icon-3"></span>
+              <p class="text-sm text-ink-200 leading-snug">Devis<br />sous 48h</p>
+            </div>
           </div>
 
           <div id="mn-tasting-block" class="mt-8">
@@ -101,11 +116,14 @@
 
     function mnRenderVariants(product) {
       const wrap = document.getElementById("mn-variant-options");
+      // border-2 on both states (not just the active one) so toggling never shifts the button's
+      // box size — only the color/fill changes. Active state is a filled navy chip (not just a
+      // colored border) so it reads unambiguously at a glance, not just on close inspection.
       wrap.innerHTML = product.variants
         .map(
           (v, idx) =>
-            `<button type="button" data-sku="${v.sku}" class="mn-variant-btn border px-4 py-2.5 min-h-[44px] text-sm transition-all duration-200 ease-fluid ${
-              idx === 0 ? "border-navy text-marine" : "border-ink-500 text-ink-100 hover:border-navy/60"
+            `<button type="button" data-sku="${v.sku}" class="mn-variant-btn border-2 px-4 py-2.5 min-h-[44px] text-sm font-semibold transition-all duration-200 ease-fluid ${
+              idx === 0 ? "border-navy bg-navy text-ivoire" : "border-ink-500 text-ink-100 hover:border-navy/60"
             }">${v.size}</button>`
         )
         .join("");
@@ -114,11 +132,11 @@
         btn.addEventListener("click", () => {
           mnSelectedSku = btn.dataset.sku;
           wrap.querySelectorAll(".mn-variant-btn").forEach((b) => {
-            b.classList.remove("border-navy", "text-marine");
+            b.classList.remove("border-navy", "bg-navy", "text-ivoire");
             b.classList.add("border-ink-500", "text-ink-100");
           });
           btn.classList.remove("border-ink-500", "text-ink-100");
-          btn.classList.add("border-navy", "text-marine");
+          btn.classList.add("border-navy", "bg-navy", "text-ivoire");
         });
       });
 
@@ -185,6 +203,9 @@
       }
       document.getElementById("mn-product-content").classList.remove("hidden");
       document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
+      document.getElementById("mn-reassurance-icon-1").innerHTML = MN_ICONS.shield;
+      document.getElementById("mn-reassurance-icon-2").innerHTML = MN_ICONS.truck;
+      document.getElementById("mn-reassurance-icon-3").innerHTML = MN_ICONS.clock;
       mnRenderProduct(product);
     });
   </script>

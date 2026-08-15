@@ -1615,6 +1615,10 @@ a, button, [role="button"], input[type="submit"] {
   border-width: 1px;
 }
 
+.border-2{
+  border-width: 2px;
+}
+
 .border-y{
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -1643,6 +1647,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .\!border-ivoire\/25{
   border-color: rgb(246 242 234 / 0.25) !important;
+}
+
+.border-glacier\/50{
+  border-color: rgb(198 210 212 / 0.5);
 }
 
 .border-ink-500{
@@ -1690,6 +1698,10 @@ a, button, [role="button"], input[type="submit"] {
   background-color: rgb(17 17 16 / var(--tw-bg-opacity, 1)) !important;
 }
 
+.bg-glacier\/15{
+  background-color: rgb(198 210 212 / 0.15);
+}
+
 .bg-ink-800{
   --tw-bg-opacity: 1;
   background-color: rgb(240 236 226 / var(--tw-bg-opacity, 1));
@@ -1705,6 +1717,11 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .bg-marine{
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
+}
+
+.bg-navy{
   --tw-bg-opacity: 1;
   background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
 }
@@ -2573,6 +2590,10 @@ a, button, [role="button"], input[type="submit"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .sm\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -2634,6 +2655,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:hidden{
     display: none;
+  }
+
+  .lg\:h-\[32rem\]{
+    height: 32rem;
   }
 
   .lg\:h-auto{
