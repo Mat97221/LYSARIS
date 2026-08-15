@@ -1817,8 +1817,8 @@ a, button, [role="button"], input[type="submit"] {
   padding-left: 1rem;
 }
 
-.pt-20{
-  padding-top: 5rem;
+.pt-28{
+  padding-top: 7rem;
 }
 
 .pt-3{
@@ -2633,7 +2633,7 @@ a, button, [role="button"], input[type="submit"] {
     padding-bottom: 8rem;
   }
 
-  .lg\:pt-28{
-    padding-top: 7rem;
+  .lg\:pt-40{
+    padding-top: 10rem;
   }
 }

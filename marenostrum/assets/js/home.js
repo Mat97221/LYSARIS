@@ -41,7 +41,7 @@ function mnHomeHero() {
 function mnHomeEauVive() {
   return `
   <section class="bg-ivoire">
-    <div class="container-page grid grid-cols-1 items-center gap-8 pt-20 pb-24 lg:grid-cols-[1fr_1.6fr] lg:gap-12 lg:pt-28 lg:pb-32">
+    <div class="container-page grid grid-cols-1 items-center gap-8 pt-28 pb-24 lg:grid-cols-[1fr_1.6fr] lg:gap-12 lg:pt-40 lg:pb-32">
       <div class="reveal">
         <p class="eyebrow mb-4">L'eau vive</p>
         <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Un caviar d'eau douce, sélectionné à sa fraîcheur.</p>
