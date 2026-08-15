@@ -25,6 +25,9 @@
     <!-- 3) LA SÉLECTION — deux colonnes, grain-macro.jpg -->
     <div id="mn-selection-slot" data-selection></div>
 
+    <!-- 3bis) NOS ESPÈCES — grille de cartes par espèce -->
+    <div id="mn-especes-slot" data-especes></div>
+
     <!-- 4) LA GAMME / POUR LES PROFESSIONNELS — gamme-boites.jpg -->
     <div id="mn-gamme-pro-slot" data-gamme-pro></div>
   </main>
@@ -39,6 +42,7 @@
       document.querySelector("[data-hero]").outerHTML = mnHomeHero();
       document.querySelector("[data-eau-vive]").outerHTML = mnHomeEauVive();
       document.querySelector("[data-selection]").outerHTML = mnHomeSelection();
+      document.querySelector("[data-especes]").outerHTML = mnHomeEspeces();
       document.querySelector("[data-gamme-pro]").outerHTML = mnHomeGammePro();
 
       // mnMountLayout() already ran mnInitReveal() once on DOMContentLoaded, before any of the

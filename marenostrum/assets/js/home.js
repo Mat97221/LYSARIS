@@ -83,6 +83,38 @@ function mnHomeSelection() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
+ * 3bis) NOS ESPÈCES — grille de 3-4 cartes sobres, une par espèce/gamme, sans prix
+ * ------------------------------------------------------------------------------------------ */
+function mnHomeEspeces() {
+  const ids = ["esturgeon-russe", "kaluga", "beluga", "keta"];
+  const card = (product, i) => {
+    if (!product) return "";
+    return `
+    <div class="reveal [transition-delay:${i * 80}ms] flex flex-col items-center text-center">
+      <div class="mb-5 h-28 w-28 overflow-hidden rounded-full ring-1 ring-inset ring-ink-500/40">
+        <img src="assets/img/produit-glacier.webp" alt="Boîte de caviar Marenostrum, ${product.name}" loading="lazy" class="h-full w-full object-cover" />
+      </div>
+      <h3 class="h-card mb-1">${product.name}</h3>
+      ${product.species ? `<p class="mb-4 font-titre italic text-ink-300">${product.species}</p>` : `<p class="mb-4 text-sm text-ink-300">${product.tagline}</p>`}
+      <a href="produit.html?id=${product.id}" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Voir la fiche →</a>
+    </div>`;
+  };
+  const cards = ids.map(mnFindProduct).map(card).join("");
+  return `
+  <section class="bg-ivoire">
+    <div class="container-page py-24 lg:py-32">
+      <div class="reveal mx-auto mb-16 max-w-xl text-center">
+        <p class="eyebrow mb-4">Nos espèces</p>
+        <h2 class="h-section">Quatre profils, une même exigence</h2>
+      </div>
+      <div class="grid grid-cols-2 gap-x-8 gap-y-14 sm:grid-cols-4">
+        ${cards}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ------------------------------------------------------------------------------------------ *
  * 4) LA GAMME / POUR LES PROFESSIONNELS — gamme-boites.webp, grand, centré, très aéré
  * ------------------------------------------------------------------------------------------ */
 function mnHomeGammePro() {
