@@ -16,36 +16,17 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- 1) HERO — plein écran, image d'eau douce, un intertitre, un titre, un bouton primaire -->
-    <section class="relative min-h-screen flex flex-col overflow-hidden bg-marine">
-      <img src="assets/img/riviere.jpg" alt="Lac de montagne brumeux au lever du jour" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" />
-      <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.45) 0%, rgba(17,17,16,0.05) 40%, rgba(17,17,16,0.55) 100%)"></div>
-      <div class="container-page relative z-10 flex flex-1 flex-col items-center justify-center gap-8 py-32 text-center">
-        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/80 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
-        <h1 class="h-hero text-ivoire animate-fadeUp [animation-delay:280ms] [text-shadow:0_2px_24px_rgba(17,17,16,0.5)]">
-          MARENOSTRUM — l'art du caviar, sans compromis.
-        </h1>
-        <a href="contact.html" class="btn-navy animate-fadeUp [animation-delay:520ms]">Demander un devis</a>
-      </div>
-    </section>
+    <!-- 1) HERO — plein écran, hero-montagne.jpg -->
+    <div id="mn-hero-slot" data-hero></div>
 
-    <!-- 2) MANIFESTE — 4 chapitres numérotés, plein largeur, fond ivoire/glacier alterné -->
-    <div id="mn-manifesto-slot" data-manifesto></div>
+    <!-- 2) BANDE IMMERSIVE — « L'eau vive », eau-vive.jpg -->
+    <div id="mn-eau-vive-slot" data-eau-vive></div>
 
-    <!-- 3) LES CAVIARS — carrousel horizontal, oriente vers le devis -->
-    <div id="mn-carousel-slot" data-caviar-carousel></div>
+    <!-- 3) LA SÉLECTION — deux colonnes, grain-macro.jpg -->
+    <div id="mn-selection-slot" data-selection></div>
 
-    <!-- 4) L'AFFINEUR / SAVOIR-FAIRE — récit + gros plans texture -->
-    <div id="mn-craft-slot" data-craft></div>
-
-    <!-- 5) GALERIE TEXTURE — bande plein largeur -->
-    <div id="mn-texture-slot" data-texture-gallery></div>
-
-    <!-- 6) POUR LES PROFESSIONNELS — cœur commercial B2B -->
-    <div id="mn-b2b-slot" data-b2b></div>
-
-    <!-- 7) CONTACT / DEVIS + newsletter -->
-    <div id="mn-contact-devis-slot" data-contact-devis></div>
+    <!-- 4) LA GAMME / POUR LES PROFESSIONNELS — gamme-boites.jpg -->
+    <div id="mn-gamme-pro-slot" data-gamme-pro></div>
   </main>
 
   <div id="site-footer"></div>
@@ -55,16 +36,10 @@
   <script src="assets/js/home.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      document.querySelector("[data-manifesto]").outerHTML = mnHomeManifesto();
-      document.querySelector("[data-caviar-carousel]").outerHTML = mnHomeCaviarCarousel();
-      document.querySelector("[data-craft]").outerHTML = mnHomeCraft();
-      document.querySelector("[data-texture-gallery]").outerHTML = mnHomeTextureGallery();
-      document.querySelector("[data-b2b]").outerHTML = mnHomeB2B();
-      document.querySelector("[data-contact-devis]").outerHTML = mnHomeContactDevis();
-      document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
-
-      mnInitCaviarCarousel();
-      mnInitHomeForms();
+      document.querySelector("[data-hero]").outerHTML = mnHomeHero();
+      document.querySelector("[data-eau-vive]").outerHTML = mnHomeEauVive();
+      document.querySelector("[data-selection]").outerHTML = mnHomeSelection();
+      document.querySelector("[data-gamme-pro]").outerHTML = mnHomeGammePro();
 
       // mnMountLayout() already ran mnInitReveal() once on DOMContentLoaded, before any of the
       // sections above existed — their .reveal elements need their own pass (mnInitReveal skips

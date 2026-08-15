@@ -916,39 +916,6 @@ a, button, [role="button"], input[type="submit"] {
      primary so the two read as one family. Hover washes in a faint tint rather than a hard fill,
      keeping the fill/outline distinction legible even mid-transition. */
 
-.btn-outline{
-  position: relative;
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  overflow: hidden;
-  border-radius: 0.25rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
-  padding-top: 0.875rem;
-  padding-bottom: 0.875rem;
-  font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  --tw-text-opacity: 1;
-  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-outline:hover{
-  background-color: rgb(30 44 58 / 0.05);
-}
-
 /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
      homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
 
@@ -1067,70 +1034,14 @@ a, button, [role="button"], input[type="submit"] {
 /* Large thin chapter numeral ("1/4") — Cormorant Garamond at a light weight reads as a quiet
      mark, not a heading; sits beside/above the eyebrow label in each manifesto chapter. */
 
-.mn-chapter-num{
-  font-family: Cormorant Garamond, Georgia, serif;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 400;
-  --tw-numeric-spacing: tabular-nums;
-  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
-  color: rgb(30 44 58 / 0.5);
-}
-
-@media (min-width: 640px){
-  .mn-chapter-num{
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-}
-
 /* "Les caviars" — a single scroll-snapped row rather than a wrapping grid, so it reads as one
      horizontal gesture (mouse wheel, trackpad, or a swipe on touch) instead of a boxed-in
      catalogue grid; boutique.html remains the grid view for actual browsing/filtering. Native
      scroll-snap, no JS and no library. Scrollbar hidden (`.mn-scrollbar-hidden`) since the
      row's own edge-peeking next card is the scroll affordance. */
 
-.mn-carousel{
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .mn-carousel {
-    scroll-padding-left: 2rem;
-  }
-}
-
-.mn-carousel > * {
-  scroll-snap-align: start;
-}
-
-.mn-scrollbar-hidden {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.mn-scrollbar-hidden::-webkit-scrollbar {
-  display: none;
-}
-
 /* Texture gallery band: full-bleed strip of near-abstract macro shots, "quasi sans texte" per
      the brief — captions (if any) stay in a plain small label, never overlaid on the image. */
-
-.mn-texture-band{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-@media (min-width: 1024px){
-  .mn-texture-band{
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
 
 /* Scroll-reveal: fades/slides content in as it enters the viewport (see mnInitReveal in ui.js).
      A base 120ms hold before motion starts (overridable via a `[transition-delay:...]` utility
@@ -1237,10 +1148,6 @@ a, button, [role="button"], input[type="submit"] {
   inset: 0px;
 }
 
-.bottom-4{
-  bottom: 1rem;
-}
-
 .left-0{
   left: 0px;
 }
@@ -1251,10 +1158,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .left-3{
   left: 0.75rem;
-}
-
-.left-4{
-  left: 1rem;
 }
 
 .top-0{
@@ -1315,16 +1218,12 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: 0.25rem !important;
 }
 
-.mb-1{
-  margin-bottom: 0.25rem;
-}
-
 .mb-10{
   margin-bottom: 2.5rem;
 }
 
-.mb-14{
-  margin-bottom: 3.5rem;
+.mb-12{
+  margin-bottom: 3rem;
 }
 
 .mb-16{
@@ -1361,10 +1260,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .mt-10{
   margin-top: 2.5rem;
-}
-
-.mt-16{
-  margin-top: 4rem;
 }
 
 .mt-2{
@@ -1423,10 +1318,6 @@ a, button, [role="button"], input[type="submit"] {
   aspect-ratio: 1 / 1;
 }
 
-.h-11{
-  height: 2.75rem;
-}
-
 .h-20{
   height: 5rem;
 }
@@ -1463,10 +1354,6 @@ a, button, [role="button"], input[type="submit"] {
   height: 1.5rem;
 }
 
-.h-64{
-  height: 16rem;
-}
-
 .h-72{
   height: 18rem;
 }
@@ -1483,10 +1370,6 @@ a, button, [role="button"], input[type="submit"] {
   height: 24rem;
 }
 
-.h-\[26rem\]{
-  height: 26rem;
-}
-
 .h-full{
   height: 100%;
 }
@@ -1495,12 +1378,12 @@ a, button, [role="button"], input[type="submit"] {
   min-height: 44px;
 }
 
-.min-h-screen{
-  min-height: 100vh;
+.min-h-\[60vh\]{
+  min-height: 60vh;
 }
 
-.w-11{
-  width: 2.75rem;
+.min-h-screen{
+  min-height: 100vh;
 }
 
 .w-20{
@@ -1535,10 +1418,6 @@ a, button, [role="button"], input[type="submit"] {
   width: 2.25rem;
 }
 
-.w-\[78vw\]{
-  width: 78vw;
-}
-
 .w-auto{
   width: auto;
 }
@@ -1547,12 +1426,20 @@ a, button, [role="button"], input[type="submit"] {
   width: 100%;
 }
 
-.max-w-2xl{
-  max-width: 42rem;
-}
-
 .max-w-3xl{
   max-width: 48rem;
+}
+
+.max-w-4xl{
+  max-width: 56rem;
+}
+
+.max-w-lg{
+  max-width: 32rem;
+}
+
+.max-w-md{
+  max-width: 28rem;
 }
 
 .max-w-xl{
@@ -1582,11 +1469,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .translate-y-3{
   --tw-translate-y: 0.75rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.rotate-180{
-  --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1674,6 +1556,10 @@ a, button, [role="button"], input[type="submit"] {
   align-items: flex-start;
 }
 
+.items-end{
+  align-items: flex-end;
+}
+
 .items-center{
   align-items: center;
 }
@@ -1736,10 +1622,6 @@ a, button, [role="button"], input[type="submit"] {
   overflow: hidden;
 }
 
-.whitespace-nowrap{
-  white-space: nowrap;
-}
-
 .rounded{
   border-radius: 0.25rem;
 }
@@ -1774,11 +1656,6 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(179 38 30 / var(--tw-border-opacity, 1)) !important;
 }
 
-.\!border-ivoire{
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(246 242 234 / var(--tw-border-opacity, 1)) !important;
-}
-
 .\!border-ivoire\/25{
   border-color: rgb(246 242 234 / 0.25) !important;
 }
@@ -1801,21 +1678,9 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(246 242 234 / 0.15);
 }
 
-.border-ivoire\/20{
-  border-color: rgb(246 242 234 / 0.2);
-}
-
-.border-ivoire\/30{
-  border-color: rgb(246 242 234 / 0.3);
-}
-
 .border-marine{
   --tw-border-opacity: 1;
   border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
-}
-
-.border-marine\/15{
-  border-color: rgb(30 44 58 / 0.15);
 }
 
 .border-marine\/30{
@@ -1835,19 +1700,9 @@ a, button, [role="button"], input[type="submit"] {
   border-color: transparent;
 }
 
-.\!bg-ivoire{
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(246 242 234 / var(--tw-bg-opacity, 1)) !important;
-}
-
 .\!bg-noir{
   --tw-bg-opacity: 1 !important;
   background-color: rgb(17 17 16 / var(--tw-bg-opacity, 1)) !important;
-}
-
-.bg-glacier{
-  --tw-bg-opacity: 1;
-  background-color: rgb(198 210 212 / var(--tw-bg-opacity, 1));
 }
 
 .bg-ink-800{
@@ -1987,24 +1842,16 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 1.5rem;
 }
 
+.pb-16{
+  padding-bottom: 4rem;
+}
+
 .pb-4{
   padding-bottom: 1rem;
 }
 
 .pl-4{
   padding-left: 1rem;
-}
-
-.pl-5{
-  padding-left: 1.25rem;
-}
-
-.pr-5{
-  padding-right: 1.25rem;
-}
-
-.pt-12{
-  padding-top: 3rem;
 }
 
 .pt-3{
@@ -2109,11 +1956,6 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(246 242 234 / var(--tw-text-opacity, 1)) !important;
 }
 
-.\!text-marine{
-  --tw-text-opacity: 1 !important;
-  color: rgb(30 44 58 / var(--tw-text-opacity, 1)) !important;
-}
-
 .text-ink-100{
   --tw-text-opacity: 1;
   color: rgb(46 43 36 / var(--tw-text-opacity, 1));
@@ -2147,21 +1989,17 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(246 242 234 / 0.7);
 }
 
-.text-ivoire\/75{
-  color: rgb(246 242 234 / 0.75);
-}
-
 .text-ivoire\/80{
   color: rgb(246 242 234 / 0.8);
+}
+
+.text-ivoire\/85{
+  color: rgb(246 242 234 / 0.85);
 }
 
 .text-marine{
   --tw-text-opacity: 1;
   color: rgb(30 44 58 / var(--tw-text-opacity, 1));
-}
-
-.text-marine\/30{
-  color: rgb(30 44 58 / 0.3);
 }
 
 .text-marine\/50{
@@ -2248,12 +2086,16 @@ a, button, [role="button"], input[type="submit"] {
   text-shadow: 0 1px 12px rgba(17,17,16,0.7);
 }
 
-.\[text-shadow\:0_1px_8px_rgba\(17\2c 17\2c 16\2c 0\.6\)\]{
-  text-shadow: 0 1px 8px rgba(17,17,16,0.6);
+.\[text-shadow\:0_2px_16px_rgba\(17\2c 17\2c 16\2c 0\.6\)\]{
+  text-shadow: 0 2px 16px rgba(17,17,16,0.6);
 }
 
 .\[text-shadow\:0_2px_24px_rgba\(17\2c 17\2c 16\2c 0\.5\)\]{
   text-shadow: 0 2px 24px rgba(17,17,16,0.5);
+}
+
+.\[transition-delay\:100ms\]{
+  transition-delay: 100ms;
 }
 
 .\[transition-delay\:120ms\]{
@@ -2264,20 +2106,12 @@ a, button, [role="button"], input[type="submit"] {
   transition-delay: 150ms;
 }
 
-.\[transition-delay\:160ms\]{
-  transition-delay: 160ms;
-}
-
-.\[transition-delay\:240ms\]{
-  transition-delay: 240ms;
+.\[transition-delay\:200ms\]{
+  transition-delay: 200ms;
 }
 
 .\[transition-delay\:260ms\]{
   transition-delay: 260ms;
-}
-
-.\[transition-delay\:80ms\]{
-  transition-delay: 80ms;
 }
 
 /* ============================================================
@@ -2638,23 +2472,8 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(246 242 234 / 0.4) !important;
 }
 
-.hover\:\!border-sable:hover{
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(232 223 208 / var(--tw-border-opacity, 1)) !important;
-}
-
 .hover\:border-navy\/60:hover{
   border-color: rgb(30 44 58 / 0.6);
-}
-
-.hover\:\!bg-sable:hover{
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(232 223 208 / var(--tw-bg-opacity, 1)) !important;
-}
-
-.hover\:bg-marine:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-ivoire:hover{
@@ -2732,20 +2551,8 @@ a, button, [role="button"], input[type="submit"] {
     display: inline;
   }
 
-  .sm\:flex{
-    display: flex;
-  }
-
   .sm\:inline-flex{
     display: inline-flex;
-  }
-
-  .sm\:h-72{
-    height: 18rem;
-  }
-
-  .sm\:h-80{
-    height: 20rem;
   }
 
   .sm\:h-96{
@@ -2756,12 +2563,12 @@ a, button, [role="button"], input[type="submit"] {
     height: 28rem;
   }
 
-  .sm\:h-\[32rem\]{
-    height: 32rem;
+  .sm\:h-\[30rem\]{
+    height: 30rem;
   }
 
-  .sm\:w-\[340px\]{
-    width: 340px;
+  .sm\:min-h-\[75vh\]{
+    min-height: 75vh;
   }
 
   .sm\:w-auto{
@@ -2772,33 +2579,26 @@ a, button, [role="button"], input[type="submit"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sm\:grid-cols-3{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .sm\:flex-row{
     flex-direction: row;
-  }
-
-  .sm\:items-center{
-    align-items: center;
   }
 
   .sm\:justify-between{
     justify-content: space-between;
   }
 
-  .sm\:pl-8{
-    padding-left: 2rem;
-  }
-
-  .sm\:pr-8{
-    padding-right: 2rem;
+  .sm\:pb-20{
+    padding-bottom: 5rem;
   }
 
   .sm\:text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .sm\:text-3xl{
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .sm\:text-\[1\.2rem\]{
@@ -2825,10 +2625,6 @@ a, button, [role="button"], input[type="submit"] {
     grid-column: span 2 / span 2;
   }
 
-  .lg\:col-span-3{
-    grid-column: span 3 / span 3;
-  }
-
   .lg\:flex{
     display: flex;
   }
@@ -2847,10 +2643,6 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .lg\:grid-cols-5{
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .lg\:gap-16{
