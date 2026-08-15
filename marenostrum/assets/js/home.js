@@ -20,7 +20,7 @@ function mnHomeHero() {
   return `
   <section class="relative min-h-screen flex flex-col overflow-hidden bg-marine">
     <img src="assets/img/hero-montagne.webp" alt="Boîtes de caviar Marenostrum dans un paysage de lac de montagne enneigé" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(90deg, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0.15) 45%, rgba(17,17,16,0.05) 70%)"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(90deg, rgba(17,17,16,0.68) 0%, rgba(17,17,16,0.4) 45%, rgba(17,17,16,0.12) 75%)"></div>
     <div class="container-page relative z-10 flex flex-1 flex-col justify-center gap-8 py-32">
       <div class="max-w-xl">
         <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/80 [text-shadow:0_1px_12px_rgba(17,17,16,0.7)]">Sélectionneur · Affineur</p>
