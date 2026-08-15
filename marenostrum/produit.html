@@ -29,7 +29,7 @@
       <a href="boutique.html" class="btn-navy">Retour à la boutique</a>
     </div>
 
-    <div id="mn-product-content" class="hidden">
+    <div id="mn-product-content" class="hidden pb-24 lg:pb-0">
       <section class="border-b border-ink-600/50">
         <div class="container-page py-4 text-xs text-ink-300">
           <a href="index.html" class="hover:text-marine">Accueil</a>
@@ -113,6 +113,13 @@
     </div>
   </main>
 
+  <!-- CTA sticky mobile uniquement : la fiche est longue (description, réassurance, dégustation,
+       origine, produits liés) et le bouton "Demander un devis" plus haut sort vite de l'écran sur
+       un petit écran. Reste joignable sans avoir à remonter, quel que soit l'endroit de la page. -->
+  <div id="mn-sticky-cta" class="hidden fixed inset-x-0 bottom-0 z-30 border-t border-ink-600/50 bg-ivoire/95 p-4 backdrop-blur-md lg:!hidden">
+    <a id="mn-sticky-quote-link" href="contact.html" class="btn-navy block w-full text-center">Demander un devis</a>
+  </div>
+
   <div id="site-footer"></div>
 
   <script src="assets/js/products.js"></script>
@@ -195,7 +202,9 @@
 
       mnRenderVariants(product);
 
-      document.getElementById("mn-product-quote-link").href = `contact.html?produit=${encodeURIComponent(product.name)}`;
+      const quoteHref = `contact.html?produit=${encodeURIComponent(product.name)}`;
+      document.getElementById("mn-product-quote-link").href = quoteHref;
+      document.getElementById("mn-sticky-quote-link").href = quoteHref;
 
       const related = MARENOSTRUM_PRODUCTS.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
       const relatedGrid = document.getElementById("mn-related-grid");
@@ -212,6 +221,7 @@
         return;
       }
       document.getElementById("mn-product-content").classList.remove("hidden");
+      document.getElementById("mn-sticky-cta").classList.remove("hidden");
       document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
       document.getElementById("mn-reassurance-icon-1").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-reassurance-icon-2").innerHTML = MN_ICONS.truck;

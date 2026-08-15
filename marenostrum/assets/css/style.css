@@ -1124,6 +1124,15 @@ a, button, [role="button"], input[type="submit"] {
   inset: 0px;
 }
 
+.inset-x-0{
+  left: 0px;
+  right: 0px;
+}
+
+.bottom-0{
+  bottom: 0px;
+}
+
 .left-0{
   left: 0px;
 }
@@ -1154,6 +1163,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .z-10{
   z-index: 10;
+}
+
+.z-30{
+  z-index: 30;
 }
 
 .z-40{
@@ -1703,6 +1716,10 @@ a, button, [role="button"], input[type="submit"] {
   background-color: rgb(246 242 234 / var(--tw-bg-opacity, 1));
 }
 
+.bg-ivoire\/95{
+  background-color: rgb(246 242 234 / 0.95);
+}
+
 .bg-marine{
   --tw-bg-opacity: 1;
   background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
@@ -1740,6 +1757,10 @@ a, button, [role="button"], input[type="submit"] {
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.p-4{
+  padding: 1rem;
 }
 
 .p-8{
@@ -2040,6 +2061,12 @@ a, button, [role="button"], input[type="submit"] {
 
 .filter{
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.backdrop-blur-md{
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
 .transition-all{
@@ -2636,6 +2663,10 @@ a, button, [role="button"], input[type="submit"] {
     display: flex;
   }
 
+  .lg\:\!hidden{
+    display: none !important;
+  }
+
   .lg\:hidden{
     display: none;
   }
@@ -2683,6 +2714,10 @@ a, button, [role="button"], input[type="submit"] {
   .lg\:py-32{
     padding-top: 8rem;
     padding-bottom: 8rem;
+  }
+
+  .lg\:pb-0{
+    padding-bottom: 0px;
   }
 
   .lg\:pb-32{
