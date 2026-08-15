@@ -14,23 +14,19 @@
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * 1) HERO — plein écran, hero-montagne.webp, accroche discrète en bas à gauche
+ * 1) HERO — hauteur réduite (70vh), une phrase courte centrée à gauche, nav lisible en surimpression
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
   return `
-  <section class="relative min-h-screen overflow-hidden bg-marine">
+  <section class="relative h-[70vh] overflow-hidden bg-marine">
     <img src="assets/img/hero-montagne.webp" alt="Paysage de lac de montagne brumeux au lever du jour" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
-    <!-- Dégradé plaqué en bas uniquement (pas sur toute l'image, la photo reste lisible en soi) —
-         les arrêts sont calés pour que le texte, positionné dans le dernier quart de l'écran via
-         justify-end + pb-20, tombe toujours dans la zone la plus sombre (contraste AA garanti
-         quelle que soit la luminosité du ciel/lac à cet endroit de la photo). -->
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(0deg, rgba(17,17,16,0.72) 0%, rgba(17,17,16,0.5) 22%, rgba(17,17,16,0.15) 45%, transparent 65%)"></div>
-    <div class="container-page relative z-10 flex min-h-screen flex-col justify-end gap-6 pb-20 sm:pb-24">
-      <div class="max-w-lg">
-        <p class="animate-fadeUp [animation-delay:100ms] eyebrow text-ivoire/85">Sélectionneur · Affineur</p>
-        <p class="animate-fadeUp [animation-delay:260ms] mt-3 font-titre text-2xl italic text-ivoire sm:text-3xl">Un caviar d'exception, choisi avec exigence.</p>
-        <a href="boutique.html" class="animate-fadeUp [animation-delay:440ms] btn-navy mt-6 inline-flex">Découvrir la sélection</a>
-      </div>
+    <!-- Deux dégradés superposés : un voile en haut pour que la nav (transparente sur cette page)
+         reste lisible quelle que soit la luminosité du ciel à cet endroit, et un voile horizontal
+         à gauche pour la phrase, centrée verticalement — même logique de contraste AA que
+         l'ancien voile bas, translatée à la nouvelle position du texte. -->
+    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.6) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.58) 0%, rgba(17,17,16,0.22) 42%, transparent 68%)"></div>
+    <div class="container-page relative z-10 flex h-full items-center">
+      <p class="animate-fadeUp [animation-delay:180ms] font-titre text-3xl italic text-ivoire sm:text-4xl">Une sélection sans compromis.</p>
     </div>
   </section>`;
 }
@@ -91,7 +87,7 @@ function mnHomeEspeces() {
     if (!product) return "";
     return `
     <div class="reveal [transition-delay:${i * 80}ms] flex flex-col items-center text-center">
-      <div class="mb-5 h-28 w-28 overflow-hidden rounded-full ring-1 ring-inset ring-ink-500/40">
+      <div class="mb-5 h-40 w-40 overflow-hidden rounded-full ring-1 ring-inset ring-ink-500/40 sm:h-44 sm:w-44">
         <img src="assets/img/produit-glacier.webp" alt="Boîte de caviar Marenostrum, ${product.name}" loading="lazy" class="h-full w-full object-cover" />
       </div>
       <h3 class="h-card mb-1">${product.name}</h3>
