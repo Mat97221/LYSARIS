@@ -1367,12 +1367,12 @@ a, button, [role="button"], input[type="submit"] {
   height: 60vh;
 }
 
-.h-\[90vh\]{
-  height: 90vh;
-}
-
 .h-full{
   height: 100%;
+}
+
+.h-screen{
+  height: 100vh;
 }
 
 .min-h-\[44px\]{
