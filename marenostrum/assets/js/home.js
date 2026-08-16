@@ -14,11 +14,11 @@
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * 1) HERO — 78.4vh (70vh +12%), une phrase courte centrée à gauche, nav lisible en surimpression
+ * 1) HERO — 90vh, une phrase courte centrée à gauche, nav lisible en surimpression
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
   return `
-  <section class="relative h-[78.4vh] overflow-hidden bg-marine">
+  <section class="relative h-[90vh] overflow-hidden bg-marine">
     <img src="assets/img/hero-montagne.webp" alt="Grains de caviar Marenostrum en gros plan" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
     <!-- Deux dégradés superposés : un voile en haut pour que la nav (transparente sur cette page)
          reste lisible quelle que soit la luminosité du ciel à cet endroit, et un voile horizontal
