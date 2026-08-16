@@ -90,11 +90,18 @@ function mnWaveDivider(colorClass) {
  * largement sa propre largeur pour garantir que le disque du couvercle sorte entièrement du
  * cadre (voir le commentaire sur .mn-tin-lid dans input.css) — sans ce clip, le couvercle
  * déborderait sur le contenu voisin (texte, carte suivante dans une grille).
+ *
+ * `openSrc`/`openAlt` changent uniquement la photo du dessous (les grains) — le couvercle
+ * (couvercle.png) reste le même partout, il ne porte aucun contenu propre à une espèce.
+ * mnProductCard() passe la variante saumon (boite-ouverte-saumon.webp) pour category ===
+ * "caviar-saumon" ; tout le reste (produit.html, la pièce maîtresse) garde le caviar par défaut.
  */
-function mnTinReveal() {
+function mnTinReveal(openSrc, openAlt) {
+  const src = openSrc || "assets/img/boite-ouverte.png";
+  const alt = openAlt || "Boîte de caviar Marenostrum 50g";
   return `
   <div class="mn-tin-reveal relative mx-auto aspect-square h-full">
-    <img src="assets/img/boite-ouverte.png" alt="Boîte de caviar Marenostrum 50g" class="absolute inset-0 h-full w-full object-contain" />
+    <img src="${src}" alt="${alt}" class="absolute inset-0 h-full w-full object-contain" />
     <img src="assets/img/couvercle.png" alt="" class="mn-tin-lid absolute inset-0 h-full w-full object-contain" />
   </div>`;
 }
@@ -123,7 +130,11 @@ function mnProductCard(product, { compact = false } = {}) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <a href="produit.html?id=${product.id}" aria-hidden="true" tabindex="-1" class="relative z-[5] flex h-56 items-center justify-center overflow-hidden bg-ivoire">
-      ${mnTinReveal()}
+      ${
+        product.category === "caviar-saumon"
+          ? mnTinReveal("assets/img/boite-ouverte-saumon.webp", "Boîte d'œufs de saumon Marenostrum 50g")
+          : mnTinReveal()
+      }
     </a>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">

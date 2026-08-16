@@ -222,7 +222,10 @@
       }
       document.getElementById("mn-product-content").classList.remove("hidden");
       document.getElementById("mn-sticky-cta").classList.remove("hidden");
-      document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
+      document.querySelector("[data-tin-reveal]").outerHTML =
+        product.category === "caviar-saumon"
+          ? mnTinReveal("assets/img/boite-ouverte-saumon.webp", "Boîte d'œufs de saumon Marenostrum 50g")
+          : mnTinReveal();
       document.getElementById("mn-reassurance-icon-1").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-reassurance-icon-2").innerHTML = MN_ICONS.truck;
       document.getElementById("mn-reassurance-icon-3").innerHTML = MN_ICONS.clock;
