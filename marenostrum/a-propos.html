@@ -45,14 +45,14 @@
           </p>
         </div>
         <div class="reveal [transition-delay:260ms] grid grid-cols-2 gap-4">
-          <div class="col-span-2 flex h-48 items-center justify-center border border-ink-600 bg-ink-800">
-            <div class="h-28 w-28" id="mn-about-tin-1"></div>
+          <div class="col-span-2 flex h-48 items-center justify-center overflow-hidden">
+            <img src="assets/img/boite-comparaison.webp" alt="Deux boîtes de caviar Marenostrum ouvertes, grains côte à côte" class="h-full w-full object-cover" />
           </div>
-          <div class="flex h-36 items-center justify-center border border-ink-600 bg-ink-800">
-            <div class="h-20 w-20" id="mn-about-tin-2"></div>
+          <div class="flex h-36 items-center justify-center overflow-hidden">
+            <img src="assets/img/cuillere-nacre.webp" alt="Cuillère de nacre présentant du caviar" class="h-full w-full object-cover" />
           </div>
-          <div class="flex h-36 items-center justify-center border border-ink-600 bg-ink-800">
-            <div class="h-20 w-20" id="mn-about-tin-3"></div>
+          <div class="flex h-36 items-center justify-center overflow-hidden">
+            <img src="assets/img/budapest-parlement.webp" alt="Le Parlement de Budapest au bord du Danube, Hongrie" class="h-full w-full object-cover" />
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
     <section class="container-page py-28">
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
         <div class="order-2 lg:order-1 reveal flex h-72 items-center justify-center overflow-hidden bg-ink-800 sm:h-96">
-          <image-slot id="mn-eleveur-photo" shape="rect" alt="Bassins de la ferme Kovács, notre éleveur partenaire, bord de la Tisza, Hongrie" placeholder="Photo : bassins de la ferme Kovács, bord de la Tisza, Hongrie" style="width:100%;height:100%"></image-slot>
+          <image-slot id="mn-eleveur-photo" shape="rect" src="assets/img/eleveur-hongrie.webp" alt="Paysage du lac Balaton et de l'abbaye de Tihany, Hongrie" placeholder="Photo : bassins de la ferme Kovács, bord de la Tisza, Hongrie" style="width:100%;height:100%"></image-slot>
         </div>
         <div class="order-1 lg:order-2 reveal [transition-delay:120ms]">
           <p class="eyebrow mb-4">Notre partenaire</p>
@@ -153,9 +153,6 @@
   <script src="assets/js/ui.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("mn-about-tin-1").innerHTML = mnTinSVG("amber");
-      document.getElementById("mn-about-tin-2").innerHTML = mnTinSVG("onyx");
-      document.getElementById("mn-about-tin-3").innerHTML = mnTinSVG("graphite");
       document.getElementById("mn-value-icon-1").innerHTML = MN_ICONS.leaf;
       document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;

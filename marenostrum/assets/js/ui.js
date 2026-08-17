@@ -24,37 +24,6 @@ const MN_ICONS = {
   clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`
 };
 
-let mnTinCounter = 0;
-// Tin illustration tints — a set of metals with the gold removed entirely: brushed steel,
-// graphite, onyx and pearl. All read as light-on-dark against the marine→noir display panels.
-const MN_TINTS = {
-  amber: { top: "#CDD3DC", side: "#6E7A8A", label: "#17263F" }, // acier / brushed steel
-  graphite: { top: "#8A8578", side: "#4A463C", label: "#F4EFE6" },
-  onyx: { top: "#2A2620", side: "#181410", label: "#F4EFE6" },
-  champagne: { top: "#F4EFE6", side: "#B8B2A4", label: "#17263F" } // nacre / pearl
-};
-
-/** Illustration vectorielle d'une boîte de caviar — pas de photo produit, teinte selon le type. */
-function mnTinSVG(tint) {
-  const c = MN_TINTS[tint] || MN_TINTS.onyx;
-  const id = `mnTin${mnTinCounter++}`;
-  return `
-  <svg viewBox="0 0 160 160" class="h-full w-full" role="img" aria-hidden="true">
-    <defs>
-      <linearGradient id="${id}-body" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="${c.side}" stop-opacity="0.9"/>
-        <stop offset="100%" stop-color="${c.side}" stop-opacity="0.55"/>
-      </linearGradient>
-    </defs>
-    <ellipse cx="80" cy="128" rx="46" ry="10" fill="#111110" opacity="0.35"/>
-    <path d="M34 66 L34 108 A46 12 0 0 0 126 108 L126 66 Z" fill="url(#${id}-body)" stroke="${c.top}" stroke-opacity="0.4" stroke-width="1"/>
-    <ellipse cx="80" cy="66" rx="46" ry="12" fill="${c.top}"/>
-    <ellipse cx="80" cy="66" rx="46" ry="12" fill="none" stroke="#111110" stroke-opacity="0.15" stroke-width="1"/>
-    <ellipse cx="80" cy="63" rx="34" ry="8" fill="none" stroke="${c.label}" stroke-opacity="0.55" stroke-width="1.4"/>
-    <text x="80" y="67" text-anchor="middle" font-family="Cormorant, serif" font-size="9" letter-spacing="2" fill="${c.label}" fill-opacity="0.8">MARENOSTRUM</text>
-  </svg>`;
-}
-
 /** Small-caps label on a solid marine chip — legible over the product photo regardless of
     what's under it (a plain text-shadow treatment worked against the old dark placeholder
     gradient but disappears against the ivoire-toned product photo now filling the slot). */
