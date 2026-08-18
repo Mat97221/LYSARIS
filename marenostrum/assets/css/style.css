@@ -1371,6 +1371,10 @@ a, button, [role="button"], input[type="submit"] {
   height: 100vh;
 }
 
+.min-h-\[42vh\]{
+  min-height: 42vh;
+}
+
 .min-h-\[44px\]{
   min-height: 44px;
 }
@@ -1425,6 +1429,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .max-w-xl{
   max-width: 36rem;
+}
+
+.max-w-xs{
+  max-width: 20rem;
 }
 
 .flex-1{
@@ -1604,6 +1612,10 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: calc(0.625rem * var(--tw-space-y-reverse));
 }
 
+.self-center{
+  align-self: center;
+}
+
 .overflow-hidden{
   overflow: hidden;
 }
@@ -1720,6 +1732,10 @@ a, button, [role="button"], input[type="submit"] {
 .bg-noir{
   --tw-bg-opacity: 1;
   background-color: rgb(17 17 16 / var(--tw-bg-opacity, 1));
+}
+
+.bg-noir\/55{
+  background-color: rgb(17 17 16 / 0.55);
 }
 
 .object-contain{
@@ -1882,12 +1898,22 @@ a, button, [role="button"], input[type="submit"] {
   line-height: 2.25rem;
 }
 
+.text-4xl{
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-\[10px\]{
   font-size: 10px;
 }
 
 .text-\[1rem\]{
   font-size: 1rem;
+}
+
+.text-base{
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-lg{
@@ -1978,6 +2004,14 @@ a, button, [role="button"], input[type="submit"] {
 
 .text-ivoire\/70{
   color: rgb(246 242 234 / 0.7);
+}
+
+.text-ivoire\/80{
+  color: rgb(246 242 234 / 0.8);
+}
+
+.text-ivoire\/90{
+  color: rgb(246 242 234 / 0.9);
 }
 
 .text-marine{
@@ -2073,8 +2107,16 @@ a, button, [role="button"], input[type="submit"] {
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+.\[animation-delay\:160ms\]{
+  animation-delay: 160ms;
+}
+
 .\[animation-delay\:180ms\]{
   animation-delay: 180ms;
+}
+
+.\[animation-delay\:80ms\]{
+  animation-delay: 80ms;
 }
 
 .\[transition-delay\:100ms\]{
@@ -2558,6 +2600,10 @@ a, button, [role="button"], input[type="submit"] {
     height: 70vh;
   }
 
+  .sm\:min-h-\[52vh\]{
+    min-height: 52vh;
+  }
+
   .sm\:w-44{
     width: 11rem;
   }
@@ -2606,8 +2652,23 @@ a, button, [role="button"], input[type="submit"] {
     line-height: 2.5rem;
   }
 
+  .sm\:text-5xl{
+    font-size: 3rem;
+    line-height: 1;
+  }
+
   .sm\:text-\[1\.2rem\]{
     font-size: 1.2rem;
+  }
+
+  .sm\:text-lg{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-sm{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 }
 
@@ -2709,5 +2770,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:pt-40{
     padding-top: 10rem;
+  }
+
+  .lg\:text-6xl{
+    font-size: 3.75rem;
+    line-height: 1;
   }
 }

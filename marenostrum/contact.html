@@ -9,24 +9,25 @@
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/contact.html" />
   <meta property="og:title" content="Contact — MARENOSTRUM" />
   <meta property="og:description" content="Un devis, une question sur nos caviars ou un partenariat professionnel — notre équipe vous répond sous 24h ouvrées." />
-  <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/hero-montagne.webp" />
+  <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/trois-caviars.webp" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <script src="assets/js/image-slot.js"></script>
 </head>
 <body data-page="contact">
   <div id="site-bg"></div>
   <div id="site-header"></div>
 
   <main>
-    <section class="border-b border-ink-600/50">
-      <div class="container-page py-24 text-center animate-fadeUp">
-        <p class="eyebrow mb-4">Nous contacter</p>
-        <h1 class="h-page">Une question, un projet ?</h1>
-        <p class="prose-copy mx-auto mt-6 text-center text-lg">Notre équipe vous répond sous 24h ouvrées, du lundi au vendredi — pour un devis, une question sur nos caviars, ou un partenariat.</p>
+    <section class="relative overflow-hidden bg-marine">
+      <img src="assets/img/trois-caviars.webp" alt="Trois boîtes de caviar Marenostrum ouvertes, grains vus de dessus" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
+      <div class="absolute inset-0 bg-noir/55"></div>
+      <div class="container-page relative z-10 flex min-h-[42vh] flex-col items-center justify-center py-20 text-center sm:min-h-[52vh]">
+        <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Nous contacter</p>
+        <h1 class="animate-fadeUp [animation-delay:80ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">Une question, un projet ?</h1>
+        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Notre équipe vous répond sous 24h ouvrées, du lundi au vendredi — pour un devis, une question sur nos caviars, ou un partenariat.</p>
       </div>
     </section>
 
@@ -94,34 +95,30 @@
             <textarea id="ct-message" rows="6" class="input-field resize-none" required></textarea>
             <p id="ct-message-error" class="field-error hidden">Merci de rédiger un message.</p>
           </div>
-          <button type="submit" class="btn-navy w-full sm:w-auto">Envoyer la demande</button>
-          <p id="mn-contact-feedback" class="hidden flex items-center gap-2 text-sm text-marine" role="status">
+          <button type="submit" class="btn-navy w-full self-center sm:w-auto">Envoyer la demande</button>
+          <p id="mn-contact-feedback" class="hidden flex items-center justify-center gap-2 text-center text-sm text-marine" role="status">
             <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre message a bien été envoyé. Nous revenons vers vous rapidement.
           </p>
-          <p class="text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucun message réel.</p>
+          <p class="text-center text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucun message réel.</p>
         </form>
 
-        <aside class="reveal [transition-delay:260ms] flex flex-col">
-          <div class="flex h-56 items-center justify-center overflow-hidden mb-10">
-            <image-slot id="mn-contact-photo" shape="rect" src="assets/img/trois-caviars.webp" alt="Trois boîtes de caviar Marenostrum ouvertes, grains vus de dessus" placeholder="Photo : la Maison, atelier ou salle de dégustation" style="width:100%;height:100%"></image-slot>
-          </div>
-
-          <div class="flex flex-col gap-6">
-            <div class="flex items-start gap-4">
+        <aside class="reveal [transition-delay:260ms] flex flex-col items-center text-center">
+          <div class="flex flex-col items-center gap-8">
+            <div class="flex flex-col items-center gap-2">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-mail"></span>
               <div>
                 <p class="field-label !mb-1">E-mail</p>
                 <p class="text-sm text-ink-100">contact@marenostrum.example</p>
               </div>
             </div>
-            <div class="flex items-start gap-4">
+            <div class="flex flex-col items-center gap-2">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-phone"></span>
               <div>
                 <p class="field-label !mb-1">Téléphone</p>
                 <p class="text-sm text-ink-100">01 23 45 67 89 — lun.–ven., 9h–18h</p>
               </div>
             </div>
-            <div class="flex items-start gap-4">
+            <div class="flex flex-col items-center gap-2">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-pin"></span>
               <div>
                 <p class="field-label !mb-1">Maison MARENOSTRUM</p>
@@ -130,7 +127,7 @@
             </div>
           </div>
 
-          <p class="prose-copy mt-10 border-t border-ink-600/50 pt-8">Commande professionnelle, traiteur ou événement privé ? Notre équipe dédiée aux volumes vous répond sous 48h.</p>
+          <p class="prose-copy mx-auto mt-10 max-w-xs border-t border-ink-600/50 pt-8 text-center">Commande professionnelle, traiteur ou événement privé ? Notre équipe dédiée aux volumes vous répond sous 48h.</p>
         </aside>
       </div>
     </section>
