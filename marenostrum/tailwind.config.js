@@ -66,13 +66,12 @@ module.exports = {
         error: "#B3261E" // deep red — reads correctly again now that form surfaces are light
       },
       fontFamily: {
-        // Two-typeface system (Google Fonts, loaded once in src/input.css): Cormorant Garamond,
-        // a high-contrast serif, for display headings only ("titre" — h1/h2/quotes, never body
-        // copy or UI chrome); Inter for everything else ("texte" — paragraphs, nav, buttons,
-        // form fields, default font on <body>). Small "eyebrow" labels use texte too, spaced out
-        // via .eyebrow's own letter-spacing rather than a third typeface.
-        titre: ["Cormorant Garamond", "Georgia", "serif"],
-        texte: ["Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+        // Single-typeface system (Google Fonts, loaded once in src/input.css): Archivo
+        // everywhere. "titre" and "texte" both resolve to the same family — kept as two
+        // Tailwind keys only because every page already calls font-titre/font-texte; weight
+        // (400/500/600) is what carries the hierarchy now, not a font swap.
+        titre: ["Archivo", "Inter", "-apple-system", "sans-serif"],
+        texte: ["Archivo", "Inter", "-apple-system", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",
@@ -80,7 +79,10 @@ module.exports = {
         navy: "0 0 0 1px rgba(196,163,90,0.45)"
       },
       letterSpacing: {
-        widest2: "0.25em"
+        widest2: "0.25em",
+        // Buttons and form labels (Archivo Medium, uppercase) — 0.10-0.14em band from the
+        // typeface brief, fixed at its midpoint so every button/label reads consistently.
+        label: "0.12em"
       },
       lineHeight: {
         // Overrides Tailwind's default 1.625 for `leading-relaxed`, used throughout for body

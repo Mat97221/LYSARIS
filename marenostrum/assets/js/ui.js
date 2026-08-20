@@ -230,7 +230,7 @@ function mnFooter() {
   <footer class="bg-noir text-ivoire mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
+        <p class="font-titre font-semibold tracking-[0.18em] text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
         <p class="text-sm text-ivoire/70 leading-relaxed">Caviar sélectionné et conditionné, élevé en Hongrie, bassin du Danube. Calibrage constant, fournisseur de la restauration et de l'hôtellerie.</p>
       </div>
       <div>
