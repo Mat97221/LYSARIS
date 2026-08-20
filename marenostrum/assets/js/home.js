@@ -26,7 +26,7 @@ function mnHomeHero() {
          l'ancien voile bas, translatée à la nouvelle position du texte. -->
     <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.6) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.58) 0%, rgba(17,17,16,0.22) 42%, transparent 68%)"></div>
     <div class="container-page relative z-10 flex h-full items-center">
-      <p class="animate-fadeUp [animation-delay:180ms] font-titre text-3xl italic text-ivoire sm:text-4xl">Une sélection sans compromis.</p>
+      <p class="animate-fadeUp [animation-delay:180ms] font-titre text-3xl italic text-ivoire sm:text-4xl">Un grain constant, commande après commande.</p>
     </div>
   </section>`;
 }
@@ -48,7 +48,7 @@ function mnHomeEauVive() {
     <div class="grid grid-cols-1 items-center gap-8 pt-28 pb-24 lg:grid-cols-[1fr_1.6fr] lg:items-stretch lg:gap-12 lg:pt-40 lg:pb-32">
       <div class="reveal px-5 sm:px-8 lg:pl-10 lg:pr-0">
         <p class="eyebrow mb-4">L'eau vive</p>
-        <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Un caviar d'eau douce, sélectionné à sa fraîcheur.</p>
+        <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Élevage en eau vive, bassin du Danube, en Hongrie.</p>
       </div>
       <div class="reveal [transition-delay:120ms] flex h-56 items-center justify-center overflow-hidden sm:h-72 lg:h-auto">
         <img src="assets/img/eau-vive.webp" alt="Boîtes de caviar Marenostrum, vue rapprochée en rangée" loading="lazy" class="h-full w-full object-cover" />
@@ -69,9 +69,9 @@ function mnHomeSelection() {
       </div>
       <div class="reveal order-2 [transition-delay:150ms]">
         <p class="eyebrow mb-4">La sélection</p>
-        <h2 class="h-section mb-6">Un grain qui ne souffre aucun compromis</h2>
-        <p class="prose-copy mb-2">Chaque lot est observé et goûté avant d'entrer dans notre sélection.</p>
-        <p class="prose-copy mb-8">L'affinage précis reste au cœur de notre métier.</p>
+        <h2 class="h-section mb-6">Un calibrage vérifié, lot après lot</h2>
+        <p class="prose-copy mb-2">Chaque lot est calibré et goûté avant d'être retenu.</p>
+        <p class="prose-copy mb-8">Le grain reste le même d'une commande à l'autre.</p>
         <a href="a-propos.html" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Notre savoir-faire →</a>
       </div>
     </div>
@@ -101,7 +101,7 @@ function mnHomeEspeces() {
     <div class="container-page py-24 lg:py-32">
       <div class="reveal mx-auto mb-16 max-w-xl text-center">
         <p class="eyebrow mb-4">Nos espèces</p>
-        <h2 class="h-section">Quatre profils, une même exigence</h2>
+        <h2 class="h-section">Quatre profils, un calibrage constant</h2>
       </div>
       <div class="grid grid-cols-2 gap-x-8 gap-y-14 sm:grid-cols-4">
         ${cards}
@@ -121,7 +121,7 @@ function mnHomeGammePro() {
       <img src="assets/img/gamme-boites.webp" alt="Gamme de boîtes de caviar Marenostrum disposées sur une pierre claire" loading="lazy" class="h-full w-full object-cover" />
     </div>
     <div class="container-page pb-24 pt-10 text-center lg:pb-32">
-      <p class="reveal [transition-delay:150ms] mx-auto mb-10 max-w-lg text-lg leading-relaxed text-ink-200">Formats de 30 g à 500 g. Restaurants, hôtels et grossistes.</p>
+      <p class="reveal [transition-delay:150ms] mx-auto mb-10 max-w-lg text-lg leading-relaxed text-ink-200">Formats de 30 g à 500 g, calibrés pour la restauration. Restaurants, hôtels et grossistes.</p>
       <a href="contact.html" class="reveal [transition-delay:200ms] btn-navy inline-flex">Demander un devis</a>
     </div>
   </section>`;

@@ -231,7 +231,7 @@ function mnFooter() {
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-titre text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
-        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de caviar et de délicatesses d'exception. Sélection exigeante, fournisseur de la restauration et de l'hôtellerie.</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Caviar sélectionné et conditionné, élevé en Hongrie, bassin du Danube. Calibrage constant, fournisseur de la restauration et de l'hôtellerie.</p>
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Produits</p>
@@ -254,7 +254,7 @@ function mnFooter() {
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Restez informé</p>
-        <p class="text-sm text-ivoire/70 mb-4">Nouveautés, éditions limitées et accords de dégustation.</p>
+        <p class="text-sm text-ivoire/70 mb-4">Disponibilités, calibrages et informations d'approvisionnement.</p>
         <form id="mn-newsletter-form" class="flex gap-2" novalidate>
           <label for="mn-newsletter-email" class="sr-only">Adresse e-mail</label>
           <input id="mn-newsletter-email" type="email" required placeholder="Votre e-mail" class="input-field !py-2.5 text-sm !bg-noir !border-ivoire/25 !text-ivoire placeholder:!text-ivoire/40 focus:!border-ivoire" />
