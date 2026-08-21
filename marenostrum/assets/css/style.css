@@ -1329,6 +1329,10 @@ a, button, [role="button"], input[type="submit"] {
   height: 0.75rem;
 }
 
+.h-3\.5{
+  height: 0.875rem;
+}
+
 .h-36{
   height: 9rem;
 }
@@ -1419,6 +1423,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .w-3{
   width: 0.75rem;
+}
+
+.w-3\.5{
+  width: 0.875rem;
 }
 
 .w-36{
@@ -1727,6 +1735,11 @@ a, button, [role="button"], input[type="submit"] {
 
 .border-ivoire\/15{
   border-color: rgb(246 242 234 / 0.15);
+}
+
+.border-marine{
+  --tw-border-opacity: 1;
+  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
 }
 
 .border-marine\/30{
@@ -2590,6 +2603,11 @@ a, button, [role="button"], input[type="submit"] {
 .hover\:bg-marine:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-navy-hover:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(43 63 89 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-error:hover{
