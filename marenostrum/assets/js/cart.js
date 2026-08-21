@@ -1,11 +1,15 @@
 /**
- * MARENOSTRUM — "Ma sélection" : un panier sans prix, base d'une demande de devis.
+ * MARENOSTRUM — Panier sans prix, base de la demande envoyée depuis coordonnees.html.
  * Stockage 100% client (localStorage) — ce site statique n'a pas de back-end ; il n'y a donc
  * rien d'autre à synchroniser. Une ligne = { productId, sku, quantity }. Le prix n'existe nulle
  * part dans ce fichier ni dans products.js : il n'y a rien à masquer, juste rien à afficher.
  */
 
 const MN_CART_KEY = "mn-selection";
+// Message facultatif saisi en bas du panier (page panier.html) — stocké à part de la liste des
+// lignes : c'est un texte libre, pas une ligne de produit, et coordonnees.html doit pouvoir le
+// lire sans passer par la logique de résolution produit/variant ci-dessous.
+const MN_CART_MESSAGE_KEY = "mn-selection-message";
 
 function mnGetCart() {
   try {
@@ -41,7 +45,7 @@ function mnAddToCart(productId, sku, quantity = 1) {
   return items;
 }
 
-/** Change le conditionnement et/ou la quantité d'une ligne existante (page "Ma sélection"). */
+/** Change le conditionnement et/ou la quantité d'une ligne existante (page "Panier"). */
 function mnUpdateCartLine(productId, oldSku, newSku, quantity) {
   const items = mnGetCart();
   const idx = items.findIndex((l) => l.productId === productId && l.sku === oldSku);
@@ -70,10 +74,19 @@ function mnRemoveCartLine(productId, sku) {
 
 function mnClearCart() {
   mnSaveCart([]);
+  mnSetCartMessage("");
 }
 
-/** Une ligne "brute" ne porte qu'un id produit et un SKU — la page "Ma sélection" et le
-    formulaire de devis ont besoin du produit et du variant complets pour s'afficher. Le
+function mnGetCartMessage() {
+  return localStorage.getItem(MN_CART_MESSAGE_KEY) || "";
+}
+
+function mnSetCartMessage(text) {
+  localStorage.setItem(MN_CART_MESSAGE_KEY, (text || "").slice(0, 300));
+}
+
+/** Une ligne "brute" ne porte qu'un id produit et un SKU — la page panier et la page
+    coordonnées ont besoin du produit et du variant complets pour s'afficher. Le
     conditionnement détermine l'unité affichée : "au kg" (poissons fumés à la coupe) se
     commande en kg, tout le reste (boîtes de 30 g à 1 kg) se commande à la boîte. Filtre les
     lignes dont le produit n'existe plus (catalogue modifié) plutôt que de planter dessus. */

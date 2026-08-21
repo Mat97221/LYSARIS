@@ -900,33 +900,6 @@ a, button, [role="button"], input[type="submit"] {
 /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
      homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
 
-.btn-quiet{
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-bottom-width: 1px;
-  border-color: rgb(17 17 16 / 0.4);
-  padding-bottom: 0.25rem;
-  font-family: Archivo, Inter, -apple-system, sans-serif;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  --tw-text-opacity: 1;
-  color: rgb(17 17 16 / var(--tw-text-opacity, 1));
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-quiet:hover{
-  --tw-border-opacity: 1;
-  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
-  --tw-text-opacity: 1;
-  color: rgb(30 44 58 / var(--tw-text-opacity, 1));
-}
-
 /* Borderless product card — no frame, no surface: the product image sits directly on the
      ivoire page with its text below, integrating seamlessly (only the image itself is rounded,
      see the image wrapper in mnProductCard). */
@@ -1012,10 +985,6 @@ a, button, [role="button"], input[type="submit"] {
      `@apply accent-marine` here, not a raw `theme()` CSS value — theme() calls placed outside
      @apply silently resolve to nothing in this project's build (see the now-transparent
      focus-visible outline above, a pre-existing bug this sidesteps rather than fixes). */
-
-.mn-checkbox{
-  accent-color: #1E2C3A;
-}
 
 /* ============================================================
      Editorial homepage — manifesto chapters, caviar carousel, texture band
@@ -1276,10 +1245,6 @@ a, button, [role="button"], input[type="submit"] {
   margin-left: 0.75rem;
 }
 
-.mt-0\.5{
-  margin-top: 0.125rem;
-}
-
 .mt-1{
   margin-top: 0.25rem;
 }
@@ -1502,6 +1467,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .max-w-lg{
   max-width: 32rem;
+}
+
+.max-w-md{
+  max-width: 28rem;
 }
 
 .max-w-xl{
@@ -1937,6 +1906,11 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 1.5rem;
 }
 
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .pb-24{
   padding-bottom: 6rem;
 }
@@ -1979,6 +1953,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .pt-8{
   padding-top: 2rem;
+}
+
+.text-left{
+  text-align: left;
 }
 
 .text-center{
@@ -2563,16 +2541,6 @@ a, button, [role="button"], input[type="submit"] {
   color: #17263f;
 }
 
-.nav-glass.mn-hero-nav .mn-nav-cta {
-  color: #f4efe6;
-  border-color: rgba(244, 239, 230, 0.5);
-}
-
-.nav-glass.mn-hero-nav .mn-nav-cta:hover {
-  color: #f4efe6;
-  border-color: #f4efe6;
-}
-
 /* Black wordmark PNG → white while overlaid on the dark hero image. */
 
 .nav-glass.mn-hero-nav img {
@@ -2601,11 +2569,6 @@ a, button, [role="button"], input[type="submit"] {
 
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active {
   color: #17263f;
-}
-
-.nav-glass.mn-hero-nav.is-scrolled .mn-nav-cta {
-  color: #17263f;
-  border-color: rgba(23, 38, 63, 0.4);
 }
 
 .nav-glass.mn-hero-nav.is-scrolled img {
@@ -2711,10 +2674,6 @@ a, button, [role="button"], input[type="submit"] {
 @media (min-width: 640px){
   .sm\:inline{
     display: inline;
-  }
-
-  .sm\:inline-flex{
-    display: inline-flex;
   }
 
   .sm\:h-44{
@@ -2826,6 +2785,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .lg\:order-2{
     order: 2;
+  }
+
+  .lg\:col-span-1{
+    grid-column: span 1 / span 1;
   }
 
   .lg\:col-span-2{

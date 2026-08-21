@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ma sélection — MARENOSTRUM</title>
-  <meta name="description" content="Votre sélection de produits MARENOSTRUM, base de votre demande de devis. Aucun prix affiché en ligne." />
+  <title>Panier — MARENOSTRUM</title>
+  <meta name="description" content="Votre panier de produits MARENOSTRUM, base de votre demande. Aucun prix affiché en ligne." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/panier.html" />
-  <meta property="og:title" content="Ma sélection — MARENOSTRUM" />
-  <meta property="og:description" content="Votre sélection de produits MARENOSTRUM, base de votre demande de devis." />
+  <meta property="og:title" content="Panier — MARENOSTRUM" />
+  <meta property="og:description" content="Votre panier de produits MARENOSTRUM, base de votre demande." />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,24 +22,39 @@
   <main>
     <section class="border-b border-ink-600/50">
       <div class="container-page py-20 text-center reveal">
-        <p class="eyebrow mb-3">Votre sélection</p>
-        <h1 class="h-page">Ma sélection</h1>
-        <p class="prose-copy mx-auto mt-6 text-center">Ajustez les quantités et les conditionnements, puis envoyez votre demande. Aucun prix n'est affiché ici : nous revenons vers vous avec une proposition chiffrée.</p>
+        <p class="eyebrow mb-3">Votre panier</p>
+        <h1 class="h-page">Panier</h1>
+        <p class="prose-copy mx-auto mt-6 text-center">Ajustez les quantités et les conditionnements, puis confirmez votre panier. Aucun prix n'est affiché ici.</p>
       </div>
     </section>
 
     <section class="container-page py-20">
       <div id="mn-cart-empty" class="hidden py-16 text-center">
-        <p class="text-ink-200 mb-8">Votre sélection est vide.</p>
+        <p class="text-ink-200 mb-8">Votre panier est vide.</p>
         <a href="boutique.html" class="btn-navy">Parcourir la boutique</a>
       </div>
 
-      <div id="mn-cart-lines" class="mx-auto flex max-w-3xl flex-col gap-6"></div>
+      <div id="mn-cart-editable">
+        <div id="mn-cart-lines" class="mx-auto flex max-w-3xl flex-col gap-6"></div>
 
-      <div id="mn-cart-footer" class="mx-auto mt-12 max-w-3xl border-t border-ink-600/50 pt-8 text-center">
-        <p id="mn-cart-summary" class="mb-6 text-sm text-ink-300"></p>
-        <a href="devis.html" class="btn-navy w-full sm:w-auto">Demander un devis pour cette sélection</a>
-        <p class="mt-3 text-xs text-ink-300">Le formulaire suivant reprend votre sélection — aucune saisie n'est perdue.</p>
+        <div id="mn-cart-footer" class="mx-auto mt-12 max-w-3xl border-t border-ink-600/50 pt-8">
+          <p id="mn-cart-summary" class="mb-8 text-center text-sm text-ink-300"></p>
+          <div class="mb-8">
+            <label class="field-label" for="mn-cart-message">Message</label>
+            <input id="mn-cart-message" type="text" maxlength="300" class="input-field" placeholder="Précision utile pour votre commande (délai souhaité, contrainte de livraison...)" />
+            <p class="mt-1.5 text-xs text-ink-300">Facultatif — une ligne suffit, 300 caractères maximum.</p>
+          </div>
+          <div class="text-center">
+            <button type="button" id="mn-cart-confirm-btn" class="btn-navy w-full sm:w-auto">Confirmer le panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mn-cart-confirmation" class="hidden mx-auto max-w-3xl py-8 text-center reveal">
+        <p class="eyebrow mb-4">Panier confirmé</p>
+        <h2 class="h-section mb-6">Votre sélection est enregistrée</h2>
+        <div id="mn-cart-confirmation-recap" class="mx-auto mb-10 flex max-w-md flex-col gap-3 text-left"></div>
+        <a href="coordonnees.html" class="btn-navy inline-flex">Continuer</a>
       </div>
     </section>
   </main>
@@ -74,35 +89,36 @@
           <button type="button" data-qty-plus aria-label="Augmenter la quantité" class="flex h-11 w-11 shrink-0 items-center justify-center border border-ink-500 text-lg text-ink-200 transition-colors duration-200 ease-fluid hover:border-navy/60">+</button>
           <span class="ml-1 whitespace-nowrap text-xs text-ink-300">${line.unit}</span>
         </div>
-        <button type="button" data-remove aria-label="Retirer ${line.product.name} de la sélection" class="flex h-11 w-11 shrink-0 items-center justify-center text-ink-300 transition-colors duration-200 ease-fluid hover:text-error">${MN_ICONS.trash}</button>
+        <button type="button" data-remove aria-label="Retirer ${line.product.name} du panier" class="flex h-11 w-11 shrink-0 items-center justify-center text-ink-300 transition-colors duration-200 ease-fluid hover:text-error">${MN_ICONS.trash}</button>
       </div>`;
     }
 
     function mnRenderCartPage() {
       const lines = mnCartLinesResolved();
       const emptyEl = document.getElementById("mn-cart-empty");
+      const editableEl = document.getElementById("mn-cart-editable");
       const linesEl = document.getElementById("mn-cart-lines");
-      const footerEl = document.getElementById("mn-cart-footer");
 
       if (!lines.length) {
         emptyEl.classList.remove("hidden");
-        linesEl.classList.add("hidden");
-        footerEl.classList.add("hidden");
+        editableEl.classList.add("hidden");
         linesEl.innerHTML = "";
         return;
       }
 
       emptyEl.classList.add("hidden");
-      linesEl.classList.remove("hidden");
-      footerEl.classList.remove("hidden");
+      editableEl.classList.remove("hidden");
       linesEl.innerHTML = lines.map(mnCartLineRow).join("");
 
       const totalUnits = lines.reduce((sum, l) => sum + l.quantity, 0);
       document.getElementById("mn-cart-summary").textContent =
-        `${lines.length} produit${lines.length > 1 ? "s" : ""} sélectionné${lines.length > 1 ? "s" : ""}, ${totalUnits} unité${totalUnits > 1 ? "s" : ""} au total.`;
+        `${lines.length} produit${lines.length > 1 ? "s" : ""} dans le panier, ${totalUnits} unité${totalUnits > 1 ? "s" : ""} au total.`;
     }
 
-    document.addEventListener("DOMContentLoaded", mnRenderCartPage);
+    document.addEventListener("DOMContentLoaded", () => {
+      mnRenderCartPage();
+      document.getElementById("mn-cart-message").value = mnGetCartMessage();
+    });
     document.addEventListener("mn-cart-updated", mnRenderCartPage);
 
     const linesContainer = document.getElementById("mn-cart-lines");
@@ -135,6 +151,30 @@
         const qty = parseInt(row.querySelector("[data-line-qty]").value, 10) || 1;
         mnUpdateCartLine(row.dataset.productId, row.dataset.sku, size, qty);
       }
+    });
+
+    // Étape 3 du parcours : un vrai palier visible avant de demander les coordonnées, pas une
+    // simple validation invisible qui enchaînerait directement sur la page suivante.
+    document.getElementById("mn-cart-confirm-btn").addEventListener("click", () => {
+      mnSetCartMessage(document.getElementById("mn-cart-message").value.trim());
+
+      const lines = mnCartLinesResolved();
+      document.getElementById("mn-cart-confirmation-recap").innerHTML = lines
+        .map(
+          (l) => `
+        <div class="flex items-start justify-between gap-3 border-b border-ink-600/50 pb-3 text-sm">
+          <div>
+            <p class="text-ink-50 font-medium">${l.product.name}</p>
+            <p class="text-ink-300 text-xs">${l.variant.size}</p>
+          </div>
+          <p class="whitespace-nowrap text-ink-200">${l.quantity} ${l.unit}</p>
+        </div>`
+        )
+        .join("");
+
+      document.getElementById("mn-cart-editable").classList.add("hidden");
+      document.getElementById("mn-cart-confirmation").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </body>

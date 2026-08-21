@@ -96,7 +96,7 @@ function mnProductCard(product, { compact = false } = {}) {
         <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
         <button type="button" data-quickadd data-product-id="${product.id}" data-sku="${product.variants[0].sku}"
           class="relative z-[5] inline-flex min-h-[36px] items-center gap-1.5 border border-marine/40 px-3 py-1.5 text-xs font-medium uppercase tracking-label text-marine transition-colors duration-200 ease-fluid hover:bg-marine hover:text-ivoire">
-          ${MN_ICONS.plus}<span data-quickadd-label>Sélection</span>
+          ${MN_ICONS.plus}<span data-quickadd-label>Panier</span>
         </button>
       </div>`;
   return `
@@ -198,13 +198,16 @@ function mnHeader(active) {
         ${link("index.html", "Accueil", "accueil")}
         ${productsNav}
         ${link("a-propos.html", "La Maison", "apropos")}
+        ${link("echantillons.html", "Échantillons", "echantillons")}
         ${link("contact.html", "Contact", "contact")}
       </nav>
       <div class="flex items-center gap-4">
-        <a href="contact.html" class="mn-nav-cta btn-quiet hidden sm:inline-flex">Demander un devis</a>
-        <a href="panier.html" aria-label="Ma sélection" class="mn-cart-link relative inline-flex h-6 w-6 items-center justify-center text-ink-50">
-          ${MN_ICONS.cart}
-          <span id="mn-cart-count" class="hidden absolute -right-2.5 -top-2.5 min-w-[16px] rounded-full bg-marine px-1 text-center text-[10px] font-medium leading-4 text-ivoire">0</span>
+        <a href="panier.html" aria-label="Panier" class="mn-cart-link relative inline-flex items-center gap-2 text-ink-50 hover:text-marine transition-colors duration-200">
+          <span class="relative inline-flex h-6 w-6 items-center justify-center">
+            ${MN_ICONS.cart}
+            <span id="mn-cart-count" class="hidden absolute -right-2.5 -top-2.5 min-w-[16px] rounded-full bg-marine px-1 text-center text-[10px] font-medium leading-4 text-ivoire">0</span>
+          </span>
+          <span class="hidden sm:inline text-sm uppercase tracking-wide">Panier</span>
         </a>
         <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="lg:hidden h-6 w-6 text-ink-50">
           ${MN_ICONS.menu}
@@ -226,6 +229,7 @@ function mnHeader(active) {
           </div>
         </div>
         ${link("a-propos.html", "La Maison", "apropos")}
+        ${link("echantillons.html", "Échantillons", "echantillons")}
         ${link("contact.html", "Contact", "contact")}
       </div>
     </nav>
