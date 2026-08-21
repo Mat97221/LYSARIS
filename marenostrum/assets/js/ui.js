@@ -92,8 +92,12 @@ function mnProductCard(product, { compact = false } = {}) {
     ? `<div class="mt-auto pt-3 text-center">
         <span class="inline-flex items-center justify-center border border-marine/40 px-5 py-2 text-xs font-semibold uppercase tracking-widest2 text-marine transition-colors duration-200 ease-fluid group-hover:bg-marine group-hover:text-ivoire">Découvrir</span>
       </div>`
-    : `<div class="mt-auto pt-3">
+    : `<div class="mt-auto flex items-center justify-between gap-3 pt-3">
         <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
+        <button type="button" data-quickadd data-product-id="${product.id}" data-sku="${product.variants[0].sku}"
+          class="relative z-[5] inline-flex min-h-[36px] items-center gap-1.5 border border-marine/40 px-3 py-1.5 text-xs font-medium uppercase tracking-label text-marine transition-colors duration-200 ease-fluid hover:bg-marine hover:text-ivoire">
+          ${MN_ICONS.plus}<span data-quickadd-label>Sélection</span>
+        </button>
       </div>`;
   return `
   <div class="card-product group" data-category="${product.category}">
@@ -198,6 +202,10 @@ function mnHeader(active) {
       </nav>
       <div class="flex items-center gap-4">
         <a href="contact.html" class="mn-nav-cta btn-quiet hidden sm:inline-flex">Demander un devis</a>
+        <a href="panier.html" aria-label="Ma sélection" class="mn-cart-link relative inline-flex h-6 w-6 items-center justify-center text-ink-50">
+          ${MN_ICONS.cart}
+          <span id="mn-cart-count" class="hidden absolute -right-2.5 -top-2.5 min-w-[16px] rounded-full bg-marine px-1 text-center text-[10px] font-medium leading-4 text-ivoire">0</span>
+        </a>
         <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="lg:hidden h-6 w-6 text-ink-50">
           ${MN_ICONS.menu}
         </button>
@@ -440,6 +448,7 @@ function mnMountLayout(activePage) {
 
   mnInitReveal();
   mnInitMagnetic();
+  if (typeof mnRefreshCartBadge === "function") mnRefreshCartBadge();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

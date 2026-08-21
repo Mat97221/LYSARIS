@@ -59,8 +59,9 @@
             <div id="mn-variant-options" class="flex flex-wrap gap-3"></div>
           </div>
 
-          <a id="mn-product-quote-link" href="contact.html" class="btn-navy w-full sm:w-auto">Demander un devis</a>
-          <p class="mt-3 text-xs text-ink-300">Devis personnalisé sous 48h selon quantité et destination.</p>
+          <button type="button" id="mn-product-add-btn" class="btn-navy w-full sm:w-auto">Ajouter à la sélection</button>
+          <p id="mn-product-add-feedback" class="mt-3 hidden text-sm text-marine">Ajouté à votre sélection. <a href="panier.html" class="underline hover:no-underline">Voir ma sélection →</a></p>
+          <p id="mn-product-add-hint" class="mt-3 text-xs text-ink-300">Ajustez la quantité et demandez un devis depuis votre sélection — aucun prix n'est affiché en ligne.</p>
 
           <div class="mt-10 border-t border-ink-600/50 pt-8">
             <p id="mn-product-description" class="prose-copy"></p>
@@ -117,12 +118,13 @@
        origine, produits liés) et le bouton "Demander un devis" plus haut sort vite de l'écran sur
        un petit écran. Reste joignable sans avoir à remonter, quel que soit l'endroit de la page. -->
   <div id="mn-sticky-cta" class="hidden fixed inset-x-0 bottom-0 z-30 border-t border-ink-600/50 bg-ivoire/95 p-4 backdrop-blur-md lg:!hidden">
-    <a id="mn-sticky-quote-link" href="contact.html" class="btn-navy block w-full text-center">Demander un devis</a>
+    <button type="button" id="mn-sticky-add-btn" class="btn-navy block w-full text-center">Ajouter à la sélection</button>
   </div>
 
   <div id="site-footer"></div>
 
   <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/ui.js"></script>
   <script>
     let mnSelectedSku = null;
@@ -202,9 +204,13 @@
 
       mnRenderVariants(product);
 
-      const quoteHref = `contact.html?produit=${encodeURIComponent(product.name)}`;
-      document.getElementById("mn-product-quote-link").href = quoteHref;
-      document.getElementById("mn-sticky-quote-link").href = quoteHref;
+      const handleAddToSelection = () => {
+        mnAddToCart(product.id, mnSelectedSku, 1);
+        document.getElementById("mn-product-add-feedback").classList.remove("hidden");
+        document.getElementById("mn-product-add-hint").classList.add("hidden");
+      };
+      document.getElementById("mn-product-add-btn").addEventListener("click", handleAddToSelection);
+      document.getElementById("mn-sticky-add-btn").addEventListener("click", handleAddToSelection);
 
       const related = MARENOSTRUM_PRODUCTS.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
       const relatedGrid = document.getElementById("mn-related-grid");

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ma sélection — MARENOSTRUM</title>
+  <meta name="description" content="Votre sélection de produits MARENOSTRUM, base de votre demande de devis. Aucun prix affiché en ligne." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mat97221.github.io/LYSARIS/panier.html" />
+  <meta property="og:title" content="Ma sélection — MARENOSTRUM" />
+  <meta property="og:description" content="Votre sélection de produits MARENOSTRUM, base de votre demande de devis." />
+  <meta property="og:locale" content="fr_FR" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="panier">
+  <div id="site-bg"></div>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="border-b border-ink-600/50">
+      <div class="container-page py-20 text-center reveal">
+        <p class="eyebrow mb-3">Votre sélection</p>
+        <h1 class="h-page">Ma sélection</h1>
+        <p class="prose-copy mx-auto mt-6 text-center">Ajustez les quantités et les conditionnements, puis envoyez votre demande. Aucun prix n'est affiché ici : nous revenons vers vous avec une proposition chiffrée.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-20">
+      <div id="mn-cart-empty" class="hidden py-16 text-center">
+        <p class="text-ink-200 mb-8">Votre sélection est vide.</p>
+        <a href="boutique.html" class="btn-navy">Parcourir la boutique</a>
+      </div>
+
+      <div id="mn-cart-lines" class="mx-auto flex max-w-3xl flex-col gap-6"></div>
+
+      <div id="mn-cart-footer" class="mx-auto mt-12 max-w-3xl border-t border-ink-600/50 pt-8 text-center">
+        <p id="mn-cart-summary" class="mb-6 text-sm text-ink-300"></p>
+        <a href="devis.html" class="btn-navy w-full sm:w-auto">Demander un devis pour cette sélection</a>
+        <p class="mt-3 text-xs text-ink-300">Le formulaire suivant reprend votre sélection — aucune saisie n'est perdue.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    function mnCartLineRow(line, idx) {
+      const img = line.product.category === "caviar-saumon" ? "assets/img/boite-ouverte-saumon.webp" : "assets/img/boite-ouverte.png";
+      const sizeOptions = line.product.variants
+        .map((v) => `<option value="${v.sku}" ${v.sku === line.sku ? "selected" : ""}>${v.size}</option>`)
+        .join("");
+      return `
+      <div class="flex flex-col gap-4 border border-ink-600/50 p-4 sm:flex-row sm:items-center" data-line data-product-id="${line.product.id}" data-sku="${line.sku}">
+        <a href="produit.html?id=${line.product.id}" class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden bg-ivoire">
+          <img src="${img}" alt="" class="h-full w-full object-contain" />
+        </a>
+        <div class="flex-1">
+          <a href="produit.html?id=${line.product.id}" class="h-card text-lg hover:text-marine transition-colors">${line.product.name}</a>
+          ${line.product.species ? `<p class="mt-1 font-titre italic text-sm text-ink-300">${line.product.species}</p>` : ""}
+        </div>
+        <div class="sm:w-44">
+          <label class="field-label" for="mn-line-size-${idx}">Conditionnement</label>
+          <select id="mn-line-size-${idx}" data-line-size class="input-field !min-h-[40px] !py-2 text-sm">${sizeOptions}</select>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" data-qty-minus aria-label="Diminuer la quantité" class="flex h-11 w-11 shrink-0 items-center justify-center border border-ink-500 text-lg text-ink-200 transition-colors duration-200 ease-fluid hover:border-navy/60">−</button>
+          <input type="number" min="1" inputmode="numeric" value="${line.quantity}" data-line-qty aria-label="Quantité" class="input-field !min-h-[44px] w-16 !px-2 text-center" />
+          <button type="button" data-qty-plus aria-label="Augmenter la quantité" class="flex h-11 w-11 shrink-0 items-center justify-center border border-ink-500 text-lg text-ink-200 transition-colors duration-200 ease-fluid hover:border-navy/60">+</button>
+          <span class="ml-1 whitespace-nowrap text-xs text-ink-300">${line.unit}</span>
+        </div>
+        <button type="button" data-remove aria-label="Retirer ${line.product.name} de la sélection" class="flex h-11 w-11 shrink-0 items-center justify-center text-ink-300 transition-colors duration-200 ease-fluid hover:text-error">${MN_ICONS.trash}</button>
+      </div>`;
+    }
+
+    function mnRenderCartPage() {
+      const lines = mnCartLinesResolved();
+      const emptyEl = document.getElementById("mn-cart-empty");
+      const linesEl = document.getElementById("mn-cart-lines");
+      const footerEl = document.getElementById("mn-cart-footer");
+
+      if (!lines.length) {
+        emptyEl.classList.remove("hidden");
+        linesEl.classList.add("hidden");
+        footerEl.classList.add("hidden");
+        linesEl.innerHTML = "";
+        return;
+      }
+
+      emptyEl.classList.add("hidden");
+      linesEl.classList.remove("hidden");
+      footerEl.classList.remove("hidden");
+      linesEl.innerHTML = lines.map(mnCartLineRow).join("");
+
+      const totalUnits = lines.reduce((sum, l) => sum + l.quantity, 0);
+      document.getElementById("mn-cart-summary").textContent =
+        `${lines.length} produit${lines.length > 1 ? "s" : ""} sélectionné${lines.length > 1 ? "s" : ""}, ${totalUnits} unité${totalUnits > 1 ? "s" : ""} au total.`;
+    }
+
+    document.addEventListener("DOMContentLoaded", mnRenderCartPage);
+    document.addEventListener("mn-cart-updated", mnRenderCartPage);
+
+    const linesContainer = document.getElementById("mn-cart-lines");
+
+    linesContainer.addEventListener("click", (e) => {
+      const row = e.target.closest("[data-line]");
+      if (!row) return;
+      const productId = row.dataset.productId;
+      const sku = row.dataset.sku;
+
+      if (e.target.closest("[data-remove]")) {
+        mnRemoveCartLine(productId, sku);
+        return;
+      }
+      const isMinus = e.target.closest("[data-qty-minus]");
+      const isPlus = e.target.closest("[data-qty-plus]");
+      if (isMinus || isPlus) {
+        const qtyInput = row.querySelector("[data-line-qty]");
+        const size = row.querySelector("[data-line-size]").value;
+        const next = Math.max(1, (parseInt(qtyInput.value, 10) || 1) + (isPlus ? 1 : -1));
+        mnUpdateCartLine(productId, sku, size, next);
+      }
+    });
+
+    linesContainer.addEventListener("change", (e) => {
+      const row = e.target.closest("[data-line]");
+      if (!row) return;
+      if (e.target.matches("[data-line-size]") || e.target.matches("[data-line-qty]")) {
+        const size = row.querySelector("[data-line-size]").value;
+        const qty = parseInt(row.querySelector("[data-line-qty]").value, 10) || 1;
+        mnUpdateCartLine(row.dataset.productId, row.dataset.sku, size, qty);
+      }
+    });
+  </script>
+</body>
+</html>

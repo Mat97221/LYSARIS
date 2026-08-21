@@ -1006,6 +1006,17 @@ a, button, [role="button"], input[type="submit"] {
   color: rgb(179 38 30 / var(--tw-text-opacity, 1));
 }
 
+/* Native checkbox, just recoloured to the brand ink instead of the browser default blue —
+     no custom-built checkbox component, matches "menus déroulants natifs" elsewhere on the
+     cart/devis pages (native form controls stay easiest to use at arm's length on mobile).
+     `@apply accent-marine` here, not a raw `theme()` CSS value — theme() calls placed outside
+     @apply silently resolve to nothing in this project's build (see the now-transparent
+     focus-visible outline above, a pre-existing bug this sidesteps rather than fixes). */
+
+.mn-checkbox{
+  accent-color: #1E2C3A;
+}
+
 /* ============================================================
      Editorial homepage — manifesto chapters, caviar carousel, texture band
      ============================================================
@@ -1135,6 +1146,14 @@ a, button, [role="button"], input[type="submit"] {
   right: 0px;
 }
 
+.-right-2\.5{
+  right: -0.625rem;
+}
+
+.-top-2\.5{
+  top: -0.625rem;
+}
+
 .bottom-0{
   bottom: 0px;
 }
@@ -1249,12 +1268,32 @@ a, button, [role="button"], input[type="submit"] {
   margin-bottom: 2rem;
 }
 
+.ml-1{
+  margin-left: 0.25rem;
+}
+
 .ml-3{
   margin-left: 0.75rem;
 }
 
+.mt-0\.5{
+  margin-top: 0.125rem;
+}
+
+.mt-1{
+  margin-top: 0.25rem;
+}
+
+.mt-1\.5{
+  margin-top: 0.375rem;
+}
+
 .mt-10{
   margin-top: 2.5rem;
+}
+
+.mt-12{
+  margin-top: 3rem;
 }
 
 .mt-2{
@@ -1311,6 +1350,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .aspect-square{
   aspect-ratio: 1 / 1;
+}
+
+.h-11{
+  height: 2.75rem;
 }
 
 .h-20{
@@ -1377,12 +1420,36 @@ a, button, [role="button"], input[type="submit"] {
   height: 100vh;
 }
 
+.\!min-h-\[40px\]{
+  min-height: 40px !important;
+}
+
+.\!min-h-\[44px\]{
+  min-height: 44px !important;
+}
+
+.min-h-\[36px\]{
+  min-height: 36px;
+}
+
 .min-h-\[42vh\]{
   min-height: 42vh;
 }
 
 .min-h-\[44px\]{
   min-height: 44px;
+}
+
+.w-11{
+  width: 2.75rem;
+}
+
+.w-16{
+  width: 4rem;
+}
+
+.w-20{
+  width: 5rem;
 }
 
 .w-3{
@@ -1419,6 +1486,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .w-full{
   width: 100%;
+}
+
+.min-w-\[16px\]{
+  min-width: 16px;
 }
 
 .max-w-3xl{
@@ -1626,6 +1697,10 @@ a, button, [role="button"], input[type="submit"] {
   overflow: hidden;
 }
 
+.whitespace-nowrap{
+  white-space: nowrap;
+}
+
 .rounded{
   border-radius: 0.25rem;
 }
@@ -1762,9 +1837,19 @@ a, button, [role="button"], input[type="submit"] {
   padding: 2rem;
 }
 
+.\!px-2{
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
 .\!px-4{
   padding-left: 1rem !important;
   padding-right: 1rem !important;
+}
+
+.\!py-2{
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .\!py-2\.5{
@@ -1772,9 +1857,19 @@ a, button, [role="button"], input[type="submit"] {
   padding-bottom: 0.625rem !important;
 }
 
+.px-1{
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-2\.5{
   padding-left: 0.625rem;
   padding-right: 0.625rem;
+}
+
+.px-3{
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .px-4{
@@ -1844,6 +1939,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .pb-24{
   padding-bottom: 6rem;
+}
+
+.pb-3{
+  padding-bottom: 0.75rem;
 }
 
 .pl-4{
@@ -1958,6 +2057,10 @@ a, button, [role="button"], input[type="submit"] {
   font-style: italic;
 }
 
+.leading-4{
+  line-height: 1rem;
+}
+
 .leading-relaxed{
   line-height: 1.7;
 }
@@ -1968,6 +2071,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .tracking-\[0\.18em\]{
   letter-spacing: 0.18em;
+}
+
+.tracking-label{
+  letter-spacing: 0.12em;
 }
 
 .tracking-wide{
@@ -2031,6 +2138,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .text-marine\/50{
   color: rgb(30 44 58 / 0.5);
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .opacity-0{
@@ -2434,6 +2545,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .nav-glass.mn-hero-nav .mn-nav-link,
+.nav-glass.mn-hero-nav .mn-cart-link,
 .nav-glass.mn-hero-nav #mn-menu-toggle {
   color: #f4efe6;
 }
@@ -2482,6 +2594,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
+.nav-glass.mn-hero-nav.is-scrolled .mn-cart-link,
 .nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
   color: #2e2b24;
 }
@@ -2511,6 +2624,16 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(30 44 58 / 0.6);
 }
 
+.hover\:bg-marine:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:text-error:hover{
+  --tw-text-opacity: 1;
+  color: rgb(179 38 30 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-ivoire:hover{
   --tw-text-opacity: 1;
   color: rgb(246 242 234 / var(--tw-text-opacity, 1));
@@ -2523,6 +2646,10 @@ a, button, [role="button"], input[type="submit"] {
 
 .hover\:underline:hover{
   text-decoration-line: underline;
+}
+
+.hover\:no-underline:hover{
+  text-decoration-line: none;
 }
 
 .focus\:\!border-ivoire:focus{
@@ -2636,6 +2763,10 @@ a, button, [role="button"], input[type="submit"] {
 
   .sm\:flex-row{
     flex-direction: row;
+  }
+
+  .sm\:items-center{
+    align-items: center;
   }
 
   .sm\:justify-between{

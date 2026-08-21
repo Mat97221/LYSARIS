@@ -175,6 +175,16 @@
     @apply text-error text-xs mt-1.5;
   }
 
+  /* Native checkbox, just recoloured to the brand ink instead of the browser default blue —
+     no custom-built checkbox component, matches "menus déroulants natifs" elsewhere on the
+     cart/devis pages (native form controls stay easiest to use at arm's length on mobile).
+     `@apply accent-marine` here, not a raw `theme()` CSS value — theme() calls placed outside
+     @apply silently resolve to nothing in this project's build (see the now-transparent
+     focus-visible outline above, a pre-existing bug this sidesteps rather than fixes). */
+  .mn-checkbox {
+    @apply accent-marine;
+  }
+
   .divider-navy {
     @apply h-px w-16 bg-navy;
   }
@@ -519,6 +529,7 @@
 }
 
 .nav-glass.mn-hero-nav .mn-nav-link,
+.nav-glass.mn-hero-nav .mn-cart-link,
 .nav-glass.mn-hero-nav #mn-menu-toggle {
   color: #f4efe6;
 }
@@ -563,6 +574,7 @@
 }
 
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
+.nav-glass.mn-hero-nav.is-scrolled .mn-cart-link,
 .nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
   color: #2e2b24;
 }
