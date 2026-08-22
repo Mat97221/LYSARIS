@@ -35,6 +35,12 @@
       </div>
 
       <div id="mn-cart-editable">
+        <div class="mx-auto mb-6 flex max-w-3xl justify-end">
+          <button type="button" id="mn-cart-clear-btn" class="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-label text-ink-300 transition-colors duration-200 ease-fluid hover:text-error">
+            <span id="mn-cart-clear-icon" class="h-4 w-4"></span><span>Vider le panier</span>
+          </button>
+        </div>
+
         <div id="mn-cart-lines" class="mx-auto flex max-w-3xl flex-col gap-6"></div>
 
         <div id="mn-cart-footer" class="mx-auto mt-12 max-w-3xl border-t border-ink-600/50 pt-8">
@@ -116,10 +122,23 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("mn-cart-clear-icon").innerHTML = MN_ICONS.trash;
       mnRenderCartPage();
       document.getElementById("mn-cart-message").value = mnGetCartMessage();
     });
-    document.addEventListener("mn-cart-updated", mnRenderCartPage);
+    document.addEventListener("mn-cart-updated", () => {
+      mnRenderCartPage();
+      document.getElementById("mn-cart-message").value = mnGetCartMessage();
+    });
+
+    // Vidage complet : action destructive et irréversible, on ne s'y engage pas d'un clic
+    // accidentel — confirm() natif plutôt qu'une modale maison, aucun habillage supplémentaire
+    // nécessaire pour une simple boîte de confirmation.
+    document.getElementById("mn-cart-clear-btn").addEventListener("click", () => {
+      if (window.confirm("Vider le panier ? Cette action est irréversible.")) {
+        mnClearCart();
+      }
+    });
 
     const linesContainer = document.getElementById("mn-cart-lines");
 
