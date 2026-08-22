@@ -88,10 +88,8 @@ function mnProductCard(product, { compact = false } = {}) {
   const titleClass = compact
     ? "h-card text-[1rem] sm:text-[1.2rem] group-hover:text-marine transition-colors"
     : "h-card group-hover:text-marine transition-colors";
-  // État initial déterminé au rendu (mnGetCart(), depuis cart.js, déjà chargé avant ui.js sur
-  // toutes les pages qui appellent mnProductCard) : le bouton affiche directement "Retirer du
-  // panier" si ce produit/conditionnement y est déjà, sans attendre un clic pour le découvrir.
-  const inCart = !compact && mnGetCart().some((l) => l.productId === product.id && l.sku === product.variants[0].sku);
+  // Ajout uniquement : le retrait n'existe que sur la page panier (voir panier.html), jamais
+  // depuis une carte produit — pas de bascule "Retirer" ici, quel que soit l'état du panier.
   const cta = compact
     ? `<div class="mt-auto pt-3 text-center">
         <span class="inline-flex items-center justify-center border border-marine/40 px-5 py-2 text-xs font-semibold uppercase tracking-widest2 text-marine transition-colors duration-200 ease-fluid group-hover:bg-marine group-hover:text-ivoire">Découvrir</span>
@@ -99,10 +97,8 @@ function mnProductCard(product, { compact = false } = {}) {
     : `<div class="mt-auto flex flex-col gap-2 pt-3">
         <span class="text-xs uppercase tracking-wide text-ink-300 group-hover:text-marine transition-colors">Découvrir →</span>
         <button type="button" data-quickadd data-product-id="${product.id}" data-sku="${product.variants[0].sku}"
-          class="relative z-[5] inline-flex w-full min-h-[36px] items-center justify-center gap-1.5 whitespace-nowrap border px-3 py-1.5 text-xs font-medium uppercase tracking-label transition-colors duration-200 ease-fluid ${
-            inCart ? "border-marine bg-marine text-ivoire hover:bg-navy-hover" : "border-marine/40 text-marine hover:bg-marine hover:text-ivoire"
-          }">
-          <span data-quickadd-icon class="h-3.5 w-3.5 shrink-0">${inCart ? MN_ICONS.trash : MN_ICONS.cart}</span><span data-quickadd-label>${inCart ? "Retirer du panier" : "Ajouter au panier"}</span>
+          class="relative z-[5] inline-flex w-full min-h-[36px] items-center justify-center gap-1.5 whitespace-nowrap border border-marine/40 px-3 py-1.5 text-xs font-medium uppercase tracking-label text-marine transition-colors duration-200 ease-fluid hover:bg-marine hover:text-ivoire">
+          <span data-quickadd-icon class="h-3.5 w-3.5 shrink-0">${MN_ICONS.cart}</span><span data-quickadd-label>Ajouter au panier</span>
         </button>
       </div>`;
   return `

@@ -115,47 +115,27 @@ function mnRefreshCartBadge() {
 
 document.addEventListener("mn-cart-updated", mnRefreshCartBadge);
 
-/** Remet à jour l'icône/le libellé de chaque bouton "Ajouter au panier" présent sur la page
-    d'après l'état réel du panier — appelé après chaque mnSaveCart() (retrait depuis une AUTRE
-    carte du même produit, page panier ouverte dans un second onglet, etc.) pour que tous les
-    boutons restent synchronisés, pas seulement celui qui vient d'être cliqué. */
-function mnRefreshQuickAddButtons() {
-  const items = mnGetCart();
-  document.querySelectorAll("[data-quickadd]").forEach((btn) => {
-    const inCart = items.some((l) => l.productId === btn.dataset.productId && l.sku === btn.dataset.sku);
-    const icon = btn.querySelector("[data-quickadd-icon]");
-    const label = btn.querySelector("[data-quickadd-label]");
-    if (icon) icon.innerHTML = inCart ? MN_ICONS.trash : MN_ICONS.cart;
-    if (label) label.textContent = inCart ? "Retirer du panier" : "Ajouter au panier";
-    btn.classList.toggle("border-marine", inCart);
-    btn.classList.toggle("bg-marine", inCart);
-    btn.classList.toggle("text-ivoire", inCart);
-    btn.classList.toggle("hover:bg-navy-hover", inCart);
-    btn.classList.toggle("border-marine/40", !inCart);
-    btn.classList.toggle("text-marine", !inCart);
-    btn.classList.toggle("hover:bg-marine", !inCart);
-    btn.classList.toggle("hover:text-ivoire", !inCart);
-  });
-}
-
-document.addEventListener("mn-cart-updated", mnRefreshQuickAddButtons);
-
 /** Délégation sur `document` plutôt qu'un binding au moment du rendu : les cartes produit
     (mnProductCard) sont injectées dynamiquement via innerHTML après coup sur boutique.html et
     produit.html, un binding direct au moment de leur création serait perdu à chaque nouveau
     rendu (changement de filtre catégorie, par ex.). La délégation reste valable quel que soit
     le moment où le bouton apparaît dans le DOM.
-    Le bouton bascule entre les deux états plutôt que de se contenter d'ajouter : un même produit
-    déjà présent dans le panier se retire d'un second clic, sans repasser par la page panier. */
+    Ajout uniquement : ce bouton n'a pas de bascule "retirer" — retirer un article du panier
+    n'est possible que sur panier.html (data-remove, voir ce fichier), jamais depuis une carte
+    produit. Cliquer plusieurs fois ici incrémente juste la quantité de la ligne existante. */
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-quickadd]");
-  if (!btn) return;
+  if (!btn || btn.disabled) return;
   e.preventDefault();
-  const { productId, sku } = btn.dataset;
-  const alreadyInCart = mnGetCart().some((l) => l.productId === productId && l.sku === sku);
-  if (alreadyInCart) {
-    mnRemoveCartLine(productId, sku);
-  } else {
-    mnAddToCart(productId, sku, 1);
-  }
+  mnAddToCart(btn.dataset.productId, btn.dataset.sku, 1);
+  // Touche seulement le libellé, pas tout le bouton — une réécriture de btn.innerHTML/textContent
+  // effacerait l'icône SVG à côté (perdue pour de bon dès le premier clic, ré-assignation ou pas).
+  const label = btn.querySelector("[data-quickadd-label]");
+  const original = label.textContent;
+  btn.disabled = true;
+  label.textContent = "Ajouté ✓";
+  setTimeout(() => {
+    label.textContent = original;
+    btn.disabled = false;
+  }, 1400);
 });

@@ -1737,11 +1737,6 @@ a, button, [role="button"], input[type="submit"] {
   border-color: rgb(246 242 234 / 0.15);
 }
 
-.border-marine{
-  --tw-border-opacity: 1;
-  border-color: rgb(30 44 58 / var(--tw-border-opacity, 1));
-}
-
 .border-marine\/30{
   border-color: rgb(30 44 58 / 0.3);
 }
@@ -2603,11 +2598,6 @@ a, button, [role="button"], input[type="submit"] {
 .hover\:bg-marine:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(30 44 58 / var(--tw-bg-opacity, 1));
-}
-
-.hover\:bg-navy-hover:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(43 63 89 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-error:hover{
