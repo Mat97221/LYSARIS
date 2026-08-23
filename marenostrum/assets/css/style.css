@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap');
 
-/* Single loading point for the brand typeface — change weights here only. One family, Archivo,
-   used sitewide (see tailwind.config.js: both "titre" and "texte" resolve to it) — weight alone
-   carries the hierarchy: 400 for body copy, 500 for subtitles/buttons/labels, 600 for section
-   headings (H1/H2). */
+/* Single loading point for the brand typeface — change weights here only. One family, Switzer
+   (Fontshare, free license), used sitewide (see tailwind.config.js: both "titre" and "texte"
+   resolve to it) — weight alone carries the hierarchy: 400 for body copy, 500 for
+   subtitles/buttons/labels, 600 for section headings (H1/H2). font-display: swap is already
+   set by Fontshare's own stylesheet response, not repeated here. */
 
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
@@ -591,7 +592,7 @@ html {
      The body just needs its own solid fallback color underneath that layer. */
 
 body{
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
   --tw-text-opacity: 1;
   color: rgb(17 17 16 / var(--tw-text-opacity, 1));
   -webkit-font-smoothing: antialiased;
@@ -727,7 +728,7 @@ a, button, [role="button"], input[type="submit"] {
    */
 
 .h-page{
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
   font-size: 3rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -752,7 +753,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .h-section{
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
   font-size: 2.25rem;
   line-height: 2.5rem;
   font-weight: 600;
@@ -771,7 +772,7 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .h-card{
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 500;
@@ -832,7 +833,7 @@ a, button, [role="button"], input[type="submit"] {
   padding-right: 1.75rem;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
@@ -873,7 +874,7 @@ a, button, [role="button"], input[type="submit"] {
   padding-right: 1.75rem;
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
@@ -1976,11 +1977,11 @@ a, button, [role="button"], input[type="submit"] {
 }
 
 .font-texte{
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
 }
 
 .font-titre{
-  font-family: Archivo, Inter, -apple-system, sans-serif;
+  font-family: Switzer, Inter, -apple-system, sans-serif;
 }
 
 .text-2xl{

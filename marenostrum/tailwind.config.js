@@ -66,12 +66,12 @@ module.exports = {
         error: "#B3261E" // deep red — reads correctly again now that form surfaces are light
       },
       fontFamily: {
-        // Single-typeface system (Google Fonts, loaded once in src/input.css): Archivo
+        // Single-typeface system (Fontshare, loaded once in src/input.css): Switzer
         // everywhere. "titre" and "texte" both resolve to the same family — kept as two
         // Tailwind keys only because every page already calls font-titre/font-texte; weight
         // (400/500/600) is what carries the hierarchy now, not a font swap.
-        titre: ["Archivo", "Inter", "-apple-system", "sans-serif"],
-        texte: ["Archivo", "Inter", "-apple-system", "sans-serif"]
+        titre: ["Switzer", "Inter", "-apple-system", "sans-serif"],
+        texte: ["Switzer", "Inter", "-apple-system", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",
@@ -80,7 +80,7 @@ module.exports = {
       },
       letterSpacing: {
         widest2: "0.25em",
-        // Buttons and form labels (Archivo Medium, uppercase) — 0.10-0.14em band from the
+        // Buttons and form labels (Switzer Medium, uppercase) — 0.10-0.14em band from the
         // typeface brief, fixed at its midpoint so every button/label reads consistently.
         label: "0.12em"
       },

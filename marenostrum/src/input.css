@@ -1,8 +1,9 @@
-/* Single loading point for the brand typeface — change weights here only. One family, Archivo,
-   used sitewide (see tailwind.config.js: both "titre" and "texte" resolve to it) — weight alone
-   carries the hierarchy: 400 for body copy, 500 for subtitles/buttons/labels, 600 for section
-   headings (H1/H2). */
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap');
+/* Single loading point for the brand typeface — change weights here only. One family, Switzer
+   (Fontshare, free license), used sitewide (see tailwind.config.js: both "titre" and "texte"
+   resolve to it) — weight alone carries the hierarchy: 400 for body copy, 500 for
+   subtitles/buttons/labels, 600 for section headings (H1/H2). font-display: swap is already
+   set by Fontshare's own stylesheet response, not repeated here. */
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap');
 
 @tailwind base;
 @tailwind components;
