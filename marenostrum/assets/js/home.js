@@ -26,7 +26,7 @@ function mnHomeHero() {
          l'ancien voile bas, translatée à la nouvelle position du texte. -->
     <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.6) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.58) 0%, rgba(17,17,16,0.22) 42%, transparent 68%)"></div>
     <div class="container-page relative z-10 flex h-full items-center">
-      <p class="animate-fadeUp [animation-delay:180ms] font-titre text-3xl italic text-ivoire sm:text-4xl">Un grain constant, commande après commande.</p>
+      <p class="animate-fadeUp [animation-delay:180ms] font-titre text-3xl italic text-ivoire sm:text-4xl">L'apogée des saveurs.</p>
     </div>
   </section>`;
 }

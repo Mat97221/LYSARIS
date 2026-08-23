@@ -63,7 +63,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grain fin, caractère affirmé",
     badge: null,
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "Le Sevruga se distingue par un grain plus petit et des notes iodées franches, constantes lot après lot.",
@@ -126,7 +126,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grain délicat, finale fine",
     badge: null,
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "Le Sterlet, plus petit esturgeon d'Europe, offre un grain délicat et une finale fine, régulière d'un lot à l'autre.",
@@ -145,7 +145,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grain ferme, notes de noisette",
     badge: "Best-seller",
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "L'Esturgeon Russe (Osciètre) offre un grain ferme et des notes de noisette, constants d'une commande à l'autre.",
@@ -167,7 +167,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grain rond, texture généreuse",
     badge: "Nouveauté",
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "Cousin du Beluga, le Kaluga offre une texture généreuse et une pointe de douceur supplémentaire, grain après grain.",
@@ -211,7 +211,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grain soutenu, texture ferme",
     badge: null,
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "Cet esturgeon offre un grain soutenu et une texture ferme, réguliers d'un lot à l'autre.",
@@ -233,7 +233,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grands formats, calibrage régulier",
     badge: null,
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "Le Kaluga Premium réserve à nos plus grands formats les lots au calibrage le plus régulier de la récolte.",
@@ -251,7 +251,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Texture souple, une entrée en matière régulière",
     badge: null,
-    origin: "Hongrie, bassin du Danube — Danubius Caviar",
+    origin: "Hongrie, bassin du Danube",
     affinage: null,
     description:
       "Le Sibérien, esturgeon le plus élevé au monde, offre une texture souple et un grain constant, un bon repère pour découvrir le caviar.",
@@ -272,7 +272,7 @@ const MARENOSTRUM_PRODUCTS = [
     category: "caviar-esturgeon",
     tagline: "Grand grain, texture crémeuse",
     badge: "Édition limitée",
-    origin: "Hongrie, bassin du Danube — Danubius Caviar, certifié CITES",
+    origin: "Hongrie, bassin du Danube, certifié CITES",
     affinage: null,
     description:
       "Le Beluga offre le grain le plus gros et la texture la plus crémeuse parmi nos esturgeons. Traçabilité CITES complète, lot par lot.",

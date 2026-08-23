@@ -1302,10 +1302,6 @@ a, button, [role="button"], input[type="submit"] {
   display: inline-flex;
 }
 
-.table{
-  display: table;
-}
-
 .grid{
   display: grid;
 }
