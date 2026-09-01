@@ -1577,10 +1577,6 @@ a, button, [role="button"], input[type="submit"] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .flex-col{
   flex-direction: column;
 }
@@ -1986,11 +1982,6 @@ a, button, [role="button"], input[type="submit"] {
   line-height: 2rem;
 }
 
-.text-3xl{
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
 .text-4xl{
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -2216,12 +2207,16 @@ a, button, [role="button"], input[type="submit"] {
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+.\[animation-delay\:100ms\]{
+  animation-delay: 100ms;
+}
+
 .\[animation-delay\:160ms\]{
   animation-delay: 160ms;
 }
 
-.\[animation-delay\:180ms\]{
-  animation-delay: 180ms;
+.\[animation-delay\:200ms\]{
+  animation-delay: 200ms;
 }
 
 .\[animation-delay\:80ms\]{
@@ -2755,11 +2750,6 @@ a, button, [role="button"], input[type="submit"] {
   .sm\:text-3xl{
     font-size: 1.875rem;
     line-height: 2.25rem;
-  }
-
-  .sm\:text-4xl{
-    font-size: 2.25rem;
-    line-height: 2.5rem;
   }
 
   .sm\:text-5xl{

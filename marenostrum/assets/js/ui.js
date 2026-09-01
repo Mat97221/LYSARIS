@@ -61,9 +61,9 @@ function mnWaveDivider(colorClass) {
  * déborderait sur le contenu voisin (texte, carte suivante dans une grille).
  *
  * `openSrc`/`openAlt` changent uniquement la photo du dessous (les grains) — le couvercle
- * (couvercle.png) reste le même partout, il ne porte aucun contenu propre à une espèce.
- * mnProductCard() passe la variante saumon (boite-ouverte-saumon.webp) pour category ===
- * "caviar-saumon" ; tout le reste (produit.html, la pièce maîtresse) garde le caviar par défaut.
+ * (couvercle.png) reste le même partout, il ne porte aucun contenu propre à une espèce. Le
+ * catalogue ne comportant plus qu'une seule gamme (caviar), tous les appels (mnProductCard(),
+ * produit.html, la pièce maîtresse de l'accueil) utilisent la variante par défaut.
  */
 function mnTinReveal(openSrc, openAlt) {
   const src = openSrc || "assets/img/boite-ouverte.png";
@@ -105,11 +105,7 @@ function mnProductCard(product, { compact = false } = {}) {
   <div class="card-product group" data-category="${product.category}">
     ${mnBadge(product.badge)}
     <a href="produit.html?id=${product.id}" aria-hidden="true" tabindex="-1" class="relative z-[5] flex h-56 items-center justify-center overflow-hidden bg-ivoire">
-      ${
-        product.category === "caviar-saumon"
-          ? mnTinReveal("assets/img/boite-ouverte-saumon.webp", "Boîte d'œufs de saumon Marenostrum 50g")
-          : mnTinReveal()
-      }
+      ${mnTinReveal()}
     </a>
     <div class="flex flex-1 flex-col gap-3 pt-5">
       <a href="produit.html?id=${product.id}" class="stretched-link block">
@@ -132,43 +128,22 @@ function mnHeader(active) {
   const heroNav = active === "accueil" ? " mn-hero-nav" : "";
 
   // "Nos produits" opens a hover mega-menu (products.js loads before ui.js on every page, so
-  // MARENOSTRUM_PRODUCTS/MARENOSTRUM_CATEGORIES are already defined here). The two caviar
-  // categories are expanded into the actual caviar types available, each under its own column
-  // heading, instead of one flat "Caviar d'esturgeon"/"Caviar de saumon" link; poissons fumés
-  // and épicerie fine stay as single links in a third column. Kept open via CSS
-  // (:hover/:focus-within on the wrapping .group) — no JS needed. The appearance uses a slow,
-  // soft "water" easing (duration-1000, ease-water — see tailwind.config.js) instead of the
-  // site's usual quick ease-fluid, so the panel surfaces gently rather than snapping open.
-  // Panel is `fixed` (viewport-relative), not `absolute` under the trigger link — centering it
-  // with `left-1/2 -translate-x-1/2` this way keeps it dead-center on the page regardless of
-  // where "Nos produits" happens to fall in the nav row, and sidesteps the overflow risk an
-  // absolute panel would have on either edge at that position. `top-20` matches the header's own
-  // height (h-20) so the panel sits flush under it — accurate on every page: fixed nav-glass
-  // itself on the homepage hero, and a `sticky top-0` bar elsewhere that's already at the top of
-  // the viewport whenever this menu is reachable. Width still capped at `min(640px, 100vw -
-  // 2rem)` as a safety margin on narrow viewports. Only shown at lg (1024px) and up — tablets
-  // get the same compact, always-visible category links as phones, inside #mn-mobile-menu below
-  // — arguably a better fit for touch anyway, since :hover doesn't behave consistently there.
-  const caviarColumn = (categoryId, label) => {
-    const items = MARENOSTRUM_PRODUCTS.filter((p) => p.category === categoryId)
-      .map(
-        (p) =>
-          `<a href="produit.html?id=${p.id}" class="block py-1.5 text-sm text-ink-100 hover:text-marine transition-colors duration-200 ease-fluid">${p.name}</a>`
-      )
-      .join("");
-    return `
-      <div>
-        <a href="boutique.html?cat=${categoryId}" class="eyebrow mb-4 block hover:underline">${label}</a>
-        <div class="flex flex-col">${items}</div>
-      </div>`;
-  };
-
-  const otherCategoryLinks = MARENOSTRUM_CATEGORIES.filter((c) => c.id === "poissons-fumes" || c.id === "epicerie-fine")
-    .map(
-      (c) =>
-        `<a href="boutique.html?cat=${c.id}" class="block py-1.5 text-sm text-ink-100 hover:text-marine transition-colors duration-200 ease-fluid">${c.label}</a>`
-    )
-    .join("");
+  // MARENOSTRUM_PRODUCTS is already defined here). Le catalogue ne comportant plus qu'une seule
+  // gamme (4 espèces de caviar), le panneau liste directement les produits plutôt que des colonnes
+  // par catégorie. Kept open via CSS (:hover/:focus-within on the wrapping .group) — no JS needed.
+  // The appearance uses a slow, soft "water" easing (duration-1000, ease-water — see
+  // tailwind.config.js) instead of the site's usual quick ease-fluid, so the panel surfaces gently
+  // rather than snapping open. Panel is `fixed` (viewport-relative), not `absolute` under the
+  // trigger link — centering it with `left-1/2 -translate-x-1/2` this way keeps it dead-center on
+  // the page regardless of where "Nos produits" happens to fall in the nav row. `top-20` matches
+  // the header's own height (h-20) so the panel sits flush under it — accurate on every page:
+  // fixed nav-glass itself on the homepage hero, and a `sticky top-0` bar elsewhere that's already
+  // at the top of the viewport whenever this menu is reachable. Only shown at lg (1024px) and up —
+  // tablets get the same compact, always-visible product links as phones, inside #mn-mobile-menu
+  // below — arguably a better fit for touch anyway, since :hover doesn't behave consistently there.
+  const productLinks = MARENOSTRUM_PRODUCTS.map(
+    (p) => `<a href="produit.html?id=${p.id}" class="block py-1.5 text-sm text-ink-100 hover:text-marine transition-colors duration-200 ease-fluid">${p.name}</a>`
+  ).join("");
 
   const productsNav = `
       <div class="relative group">
@@ -179,13 +154,9 @@ function mnHeader(active) {
           <span class="h-3 w-3 transition-transform duration-1000 ease-water group-hover:rotate-180 group-focus-within:rotate-180">${MN_ICONS.chevronDown}</span>
         </a>
         <div class="fixed left-1/2 top-20 -translate-x-1/2 pt-4 opacity-0 invisible translate-y-3 transition-all duration-1000 ease-water group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0">
-          <div class="grid grid-cols-3 gap-10 bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:min(640px, calc(100vw - 2rem))">
-            ${caviarColumn("caviar-esturgeon", "Caviar d'esturgeon")}
-            ${caviarColumn("caviar-saumon", "Caviar de saumon")}
-            <div>
-              <p class="eyebrow mb-4">Autres gammes</p>
-              <div class="flex flex-col">${otherCategoryLinks}</div>
-            </div>
+          <div class="bg-ivoire border border-ink-600/50 shadow-lifted p-8" style="width:min(260px, calc(100vw - 2rem))">
+            <p class="eyebrow mb-4">Nos espèces</p>
+            <div class="flex flex-col">${productLinks}</div>
           </div>
         </div>
       </div>`;
@@ -222,12 +193,9 @@ function mnHeader(active) {
         <div class="flex flex-col gap-3">
           ${link("boutique.html", "Nos produits", "boutique")}
           <div class="ml-3 flex flex-col gap-2.5 border-l border-ink-600/50 pl-4">
-            ${MARENOSTRUM_CATEGORIES.filter((c) => c.id !== "tous")
-              .map(
-                (c) =>
-                  `<a href="boutique.html?cat=${c.id}" class="mn-nav-link text-xs uppercase tracking-wide text-ink-200 transition-colors duration-200 hover:text-marine">${c.label}</a>`
-              )
-              .join("")}
+            ${MARENOSTRUM_PRODUCTS.map(
+              (p) => `<a href="produit.html?id=${p.id}" class="mn-nav-link text-xs uppercase tracking-wide text-ink-200 transition-colors duration-200 hover:text-marine">${p.name}</a>`
+            ).join("")}
           </div>
         </div>
         ${link("a-propos.html", "La Maison", "apropos")}
@@ -245,16 +213,15 @@ function mnFooter() {
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-titre font-semibold tracking-[0.18em] text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
-        <p class="text-sm text-ivoire/70 leading-relaxed">Caviar sélectionné et conditionné, élevé en Hongrie, bassin du Danube. Calibrage constant, fournisseur de la restauration et de l'hôtellerie.</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Le caviar choisi, calibré et garanti. Constance, qualité, excellence et professionnalisme pour la restauration et l'hôtellerie.</p>
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Produits</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
           <li><a class="hover:text-ivoire transition-colors" href="boutique.html">Tous les produits</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=caviar-esturgeon">Caviar d'esturgeon</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=caviar-saumon">Caviar de saumon</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=poissons-fumes">Poissons fumés</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="boutique.html?cat=epicerie-fine">Épicerie fine</a></li>
+          ${MARENOSTRUM_PRODUCTS.map(
+            (p) => `<li><a class="hover:text-ivoire transition-colors" href="produit.html?id=${p.id}">${p.name}</a></li>`
+          ).join("")}
         </ul>
       </div>
       <div>

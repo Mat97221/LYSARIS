@@ -70,7 +70,7 @@
           <div class="mt-8 grid grid-cols-1 gap-6 border-t border-ink-600/50 pt-8 sm:grid-cols-3">
             <div class="flex items-start gap-3">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-reassurance-icon-1"></span>
-              <p class="text-sm text-ink-200 leading-snug">Traçabilité<br />CITES</p>
+              <p class="text-sm text-ink-200 leading-snug">Traçabilité<br />CITES, lot, scellage</p>
             </div>
             <div class="flex items-start gap-3">
               <span class="h-5 w-5 shrink-0 text-marine" id="mn-reassurance-icon-2"></span>
@@ -94,7 +94,7 @@
 
           <dl class="mt-8 grid grid-cols-1 gap-4 border-t border-ink-600/50 pt-8 sm:grid-cols-2">
             <div>
-              <dt class="field-label">Origine</dt>
+              <dt class="field-label">Sourcing</dt>
               <dd id="mn-product-origin" class="text-ink-100 text-sm"></dd>
             </div>
             <div id="mn-affinage-block">
@@ -166,8 +166,7 @@
       document.getElementById("mn-og-description").content = product.tagline ? `${product.tagline} — ${product.name}, MARENOSTRUM.` : `Fiche produit ${product.name}, MARENOSTRUM.`;
       document.getElementById("mn-og-url").content = `https://mat97221.github.io/LYSARIS/produit.html?id=${encodeURIComponent(product.id)}`;
       document.getElementById("mn-breadcrumb-name").textContent = product.name;
-      const categoryLabel = MARENOSTRUM_CATEGORIES.find((c) => c.id === product.category);
-      document.getElementById("mn-product-species").textContent = categoryLabel ? categoryLabel.label : "MARENOSTRUM";
+      document.getElementById("mn-product-species").textContent = "Caviar";
       document.getElementById("mn-product-name").textContent = product.name;
       document.getElementById("mn-product-latin").textContent = product.species ? `(${product.species})` : "";
       document.getElementById("mn-product-tagline").textContent = product.tagline;
@@ -228,10 +227,7 @@
       }
       document.getElementById("mn-product-content").classList.remove("hidden");
       document.getElementById("mn-sticky-cta").classList.remove("hidden");
-      document.querySelector("[data-tin-reveal]").outerHTML =
-        product.category === "caviar-saumon"
-          ? mnTinReveal("assets/img/boite-ouverte-saumon.webp", "Boîte d'œufs de saumon Marenostrum 50g")
-          : mnTinReveal();
+      document.querySelector("[data-tin-reveal]").outerHTML = mnTinReveal();
       document.getElementById("mn-reassurance-icon-1").innerHTML = MN_ICONS.shield;
       document.getElementById("mn-reassurance-icon-2").innerHTML = MN_ICONS.truck;
       document.getElementById("mn-reassurance-icon-3").innerHTML = MN_ICONS.clock;

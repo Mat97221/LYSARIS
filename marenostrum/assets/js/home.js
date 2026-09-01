@@ -6,7 +6,7 @@
  * Seul index.html charge ce fichier — les autres pages n'en ont pas besoin.
  *
  * Structure volontairement resserrée (une idée par section, peu de texte, beaucoup de vide) pour
- * une page rapide et calme : hero silencieux → bande "L'eau vive" → sélection → gamme professionnels → pied de
+ * une page rapide et calme : hero silencieux → bande "Traçabilité" → sélection → gamme professionnels → pied de
  * page. Les 4 photos (hero-montagne.webp, eau-vive.webp, grain-macro.webp, gamme-boites.webp)
  * sont des fichiers nommés en dur dans assets/img/, encodés en WebP pour le poids (26-40% du
  * JPEG d'origine) — pas de mécanisme <image-slot> ici puisque ce ne sont pas des visuels en
@@ -25,14 +25,16 @@ function mnHomeHero() {
          à gauche pour la phrase, centrée verticalement — même logique de contraste AA que
          l'ancien voile bas, translatée à la nouvelle position du texte. -->
     <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.6) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.58) 0%, rgba(17,17,16,0.22) 42%, transparent 68%)"></div>
-    <div class="container-page relative z-10 flex h-full items-center">
-      <p class="animate-fadeUp [animation-delay:180ms] font-titre text-3xl italic text-ivoire sm:text-4xl">L'apogée des saveurs.</p>
+    <div class="container-page relative z-10 flex h-full flex-col justify-center">
+      <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Maison Marenostrum</p>
+      <p class="animate-fadeUp [animation-delay:100ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">L'apogée des saveurs</p>
+      <p class="animate-fadeUp [animation-delay:200ms] mt-6 max-w-lg text-base text-ivoire/90 sm:text-lg">Le caviar choisi, calibré, garanti — pour les tables qui ne pardonnent rien.</p>
     </div>
   </section>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 2) L'EAU VIVE — bande de photo alignée à droite, séparée du hero par de l'espace
+ * 2) TRAÇABILITÉ — bande de photo alignée à droite, séparée du hero par de l'espace
  * ------------------------------------------------------------------------------------------ */
 function mnHomeEauVive() {
   // Pas de container-page ici : cette section a besoin que sa colonne image atteigne le bord
@@ -47,8 +49,8 @@ function mnHomeEauVive() {
   <section class="bg-ivoire overflow-hidden">
     <div class="grid grid-cols-1 items-center gap-8 pt-28 pb-24 lg:grid-cols-[1fr_1.6fr] lg:items-stretch lg:gap-12 lg:pt-40 lg:pb-32">
       <div class="reveal px-5 sm:px-8 lg:pl-10 lg:pr-0">
-        <p class="eyebrow mb-4">L'eau vive</p>
-        <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Élevage en eau vive, bassin du Danube, en Hongrie.</p>
+        <p class="eyebrow mb-4">Traçabilité</p>
+        <p class="font-titre text-2xl italic text-ink-50 sm:text-3xl">Certificat CITES, numéro de lot, date de scellage — sur chaque expédition.</p>
       </div>
       <div class="reveal [transition-delay:120ms] flex h-56 items-center justify-center overflow-hidden sm:h-72 lg:h-auto">
         <img src="assets/img/eau-vive.webp" alt="Boîtes de caviar Marenostrum, vue rapprochée en rangée" loading="lazy" class="h-full w-full object-cover" />
@@ -70,7 +72,7 @@ function mnHomeSelection() {
       <div class="reveal order-2 [transition-delay:150ms]">
         <p class="eyebrow mb-4">La sélection</p>
         <h2 class="h-section mb-6">Un calibrage vérifié, lot après lot</h2>
-        <p class="prose-copy mb-2">Chaque lot est calibré et goûté avant d'être retenu.</p>
+        <p class="prose-copy mb-2">Chaque lot est calibré, goûté et évalué sur sa texture et sa salinité avant d'être retenu.</p>
         <p class="prose-copy mb-8">Le grain reste le même d'une commande à l'autre.</p>
         <a href="a-propos.html" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Notre savoir-faire →</a>
       </div>
@@ -79,10 +81,10 @@ function mnHomeSelection() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 3bis) NOS ESPÈCES — grille de 3-4 cartes sobres, une par espèce/gamme, sans prix
+ * 3bis) NOS ESPÈCES — grille des 4 cartes sobres, une par espèce du catalogue, sans prix
  * ------------------------------------------------------------------------------------------ */
 function mnHomeEspeces() {
-  const ids = ["esturgeon-russe", "kaluga", "beluga", "keta"];
+  const ids = MARENOSTRUM_PRODUCTS.map((p) => p.id);
   const card = (product, i) => {
     if (!product) return "";
     return `

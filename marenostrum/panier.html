@@ -72,7 +72,7 @@
   <script src="assets/js/ui.js"></script>
   <script>
     function mnCartLineRow(line, idx) {
-      const img = line.product.category === "caviar-saumon" ? "assets/img/boite-ouverte-saumon.webp" : "assets/img/boite-ouverte.png";
+      const img = "assets/img/boite-ouverte.png";
       const sizeOptions = line.product.variants
         .map((v) => `<option value="${v.sku}" ${v.sku === line.sku ? "selected" : ""}>${v.size}</option>`)
         .join("");

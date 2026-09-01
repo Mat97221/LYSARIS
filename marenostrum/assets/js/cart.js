@@ -87,9 +87,9 @@ function mnSetCartMessage(text) {
 
 /** Une ligne "brute" ne porte qu'un id produit et un SKU — la page panier et la page
     coordonnées ont besoin du produit et du variant complets pour s'afficher. Le
-    conditionnement détermine l'unité affichée : "au kg" (poissons fumés à la coupe) se
-    commande en kg, tout le reste (boîtes de 30 g à 1 kg) se commande à la boîte. Filtre les
-    lignes dont le produit n'existe plus (catalogue modifié) plutôt que de planter dessus. */
+    conditionnement détermine l'unité affichée : "au kg" (vendu à la coupe) se commande en kg,
+    tout le reste (boîtes de 30 g à 500 g) se commande à la boîte. Filtre les lignes dont le
+    produit n'existe plus (catalogue modifié) plutôt que de planter dessus. */
 function mnCartLinesResolved() {
   return mnGetCart()
     .map((line) => {

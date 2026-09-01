@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boutique — MARENOSTRUM</title>
-  <meta name="description" content="Catalogue MARENOSTRUM : caviar d'esturgeon et de saumon, poissons fumés, épicerie fine. Calibrage constant, traçabilité CITES, livraison réfrigérée pour la restauration professionnelle." />
+  <meta name="description" content="Catalogue MARENOSTRUM : Osciètre, Beluga, Baeri, Sevruga. Calibrage constant, traçabilité CITES, livraison réfrigérée pour la restauration professionnelle." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/boutique.html" />
   <meta property="og:title" content="Boutique — MARENOSTRUM" />
-  <meta property="og:description" content="Catalogue MARENOSTRUM : caviar d'esturgeon et de saumon, poissons fumés, épicerie fine. Calibrage constant, livraison réfrigérée pour la restauration professionnelle." />
+  <meta property="og:description" content="Catalogue MARENOSTRUM : Osciètre, Beluga, Baeri, Sevruga. Calibrage constant, livraison réfrigérée pour la restauration professionnelle." />
   <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/gamme-boites.webp" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
@@ -26,14 +26,12 @@
       <div class="container-page py-20 text-center reveal">
         <p class="eyebrow mb-3">La boutique</p>
         <h1 class="h-page">Le catalogue, pensé pour la cuisine professionnelle</h1>
-        <p class="prose-copy mx-auto mt-6 text-center">Filtrez par catégorie ou parcourez l'ensemble de la gamme. Calibrage constant, expédition réfrigérée sous 24 à 48h.</p>
+        <p class="prose-copy mx-auto mt-6 text-center">Quatre espèces, un calibrage constant. Expédition réfrigérée sous 24 à 48h.</p>
       </div>
     </section>
 
     <section class="container-page py-20">
-      <div id="mn-category-filters" class="mb-16 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Filtrer par catégorie"></div>
-      <div id="mn-product-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
-      <p id="mn-empty-state" class="hidden py-16 text-center text-ink-300">Aucun produit dans cette catégorie pour le moment.</p>
+      <div id="mn-product-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"></div>
     </section>
   </main>
 
@@ -43,63 +41,14 @@
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/ui.js"></script>
   <script>
-    function mnRenderCategory(catId) {
+    document.addEventListener("DOMContentLoaded", () => {
+      // Catalogue resserré à 4 espèces de caviar (voir products.js) : plus qu'une seule
+      // catégorie, donc plus de filtres à afficher — la grille montre tout le catalogue,
+      // les produits mis en avant (badge Best-seller/Édition limitée) en tête.
       const grid = document.getElementById("mn-product-grid");
-      const empty = document.getElementById("mn-empty-state");
-      let items = catId === "tous" ? MARENOSTRUM_PRODUCTS : MARENOSTRUM_PRODUCTS.filter((p) => p.category === catId);
-      // Sur "Tous les produits" (l'atterrissage par défaut, y compris depuis l'onglet "Nos
-      // produits"), les produits mis en avant (badge Best-seller/Nouveauté/Édition limitée)
-      // passent en tête, tri stable donc le reste garde son ordre.
-      if (catId === "tous") {
-        items = [...items].sort((a, b) => (a.badge ? 0 : 1) - (b.badge ? 0 : 1));
-      }
+      const items = [...MARENOSTRUM_PRODUCTS].sort((a, b) => (a.badge ? 0 : 1) - (b.badge ? 0 : 1));
       grid.innerHTML = items.map(mnProductCard).join("");
       mnStagger(grid, 70);
-      empty.classList.toggle("hidden", items.length > 0);
-
-      // Une catégorie qui ne remplit pas la rangée (ex. Accessoires, 2 produits) se recentre
-      // au lieu de rester calée à gauche avec une colonne vide.
-      const isPartialRow = items.length > 0 && items.length < 3;
-      grid.classList.toggle("lg:grid-cols-3", !isPartialRow);
-      grid.classList.toggle("lg:grid-cols-2", isPartialRow);
-      grid.classList.toggle("mx-auto", isPartialRow);
-      grid.classList.toggle("max-w-3xl", isPartialRow);
-
-      document.querySelectorAll("#mn-category-filters button").forEach((btn) => {
-        const isActive = btn.dataset.cat === catId;
-        btn.classList.toggle("border-navy", isActive);
-        btn.classList.toggle("bg-navy", isActive);
-        btn.classList.toggle("text-ivoire", isActive);
-        btn.classList.toggle("border-ink-500", !isActive);
-        btn.classList.toggle("text-ink-200", !isActive);
-        btn.setAttribute("aria-selected", String(isActive));
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(window.location.search);
-      const requestedCat = params.get("cat") || "tous";
-      const activeCat = MARENOSTRUM_CATEGORIES.some((c) => c.id === requestedCat) ? requestedCat : "tous";
-
-      // Repère visuel clair par catégorie : chaque onglet est une puce à contour ; l'onglet actif
-      // se remplit en bleu marine (pas seulement une couleur de texte/soulignement) pour rester
-      // identifiable au premier coup d'œil, même en parcourant vite la page.
-      const filters = document.getElementById("mn-category-filters");
-      filters.innerHTML = MARENOSTRUM_CATEGORIES.map(
-        (c) =>
-          `<button type="button" role="tab" data-cat="${c.id}" class="border-2 border-ink-500 px-5 py-2.5 min-h-[44px] text-sm font-medium uppercase tracking-wide text-ink-200 transition-colors duration-200 ease-fluid hover:border-navy/60">${c.label}</button>`
-      ).join("");
-
-      filters.querySelectorAll("button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const url = new URL(window.location);
-          url.searchParams.set("cat", btn.dataset.cat);
-          window.history.replaceState({}, "", url);
-          mnRenderCategory(btn.dataset.cat);
-        });
-      });
-
-      mnRenderCategory(activeCat);
     });
   </script>
 </body>
