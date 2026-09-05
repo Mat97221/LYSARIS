@@ -530,7 +530,6 @@
 }
 
 .nav-glass.mn-hero-nav .mn-nav-link,
-.nav-glass.mn-hero-nav .mn-cart-link,
 .nav-glass.mn-hero-nav #mn-menu-toggle {
   color: #f4efe6;
 }
@@ -565,7 +564,6 @@
 }
 
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
-.nav-glass.mn-hero-nav.is-scrolled .mn-cart-link,
 .nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
   color: #2e2b24;
 }

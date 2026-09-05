@@ -1,8 +1,10 @@
-# MARENOSTRUM — site vitrine & e-commerce (démo)
+# MARENOSTRUM — site vitrine B2B (démo)
 
-Site statique HTML / CSS (Tailwind) / JS vanilla pour la marque de caviar
-MARENOSTRUM. Aucun framework, aucun backend : catalogue, panier et tunnel de
-commande fonctionnent entièrement côté client (localStorage / sessionStorage).
+Site statique HTML / CSS (Tailwind) / JS vanilla pour MARENOSTRUM, négociant en
+produits de la mer pour les professionnels (restaurants, hôtels, traiteurs).
+Aucun framework, aucun backend, **aucun panier ni paiement en ligne** : les prix
+des produits de la mer variant chaque jour, le site fonctionne entièrement sur
+un modèle de demande de devis (`devis.html`).
 
 ## Lancer le site en local
 
@@ -26,69 +28,65 @@ quel sans étape de build si vous ne touchez pas aux styles.
 
 ```
 marenostrum/
-├── index.html, boutique.html, produit.html, panier.html, paiement.html,
-│   confirmation.html, a-propos.html, contact.html,
-│   mentions-legales.html, cgv.html, confidentialite.html
+├── index.html                  — accueil (hero, sourcing, gammes, engagements)
+├── produits-de-la-mer.html     — catalogue statique : poissons nobles, poissons
+│                                  de criée, crustacés & coquillages, découpes
+│                                  sur-mesure (cartes sans prix, CTA devis)
+├── caviar.html                 — signature caviar : Osciètre, Beluga, Baeri,
+│                                  Sevruga, affinage Malossol, traçabilité CITES
+├── notre-approche.html         — positionnement : circuit court, mareyeurs
+│                                  sélectionnés, engagements
+├── professionnels.html         — comment nous travaillons, process en 3 étapes
+├── devis.html                  — formulaire de devis central (toutes gammes)
+├── contact.html                — contact général (hors demande de devis)
+├── mentions-legales.html, confidentialite.html
 ├── assets/
 │   ├── css/style.css       — généré par Tailwind (ne pas éditer à la main)
+│   ├── img/                — photos (voir "Emplacements photo" ci-dessous)
 │   └── js/
-│       ├── products.js     — catalogue produits (données de démo)
-│       ├── cart.js         — panier localStorage (MnCart)
-│       ├── checkout.js     — validation du formulaire + commande simulée
-│       └── ui.js           — header/footer, cartes produit, icônes SVG,
-│                              animations de scroll (reveal/stagger)
+│       ├── home.js         — sections de la page d'accueil
+│       ├── image-slot.js   — composant <image-slot> (placeholder photo)
+│       └── ui.js           — header/footer, icônes SVG, boîte de caviar
+│                              animée (mnTinReveal), scroll-reveal (reveal/stagger)
 ├── src/input.css            — source Tailwind (éditer ici)
 ├── tailwind.config.js       — tokens de couleur/typo/animation
-└── design-system/marenostrum/MASTER.md — décisions de design (voir section
-    "Design Evolution" en tête de fichier pour le contexte du thème clair)
+└── design-system/marenostrum/MASTER.md — décisions de design historiques
+    (très en amont du positionnement actuel — voir le code pour l'état réel)
 ```
+
+## Navigation
+
+Accueil · Produits de la mer · Caviar · Notre approche · Professionnels ·
+Contact, plus un CTA "Demander un devis" (`devis.html`) partout dans l'en-tête
+et en pied de page. Aucun onglet "Boutique" ni icône panier : le catalogue
+n'affiche jamais de prix et ne mène jamais à un tunnel d'achat.
+
+## Modèle "demande de devis"
+
+- **Aucun prix affiché** nulle part sur le site — les prix des produits de la
+  mer varient quotidiennement.
+- Chaque carte produit (`produits-de-la-mer.html`, `caviar.html`) porte un
+  unique CTA "Demander un devis" qui renvoie vers `devis.html?gamme=<id>` : le
+  paramètre `gamme` pré-coche la case correspondante dans le formulaire (voir
+  le script en bas de `devis.html`).
+- `devis.html` est le formulaire central : établissement, contact, gammes
+  recherchées (cases à cocher), volume, fréquence, zone de livraison, message.
+  Validation et affichage d'une confirmation en JS pur, aucune donnée n'est
+  réellement transmise (site statique, sans back-end) — voir le
+  `console.log(payload)` dans le script de la page, à remplacer par un vrai
+  service d'envoi (formulaire → e-mail, CRM, etc.) en production.
+- `contact.html` reste un canal de contact général (question, partenariat)
+  distinct du formulaire de devis.
 
 ## Contenu de démonstration
 
-- **Catalogue** (`assets/js/products.js`) : 12 produits fictifs (caviars,
-  coffrets, accessoires, épicerie fine), prix indicatifs.
-- **Mentions légales / CGV / Confidentialité** : trames génériques avec des
-  placeholders (`[à compléter]`) pour la raison sociale, le SIRET, l'hébergeur,
-  etc. **À faire relire par un professionnel du droit avant mise en ligne.**
-- **Formulaire de contact** et **newsletter** : simulés en JS (aucun envoi
+- **Mentions légales / Confidentialité** : trames génériques avec des
+  placeholders (`[à compléter]`) pour la raison sociale, le SIRET,
+  l'hébergeur, etc. **À faire relire par un professionnel du droit avant mise
+  en ligne**, notamment la clause CITES/caviar (section 4 des mentions
+  légales).
+- **Formulaires de devis, contact et newsletter** : simulés en JS (aucun envoi
   réel).
-
-## Paiement — passer du mode démonstration à un vrai paiement
-
-`paiement.html` / `assets/js/checkout.js` simulent un paiement : le
-formulaire est validé côté client, une commande est générée et stockée en
-`sessionStorage`, puis l'utilisateur est redirigé vers `confirmation.html`.
-**Aucune donnée bancaire n'est collectée ni transmise.**
-
-Pour un vrai paiement, deux options selon si vous voulez garder un site 100%
-statique ou ajouter une fonction serveur légère :
-
-### Option A — Stripe Payment Links (reste 100% statique)
-
-1. Créez un compte Stripe et un [Payment Link](https://dashboard.stripe.com/payment-links)
-   par produit (ou un lien générique avec quantités ajustables).
-2. Remplacez le bouton "Confirmer et payer" par une redirection vers le
-   Payment Link correspondant au contenu du panier (simple si le panier ne
-   contient qu'un type de produit ; pour un panier multi-produits, il faudra
-   soit limiter à un seul Payment Link "panier" avec des line items fixes,
-   soit passer à l'option B).
-
-### Option B — Stripe Checkout Session (nécessite une fonction serveur)
-
-1. Ajoutez une fonction serverless (Vercel/Netlify/Cloudflare Functions) qui
-   reçoit le contenu du panier (`MnCart.detailedLines()`), crée une
-   [Checkout Session](https://stripe.com/docs/api/checkout/sessions/create)
-   côté serveur avec la clé secrète Stripe, et renvoie l'URL de la session.
-2. Dans `assets/js/checkout.js`, remplacez le bloc `setTimeout(...)` de
-   simulation par un `fetch()` vers cette fonction, puis
-   `window.location.href = session.url`.
-3. Stripe redirige vers vos pages de succès/annulation ; adaptez
-   `confirmation.html` pour lire les paramètres renvoyés par Stripe (ou
-   conservez la logique `sessionStorage` actuelle en la déclenchant depuis la
-   page de succès Stripe).
-
-Dans les deux cas, ne mettez jamais de clé secrète Stripe dans le code
-front-end — seule la clé publique (`pk_...`) peut être exposée côté client.
 
 ## Accessibilité & performance
 
@@ -98,26 +96,27 @@ front-end — seule la clé publique (`pk_...`) peut être exposée côté clien
 - `prefers-reduced-motion` respecté : animations et transitions désactivées
   automatiquement.
 - Focus clavier visible sur tous les éléments interactifs.
-- Illustrations de produits en SVG généré (pas de photos) — à remplacer par
-  de vraies photos produit en production pour un rendu plus premium.
 
 ## Emplacements photo à remplir (`<image-slot>`)
 
-Le site ne contient volontairement aucune photo de caviar : tous les
-emplacements image sont des espaces vides en attente d'un vrai shoot photo.
-
-`assets/js/image-slot.js` définit un composant `<image-slot>` : une case
-photo avec légende, utilisée partout où une photo doit un jour remplacer un
-espace vide (hero de l'accueil, mosaïque « Notre histoire », section
-« abysse », tuiles « Univers », cartes produit, page contact). Ce composant
-vient d'un outil de design (claude.ai/design) et gère le glisser-déposer
-*dans cet outil* ; en dehors (site statique tel que déployé ici), il
+Le site ne dispose d'aucune photo de produits de la mer (poissons, crustacés,
+coquillages, mareyeurs, quais de criée) : ces emplacements utilisent le
+composant `<image-slot>` (`assets/js/image-slot.js`), une case photo avec
+légende. Hors de l'outil de design d'origine (claude.ai/design), ce composant
 affiche simplement l'attribut `src` s'il est présent, sinon l'espace vide
 avec la légende `placeholder`. Pour remplir un emplacement définitivement,
-ajoutez `src="..."` sur l'élément correspondant dans le HTML de la page (ou
-dans `mnProductCard()`/le hero de `index.html` pour les cartes produit et le
-hero, générés en JS).
+ajoutez `src="..."` sur l'élément correspondant dans le HTML de la page.
 
-Le logo (`assets/img/logo-marenostrum-horizontal-noir.png`, fond
-transparent) vient du même outil de design et remplace le wordmark texte
-dans l'en-tête (`mnHeader()` dans `ui.js`).
+Emplacements en attente d'une vraie photo :
+- `index.html` — hero plein écran (actuellement `hero-montagne.webp`, un
+  grain de caviar macro conservé pour ne rien casser — à remplacer par une
+  photo de criée/mareyeur), teaser "Notre approche", 3 tuiles de gammes.
+- `notre-approche.html` — photo "Notre parti pris" (quai, mareyeur).
+- `produits-de-la-mer.html` — les 4 cartes de gammes.
+
+Le caviar (`caviar.html`, teaser accueil, page "Notre approche") utilise en
+revanche de vraies photos existantes (`trois-caviars.webp`, `grain-macro.webp`)
+et n'a pas besoin d'`<image-slot>`.
+
+Le logo (`assets/img/logo-marenostrum-horizontal-noir.png`, fond transparent)
+remplace le wordmark texte dans l'en-tête (`mnHeader()` dans `ui.js`).

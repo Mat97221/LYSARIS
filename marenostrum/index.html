@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MARENOSTRUM — Caviar choisi, calibré, garanti pour la restauration professionnelle</title>
-  <meta name="description" content="MARENOSTRUM, spécialiste du caviar pour les professionnels de la restauration et de l'hôtellerie : constance, qualité, excellence et professionnalisme, commande après commande." />
+  <title>MARENOSTRUM — Négociants en produits de la mer pour les professionnels</title>
+  <meta name="description" content="MARENOSTRUM sélectionne poissons, crustacés, coquillages et caviar pour les professionnels de la restauration et de l'hôtellerie. Circuit court, origine claire, devis sous 48h." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/index.html" />
-  <meta property="og:title" content="MARENOSTRUM — Caviar choisi, calibré, garanti pour la restauration professionnelle" />
-  <meta property="og:description" content="Un caviar constant, une qualité qui ne varie pas, l'excellence de notre sélection — un partenaire professionnel fiable pour la restauration et l'hôtellerie." />
+  <meta property="og:title" content="MARENOSTRUM — Négociants en produits de la mer pour les professionnels" />
+  <meta property="og:description" content="Poissons, crustacés, coquillages et caviar, sélectionnés pour les professionnels de la restauration et de l'hôtellerie. Devis sous 48h." />
   <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/hero-montagne.webp" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
@@ -22,35 +22,50 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- 1) HERO — plein écran, hero-montagne.jpg -->
+    <!-- 1) HERO — plein écran -->
     <div id="mn-hero-slot" data-hero></div>
 
-    <!-- 2) BANDE IMMERSIVE — « Traçabilité », eau-vive.jpg -->
-    <div id="mn-eau-vive-slot" data-eau-vive></div>
+    <!-- 2) CITATION DE MARQUE -->
+    <div id="mn-quote-slot" data-quote></div>
 
-    <!-- 3) LA SÉLECTION — deux colonnes, grain-macro.jpg -->
-    <div id="mn-selection-slot" data-selection></div>
+    <!-- 3) TEASER NOTRE APPROCHE -->
+    <div id="mn-approche-slot" data-approche></div>
 
-    <!-- 3bis) NOS ESPÈCES — grille de cartes par espèce -->
-    <div id="mn-especes-slot" data-especes></div>
+    <!-- 4) SOURCING DIRECT — bande sombre -->
+    <div id="mn-sourcing-slot" data-sourcing></div>
 
-    <!-- 4) LA GAMME / POUR LES PROFESSIONNELS — gamme-boites.jpg -->
-    <div id="mn-gamme-pro-slot" data-gamme-pro></div>
+    <!-- 5) TUILES DES GAMMES -->
+    <div id="mn-gammes-slot" data-gammes></div>
+
+    <!-- 6) TEASER CAVIAR -->
+    <div id="mn-caviar-slot" data-caviar></div>
+
+    <!-- 7) ENGAGEMENTS -->
+    <div id="mn-engagements-slot" data-engagements></div>
+
+    <!-- 8) CTA FINAL DEVIS -->
+    <div id="mn-cta-slot" data-cta></div>
   </main>
 
   <div id="site-footer"></div>
 
-  <script src="assets/js/products.js"></script>
-  <script src="assets/js/cart.js"></script>
   <script src="assets/js/ui.js"></script>
   <script src="assets/js/home.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("[data-hero]").outerHTML = mnHomeHero();
-      document.querySelector("[data-eau-vive]").outerHTML = mnHomeEauVive();
-      document.querySelector("[data-selection]").outerHTML = mnHomeSelection();
-      document.querySelector("[data-especes]").outerHTML = mnHomeEspeces();
-      document.querySelector("[data-gamme-pro]").outerHTML = mnHomeGammePro();
+      document.querySelector("[data-quote]").outerHTML = mnHomeQuote();
+      document.querySelector("[data-approche]").outerHTML = mnHomeApproche();
+      document.querySelector("[data-sourcing]").outerHTML = mnHomeSourcing();
+      document.querySelector("[data-gammes]").outerHTML = mnHomeGammes();
+      document.querySelector("[data-caviar]").outerHTML = mnHomeCaviar();
+      document.querySelector("[data-engagements]").outerHTML = mnHomeEngagements();
+      document.querySelector("[data-cta]").outerHTML = mnHomeCtaDevis();
+
+      document.getElementById("mn-home-engagement-icon-1").innerHTML = MN_ICONS.leaf;
+      document.getElementById("mn-home-engagement-icon-2").innerHTML = MN_ICONS.shield;
+      document.getElementById("mn-home-engagement-icon-3").innerHTML = MN_ICONS.spoon;
+      mnStagger(document.getElementById("mn-home-engagements-grid"), 90);
 
       // mnMountLayout() already ran mnInitReveal() once on DOMContentLoaded, before any of the
       // sections above existed — their .reveal elements need their own pass (mnInitReveal skips

@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — MARENOSTRUM</title>
-  <meta name="description" content="Demande de devis, question sur un calibrage ou une disponibilité : contactez MARENOSTRUM. Réponse sous 24h ouvrées." />
+  <meta name="description" content="Une question, un partenariat ou une demande spécifique : contactez MARENOSTRUM. Pour un devis produits de la mer ou caviar, utilisez notre formulaire de devis dédié." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/contact.html" />
   <meta property="og:title" content="Contact — MARENOSTRUM" />
-  <meta property="og:description" content="Demande de devis, question sur un calibrage ou une disponibilité : contactez MARENOSTRUM. Réponse sous 24h ouvrées." />
+  <meta property="og:description" content="Une question, un partenariat ou une demande spécifique : contactez MARENOSTRUM. Réponse sous 24h ouvrées." />
   <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/trois-caviars.webp" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
@@ -26,8 +26,8 @@
       <div class="absolute inset-0 bg-noir/55"></div>
       <div class="container-page relative z-10 flex min-h-[42vh] flex-col items-center justify-center py-20 text-center sm:min-h-[52vh]">
         <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Nous contacter</p>
-        <h1 class="animate-fadeUp [animation-delay:80ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">Devis et disponibilités, sous 24h ouvrées</h1>
-        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Notre équipe répond du lundi au vendredi — pour une demande de devis, une question de calibrage ou de disponibilité, ou un partenariat professionnel.</p>
+        <h1 class="animate-fadeUp [animation-delay:80ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">Une question, un partenariat, une demande</h1>
+        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Notre équipe répond du lundi au vendredi. Pour une demande de devis produits de la mer ou caviar, utilisez plutôt notre <a href="devis.html" class="underline hover:no-underline">formulaire de devis dédié</a>.</p>
       </div>
     </section>
 
@@ -135,8 +135,6 @@
 
   <div id="site-footer"></div>
 
-  <script src="assets/js/products.js"></script>
-  <script src="assets/js/cart.js"></script>
   <script src="assets/js/ui.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -144,13 +142,6 @@
       document.getElementById("mn-contact-icon-phone").innerHTML = MN_ICONS.phone;
       document.getElementById("mn-contact-icon-pin").innerHTML = MN_ICONS.pin;
       document.getElementById("mn-contact-feedback-icon").innerHTML = MN_ICONS.check;
-
-      // Arrivée depuis une fiche produit ("Demander un devis") : pré-remplit le sujet et le message.
-      const produit = new URLSearchParams(window.location.search).get("produit");
-      if (produit) {
-        document.getElementById("ct-subject").value = "Demande de devis";
-        document.getElementById("ct-message").value = `Bonjour, je souhaite obtenir un devis pour : ${produit}.\n\n`;
-      }
 
       const form = document.getElementById("mn-contact-form");
       form.addEventListener("submit", (e) => {
