@@ -51,21 +51,31 @@ function mnHomeQuote() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 3) TEASER NOTRE APPROCHE — deux colonnes, photo (image-slot) + texte
+ * 3) TEASER NOTRE APPROCHE — texte contraint au conteneur du site, photo en breakout à droite
  * ------------------------------------------------------------------------------------------ */
 function mnHomeApproche() {
+  // Pas de container-page ici : la colonne image doit atteindre le bord réel du viewport, pas
+  // seulement celui de container-page (max-w-7xl) — impossible si toute la grille est enfermée
+  // dans ce conteneur. La colonne texte recrée donc l'inset gauche de container-page :
+  // px-5/sm:px-8 pour les petits écrans, puis au-delà de lg un calc() qui reproduit exactement
+  // le `max-w-7xl mx-auto px-10` de container-page (2.5rem, ou la moitié de l'espace au-delà de
+  // 80rem + 2.5rem) — pas une simple valeur fixe approximative, pour rester pixel-aligné avec
+  // le reste du site même sur un très grand écran. La colonne image garde un padding nul à
+  // droite : sur mobile/tablette (empilées, grid-cols-1) elle est bord à bord ; à partir de lg
+  // (grid-cols-[1fr_1.4fr], sans gap ni padding à droite) son bord droit coïncide avec le bord
+  // réel du viewport, quelle que soit sa largeur.
   return `
-  <section class="bg-ivoire">
-    <div class="container-page grid grid-cols-1 items-center gap-12 py-24 lg:grid-cols-2 lg:gap-20 lg:py-32">
-      <div class="reveal order-2 lg:order-1">
+  <section class="bg-ivoire overflow-hidden">
+    <div class="grid grid-cols-1 items-center gap-10 py-24 lg:grid-cols-[1fr_1.4fr] lg:items-stretch lg:gap-16 lg:py-32">
+      <div class="reveal order-2 lg:order-1 px-5 sm:px-8 lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] lg:pr-0">
         <p class="eyebrow mb-4">Notre approche</p>
         <h2 class="h-section mb-6">Une chaîne plus courte, un produit plus frais</h2>
         <p class="prose-copy mb-2">Criée, mareyeur, grossiste, grossiste régional, restaurateur : chaque intermédiaire ajoute un délai et éloigne le produit de son origine.</p>
         <p class="prose-copy mb-8">Nous raccourcissons cette chaîne — des mareyeurs sélectionnés directement sur les côtes, une origine claire, une livraison plus rapide.</p>
         <a href="notre-approche.html" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">En savoir plus →</a>
       </div>
-      <div class="reveal [transition-delay:120ms] order-1 lg:order-2 flex h-72 items-center justify-center overflow-hidden bg-ink-800 sm:h-96">
-        <image-slot id="mn-home-approche-photo" shape="rect" alt="Mareyeur sélectionnant des produits de la mer sur les quais" placeholder="Photo : quai de criée, mareyeur, étal réfrigéré" style="width:100%;height:100%"></image-slot>
+      <div class="reveal [transition-delay:120ms] order-1 lg:order-2 flex h-64 items-center justify-center overflow-hidden sm:h-80 lg:h-auto lg:self-stretch">
+        <img src="assets/img/texture-mareyage.jpg" alt="Textures de produits de la mer : carapace de crustacé, écailles de rouget, de bar et de maquereau" loading="lazy" class="h-full w-full object-cover" />
       </div>
     </div>
   </section>`;
