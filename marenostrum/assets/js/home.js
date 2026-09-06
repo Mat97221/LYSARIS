@@ -87,8 +87,8 @@ function mnHomeApproche() {
 function mnHomeSourcing() {
   const zones = ["Bretagne", "Boulogne-sur-Mer", "Écosse"];
   return `
-  <section class="mn-abyss">
-    <div class="container-page py-24 text-center lg:py-32">
+  <section class="bg-marine">
+    <div class="container-page py-16 text-center lg:py-20">
       <p class="reveal eyebrow mb-4 !text-ivoire/70">Sourcing direct</p>
       <h2 class="reveal h-section mb-8 text-ivoire">Sélectionné sur les côtes, pas sur catalogue</h2>
       <p class="reveal [transition-delay:100ms] prose-copy mx-auto mb-12 !text-ivoire/80">Nous travaillons avec des mareyeurs choisis directement sur leurs zones de débarque, pour une origine que nous pouvons toujours nommer.</p>
