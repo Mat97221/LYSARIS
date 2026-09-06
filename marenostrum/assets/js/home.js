@@ -99,9 +99,9 @@ function mnHomeSourcing() {
  * ------------------------------------------------------------------------------------------ */
 function mnHomeGammes() {
   const gammes = [
-    { id: "mn-home-tile-nobles", href: "produits-de-la-mer.html#poissons-nobles", label: "Poissons nobles", placeholder: "Photo : bar de ligne, turbot, Saint-Pierre" },
-    { id: "mn-home-tile-criee", href: "produits-de-la-mer.html#poissons-criee", label: "Poissons de criée", placeholder: "Photo : arrivage du jour, caisses de criée" },
-    { id: "mn-home-tile-crustaces", href: "produits-de-la-mer.html#crustaces-coquillages", label: "Crustacés & coquillages", placeholder: "Photo : crustacés et coquillages sur glace" }
+    { id: "mn-home-tile-nobles", href: "produits-de-la-mer.html#poissons-nobles", label: "Poissons nobles", photo: "assets/img/bar-loup.jpg", alt: "Bar de ligne entier, produit de la mer Marenostrum" },
+    { id: "mn-home-tile-criee", href: "produits-de-la-mer.html#poissons-criee", label: "Poissons de criée", photo: "assets/img/rouget-barbet.jpg", alt: "Rouget barbet entier, produit de la mer Marenostrum" },
+    { id: "mn-home-tile-crustaces", href: "produits-de-la-mer.html#crustaces-coquillages", label: "Crustacés & coquillages", photo: "assets/img/langoustine.jpg", alt: "Langoustine entière, produit de la mer Marenostrum" }
   ];
   return `
   <section class="bg-ivoire">
@@ -116,7 +116,7 @@ function mnHomeGammes() {
             (g, i) => `
         <a href="${g.href}" class="reveal [transition-delay:${i * 90}ms] mn-tile group block">
           <div class="flex h-64 items-center justify-center overflow-hidden bg-ink-800">
-            <image-slot id="${g.id}" shape="rect" alt="${g.label}" placeholder="${g.placeholder}" style="width:100%;height:100%"></image-slot>
+            <img src="${g.photo}" alt="${g.alt}" loading="lazy" class="h-full w-full object-cover" />
           </div>
           <div class="flex items-center justify-between pt-4">
             <h3 class="h-card !text-xl group-hover:text-marine transition-colors">${g.label}</h3>
