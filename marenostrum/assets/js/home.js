@@ -16,14 +16,16 @@
  * 1) HERO — plein écran, accroche B2B produits de la mer
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
-  // Photo : hero-montagne.webp (grain de caviar macro) conservée pour ne rien casser en
-  // attendant une vraie photo "produits de la mer" (criée, mareyeur, étal) — à remplacer.
+  // Photo : hero-mer.jpg (macro de glace pilée, fond bleu marine sombre). Accroche
+  // volontairement retirée pour l'instant (voir le bloc commenté ci-dessous, prêt à être
+  // restauré) — voile très légèrement assombri en attendant, juste assez pour garder la
+  // possibilité de remonter son opacité quand un texte sera réintroduit.
   return `
   <section class="relative h-screen overflow-hidden bg-marine">
-    <!-- TODO photo : remplacer par une photo "produits de la mer" (criée, mareyeur, étal réfrigéré) -->
-    <img src="assets/img/hero-montagne.webp" alt="Sélection de produits de la mer Marenostrum" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.6) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.58) 0%, rgba(17,17,16,0.22) 42%, transparent 68%)"></div>
+    <img src="assets/img/hero-mer.jpg" alt="Macro de glace pilée sur fond bleu marine" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
+    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.22) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.2) 0%, rgba(17,17,16,0.08) 42%, transparent 68%)"></div>
     <div class="container-page relative z-10 flex h-full flex-col justify-center">
+      <!--
       <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Négociants en produits de la mer</p>
       <p class="animate-fadeUp [animation-delay:100ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">De la criée à votre cuisine, sans détour.</p>
       <p class="animate-fadeUp [animation-delay:200ms] mt-6 max-w-lg text-base text-ivoire/90 sm:text-lg">Poissons, crustacés, coquillages et caviar, sélectionnés pour les professionnels de la restauration et de l'hôtellerie.</p>
@@ -31,6 +33,7 @@ function mnHomeHero() {
         <a href="devis.html" class="btn-navy">Demander un devis</a>
         <a href="produits-de-la-mer.html" class="btn-quiet !text-ivoire !border-ivoire/40 hover:!text-ivoire hover:!border-ivoire">Découvrir nos produits</a>
       </div>
+      -->
     </div>
   </section>`;
 }
