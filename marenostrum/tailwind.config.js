@@ -12,11 +12,9 @@ const BRAND = {
   // homepage a light/light rhythm from section to section (see mnPageBackground and the home
   // section builders in assets/js/home.js) without ever going dark or introducing a second hue
   sable: "#E8DFD0", // warm accent, used sparingly (a divider, a small fill) — never a full section
-  anthracite: "#35322C", // rare dark accent for small marks/icons that need more weight than
+  anthracite: "#35322C" // rare dark accent for small marks/icons that need more weight than
   // marine but shouldn't reach for the noir grounds — not used as a background
-  brass: "#A6824A" // the ONE accent colour of the "maison de sélection" identity (dividers, the
-  // single referral CTA, small marks on the marine ground) — muted/matte on purpose, never the
-  // shiny "doré criard" gold a jewellery-adjacent brief explicitly warns against
+  // (no gold, no pure black anywhere in the palette)
 };
 
 module.exports = {
@@ -30,7 +28,6 @@ module.exports = {
         glacier: BRAND.glacier,
         sable: BRAND.sable,
         anthracite: BRAND.anthracite,
-        brass: BRAND.brass,
 
         /**
          * Legacy token names, reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
@@ -69,13 +66,12 @@ module.exports = {
         error: "#B3261E" // deep red — reads correctly again now that form surfaces are light
       },
       fontFamily: {
-        // Maison identity typeface pair (Google Fonts, loaded once in src/input.css): Fraunces
-        // — an editorial serif with real personality — for every heading (font-titre), Work Sans
-        // — neutral, highly legible — for body copy and UI (font-texte). Two genuinely different
-        // families now (not a single-typeface system): the whole point is a title that reads as
-        // considered and a body that stays out of the way.
-        titre: ["Fraunces", "Georgia", "serif"],
-        texte: ["Work Sans", "-apple-system", "sans-serif"]
+        // Single-typeface system (Fontshare, loaded once in src/input.css): Switzer
+        // everywhere. "titre" and "texte" both resolve to the same family — kept as two
+        // Tailwind keys only because every page already calls font-titre/font-texte; weight
+        // (400/500/600) is what carries the hierarchy now, not a font swap.
+        titre: ["Switzer", "Inter", "-apple-system", "sans-serif"],
+        texte: ["Switzer", "Inter", "-apple-system", "sans-serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",

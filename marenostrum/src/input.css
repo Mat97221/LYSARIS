@@ -1,9 +1,9 @@
-/* Single loading point for the "maison de sélection" typeface pair (Google Fonts, free) — an
-   editorial serif with real presence for every heading (font-titre: Fraunces), and a neutral,
-   highly legible sans for body copy and UI (font-texte: Work Sans). Two genuinely different
-   families now, not a single-typeface system with weight alone carrying the hierarchy — see
-   tailwind.config.js. font-display=swap is requested directly on the Google Fonts URL. */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Work+Sans:wght@400;500;600&display=swap');
+/* Single loading point for the brand typeface — change weights here only. One family, Switzer
+   (Fontshare, free license), used sitewide (see tailwind.config.js: both "titre" and "texte"
+   resolve to it) — weight alone carries the hierarchy: 400 for body copy, 500 for
+   subtitles/buttons/labels, 600 for section headings (H1/H2). font-display: swap is already
+   set by Fontshare's own stylesheet response, not repeated here. */
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -69,51 +69,47 @@
     @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
   }
 
-  /* Small letterspaced uppercase sur-titre — the signature detail. Brass by default: the site
-     is marine-dominant now (maison de sélection identity), so this is what reads on the ground
-     most sections actually sit on. On the rare light/ivoire "respiration" section, override
-     per-instance with `!text-marine`. */
+  /* Small letterspaced uppercase sur-titre — the signature detail. Marine by default (crisp on
+     the ivoire content sections); on dark grounds add `text-or` per-instance to switch to gold. */
   .eyebrow {
-    @apply text-xs sm:text-sm tracking-widest2 uppercase text-brass font-semibold;
+    @apply text-xs sm:text-sm tracking-widest2 uppercase text-marine font-semibold;
   }
 
   /*
-   * Editorial heading scale — four tiers, all Fraunces. Default colour is ivoire: the site is
-   * marine-dominant now (maison de sélection identity, not the old ivoire-dominant catalogue),
-   * so headings read light-on-dark almost everywhere they appear. The two remaining light pages
-   * (mentions-legales.html, confidentialite.html) override per-instance with `!text-ink-50`
-   * rather than flipping the shared default back — they're the exception, not the rule.
+   * Editorial heading scale — four tiers, all Cormorant Garamond at a medium weight (400 read
+   * too faint for a high-contrast serif at display sizes; 500 keeps it elegant without going
+   * heavy). Sizes run larger than the old single-typeface scale to compensate for a serif's
+   * lighter visual weight against Inter body copy.
    * Margin/alignment/max-width stay as per-instance utility classes alongside these, since
    * that's genuinely contextual — but font, size, weight and color live here once.
    */
   .h-hero {
-    @apply font-titre font-medium leading-[1.08] text-ivoire text-4xl sm:text-6xl lg:text-8xl;
+    @apply font-titre font-medium leading-[1.08] text-ink-50 text-4xl sm:text-6xl lg:text-8xl;
   }
 
   .h-page {
-    @apply font-titre font-semibold uppercase tracking-[0.05em] leading-tight text-ivoire text-4xl sm:text-5xl lg:text-6xl;
+    @apply font-titre font-semibold uppercase tracking-[0.05em] leading-tight text-ink-50 text-4xl sm:text-5xl lg:text-6xl;
   }
 
   .h-section {
-    @apply font-titre font-semibold uppercase tracking-[0.06em] leading-tight text-ivoire text-3xl sm:text-4xl;
+    @apply font-titre font-semibold uppercase tracking-[0.06em] leading-tight text-ink-50 text-3xl sm:text-4xl;
   }
 
   .h-card {
-    @apply font-titre font-medium text-ivoire text-2xl sm:text-3xl;
+    @apply font-titre font-medium text-ink-50 text-2xl sm:text-3xl;
   }
 
   /* Reading copy: comfortable size, airy line-height (see theme.lineHeight.relaxed), and a
-     line length that never runs too wide regardless of its container. Default ivoire/80 — see
-     the heading-scale note above on why light-on-dark is now the default, not the exception. */
+     line length that never runs too wide regardless of its container. */
   .prose-copy {
-    @apply max-w-prose text-base sm:text-lg text-ivoire/80 leading-relaxed;
+    @apply max-w-prose text-base sm:text-lg text-ink-200 leading-relaxed;
   }
 
   /* Editorial quote break — large centered italic line on a plain ground, generous
      padding either side. The signature device of quiet apothecary-style sites: one considered
      sentence given a whole section of space rather than another content block. */
   .h-quote {
-    @apply font-titre font-medium italic leading-snug text-ivoire text-3xl sm:text-4xl lg:text-5xl;
+    @apply font-titre font-medium italic leading-snug text-ink-50 text-3xl sm:text-4xl lg:text-5xl;
   }
 
   /* Primary button — filled encre, softly rounded (2-4px, not sharp, not pill), lightens a touch
@@ -163,11 +159,8 @@
     @apply relative flex flex-col bg-transparent;
   }
 
-  /* Header is permanently dark now — the maison identity is marine-dominant throughout, not just
-     behind one hero photo, so there is no more light/dark state to toggle on scroll (the old
-     .mn-hero-nav variant and its .is-scrolled swap are gone; see mnHeader() in ui.js). */
   .nav-glass {
-    @apply bg-noir/90 backdrop-blur-md border-b border-ivoire/10;
+    @apply bg-ink-900/85 backdrop-blur-md border-b border-ink-600/50 transition-shadow duration-300 ease-fluid;
   }
 
   .input-field {
@@ -195,22 +188,6 @@
 
   .divider-navy {
     @apply h-px w-16 bg-navy;
-  }
-
-  /* The one accent colour of the maison identity — a thin brass rule, used sparingly (never a
-     fill, never a full section) wherever the ivoire/marine palette needs a single warm mark. */
-  .divider-brass {
-    @apply h-px w-16 bg-brass;
-  }
-
-  /* The site's one commercial CTA (see the brief: "le seul appel à l'action commercial est la
-     demande de référencement") — brass fill, noir text (brass reads better with a dark ink than
-     ivoire at this value), same shape/rhythm as the other buttons so it still reads as part of
-     the same family, just deliberately the only warm, filled control on the site. */
-  .btn-brass {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-brass bg-brass px-7 py-3.5 min-h-[44px]
-           font-texte font-medium text-sm tracking-label uppercase text-noir
-           transition-colors duration-200 ease-fluid hover:bg-brass/85;
   }
 
   /* ============================================================
@@ -494,3 +471,107 @@
   .mn-shine-text { animation: none; }
 }
 
+/* Category tiles ("Univers" grid), full-photo tile grid. */
+.mn-tile {
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms;
+}
+
+.mn-tile:hover {
+  transform: translateY(-6px);
+}
+
+/* Caviar tin whose lid slides open (and fades out, so it doesn't visibly drag across the grains
+   mid-slide) on hover — see mnTinReveal() in ui.js. A single trigger rule, `.mn-tin-reveal:hover`,
+   covers every placement: on the two standalone photos (product page, homepage "pièce maîtresse")
+   .mn-tin-reveal already matches the visible tin exactly (aspect-square, see mnTinReveal()). Inside
+   a product card, mnProductCard() wraps the photo in its own small link (z-[5]) sitting above the
+   card's full-cover .stretched-link (z-index:auto — see that class below), so the tin genuinely
+   receives the pointer there too instead of the click-through overlay swallowing it; this also
+   means hovering the rest of the card (title, "Découvrir") no longer opens the lid, only the photo
+   itself does. Mouse only: gated behind (hover: hover) so a tap on touch devices can't leave
+   :hover "stuck" with the lid hanging open — touch just shows the closed tin, the safer default.
+   translateX is a % of the <img> tag's own box, which mnTinReveal() now sizes to match the visible
+   lid disc (aspect-square) — so unlike a plain 100%, a shift a bit past that (150%) reliably clears
+   the disc's far edge with margin, in every fixed-height layout this is used in (product photo,
+   card thumbnail); the container clips it with overflow-hidden, so overshoot is free. Duration
+   700ms and the site's "water" easing (see tailwind.config.js) for a slow, fluid glide rather than
+   a mechanical snap. */
+.mn-tin-lid {
+  transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1), opacity 700ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (hover: hover) {
+  .mn-tin-reveal:hover .mn-tin-lid {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-tin-lid { transition: none; }
+}
+
+/* ============================================================
+   Homepage hero navigation — full-bleed image, header overlaid
+   ============================================================
+   On the accueil page the header carries `.mn-hero-nav` (added in mnHeader): it becomes a
+   fixed, fully transparent bar over the edge-to-edge hero image, with its text and logo turned
+   ivoire so they stay legible on the dark photo. Once the visitor scrolls past the hero
+   (`.is-scrolled`, threshold set in mnMountLayout) it resolves to the normal solid ivoire bar
+   with dark text/logo, so it never sits unreadable over the light content below. */
+.nav-glass.mn-hero-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.nav-glass.mn-hero-nav .mn-nav-link,
+.nav-glass.mn-hero-nav #mn-menu-toggle {
+  color: #f4efe6;
+}
+
+/* #mn-mobile-menu has its own opaque bg-ink-900/95 backdrop once open — unlike the transparent
+   bar above it, it's never sitting directly on the hero photo, so the light hero-overlay text
+   color above would be near-invisible on it. Higher specificity (adds the #mn-mobile-menu id)
+   wins over the rule above regardless of source order. */
+.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link {
+  color: #2e2b24;
+}
+
+.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link.is-active {
+  color: #17263f;
+}
+
+/* Black wordmark PNG → white while overlaid on the dark hero image. */
+.nav-glass.mn-hero-nav img {
+  filter: brightness(0) invert(1);
+}
+
+/* Scrolled past the hero: fall back to the standard light bar. rgba literals here (not a Tailwind
+   bg-ivoire/90 utility) because .mn-hero-nav needs a hard override of the base .nav-glass
+   background — kept in sync by hand with BRAND.ivoire / ink.600 in tailwind.config.js whenever
+   the palette changes (this pair drifted out of sync once already: it shipped the old warm
+   #F4EFE6 ivoire long after the palette moved to a cool #ECEEF3, a mismatch visible as an
+   off-white "stain" on scroll). */
+.nav-glass.mn-hero-nav.is-scrolled {
+  background: rgba(246, 242, 234, 0.9);
+  border-color: rgba(228, 223, 211, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
+.nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
+  color: #2e2b24;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active {
+  color: #17263f;
+}
+
+.nav-glass.mn-hero-nav.is-scrolled img {
+  filter: none;
+}
