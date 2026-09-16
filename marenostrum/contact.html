@@ -4,16 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — MARENOSTRUM</title>
-  <meta name="description" content="Une question, un partenariat ou une demande spécifique : contactez MARENOSTRUM. Pour un devis produits de la mer ou caviar, utilisez notre formulaire de devis dédié." />
+  <meta name="description" content="Une question, une demande ponctuelle : contactez MARENOSTRUM. Pour devenir maison partenaire, utilisez notre formulaire de référencement dédié." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/contact.html" />
   <meta property="og:title" content="Contact — MARENOSTRUM" />
-  <meta property="og:description" content="Une question, un partenariat ou une demande spécifique : contactez MARENOSTRUM. Réponse sous 24h ouvrées." />
+  <meta property="og:description" content="Une question, une demande ponctuelle : contactez MARENOSTRUM. Réponse sous 24h ouvrées." />
   <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/trois-caviars.webp" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body data-page="contact">
@@ -27,107 +27,63 @@
       <div class="container-page relative z-10 flex min-h-[42vh] flex-col items-center justify-center py-20 text-center sm:min-h-[52vh]">
         <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Nous contacter</p>
         <h1 class="animate-fadeUp [animation-delay:80ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">Une question, un partenariat, une demande</h1>
-        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Notre équipe répond du lundi au vendredi. Pour une demande de devis produits de la mer ou caviar, utilisez plutôt notre <a href="devis.html" class="underline hover:no-underline">formulaire de devis dédié</a>.</p>
+        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Notre équipe répond du lundi au vendredi. Pour une demande de référencement professionnel, utilisez plutôt notre <a href="professionnels.html" class="underline hover:no-underline">formulaire dédié aux maisons partenaires</a>.</p>
       </div>
     </section>
 
-    <section class="container-page py-28">
-      <div class="grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-20">
-        <form id="mn-contact-form" novalidate class="reveal lg:col-span-2 flex flex-col gap-6">
+    <section class="bg-marine py-28">
+      <div class="container-page grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-20">
+        <form id="mn-contact-form" novalidate class="lg:col-span-2 flex flex-col gap-6">
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label class="field-label" for="ct-establishment">Nom de l'établissement</label>
-              <input id="ct-establishment" type="text" class="input-field" required />
-              <p id="ct-establishment-error" class="field-error hidden">Merci d'indiquer le nom de votre établissement.</p>
-            </div>
-            <div>
-              <label class="field-label" for="ct-name">Nom du contact</label>
+              <label class="field-label" for="ct-name">Nom</label>
               <input id="ct-name" type="text" class="input-field" required />
               <p id="ct-name-error" class="field-error hidden">Merci d'indiquer votre nom.</p>
             </div>
-          </div>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label class="field-label" for="ct-email">E-mail</label>
               <input id="ct-email" type="email" class="input-field" required />
               <p id="ct-email-error" class="field-error hidden">Adresse e-mail invalide.</p>
             </div>
-            <div>
-              <label class="field-label" for="ct-phone">Téléphone</label>
-              <input id="ct-phone" type="tel" class="input-field" />
-            </div>
-          </div>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <label class="field-label" for="ct-activity">Type d'activité</label>
-              <select id="ct-activity" class="input-field" required>
-                <option value="">Sélectionnez...</option>
-                <option>Restaurant</option>
-                <option>Hôtel</option>
-                <option>Grossiste / mareyeur</option>
-                <option>Autre</option>
-              </select>
-              <p id="ct-activity-error" class="field-error hidden">Merci de préciser votre activité.</p>
-            </div>
-            <div>
-              <label class="field-label" for="ct-volume">Volume mensuel estimé</label>
-              <select id="ct-volume" class="input-field">
-                <option>À définir</option>
-                <option>Moins de 1 kg</option>
-                <option>1 à 5 kg</option>
-                <option>5 à 20 kg</option>
-                <option>Plus de 20 kg</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="field-label" for="ct-subject">Sujet</label>
-            <select id="ct-subject" class="input-field">
-              <option>Demande de devis</option>
-              <option>Question sur un produit</option>
-              <option>Devenir revendeur / partenaire</option>
-              <option>Demande professionnelle / événementiel</option>
-              <option>Autre demande</option>
-            </select>
           </div>
           <div>
             <label class="field-label" for="ct-message">Message</label>
             <textarea id="ct-message" rows="6" class="input-field resize-none" required></textarea>
             <p id="ct-message-error" class="field-error hidden">Merci de rédiger un message.</p>
           </div>
-          <button type="submit" class="btn-navy w-full self-center sm:w-auto">Envoyer la demande</button>
-          <p id="mn-contact-feedback" class="hidden flex items-center justify-center gap-2 text-center text-sm text-marine" role="status">
+          <button type="submit" class="btn-brass w-full self-center sm:w-auto">Envoyer le message</button>
+          <p id="mn-contact-feedback" class="hidden flex items-center justify-center gap-2 text-center text-sm text-brass" role="status">
             <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre message a bien été envoyé. Nous revenons vers vous rapidement.
           </p>
-          <p class="text-center text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucun message réel.</p>
+          <p class="text-center text-xs text-ivoire/50">Site de démonstration : ce formulaire ne transmet aucun message réel.</p>
         </form>
 
-        <aside class="reveal [transition-delay:260ms] flex flex-col items-center text-center">
+        <aside class="flex flex-col items-center text-center">
           <div class="flex flex-col items-center gap-8">
             <div class="flex flex-col items-center gap-2">
-              <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-mail"></span>
+              <span class="h-5 w-5 shrink-0 text-brass" id="mn-contact-icon-mail"></span>
               <div>
                 <p class="field-label !mb-1">E-mail</p>
-                <p class="text-sm text-ink-100">contact@marenostrum.example</p>
+                <p class="text-sm text-ivoire/80">contact@marenostrum.example</p>
               </div>
             </div>
             <div class="flex flex-col items-center gap-2">
-              <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-phone"></span>
+              <span class="h-5 w-5 shrink-0 text-brass" id="mn-contact-icon-phone"></span>
               <div>
                 <p class="field-label !mb-1">Téléphone</p>
-                <p class="text-sm text-ink-100">01 23 45 67 89 — lun.–ven., 9h–18h</p>
+                <p class="text-sm text-ivoire/80">01 23 45 67 89 — lun.–ven., 9h–18h</p>
               </div>
             </div>
             <div class="flex flex-col items-center gap-2">
-              <span class="h-5 w-5 shrink-0 text-marine" id="mn-contact-icon-pin"></span>
+              <span class="h-5 w-5 shrink-0 text-brass" id="mn-contact-icon-pin"></span>
               <div>
                 <p class="field-label !mb-1">Maison MARENOSTRUM</p>
-                <p class="text-sm text-ink-100">12 quai des Salinières, 33000 Bordeaux, France</p>
+                <p class="text-sm text-ivoire/80">12 quai des Salinières, 33000 Bordeaux, France</p>
               </div>
             </div>
           </div>
 
-          <p class="prose-copy mx-auto mt-10 max-w-xs border-t border-ink-600/50 pt-8 text-center">Commande professionnelle, traiteur ou événement privé : notre équipe dédiée aux volumes répond sous 48h.</p>
+          <p class="prose-copy mx-auto mt-10 max-w-xs border-t border-ivoire/10 pt-8 text-center">Pour une demande professionnelle, rendez-vous sur notre page <a href="professionnels.html" class="underline hover:no-underline">Devenir maison partenaire</a>.</p>
         </aside>
       </div>
     </section>
@@ -146,30 +102,22 @@
       const form = document.getElementById("mn-contact-form");
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const establishment = document.getElementById("ct-establishment");
         const name = document.getElementById("ct-name");
         const email = document.getElementById("ct-email");
-        const activity = document.getElementById("ct-activity");
         const message = document.getElementById("ct-message");
 
-        const establishmentValid = establishment.value.trim().length > 0;
         const nameValid = name.value.trim().length > 0;
         const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-        const activityValid = activity.value.trim().length > 0;
         const messageValid = message.value.trim().length > 0;
 
-        document.getElementById("ct-establishment-error").classList.toggle("hidden", establishmentValid);
-        establishment.classList.toggle("!border-error", !establishmentValid);
         document.getElementById("ct-name-error").classList.toggle("hidden", nameValid);
         name.classList.toggle("!border-error", !nameValid);
         document.getElementById("ct-email-error").classList.toggle("hidden", emailValid);
         email.classList.toggle("!border-error", !emailValid);
-        document.getElementById("ct-activity-error").classList.toggle("hidden", activityValid);
-        activity.classList.toggle("!border-error", !activityValid);
         document.getElementById("ct-message-error").classList.toggle("hidden", messageValid);
         message.classList.toggle("!border-error", !messageValid);
 
-        if (!(establishmentValid && nameValid && emailValid && activityValid && messageValid)) return;
+        if (!(nameValid && emailValid && messageValid)) return;
 
         document.getElementById("mn-contact-feedback").classList.remove("hidden");
         form.reset();

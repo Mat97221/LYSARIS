@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MARENOSTRUM — Négociants en produits de la mer pour les professionnels</title>
-  <meta name="description" content="MARENOSTRUM sélectionne poissons, crustacés, coquillages et caviar pour les professionnels de la restauration et de l'hôtellerie. Circuit court, origine claire, devis sous 48h." />
+  <title>MARENOSTRUM — Maison de sélection de produits de la mer</title>
+  <meta name="description" content="MARENOSTRUM sélectionne, travaille et signe des produits de la mer rares, en petites séries, aux côtés de producteurs identifiés. Accès sur référencement professionnel." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/index.html" />
-  <meta property="og:title" content="MARENOSTRUM — Négociants en produits de la mer pour les professionnels" />
-  <meta property="og:description" content="Poissons, crustacés, coquillages et caviar, sélectionnés pour les professionnels de la restauration et de l'hôtellerie. Devis sous 48h." />
+  <meta property="og:title" content="MARENOSTRUM — Maison de sélection de produits de la mer" />
+  <meta property="og:description" content="Nous ne vendons pas la mer. Nous la sélectionnons." />
   <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/hero-mer.jpg" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body data-page="accueil">
@@ -21,29 +21,9 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- 1) HERO — plein écran -->
     <div id="mn-hero-slot" data-hero></div>
-
-    <!-- 2) CITATION DE MARQUE -->
-    <div id="mn-quote-slot" data-quote></div>
-
-    <!-- 3) TEASER NOTRE APPROCHE -->
-    <div id="mn-approche-slot" data-approche></div>
-
-    <!-- 4) SOURCING DIRECT — bande sombre -->
-    <div id="mn-sourcing-slot" data-sourcing></div>
-
-    <!-- 5) TUILES DES GAMMES -->
-    <div id="mn-gammes-slot" data-gammes></div>
-
-    <!-- 6) TEASER CAVIAR -->
-    <div id="mn-caviar-slot" data-caviar></div>
-
-    <!-- 7) ENGAGEMENTS -->
-    <div id="mn-engagements-slot" data-engagements></div>
-
-    <!-- 8) CTA FINAL DEVIS -->
-    <div id="mn-cta-slot" data-cta></div>
+    <div id="mn-manifesto-slot" data-manifesto></div>
+    <div id="mn-closing-slot" data-closing></div>
   </main>
 
   <div id="site-footer"></div>
@@ -53,23 +33,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("[data-hero]").outerHTML = mnHomeHero();
-      document.querySelector("[data-quote]").outerHTML = mnHomeQuote();
-      document.querySelector("[data-approche]").outerHTML = mnHomeApproche();
-      document.querySelector("[data-sourcing]").outerHTML = mnHomeSourcing();
-      document.querySelector("[data-gammes]").outerHTML = mnHomeGammes();
-      document.querySelector("[data-caviar]").outerHTML = mnHomeCaviar();
-      document.querySelector("[data-engagements]").outerHTML = mnHomeEngagements();
-      document.querySelector("[data-cta]").outerHTML = mnHomeCtaDevis();
-
-      document.getElementById("mn-home-engagement-icon-1").innerHTML = MN_ICONS.leaf;
-      document.getElementById("mn-home-engagement-icon-2").innerHTML = MN_ICONS.shield;
-      document.getElementById("mn-home-engagement-icon-3").innerHTML = MN_ICONS.spoon;
-      mnStagger(document.getElementById("mn-home-engagements-grid"), 90);
-
-      // mnMountLayout() already ran mnInitReveal() once on DOMContentLoaded, before any of the
-      // sections above existed — their .reveal elements need their own pass (mnInitReveal skips
-      // anything already bound via data-reveal-bound, so this only picks up what's new).
-      mnInitReveal();
+      document.querySelector("[data-manifesto]").outerHTML = mnHomeManifesto();
+      document.querySelector("[data-closing]").outerHTML = mnHomeClosing();
     });
   </script>
 </body>
