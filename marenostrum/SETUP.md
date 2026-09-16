@@ -1,10 +1,11 @@
 # MARENOSTRUM — site vitrine B2B (démo)
 
-Site statique HTML / CSS (Tailwind) / JS vanilla pour MARENOSTRUM, négociant en
-produits de la mer pour les professionnels (restaurants, hôtels, traiteurs).
-Aucun framework, aucun backend, **aucun panier ni paiement en ligne** : les prix
-des produits de la mer variant chaque jour, le site fonctionne entièrement sur
-un modèle de demande de devis (`devis.html`).
+Site statique HTML / CSS (Tailwind) / JS vanilla pour MARENOSTRUM, maison de produits de la mer
+d'exception pour les professionnels de la gastronomie et de la distribution (restaurants, hôtels,
+traiteurs, mareyeurs, grossistes). Aucun framework, aucun backend, **aucun panier ni paiement en
+ligne, aucun prix affiché** : le site fonctionne entièrement sur un modèle de demande de
+référencement (`contact.html`) — chaque pièce affiche un statut (Disponible / Sur allocation /
+Ouverture prochaine), jamais un tarif.
 
 ## Lancer le site en local
 
@@ -28,23 +29,26 @@ quel sans étape de build si vous ne touchez pas aux styles.
 
 ```
 marenostrum/
-├── index.html                  — accueil (hero, sourcing, gammes, engagements)
-├── produits-de-la-mer.html     — catalogue statique : poissons nobles, poissons
-│                                  de criée, crustacés & coquillages, découpes
-│                                  sur-mesure (cartes sans prix, CTA devis)
-├── caviar.html                 — signature caviar : Osciètre, Beluga, Baeri,
-│                                  Sevruga, affinage Malossol, traçabilité CITES
-├── notre-approche.html         — positionnement : circuit court, mareyeurs
-│                                  sélectionnés, engagements
-├── professionnels.html         — comment nous travaillons, process en 3 étapes
-├── devis.html                  — formulaire de devis central (toutes gammes)
-├── contact.html                — contact général (hors demande de devis)
+├── index.html                  — accueil : hero, puis trois portes d'entrée courtes vers
+│                                  La Maison, La Table et Notre savoir-faire
+├── la-maison.html               — positionnement : une maison qui choisit, calibre et
+│                                  garantit — aucune revendication d'origine géographique
+├── la-table.html                 — Le Caviar (Osciètre/Beluga/Baeri/Sevruga, formats
+│                                  30/50/125/500 g) et La Mer (poisson de ligne, langoustine,
+│                                  terrines & conserves), statut par pièce, CTA "Demander une
+│                                  allocation"
+├── notre-savoir-faire.html      — sélection, traçabilité, chaîne du froid & livraison,
+│                                  conditionnement — reprend le process 3 étapes qui était
+│                                  sur l'ancienne page "Professionnels"
+├── contact.html                 — formulaire de référencement qualifiant (établissement,
+│                                  type, ville, volumes estimés, produits concernés) — ton
+│                                  candidature, pas prise de commande
 ├── mentions-legales.html, confidentialite.html
 ├── assets/
 │   ├── css/style.css       — généré par Tailwind (ne pas éditer à la main)
 │   ├── img/                — photos (voir "Emplacements photo" ci-dessous)
 │   └── js/
-│       ├── home.js         — sections de la page d'accueil
+│       ├── home.js         — sections de la page d'accueil (hero + 3 portes d'entrée)
 │       ├── image-slot.js   — composant <image-slot> (placeholder photo)
 │       └── ui.js           — header/footer, icônes SVG, boîte de caviar
 │                              animée (mnTinReveal), scroll-reveal (reveal/stagger)
@@ -56,27 +60,25 @@ marenostrum/
 
 ## Navigation
 
-Accueil · Produits de la mer · Caviar · Notre approche · Professionnels ·
-Contact, plus un CTA "Demander un devis" (`devis.html`) partout dans l'en-tête
-et en pied de page. Aucun onglet "Boutique" ni icône panier : le catalogue
-n'affiche jamais de prix et ne mène jamais à un tunnel d'achat.
+Accueil · La Maison · La Table · Notre savoir-faire · Contact, plus un CTA "Demander un
+référencement" (`contact.html`) partout dans l'en-tête et en pied de page. Aucun onglet
+"Boutique" ni icône panier, aucun prix nulle part : chaque pièce de La Table affiche un statut
+(Disponible / Sur allocation / Ouverture prochaine) et un unique CTA "Demander une allocation".
 
-## Modèle "demande de devis"
+## Modèle "demande de référencement"
 
-- **Aucun prix affiché** nulle part sur le site — les prix des produits de la
-  mer varient quotidiennement.
-- Chaque carte produit (`produits-de-la-mer.html`, `caviar.html`) porte un
-  unique CTA "Demander un devis" qui renvoie vers `devis.html?gamme=<id>` : le
-  paramètre `gamme` pré-coche la case correspondante dans le formulaire (voir
-  le script en bas de `devis.html`).
-- `devis.html` est le formulaire central : établissement, contact, gammes
-  recherchées (cases à cocher), volume, fréquence, zone de livraison, message.
-  Validation et affichage d'une confirmation en JS pur, aucune donnée n'est
-  réellement transmise (site statique, sans back-end) — voir le
-  `console.log(payload)` dans le script de la page, à remplacer par un vrai
-  service d'envoi (formulaire → e-mail, CRM, etc.) en production.
-- `contact.html` reste un canal de contact général (question, partenariat)
-  distinct du formulaire de devis.
+- **Aucun prix affiché** nulle part sur le site — chaque pièce porte une pastille de statut, pas
+  un tarif.
+- Chaque pièce de `la-table.html` porte un CTA "Demander une allocation" qui renvoie vers
+  `contact.html?produit=<slug>` : le paramètre `produit` coche le groupe correspondant (Caviar /
+  La Mer) et pré-remplit le message avec le nom de la pièce (voir le script en bas de
+  `contact.html`).
+- `contact.html` est le formulaire unique : établissement, contact, type d'établissement, ville,
+  volumes estimés, produits concernés, message. Validation et affichage d'une confirmation en JS
+  pur, aucune donnée n'est réellement transmise (site statique, sans back-end) — voir le
+  `console.log(payload)` dans le script de la page, à remplacer par un vrai service d'envoi
+  (formulaire → e-mail, CRM, etc.) en production. Le ton reste celui d'une candidature étudiée
+  individuellement, jamais d'une prise de commande automatique.
 
 ## Contenu de démonstration
 
@@ -85,7 +87,7 @@ n'affiche jamais de prix et ne mène jamais à un tunnel d'achat.
   l'hébergeur, etc. **À faire relire par un professionnel du droit avant mise
   en ligne**, notamment la clause CITES/caviar (section 4 des mentions
   légales).
-- **Formulaires de devis, contact et newsletter** : simulés en JS (aucun envoi
+- **Formulaire de référencement et newsletter** : simulés en JS (aucun envoi
   réel).
 
 ## Accessibilité & performance
@@ -99,24 +101,12 @@ n'affiche jamais de prix et ne mène jamais à un tunnel d'achat.
 
 ## Emplacements photo à remplir (`<image-slot>`)
 
-Le site ne dispose d'aucune photo de produits de la mer (poissons, crustacés,
-coquillages, mareyeurs, quais de criée) : ces emplacements utilisent le
-composant `<image-slot>` (`assets/js/image-slot.js`), une case photo avec
-légende. Hors de l'outil de design d'origine (claude.ai/design), ce composant
-affiche simplement l'attribut `src` s'il est présent, sinon l'espace vide
-avec la légende `placeholder`. Pour remplir un emplacement définitivement,
-ajoutez `src="..."` sur l'élément correspondant dans le HTML de la page.
-
-Emplacements en attente d'une vraie photo :
-- `index.html` — hero plein écran (actuellement `hero-montagne.webp`, un
-  grain de caviar macro conservé pour ne rien casser — à remplacer par une
-  photo de criée/mareyeur), teaser "Notre approche", 3 tuiles de gammes.
-- `notre-approche.html` — photo "Notre parti pris" (quai, mareyeur).
-- `produits-de-la-mer.html` — les 4 cartes de gammes.
-
-Le caviar (`caviar.html`, teaser accueil, page "Notre approche") utilise en
-revanche de vraies photos existantes (`trois-caviars.webp`, `grain-macro.webp`)
-et n'a pas besoin d'`<image-slot>`.
+Le composant `<image-slot>` (`assets/js/image-slot.js`) reste disponible pour tout emplacement
+sans photo réelle : hors de l'outil de design d'origine (claude.ai/design), il affiche simplement
+l'attribut `src` s'il est présent, sinon l'espace vide avec la légende `placeholder`. Les pages
+actuelles utilisent toutes de vraies photos existantes (`hero-mer.jpg`, `texture-mareyage.jpg`,
+`grain-macro.webp`, `trois-caviars.webp`, `hero-montagne.webp`, `bar-loup.jpg`,
+`langoustine.jpg`, `gamme-boites.webp`) et n'ont donc pas besoin d'`<image-slot>`.
 
 Le logo (`assets/img/logo-marenostrum-horizontal-noir.png`, fond transparent)
 remplace le wordmark texte dans l'en-tête (`mnHeader()` dans `ui.js`).

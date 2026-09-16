@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — MARENOSTRUM</title>
-  <meta name="description" content="Une question, un partenariat ou une demande spécifique : contactez MARENOSTRUM. Pour un devis produits de la mer ou caviar, utilisez notre formulaire de devis dédié." />
+  <meta name="description" content="Demande de référencement MARENOSTRUM : établissement, ville, volumes estimés, produits concernés. Une candidature étudiée individuellement, pas une prise de commande." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mat97221.github.io/LYSARIS/contact.html" />
   <meta property="og:title" content="Contact — MARENOSTRUM" />
-  <meta property="og:description" content="Une question, un partenariat ou une demande spécifique : contactez MARENOSTRUM. Réponse sous 24h ouvrées." />
+  <meta property="og:description" content="Demande de référencement : établissement, ville, volumes, produits concernés. Réponse sous 48h ouvrées." />
   <meta property="og:image" content="https://mat97221.github.io/LYSARIS/assets/img/trois-caviars.webp" />
   <meta property="og:locale" content="fr_FR" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
@@ -25,9 +25,9 @@
       <img src="assets/img/trois-caviars.webp" alt="Trois boîtes de caviar Marenostrum ouvertes, grains vus de dessus" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
       <div class="absolute inset-0 bg-noir/55"></div>
       <div class="container-page relative z-10 flex min-h-[42vh] flex-col items-center justify-center py-20 text-center sm:min-h-[52vh]">
-        <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Nous contacter</p>
-        <h1 class="animate-fadeUp [animation-delay:80ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">Une question, un partenariat, une demande</h1>
-        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Notre équipe répond du lundi au vendredi. Pour une demande de devis produits de la mer ou caviar, utilisez plutôt notre <a href="devis.html" class="underline hover:no-underline">formulaire de devis dédié</a>.</p>
+        <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Demande de référencement</p>
+        <h1 class="animate-fadeUp [animation-delay:80ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">Devenir un établissement référencé</h1>
+        <p class="animate-fadeUp [animation-delay:160ms] mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">MARENOSTRUM référence un nombre restreint d'établissements. Cette candidature est étudiée individuellement — ce n'est pas une prise de commande.</p>
       </div>
     </section>
 
@@ -59,47 +59,58 @@
           </div>
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label class="field-label" for="ct-activity">Type d'activité</label>
-              <select id="ct-activity" class="input-field" required>
+              <label class="field-label" for="ct-type">Type d'établissement</label>
+              <select id="ct-type" class="input-field" required>
                 <option value="">Sélectionnez...</option>
-                <option>Restaurant</option>
+                <option>Restaurant gastronomique</option>
+                <option>Brasserie / bistrot</option>
                 <option>Hôtel</option>
-                <option>Grossiste / mareyeur</option>
+                <option>Traiteur</option>
+                <option>Poissonnerie</option>
+                <option>Mareyeur</option>
+                <option>Grossiste</option>
                 <option>Autre</option>
               </select>
-              <p id="ct-activity-error" class="field-error hidden">Merci de préciser votre activité.</p>
+              <p id="ct-type-error" class="field-error hidden">Merci de préciser votre type d'établissement.</p>
             </div>
             <div>
-              <label class="field-label" for="ct-volume">Volume mensuel estimé</label>
-              <select id="ct-volume" class="input-field">
-                <option>À définir</option>
-                <option>Moins de 1 kg</option>
-                <option>1 à 5 kg</option>
-                <option>5 à 20 kg</option>
-                <option>Plus de 20 kg</option>
-              </select>
+              <label class="field-label" for="ct-city">Ville</label>
+              <input id="ct-city" type="text" class="input-field" required />
+              <p id="ct-city-error" class="field-error hidden">Merci d'indiquer votre ville.</p>
             </div>
           </div>
           <div>
-            <label class="field-label" for="ct-subject">Sujet</label>
-            <select id="ct-subject" class="input-field">
-              <option>Demande de devis</option>
-              <option>Question sur un produit</option>
-              <option>Devenir revendeur / partenaire</option>
-              <option>Demande professionnelle / événementiel</option>
-              <option>Autre demande</option>
+            <label class="field-label" for="ct-volume">Volumes estimés</label>
+            <select id="ct-volume" class="input-field">
+              <option>À définir</option>
+              <option>Moins de 1 kg / semaine</option>
+              <option>1 à 5 kg / semaine</option>
+              <option>5 à 20 kg / semaine</option>
+              <option>Plus de 20 kg / semaine</option>
             </select>
           </div>
+          <fieldset>
+            <legend class="field-label">Produits concernés</legend>
+            <div class="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <label class="flex items-center gap-2.5 text-sm text-ink-100">
+                <input type="checkbox" class="mn-checkbox h-4 w-4" name="ct-produit" value="caviar" />
+                Le Caviar
+              </label>
+              <label class="flex items-center gap-2.5 text-sm text-ink-100">
+                <input type="checkbox" class="mn-checkbox h-4 w-4" name="ct-produit" value="mer" />
+                La Mer
+              </label>
+            </div>
+          </fieldset>
           <div>
             <label class="field-label" for="ct-message">Message</label>
-            <textarea id="ct-message" rows="6" class="input-field resize-none" required></textarea>
-            <p id="ct-message-error" class="field-error hidden">Merci de rédiger un message.</p>
+            <textarea id="ct-message" rows="6" class="input-field resize-none" placeholder="Précisez votre besoin (pièces recherchées, fréquence, contraintes de livraison...)"></textarea>
           </div>
-          <button type="submit" class="btn-navy w-full self-center sm:w-auto">Envoyer la demande</button>
+          <button type="submit" class="btn-navy w-full self-center sm:w-auto">Envoyer ma demande de référencement</button>
           <p id="mn-contact-feedback" class="hidden flex items-center justify-center gap-2 text-center text-sm text-marine" role="status">
-            <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre message a bien été envoyé. Nous revenons vers vous rapidement.
+            <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre demande a bien été transmise. Nous l'étudions et revenons vers vous sous 48h.
           </p>
-          <p class="text-center text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucun message réel.</p>
+          <p class="text-center text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucune demande réelle.</p>
         </form>
 
         <aside class="reveal [transition-delay:260ms] flex flex-col items-center text-center">
@@ -127,7 +138,7 @@
             </div>
           </div>
 
-          <p class="prose-copy mx-auto mt-10 max-w-xs border-t border-ink-600/50 pt-8 text-center">Commande professionnelle, traiteur ou événement privé : notre équipe dédiée aux volumes répond sous 48h.</p>
+          <p class="prose-copy mx-auto mt-10 max-w-xs border-t border-ink-600/50 pt-8 text-center">Chaque candidature est étudiée individuellement avant qu'une allocation ne soit proposée.</p>
         </aside>
       </div>
     </section>
@@ -143,20 +154,39 @@
       document.getElementById("mn-contact-icon-pin").innerHTML = MN_ICONS.pin;
       document.getElementById("mn-contact-feedback-icon").innerHTML = MN_ICONS.check;
 
+      // Arrivée depuis "Demander une allocation" (La Table) : coche le produit correspondant et
+      // pré-remplit le message avec la pièce concernée.
+      const produitLabels = {
+        "caviar-oscietre": "Caviar Osciètre",
+        "caviar-beluga": "Caviar Beluga",
+        "caviar-baeri": "Caviar Baeri",
+        "caviar-sevruga": "Caviar Sevruga",
+        "mer-poisson-ligne": "Poisson de ligne",
+        "mer-langoustine": "Langoustine",
+        "mer-terrines": "Terrines et conserves d'exception"
+      };
+      const produit = new URLSearchParams(window.location.search).get("produit");
+      if (produit && produitLabels[produit]) {
+        const groupe = produit.startsWith("caviar-") ? "caviar" : "mer";
+        const checkbox = document.querySelector(`input[name="ct-produit"][value="${groupe}"]`);
+        if (checkbox) checkbox.checked = true;
+        document.getElementById("ct-message").value = `Bonjour, je souhaite une allocation pour : ${produitLabels[produit]}.\n\n`;
+      }
+
       const form = document.getElementById("mn-contact-form");
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const establishment = document.getElementById("ct-establishment");
         const name = document.getElementById("ct-name");
         const email = document.getElementById("ct-email");
-        const activity = document.getElementById("ct-activity");
-        const message = document.getElementById("ct-message");
+        const type = document.getElementById("ct-type");
+        const city = document.getElementById("ct-city");
 
         const establishmentValid = establishment.value.trim().length > 0;
         const nameValid = name.value.trim().length > 0;
         const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-        const activityValid = activity.value.trim().length > 0;
-        const messageValid = message.value.trim().length > 0;
+        const typeValid = type.value.trim().length > 0;
+        const cityValid = city.value.trim().length > 0;
 
         document.getElementById("ct-establishment-error").classList.toggle("hidden", establishmentValid);
         establishment.classList.toggle("!border-error", !establishmentValid);
@@ -164,12 +194,27 @@
         name.classList.toggle("!border-error", !nameValid);
         document.getElementById("ct-email-error").classList.toggle("hidden", emailValid);
         email.classList.toggle("!border-error", !emailValid);
-        document.getElementById("ct-activity-error").classList.toggle("hidden", activityValid);
-        activity.classList.toggle("!border-error", !activityValid);
-        document.getElementById("ct-message-error").classList.toggle("hidden", messageValid);
-        message.classList.toggle("!border-error", !messageValid);
+        document.getElementById("ct-type-error").classList.toggle("hidden", typeValid);
+        type.classList.toggle("!border-error", !typeValid);
+        document.getElementById("ct-city-error").classList.toggle("hidden", cityValid);
+        city.classList.toggle("!border-error", !cityValid);
 
-        if (!(establishmentValid && nameValid && emailValid && activityValid && messageValid)) return;
+        if (!(establishmentValid && nameValid && emailValid && typeValid && cityValid)) return;
+
+        // Site statique, sans back-end : rien n'est réellement transmis — visible en console à
+        // la place d'un vrai service d'envoi, comme le reste du site.
+        const payload = {
+          etablissement: establishment.value.trim(),
+          contact: name.value.trim(),
+          email: email.value.trim(),
+          telephone: document.getElementById("ct-phone").value.trim(),
+          type: type.value,
+          ville: city.value.trim(),
+          volumesEstimes: document.getElementById("ct-volume").value,
+          produitsConcernes: Array.from(document.querySelectorAll('input[name="ct-produit"]:checked')).map((c) => c.value),
+          message: document.getElementById("ct-message").value.trim()
+        };
+        console.log("Demande de référencement (démonstration, non transmise) :", payload);
 
         document.getElementById("mn-contact-feedback").classList.remove("hidden");
         form.reset();

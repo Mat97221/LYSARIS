@@ -1,207 +1,63 @@
 /**
- * MARENOSTRUM — Sections de la page d'accueil éditoriale.
+ * MARENOSTRUM — Sections de la page d'accueil.
  * Chaque fonction retourne le HTML d'une section autonome, montée dans index.html via le motif
  * déjà utilisé ailleurs sur le site : un placeholder `<div data-mon-attribut></div>` statique,
  * remplacé au chargement par `document.querySelector("[data-mon-attribut]").outerHTML = mnHomeXxx();`.
  * Seul index.html charge ce fichier — les autres pages n'en ont pas besoin.
  *
- * Positionnement : négoce de produits de la mer pour les professionnels (modèle demande de
- * devis, aucun prix affiché) — le caviar reste une signature du catalogue mais n'est plus le
- * sujet exclusif de la page. Structure : hero → citation de marque → teaser "Notre approche" →
- * bande sombre "sourcing direct" (.mn-abyss) → tuiles des gammes (.mn-tile) → teaser caviar →
- * engagements → CTA devis.
+ * Positionnement : maison de produits de la mer d'exception, exclusivement pour les
+ * professionnels de la gastronomie et de la distribution — pas de catalogue exposé dès
+ * l'arrivée, juste le hero et trois portes d'entrée courtes vers La Maison, La Table et
+ * Notre savoir-faire.
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * 1) HERO — plein écran, accroche B2B produits de la mer
+ * 1) HERO — plein écran
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
-  // Photo : hero-mer.jpg (macro de glace pilée, fond bleu marine sombre). Accroche
-  // volontairement retirée pour l'instant (voir le bloc commenté ci-dessous, prêt à être
-  // restauré) — voile très légèrement assombri en attendant, juste assez pour garder la
-  // possibilité de remonter son opacité quand un texte sera réintroduit.
   return `
   <section class="relative h-screen overflow-hidden bg-marine">
     <img src="assets/img/hero-mer.jpg" alt="Macro de glace pilée sur fond bleu marine" class="absolute inset-0 h-full w-full object-cover animate-slowzoom" fetchpriority="high" />
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.22) 0%, transparent 18%), linear-gradient(90deg, rgba(17,17,16,0.2) 0%, rgba(17,17,16,0.08) 42%, transparent 68%)"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.28) 0%, transparent 22%), linear-gradient(90deg, rgba(17,17,16,0.22) 0%, rgba(17,17,16,0.08) 42%, transparent 68%)"></div>
     <div class="container-page relative z-10 flex h-full flex-col justify-center">
-      <!--
-      <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Négociants en produits de la mer</p>
-      <p class="animate-fadeUp [animation-delay:100ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">De la criée à votre cuisine, sans détour.</p>
-      <p class="animate-fadeUp [animation-delay:200ms] mt-6 max-w-lg text-base text-ivoire/90 sm:text-lg">Poissons, crustacés, coquillages et caviar, sélectionnés pour les professionnels de la restauration et de l'hôtellerie.</p>
-      <div class="animate-fadeUp [animation-delay:280ms] mt-9 flex flex-wrap items-center gap-4">
-        <a href="devis.html" class="btn-navy">Demander un devis</a>
-        <a href="produits-de-la-mer.html" class="btn-quiet !text-ivoire !border-ivoire/40 hover:!text-ivoire hover:!border-ivoire">Découvrir nos produits</a>
-      </div>
-      -->
+      <p class="animate-fadeUp mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Maison Marenostrum</p>
+      <p class="animate-fadeUp [animation-delay:100ms] font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">L'apogée des saveurs</p>
+      <p class="animate-fadeUp [animation-delay:200ms] mt-6 max-w-lg text-base text-ivoire/90 sm:text-lg">Le caviar choisi, calibré, garanti — pour les tables qui ne pardonnent rien.</p>
     </div>
   </section>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 2) CITATION DE MARQUE — bloc h-quote, fond ivoire, très aéré
+ * 2) TROIS PORTES D'ENTRÉE — La Maison / La Table / Notre savoir-faire
  * ------------------------------------------------------------------------------------------ */
-function mnHomeQuote() {
-  return `
-  <section class="bg-ivoire">
-    <div class="container-page py-24 text-center lg:py-32">
-      <p class="reveal h-quote mx-auto max-w-3xl">« Mare Nostrum, notre mer. » Un retour à ce que nous savons faire : choisir, sur les quais, ce qui mérite votre table.</p>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 3) TEASER NOTRE APPROCHE — texte contraint au conteneur du site, photo en breakout à droite
- * ------------------------------------------------------------------------------------------ */
-function mnHomeApproche() {
-  // Pas de container-page ici : la colonne image doit atteindre le bord réel du viewport, pas
-  // seulement celui de container-page (max-w-7xl) — impossible si toute la grille est enfermée
-  // dans ce conteneur. La colonne texte recrée donc l'inset gauche de container-page :
-  // px-5/sm:px-8 pour les petits écrans, puis au-delà de lg un calc() qui reproduit exactement
-  // le `max-w-7xl mx-auto px-10` de container-page (2.5rem, ou la moitié de l'espace au-delà de
-  // 80rem + 2.5rem) — pas une simple valeur fixe approximative, pour rester pixel-aligné avec
-  // le reste du site même sur un très grand écran. La colonne image garde un padding nul à
-  // droite : sur mobile/tablette (empilées, grid-cols-1) elle est bord à bord ; à partir de lg
-  // (grid-cols-[1fr_1.4fr], sans gap ni padding à droite) son bord droit coïncide avec le bord
-  // réel du viewport, quelle que soit sa largeur.
-  return `
-  <section class="bg-ivoire overflow-hidden">
-    <div class="grid grid-cols-1 items-center gap-10 py-24 lg:grid-cols-[1fr_1.4fr] lg:items-stretch lg:gap-16 lg:py-32">
-      <div class="reveal order-2 lg:order-1 px-5 sm:px-8 lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] lg:pr-0">
-        <p class="eyebrow mb-4">Notre approche</p>
-        <h2 class="h-section mb-6">Une chaîne plus courte, un produit plus frais</h2>
-        <p class="prose-copy mb-2">Criée, mareyeur, grossiste, grossiste régional, restaurateur : chaque intermédiaire ajoute un délai et éloigne le produit de son origine.</p>
-        <p class="prose-copy mb-8">Nous raccourcissons cette chaîne — des mareyeurs sélectionnés directement sur les côtes, une origine claire, une livraison plus rapide.</p>
-        <a href="notre-approche.html" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">En savoir plus →</a>
-      </div>
-      <div class="reveal [transition-delay:120ms] order-1 lg:order-2 flex h-64 items-center justify-center overflow-hidden sm:h-80 lg:h-auto lg:self-stretch">
-        <img src="assets/img/texture-mareyage.jpg" alt="Textures de produits de la mer : carapace de crustacé, écailles de rouget, de bar et de maquereau" loading="lazy" class="h-full w-full object-cover" />
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 4) SOURCING DIRECT — bande sombre .mn-abyss, la seule note sombre de la page
- * ------------------------------------------------------------------------------------------ */
-function mnHomeSourcing() {
-  const zones = ["Bretagne", "Boulogne-sur-Mer", "Écosse"];
-  return `
-  <section class="bg-marine">
-    <div class="container-page py-16 text-center lg:py-20">
-      <p class="reveal eyebrow mb-4 !text-ivoire/70">Sourcing direct</p>
-      <h2 class="reveal h-section mb-8 text-ivoire">Sélectionné sur les côtes, pas sur catalogue</h2>
-      <p class="reveal [transition-delay:100ms] prose-copy mx-auto mb-12 !text-ivoire/80">Nous travaillons avec des mareyeurs choisis directement sur leurs zones de débarque, pour une origine que nous pouvons toujours nommer.</p>
-      <div class="reveal [transition-delay:180ms] flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-        ${zones
-          .map(
-            (z) =>
-              `<span class="font-titre text-xl italic text-ivoire sm:text-2xl">${z}</span>`
-          )
-          .join(`<span class="hidden h-1 w-1 rounded-full bg-ivoire/40 sm:inline-block" aria-hidden="true"></span>`)}
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 5) TUILES DES GAMMES — .mn-tile, 3 tuiles vers produits-de-la-mer.html
- * ------------------------------------------------------------------------------------------ */
-function mnHomeGammes() {
-  const gammes = [
-    { id: "mn-home-tile-nobles", href: "produits-de-la-mer.html#poissons-nobles", label: "Poissons nobles", photo: "assets/img/bar-loup.jpg", alt: "Bar de ligne entier, produit de la mer Marenostrum" },
-    { id: "mn-home-tile-criee", href: "produits-de-la-mer.html#poissons-criee", label: "Poissons de criée", photo: "assets/img/rouget-barbet.jpg", alt: "Rouget barbet entier, produit de la mer Marenostrum" },
-    { id: "mn-home-tile-crustaces", href: "produits-de-la-mer.html#crustaces-coquillages", label: "Crustacés & coquillages", photo: "assets/img/langoustine.jpg", alt: "Langoustine entière, produit de la mer Marenostrum" }
+function mnHomeUnivers() {
+  const blocs = [
+    { href: "la-maison.html", label: "La Maison", photo: "assets/img/texture-mareyage.jpg", alt: "Textures de produits de la mer d'exception", text: "Une maison qui choisit, calibre et garantit chaque pièce avant qu'elle ne porte son nom." },
+    { href: "la-table.html", label: "La Table", photo: "assets/img/grain-macro.webp", alt: "Vue macro du grain de caviar Marenostrum", text: "Caviar et produits de la mer d'exception, présentés sans prix, ouverts sur demande d'allocation." },
+    { href: "notre-savoir-faire.html", label: "Notre savoir-faire", photo: "assets/img/gamme-boites.webp", alt: "Conditionnement des produits Marenostrum", text: "Sélection, traçabilité, chaîne du froid, conditionnement : ce qui garantit chaque expédition." }
   ];
   return `
   <section class="bg-ivoire">
     <div class="container-page py-24 lg:py-32">
-      <div class="reveal mx-auto mb-16 max-w-xl text-center">
-        <p class="eyebrow mb-4">Nos gammes</p>
-        <h2 class="h-section">Trois familles, un même niveau d'exigence</h2>
-      </div>
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-3">
-        ${gammes
+        ${blocs
           .map(
-            (g, i) => `
-        <a href="${g.href}" class="reveal [transition-delay:${i * 90}ms] mn-tile group block">
+            (b, i) => `
+        <a href="${b.href}" class="reveal [transition-delay:${i * 90}ms] mn-tile group block">
           <div class="flex h-64 items-center justify-center overflow-hidden bg-ink-800">
-            <img src="${g.photo}" alt="${g.alt}" loading="lazy" class="h-full w-full object-cover" />
+            <img src="${b.photo}" alt="${b.alt}" loading="lazy" class="h-full w-full object-cover" />
           </div>
-          <div class="flex items-center justify-between pt-4">
-            <h3 class="h-card !text-xl group-hover:text-marine transition-colors">${g.label}</h3>
-            <span class="h-4 w-4 shrink-0 text-marine transition-transform duration-200 ease-fluid group-hover:translate-x-1">${MN_ICONS.chevronRight}</span>
+          <div class="pt-4">
+            <div class="flex items-center justify-between">
+              <h3 class="h-card !text-xl group-hover:text-marine transition-colors">${b.label}</h3>
+              <span class="h-4 w-4 shrink-0 text-marine transition-transform duration-200 ease-fluid group-hover:translate-x-1">${MN_ICONS.chevronRight}</span>
+            </div>
+            <p class="mt-2 text-sm text-ink-200 leading-relaxed">${b.text}</p>
           </div>
         </a>`
           )
           .join("")}
       </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 6) TEASER CAVIAR — signature du catalogue, photo réelle
- * ------------------------------------------------------------------------------------------ */
-function mnHomeCaviar() {
-  return `
-  <section class="bg-ivoire">
-    <div class="container-page grid grid-cols-1 items-center gap-12 py-24 lg:grid-cols-2 lg:gap-20 lg:py-32">
-      <div class="reveal order-1 flex h-80 items-center justify-center overflow-hidden sm:h-[28rem]">
-        <img src="assets/img/grain-macro.webp" alt="Vue macro du grain de caviar Marenostrum" loading="lazy" class="h-full w-full object-cover" />
-      </div>
-      <div class="reveal order-2 [transition-delay:150ms]">
-        <p class="eyebrow mb-4">Le caviar, notre exception</p>
-        <h2 class="h-section mb-6">La même exigence, portée à son sommet</h2>
-        <p class="prose-copy mb-2">Osciètre, Beluga, Baeri, Sevruga : quatre espèces sélectionnées pour leur calibrage et leur régularité.</p>
-        <p class="prose-copy mb-8">Affinage Malossol, traçabilité CITES complète, lot par lot.</p>
-        <a href="caviar.html" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Découvrir notre caviar →</a>
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 7) ENGAGEMENTS — 3 fiches (Fraîcheur / Traçabilité / Sur-mesure)
- * ------------------------------------------------------------------------------------------ */
-function mnHomeEngagements() {
-  return `
-  <section class="border-y border-ink-600/50 bg-ink-800">
-    <div class="container-page py-24 lg:py-32">
-      <p class="eyebrow mb-4 text-center reveal">Nos engagements</p>
-      <h2 class="h-section mb-16 text-center reveal">Ce qui ne se négocie pas</h2>
-      <div id="mn-home-engagements-grid" class="grid grid-cols-1 gap-12 sm:grid-cols-3">
-        <div>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-home-engagement-icon-1"></span>
-          <h3 class="h-card mb-3">Fraîcheur</h3>
-          <p class="text-ink-200 leading-relaxed">Un circuit court, de la débarque à votre cuisine, pour un produit qui n'a pas eu le temps de vieillir.</p>
-        </div>
-        <div>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-home-engagement-icon-2"></span>
-          <h3 class="h-card mb-3">Traçabilité</h3>
-          <p class="text-ink-200 leading-relaxed">Une origine que nous pouvons toujours nommer, et pour le caviar, une traçabilité CITES complète.</p>
-        </div>
-        <div>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-home-engagement-icon-3"></span>
-          <h3 class="h-card mb-3">Sur-mesure</h3>
-          <p class="text-ink-200 leading-relaxed">Calibre, découpe, espèce : votre demande de devis part de vos besoins, pas d'un catalogue figé.</p>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 8) CTA FINAL — bandeau devis
- * ------------------------------------------------------------------------------------------ */
-function mnHomeCtaDevis() {
-  return `
-  <section class="bg-ivoire">
-    <div class="container-page py-24 text-center lg:py-32">
-      <p class="reveal eyebrow mb-4">Restaurant, hôtel, grossiste</p>
-      <h2 class="reveal h-section mb-8">Demandez votre devis professionnel</h2>
-      <p class="reveal [transition-delay:80ms] prose-copy mx-auto mb-10">Les prix des produits de la mer varient chaque jour — nous établissons votre devis sur mesure, sous 48h.</p>
-      <a href="devis.html" class="reveal [transition-delay:150ms] btn-navy inline-flex">Demander un devis</a>
     </div>
   </section>`;
 }

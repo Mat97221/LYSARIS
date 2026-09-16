@@ -159,6 +159,25 @@
     @apply relative flex flex-col bg-transparent;
   }
 
+  /* Statut de disponibilité d'une pièce (La Table) — jamais un prix, jamais un stock chiffré.
+     Trois états seulement : disponible (plein), sur allocation (contour), ouverture prochaine
+     (contour atténué). Positionnée en absolute par l'appelant (voir la-table.html). */
+  .mn-status {
+    @apply absolute left-3 top-3 z-10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest2;
+  }
+
+  .mn-status-dispo {
+    @apply bg-marine text-ivoire;
+  }
+
+  .mn-status-allocation {
+    @apply border border-marine bg-ivoire text-marine;
+  }
+
+  .mn-status-ouverture {
+    @apply border border-ink-400 bg-ivoire text-ink-400;
+  }
+
   .nav-glass {
     @apply bg-ink-900/85 backdrop-blur-md border-b border-ink-600/50 transition-shadow duration-300 ease-fluid;
   }

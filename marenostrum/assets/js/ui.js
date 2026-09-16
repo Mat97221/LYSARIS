@@ -3,9 +3,11 @@
  * animée, helpers de scroll-reveal). Injection DOM directe (pas de fetch) afin de fonctionner
  * aussi bien via file:// que via un serveur.
  *
- * Site vitrine B2B (négoce de produits de la mer, modèle demande de devis) : aucun panier,
- * aucun prix, aucun catalogue dynamique — chaque page présente des cartes statiques dont le
- * seul CTA est "Demander un devis" (devis.html). Ce fichier ne dépend donc plus de products.js.
+ * Site vitrine B2B (maison de produits de la mer d'exception, exclusivement professionnels) :
+ * aucun panier, aucun prix — chaque page présente des pièces avec une pastille de statut
+ * (Disponible / Sur allocation / Ouverture prochaine) dont le seul CTA est "Demander une
+ * allocation", qui renvoie vers le formulaire de référencement unique (contact.html). Ce
+ * fichier ne dépend donc plus de products.js.
  */
 
 const MN_ICONS = {
@@ -14,6 +16,7 @@ const MN_ICONS = {
   chevronRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>`,
   chevronDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`,
   shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>`,
+  box: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5 12 4l8.5 4.5V16L12 20.5 3.5 16z"/><path d="M3.5 8.5 12 13l8.5-4.5M12 13v7.5"/></svg>`,
   truck: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="7" width="12" height="9"/><path d="M13.5 10h4l3 3v3h-7z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></svg>`,
   leaf: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c8 0 14-6 16-16-10 0-16 6-16 16z"/><path d="M4 20c2-6 5-9 11-12"/></svg>`,
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>`,
@@ -74,10 +77,9 @@ function mnHeader(active) {
 
   const navLinks = [
     ["index.html", "Accueil", "accueil"],
-    ["produits-de-la-mer.html", "Produits de la mer", "produits-mer"],
-    ["caviar.html", "Caviar", "caviar"],
-    ["notre-approche.html", "Notre approche", "approche"],
-    ["professionnels.html", "Professionnels", "professionnels"],
+    ["la-maison.html", "La Maison", "maison"],
+    ["la-table.html", "La Table", "table"],
+    ["notre-savoir-faire.html", "Notre savoir-faire", "savoir-faire"],
     ["contact.html", "Contact", "contact"]
   ];
 
@@ -91,7 +93,7 @@ function mnHeader(active) {
         ${navLinks.map(([href, label, key]) => link(href, label, key)).join("")}
       </nav>
       <div class="flex items-center gap-4">
-        <a href="devis.html" class="btn-navy hidden lg:inline-flex !px-5 !py-2.5 !min-h-0 !text-xs">Demander un devis</a>
+        <a href="contact.html" class="btn-navy hidden lg:inline-flex !px-5 !py-2.5 !min-h-0 !text-xs">Demander un référencement</a>
         <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="lg:hidden h-6 w-6 text-ink-50">
           ${MN_ICONS.menu}
         </button>
@@ -100,7 +102,7 @@ function mnHeader(active) {
     <nav id="mn-mobile-menu" class="mn-menu-panel lg:hidden border-t border-ink-600/50 bg-ink-900/95">
       <div class="container-page flex flex-col gap-4 py-5">
         ${navLinks.map(([href, label, key]) => link(href, label, key)).join("")}
-        <a href="devis.html" class="btn-navy w-full text-center">Demander un devis</a>
+        <a href="contact.html" class="btn-navy w-full text-center">Demander un référencement</a>
       </div>
     </nav>
   </header>`;
@@ -113,21 +115,20 @@ function mnFooter() {
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <p class="font-titre font-semibold tracking-[0.18em] text-2xl text-ivoire mb-3">MAREN<span class="text-ivoire">O</span>STRUM</p>
-        <p class="text-sm text-ivoire/70 leading-relaxed">Négociants en produits de la mer pour les professionnels — poissons, crustacés, coquillages et caviar, sélectionnés avec exigence.</p>
+        <p class="text-sm text-ivoire/70 leading-relaxed">Maison de produits de la mer d'exception pour les professionnels — caviar et pièces rares, choisis, calibrés et garantis.</p>
       </div>
       <div>
-        <p class="eyebrow text-ivoire mb-4">Gammes</p>
+        <p class="eyebrow text-ivoire mb-4">Découvrir</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-ivoire transition-colors" href="produits-de-la-mer.html">Produits de la mer</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="caviar.html">Caviar</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="professionnels.html">Professionnels</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="devis.html">Demander un devis</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="la-maison.html">La Maison</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="la-table.html">La Table</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="notre-savoir-faire.html">Notre savoir-faire</a></li>
         </ul>
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Informations</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-ivoire transition-colors" href="notre-approche.html">Notre approche</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="contact.html">Demander un référencement</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="contact.html">Contact</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="confidentialite.html">Confidentialité</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="mentions-legales.html">Mentions légales</a></li>
