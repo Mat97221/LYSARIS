@@ -191,6 +191,47 @@ function mnInitReveal(root) {
   }, 500);
 }
 
+/**
+ * Observe les éléments `.img-reveal` (voir la-table.html) et les fait apparaître un par un —
+ * fondu, léger retour d'échelle (1.02 → 1) et remontée de 40px, plus lents et plus marqués que
+ * `.reveal` puisque l'image porte seule l'attention. Se déclenche à 15% de visibilité (pas au
+ * chargement), une seule fois par élément (désabonnement immédiat), et respecte
+ * prefers-reduced-motion en affichant tout instantanément plutôt qu'en jouant la transition.
+ */
+function mnInitImageReveal(root) {
+  const scope = root || document;
+  const elements = Array.from(scope.querySelectorAll(".img-reveal:not([data-img-reveal-bound])"));
+  if (elements.length === 0) return;
+
+  if (mnPrefersReducedMotion() || !("IntersectionObserver" in window)) {
+    elements.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  elements.forEach((el) => {
+    el.dataset.imgRevealBound = "true";
+    observer.observe(el);
+  });
+
+  // Même filet de sécurité que mnInitReveal : un défilement trop rapide pour que l'observer
+  // capte une intersection ne doit jamais laisser une image invisible durablement.
+  setTimeout(() => {
+    elements.forEach((el) => el.classList.add("is-visible"));
+  }, 1500);
+}
+
 /** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade).
     Une base de 140ms avant le premier élément garde l'ensemble posé plutôt qu'instantané. */
 function mnStagger(container, stepMs) {

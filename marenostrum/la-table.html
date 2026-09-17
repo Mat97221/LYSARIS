@@ -41,7 +41,7 @@
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4" id="mn-caviar-grid">
         <div class="card-product group">
           <span class="mn-status mn-status-dispo">Disponible</span>
-          <div class="flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-1" data-tin-reveal></div></div>
+          <div class="img-reveal [transition-delay:0ms] flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-1" data-tin-reveal></div></div>
           <div class="flex flex-1 flex-col gap-2 pt-5">
             <h3 class="h-card">Osciètre</h3>
             <p class="font-titre italic text-ink-300">Acipenser gueldenstaedtii</p>
@@ -53,7 +53,7 @@
 
         <div class="card-product group">
           <span class="mn-status mn-status-allocation">Sur allocation</span>
-          <div class="flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-2" data-tin-reveal></div></div>
+          <div class="img-reveal [transition-delay:120ms] flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-2" data-tin-reveal></div></div>
           <div class="flex flex-1 flex-col gap-2 pt-5">
             <h3 class="h-card">Beluga</h3>
             <p class="font-titre italic text-ink-300">Huso huso</p>
@@ -65,7 +65,7 @@
 
         <div class="card-product group">
           <span class="mn-status mn-status-dispo">Disponible</span>
-          <div class="flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-3" data-tin-reveal></div></div>
+          <div class="img-reveal [transition-delay:240ms] flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-3" data-tin-reveal></div></div>
           <div class="flex flex-1 flex-col gap-2 pt-5">
             <h3 class="h-card">Baeri</h3>
             <p class="font-titre italic text-ink-300">Acipenser baerii</p>
@@ -77,7 +77,7 @@
 
         <div class="card-product group">
           <span class="mn-status mn-status-ouverture">Ouverture prochaine</span>
-          <div class="flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-4" data-tin-reveal></div></div>
+          <div class="img-reveal [transition-delay:360ms] flex h-56 items-center justify-center overflow-hidden bg-ivoire"><div id="mn-tin-4" data-tin-reveal></div></div>
           <div class="flex flex-1 flex-col gap-2 pt-5">
             <h3 class="h-card">Sevruga</h3>
             <p class="font-titre italic text-ink-300">Acipenser stellatus</p>
@@ -100,7 +100,7 @@
         </div>
 
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          <div class="reveal order-1 relative flex h-72 items-center justify-center overflow-hidden sm:h-96">
+          <div class="img-reveal order-1 relative flex h-72 items-center justify-center overflow-hidden sm:h-96">
             <span class="mn-status mn-status-dispo">Disponible</span>
             <img src="assets/img/bar-loup.jpg" alt="Bar de ligne entier, produit de la mer Marenostrum" loading="lazy" class="h-full w-full object-cover" />
           </div>
@@ -112,7 +112,7 @@
         </div>
 
         <div class="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          <div class="reveal order-1 lg:order-2 relative flex h-72 items-center justify-center overflow-hidden sm:h-96">
+          <div class="img-reveal order-1 lg:order-2 relative flex h-72 items-center justify-center overflow-hidden sm:h-96">
             <span class="mn-status mn-status-allocation">Sur allocation</span>
             <img src="assets/img/langoustine.jpg" alt="Langoustine entière, produit de la mer Marenostrum" loading="lazy" class="h-full w-full object-cover" />
           </div>
@@ -124,7 +124,7 @@
         </div>
 
         <div class="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          <div class="reveal order-1 relative flex h-72 items-center justify-center overflow-hidden sm:h-96">
+          <div class="img-reveal order-1 relative flex h-72 items-center justify-center overflow-hidden sm:h-96">
             <span class="mn-status mn-status-ouverture">Ouverture prochaine</span>
             <img src="assets/img/gamme-boites.webp" alt="Coffrets et conditionnement Marenostrum" loading="lazy" class="h-full w-full object-cover" />
           </div>
@@ -153,6 +153,7 @@
         el.outerHTML = mnTinReveal();
       });
       mnStagger(document.getElementById("mn-caviar-grid"), 80);
+      mnInitImageReveal();
     });
   </script>
 </body>

@@ -32,6 +32,10 @@
       opacity: 1 !important;
       transform: none !important;
     }
+    .img-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   /* Site-wide backdrop: rendered by a JS-injected `#site-bg` fixed-position layer (see
@@ -275,6 +279,36 @@
   .reveal.is-visible {
     opacity: 1;
     transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  }
+
+  /* Breakout plein cadre : sort un élément de son conteneur centré (container-page ou autre) pour
+     toucher les deux bords de l'écran, quel que soit le niveau d'imbrication — la largeur et les
+     marges se calculent depuis le viewport (100vw), jamais depuis le parent. `overflow-x` du
+     document doit rester sain : cette technique (calc(50% - 50vw) plutôt que left:50%+translateX,
+     pour éviter tout écart lié à la largeur de la scrollbar) ne crée pas de scroll horizontal. */
+  .breakout-full {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  /* Apparition progressive d'une image au défilement (voir mnInitImageReveal dans ui.js) : plus
+     lente et plus marquée que le `.reveal` générique du site (900ms, léger zoom arrière inclus)
+     puisqu'elle porte seule l'attention sur la pièce photographiée, sans texte qui l'accompagne
+     dans le même mouvement. Chaque image ne s'anime qu'une fois (l'observer se désabonne après
+     le premier passage en vue) ; l'espace qu'elle occupe est déjà réservé par la hauteur fixe ou
+     l'aspect-ratio posé par l'appelant, donc cette classe ne doit jamais influencer la mise en
+     page, seulement l'opacité/la position/l'échelle. */
+  .img-reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(1.02);
+    transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .img-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   /* Magnetic button: nudges toward the cursor within its own bounds (see mnInitMagnetic in ui.js) */
