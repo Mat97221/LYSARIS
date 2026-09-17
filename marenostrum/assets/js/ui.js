@@ -1,13 +1,13 @@
 /**
  * MARENOSTRUM — Composants d'interface partagés (header, footer, icônes SVG, boîte de caviar
- * animée, helpers de scroll-reveal). Injection DOM directe (pas de fetch) afin de fonctionner
- * aussi bien via file:// que via un serveur.
+ * animée). Injection DOM directe (pas de fetch) afin de fonctionner aussi bien via file:// que
+ * via un serveur. Ce fichier ne gère plus le scroll-reveal : sur l'accueil one-page, cette
+ * responsabilité appartient entièrement à GSAP/ScrollTrigger (voir motion.js).
  *
  * Site vitrine B2B (maison de produits de la mer d'exception, exclusivement professionnels) :
- * aucun panier, aucun prix — chaque page présente des pièces avec une pastille de statut
- * (Disponible / Sur allocation / Ouverture prochaine) dont le seul CTA est "Demander une
- * allocation", qui renvoie vers le formulaire de référencement unique (contact.html). Ce
- * fichier ne dépend donc plus de products.js.
+ * aucun panier, aucun prix — chaque pièce de La Table porte une pastille de statut (Disponible /
+ * Sur allocation / Ouverture prochaine) dont le seul CTA est "Demander une allocation", qui
+ * renvoie vers le formulaire de référencement unique (accueil, section #contact).
  */
 
 const MN_ICONS = {
@@ -26,20 +26,6 @@ const MN_ICONS = {
   spoon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="4.5" ry="5.5"/><path d="M12 12v10"/></svg>`,
   clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`
 };
-
-/** Small-caps label on a solid marine chip — legible over any photo. */
-function mnBadge(text) {
-  if (!text) return "";
-  return `<span class="absolute left-3 top-3 z-10 bg-marine px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest2 text-ivoire">${text}</span>`;
-}
-
-/** Divise décoratif en forme de vague (Côte d'Azur) — se dessine au chargement. */
-function mnWaveDivider(colorClass) {
-  const cls = colorClass || "text-marine/50";
-  return `<svg viewBox="0 0 400 24" class="mx-auto h-5 w-36 ${cls}" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 12 C 40 2, 80 22, 120 12 S 200 2, 240 12 S 320 22, 360 12 S 400 2 400 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" class="animate-drawline"/>
-  </svg>`;
-}
 
 /**
  * Boîte de caviar dont le couvercle glisse vers la droite et s'estompe au survol, pour révéler
@@ -65,35 +51,43 @@ function mnTinReveal(openSrc, openAlt) {
   </div>`;
 }
 
+/**
+ * En-tête. Sur l'accueil (data-page="accueil"), le site est une page unique défilante : les
+ * liens de nav pointent vers des ancres (#maison, #table...) et portent `data-scroll-link` pour
+ * que motion.js les fasse défiler via Lenis plutôt que par un saut natif. Sur toute autre page
+ * (fiche technique, conditions professionnelles, mentions légales...), les mêmes ancres
+ * redirigent vers `index.html#...` — une navigation normale, ces pages ne chargent pas Lenis.
+ */
 function mnHeader(active) {
-  const link = (href, label, key) =>
-    `<a href="${href}" class="mn-nav-link text-sm uppercase tracking-wide transition-colors duration-200 hover:text-marine ${
-      active === key ? "text-marine is-active" : "text-ink-100"
-    }">${label}</a>`;
+  const isOnePager = active === "accueil";
+  const prefix = isOnePager ? "" : "index.html";
+  const scrollAttr = isOnePager ? " data-scroll-link" : "";
 
-  // On the homepage the header overlays the full-bleed hero image (transparent + light),
-  // resolving to the standard solid light bar once scrolled past it (see .mn-hero-nav in CSS).
-  const heroNav = active === "accueil" ? " mn-hero-nav" : "";
+  const link = (anchor, label) =>
+    `<a href="${prefix}${anchor}" class="mn-nav-link text-sm uppercase tracking-wide transition-colors duration-200 hover:text-marine text-ink-100"${scrollAttr}>${label}</a>`;
+
+  // Sur l'accueil, l'en-tête recouvre le hero plein écran (transparent + clair), et repasse à la
+  // barre claire pleine une fois le hero dépassé (voir .mn-hero-nav dans le CSS).
+  const heroNav = isOnePager ? " mn-hero-nav" : "";
 
   const navLinks = [
-    ["index.html", "Accueil", "accueil"],
-    ["la-maison.html", "La Maison", "maison"],
-    ["la-table.html", "La Table", "table"],
-    ["notre-savoir-faire.html", "Notre savoir-faire", "savoir-faire"],
-    ["contact.html", "Contact", "contact"]
+    ["#maison", "La Maison"],
+    ["#table", "La Table"],
+    ["#savoir-faire", "Notre savoir-faire"],
+    ["#contact", "Contact"]
   ];
 
   return `
   <header class="nav-glass sticky top-0 z-40${heroNav}">
     <div class="container-page flex h-20 items-center justify-between">
-      <a href="index.html" class="flex items-center">
+      <a href="${prefix || "index.html"}" class="flex items-center">
         <img src="assets/img/logo-marenostrum-horizontal-noir.png" alt="MARENOSTRUM" class="w-auto" style="width:231px;height:44px" />
       </a>
       <nav class="hidden lg:flex items-center gap-7">
-        ${navLinks.map(([href, label, key]) => link(href, label, key)).join("")}
+        ${navLinks.map(([anchor, label]) => link(anchor, label)).join("")}
       </nav>
       <div class="flex items-center gap-4">
-        <a href="contact.html" class="btn-navy hidden lg:inline-flex !px-5 !py-2.5 !min-h-0 !text-xs">Demander un référencement</a>
+        <a href="${prefix}#contact" class="btn-navy hidden lg:inline-flex !px-5 !py-2.5 !min-h-0 !text-xs"${scrollAttr}>Demander un référencement</a>
         <button id="mn-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" class="lg:hidden h-6 w-6 text-ink-50">
           ${MN_ICONS.menu}
         </button>
@@ -101,8 +95,8 @@ function mnHeader(active) {
     </div>
     <nav id="mn-mobile-menu" class="mn-menu-panel lg:hidden border-t border-ink-600/50 bg-ink-900/95">
       <div class="container-page flex flex-col gap-4 py-5">
-        ${navLinks.map(([href, label, key]) => link(href, label, key)).join("")}
-        <a href="contact.html" class="btn-navy w-full text-center">Demander un référencement</a>
+        ${navLinks.map(([anchor, label]) => link(anchor, label)).join("")}
+        <a href="${prefix}#contact" class="btn-navy w-full text-center"${scrollAttr}>Demander un référencement</a>
       </div>
     </nav>
   </header>`;
@@ -110,6 +104,8 @@ function mnHeader(active) {
 
 function mnFooter() {
   const year = new Date().getFullYear();
+  const isOnePager = document.body.dataset.page === "accueil";
+  const prefix = isOnePager ? "" : "index.html";
   return `
   <footer class="bg-noir text-ivoire mt-24">
     <div class="container-page grid grid-cols-1 gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
@@ -120,16 +116,17 @@ function mnFooter() {
       <div>
         <p class="eyebrow text-ivoire mb-4">Découvrir</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-ivoire transition-colors" href="la-maison.html">La Maison</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="la-table.html">La Table</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="notre-savoir-faire.html">Notre savoir-faire</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="${prefix}#maison">La Maison</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="${prefix}#table">La Table</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="${prefix}#savoir-faire">Notre savoir-faire</a></li>
         </ul>
       </div>
       <div>
         <p class="eyebrow text-ivoire mb-4">Informations</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
-          <li><a class="hover:text-ivoire transition-colors" href="contact.html">Demander un référencement</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="contact.html">Contact</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="${prefix}#contact">Demander un référencement</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="fiche-technique-produit.html">Fiche technique produit</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="conditions-professionnelles.html">Conditions professionnelles</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="confidentialite.html">Confidentialité</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="mentions-legales.html">Mentions légales</a></li>
         </ul>
@@ -154,127 +151,12 @@ function mnFooter() {
   </footer>`;
 }
 
-/** Observe les éléments `.reveal` et les fait apparaître (fondu + léger décalage) à l'entrée dans le viewport. */
-function mnInitReveal(root) {
-  const scope = root || document;
-  const elements = Array.from(scope.querySelectorAll(".reveal:not([data-reveal-bound])"));
-  if (elements.length === 0) return;
-
-  if (!("IntersectionObserver" in window)) {
-    elements.forEach((el) => el.classList.add("is-visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0, rootMargin: "0px" }
-  );
-
-  elements.forEach((el) => {
-    el.dataset.revealBound = "true";
-    observer.observe(el);
-  });
-
-  // Safety net: a very fast/instant scroll (flick, "End" key, bfcache restore) can in rare
-  // cases move past an element between two rendered frames without ever registering an
-  // intersection — reveal anything still hidden after a brief delay so content is never
-  // stuck invisible. Short enough that it's imperceptible if it ever has to fire.
-  setTimeout(() => {
-    elements.forEach((el) => el.classList.add("is-visible"));
-  }, 500);
-}
-
-/**
- * Observe les éléments `.img-reveal` (voir la-table.html) et les fait apparaître un par un —
- * fondu, léger retour d'échelle (1.02 → 1) et remontée de 40px, plus lents et plus marqués que
- * `.reveal` puisque l'image porte seule l'attention. Se déclenche à 15% de visibilité (pas au
- * chargement), une seule fois par élément (désabonnement immédiat), et respecte
- * prefers-reduced-motion en affichant tout instantanément plutôt qu'en jouant la transition.
- */
-function mnInitImageReveal(root) {
-  const scope = root || document;
-  const elements = Array.from(scope.querySelectorAll(".img-reveal:not([data-img-reveal-bound])"));
-  if (elements.length === 0) return;
-
-  if (mnPrefersReducedMotion() || !("IntersectionObserver" in window)) {
-    elements.forEach((el) => el.classList.add("is-visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  elements.forEach((el) => {
-    el.dataset.imgRevealBound = "true";
-    observer.observe(el);
-  });
-
-  // Contrairement à mnInitReveal, pas de filet de sécurité à délai fixe ici : ces images sont
-  // souvent loin sous la ligne de flottaison, et un tel filet les rendrait visibles avant même
-  // que l'utilisateur ne défile jusqu'à elles — annulant l'effet d'apparition au défilement
-  // demandé. Le seul repli reste l'absence d'IntersectionObserver, gérée plus haut.
-}
-
-/** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade).
-    Une base de 140ms avant le premier élément garde l'ensemble posé plutôt qu'instantané. */
-function mnStagger(container, stepMs) {
-  if (!container) return;
-  const step = stepMs || 90;
-  const base = 140;
-  Array.from(container.children).forEach((child, i) => {
-    child.classList.add("reveal");
-    child.style.transitionDelay = `${Math.min(base + i * step, 700)}ms`;
-  });
-  mnInitReveal(container);
-  mnInitTilt(container);
-}
-
 function mnPrefersReducedMotion() {
   return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 }
 
 function mnClamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
-}
-
-/** Subtle pointer-driven 3D tilt on product/gamme cards — sets --tilt-x/--tilt-y consumed by
-    the .card-product transform in input.css. Purely additive to the existing hover shine. */
-function mnInitTilt(root) {
-  if (mnPrefersReducedMotion()) return;
-  const scope = root || document;
-  const cards = Array.from(scope.querySelectorAll(".card-product:not([data-tilt-bound])"));
-  const maxDeg = 6;
-
-  cards.forEach((card) => {
-    card.dataset.tiltBound = "true";
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.setProperty("--tilt-x", `${(-py * maxDeg).toFixed(2)}deg`);
-      card.style.setProperty("--tilt-y", `${(px * maxDeg).toFixed(2)}deg`);
-    });
-    card.addEventListener("mouseleave", () => {
-      card.style.setProperty("--tilt-x", "0deg");
-      card.style.setProperty("--tilt-y", "0deg");
-    });
-  });
 }
 
 /** Nudges a `.magnetic` element toward the cursor within its own bounds. Pairs with .btn-navy-magnetic. */
@@ -360,7 +242,6 @@ function mnMountLayout(activePage) {
     window.addEventListener("resize", onScroll, { passive: true });
   }
 
-  mnInitReveal();
   mnInitMagnetic();
 }
 

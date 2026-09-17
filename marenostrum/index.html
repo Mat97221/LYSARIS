@@ -21,26 +21,55 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- 1) HERO — plein écran -->
     <div id="mn-hero-slot" data-hero></div>
-
-    <!-- 2) TROIS PORTES D'ENTRÉE -->
-    <div id="mn-univers-slot" data-univers></div>
+    <div id="mn-texture-slot" data-texture></div>
+    <div id="mn-maison-slot" data-maison></div>
+    <div id="mn-table-slot" data-table></div>
+    <div id="mn-savoir-faire-slot" data-savoir-faire></div>
+    <div id="mn-contact-slot" data-contact></div>
   </main>
 
   <div id="site-footer"></div>
 
+  <!-- Lenis (défilement lissé) + GSAP/ScrollTrigger — chargés uniquement sur cet accueil
+       one-page ; aucune autre page du site n'en dépend. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
   <script src="assets/js/ui.js"></script>
+  <script src="assets/js/motion.js"></script>
   <script src="assets/js/home.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("[data-hero]").outerHTML = mnHomeHero();
-      document.querySelector("[data-univers]").outerHTML = mnHomeUnivers();
+      document.querySelector("[data-texture]").outerHTML = mnHomeTextureBand();
+      document.querySelector("[data-maison]").outerHTML = mnSectionMaison();
+      document.querySelector("[data-table]").outerHTML = mnSectionTable();
+      document.querySelector("[data-savoir-faire]").outerHTML = mnSectionSavoirFaire();
+      document.querySelector("[data-contact]").outerHTML = mnSectionContact();
 
-      // mnMountLayout() already ran mnInitReveal() once on DOMContentLoaded, before any of the
-      // sections above existed — their .reveal elements need their own pass (mnInitReveal skips
-      // anything already bound via data-reveal-bound, so this only picks up what's new).
-      mnInitReveal();
+      document.querySelectorAll("[data-tin-reveal]").forEach((el) => {
+        el.outerHTML = mnTinReveal();
+      });
+
+      mnInitContactIcons();
+      mnInitContactForm();
+      mnInitProduitCTAs();
+
+      // mnInitMotion() (Lenis + GSAP/ScrollTrigger) doit s'exécuter une fois toutes les sections
+      // ci-dessus réellement présentes dans le DOM, faute de quoi les ScrollTrigger seraient
+      // créés sur des éléments absents.
+      mnInitMotion();
+
+      // Arrivée directe sur une ancre ou avec un produit à pré-remplir (lien partagé, ou retour
+      // depuis fiche-technique-produit.html / conditions-professionnelles.html) : le navigateur
+      // ne peut pas sauter nativement vers une section injectée après coup, donc on le fait ici.
+      const produit = new URLSearchParams(window.location.search).get("produit");
+      if (produit) mnPrefillProduit(produit);
+      if (window.location.hash) {
+        requestAnimationFrame(() => mnScrollTo(window.location.hash));
+      }
     });
   </script>
 </body>
