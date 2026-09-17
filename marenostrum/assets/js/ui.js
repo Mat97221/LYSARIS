@@ -225,11 +225,10 @@ function mnInitImageReveal(root) {
     observer.observe(el);
   });
 
-  // Même filet de sécurité que mnInitReveal : un défilement trop rapide pour que l'observer
-  // capte une intersection ne doit jamais laisser une image invisible durablement.
-  setTimeout(() => {
-    elements.forEach((el) => el.classList.add("is-visible"));
-  }, 1500);
+  // Contrairement à mnInitReveal, pas de filet de sécurité à délai fixe ici : ces images sont
+  // souvent loin sous la ligne de flottaison, et un tel filet les rendrait visibles avant même
+  // que l'utilisateur ne défile jusqu'à elles — annulant l'effet d'apparition au défilement
+  // demandé. Le seul repli reste l'absence d'IntersectionObserver, gérée plus haut.
 }
 
 /** Ajoute `.reveal` à chaque enfant d'un conteneur avec un décalage progressif (effet de cascade).

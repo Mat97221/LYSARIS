@@ -281,17 +281,6 @@
     transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   }
 
-  /* Breakout plein cadre : sort un élément de son conteneur centré (container-page ou autre) pour
-     toucher les deux bords de l'écran, quel que soit le niveau d'imbrication — la largeur et les
-     marges se calculent depuis le viewport (100vw), jamais depuis le parent. `overflow-x` du
-     document doit rester sain : cette technique (calc(50% - 50vw) plutôt que left:50%+translateX,
-     pour éviter tout écart lié à la largeur de la scrollbar) ne crée pas de scroll horizontal. */
-  .breakout-full {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-  }
-
   /* Apparition progressive d'une image au défilement (voir mnInitImageReveal dans ui.js) : plus
      lente et plus marquée que le `.reveal` générique du site (900ms, léger zoom arrière inclus)
      puisqu'elle porte seule l'attention sur la pièce photographiée, sans texte qui l'accompagne
