@@ -3,11 +3,12 @@
  * index.html via le motif déjà utilisé ailleurs sur le site : un placeholder statique remplacé
  * par `outerHTML` une fois le DOM prêt. Seul index.html charge ce fichier.
  *
- * Quatre sections défilantes (#maison, #table, #savoir-faire, #contact) portent chacune
+ * Trois sections défilantes (#maison, #savoir-faire, #contact) portent chacune
  * `data-scroll-section` (pour la surbrillance de nav de motion.js) et un `id` correspondant à
- * l'ancre de navigation. La fiche technique produit et les conditions professionnelles restent
- * des pages séparées (fiche-technique-produit.html, conditions-professionnelles.html), jamais
- * injectées ici.
+ * l'ancre de navigation. La Table est redevenue son propre mini-site (la-table.html + une page
+ * par produit, traitement domaine-viticole) et n'est plus injectée ici — voir la-table.html.
+ * La fiche technique produit et les conditions professionnelles restent aussi des pages séparées
+ * (fiche-technique-produit.html, conditions-professionnelles.html).
  *
  * Animation 1 (apparition au défilement, voir motion.js) : tout élément `data-reveal` est un
  * groupe ; ses enfants directs `data-reveal-item` cascadent à 0.12s d'écart. Un `data-reveal`
@@ -156,7 +157,7 @@ function mnSectionMaison() {
         <p class="eyebrow mb-4" data-reveal-item>Le caviar</p>
         <h3 class="h-card mb-6" data-reveal-item>La même exigence, portée plus loin</h3>
         <p class="prose-copy max-w-2xl" data-reveal-item>Le caviar reste notre exception : un produit qui ne pardonne aucune approximation, sur le calibrage comme sur la garantie. Espèces, formats et disponibilités se retrouvent dans La Table.</p>
-        <a href="#table" data-scroll-link class="mt-6 inline-block text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline" data-reveal-item>Découvrir La Table →</a>
+        <a href="la-table.html" class="mt-6 inline-block text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline" data-reveal-item>Découvrir La Table →</a>
       </div>
     </div>
     <div class="ml-auto w-[85%] lg:w-3/5" data-reveal>
@@ -190,103 +191,7 @@ function mnSectionMaison() {
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 4) #table — reprend Le Caviar + La Mer (ex-la-table.html)
- * ------------------------------------------------------------------------------------------ */
-function mnSectionTable() {
-  return `
-  <section id="table" data-scroll-section class="bg-ivoire">
-    <div class="relative min-h-[38vh] overflow-hidden bg-marine sm:min-h-[46vh]" data-reveal>
-      ${mnPicture({ stem: "hero-montagne", alt: "Vue macro du grain de caviar Marenostrum", sizes: "100vw", className: "absolute inset-0 h-full w-full object-cover" })}
-      <div class="absolute inset-0 bg-noir/55"></div>
-      <div class="container-page relative z-10 flex min-h-[38vh] flex-col items-center justify-center py-16 text-center sm:min-h-[46vh]">
-        <p class="mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Notre sélection</p>
-        <h2 class="font-titre text-4xl italic text-ivoire sm:text-5xl">La Table</h2>
-        <p class="mx-auto mt-6 max-w-xl text-base text-ivoire/90 sm:text-lg">Le Caviar et La Mer : deux univers, un même niveau d'exigence. Aucun prix affiché — chaque pièce s'obtient sur demande d'allocation.</p>
-      </div>
-    </div>
-
-    <div id="le-caviar" class="container-page py-20 scroll-mt-24">
-      <div class="mx-auto mb-14 max-w-2xl text-center" data-reveal>
-        <p class="eyebrow mb-4" data-reveal-item>Univers</p>
-        <h3 class="h-section mb-6" data-reveal-item>Le Caviar</h3>
-        <p class="prose-copy mx-auto" data-reveal-item>Quatre espèces sélectionnées pour leur calibrage et leur régularité, proposées en quatre formats uniquement : 30 g · 50 g · 125 g · 500 g.</p>
-      </div>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4" id="mn-caviar-grid" data-reveal>
-        ${[
-          { name: "Osciètre", latin: "Acipenser gueldenstaedtii", desc: "Grain ferme, notes de noisette, constant d'une commande à l'autre.", status: "dispo", statusLabel: "Disponible", tinId: "mn-tin-1", slug: "caviar-oscietre" },
-          { name: "Beluga", latin: "Huso huso", desc: "Le grain le plus gros et la texture la plus crémeuse de notre sélection.", status: "allocation", statusLabel: "Sur allocation", tinId: "mn-tin-2", slug: "caviar-beluga" },
-          { name: "Baeri", latin: "Acipenser baerii", desc: "Texture souple et grain constant, un bon repère pour évaluer la régularité.", status: "dispo", statusLabel: "Disponible", tinId: "mn-tin-3", slug: "caviar-baeri" },
-          { name: "Sevruga", latin: "Acipenser stellatus", desc: "Grain plus petit, notes iodées franches, constantes lot après lot.", status: "ouverture", statusLabel: "Ouverture prochaine", tinId: "mn-tin-4", slug: "caviar-sevruga" }
-        ]
-          .map(
-            (c) => `
-        <div class="card-product group" data-reveal-item>
-          <span class="mn-status mn-status-${c.status}">${c.statusLabel}</span>
-          <div class="aspect-square flex items-center justify-center overflow-hidden bg-ivoire"><div id="${c.tinId}" data-tin-reveal></div></div>
-          <div class="flex flex-1 flex-col gap-2 pt-5">
-            <h4 class="h-card">${c.name}</h4>
-            <p class="font-titre italic text-ink-300">${c.latin}</p>
-            <p class="text-sm text-ink-200 leading-snug">${c.desc}</p>
-            <p class="text-xs uppercase tracking-widest2 text-ink-400 pt-2">Formats : 30 g · 50 g · 125 g · 500 g</p>
-            <a href="#contact" data-produit-cta="${c.slug}" class="mt-auto pt-3 text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Demander une allocation →</a>
-          </div>
-        </div>`
-          )
-          .join("")}
-      </div>
-      <p class="mx-auto mt-12 max-w-2xl text-center text-sm text-ink-300" data-reveal>Affinage Malossol, étiquette CITES, fiche de lot par expédition — le détail de notre méthode est sur <a href="#savoir-faire" data-scroll-link class="text-marine hover:underline">Notre savoir-faire</a>, et le détail produit sur la <a href="fiche-technique-produit.html" class="text-marine hover:underline">fiche technique</a>.</p>
-    </div>
-
-    <div id="la-mer" class="border-t border-ink-600/50 bg-ink-800">
-      <div class="container-page py-20 scroll-mt-24">
-        <div class="mx-auto mb-14 max-w-2xl text-center" data-reveal>
-          <p class="eyebrow mb-4" data-reveal-item>Univers</p>
-          <h3 class="h-section mb-6" data-reveal-item>La Mer</h3>
-          <p class="prose-copy mx-auto" data-reveal-item>Une sélection resserrée de produits de la mer d'exception — pas un catalogue exhaustif.</p>
-        </div>
-
-        <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center" data-reveal>
-          <div class="relative aspect-[4/3] overflow-hidden" data-reveal-item>
-            <span class="mn-status mn-status-dispo">Disponible</span>
-            ${mnPicture({ stem: "bar-loup", alt: "Bar de ligne entier, produit de la mer Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full object-cover" })}
-          </div>
-          <div data-reveal-item>
-            <h4 class="h-card mb-3">Poisson de ligne</h4>
-            <p class="prose-copy mb-8">Bar de ligne, pêché à l'unité et calibré pour la restauration gastronomique — jamais en volume.</p>
-            <a href="#contact" data-produit-cta="mer-poisson-ligne" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Demander une allocation →</a>
-          </div>
-        </div>
-
-        <div class="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center" data-reveal>
-          <div class="relative order-1 lg:order-2 aspect-[4/3] overflow-hidden" data-reveal-item>
-            <span class="mn-status mn-status-allocation">Sur allocation</span>
-            ${mnPicture({ stem: "langoustine", alt: "Langoustine entière, produit de la mer Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full object-cover" })}
-          </div>
-          <div class="order-2 lg:order-1" data-reveal-item>
-            <h4 class="h-card mb-3">Langoustine</h4>
-            <p class="prose-copy mb-8">Vivante ou ultra-fraîche selon la demande, calibrée pièce par pièce.</p>
-            <a href="#contact" data-produit-cta="mer-langoustine" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Demander une allocation →</a>
-          </div>
-        </div>
-
-        <div class="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center" data-reveal>
-          <div class="relative aspect-[4/3] overflow-hidden" data-reveal-item>
-            <span class="mn-status mn-status-ouverture">Ouverture prochaine</span>
-            ${mnPicture({ stem: "gamme-boites", alt: "Coffrets et conditionnement Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full object-cover" })}
-          </div>
-          <div data-reveal-item>
-            <h4 class="h-card mb-3">Terrines & conserves d'exception</h4>
-            <p class="prose-copy mb-8">Une gamme de préparations en conserve, au même niveau d'exigence que nos pièces fraîches.</p>
-            <a href="#contact" data-produit-cta="mer-terrines" class="text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline">Demander une allocation →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * 5) #savoir-faire — reprend l'ancienne page Notre savoir-faire
+ * #savoir-faire — reprend l'ancienne page Notre savoir-faire
  * ------------------------------------------------------------------------------------------ */
 function mnSectionSavoirFaire() {
   return `

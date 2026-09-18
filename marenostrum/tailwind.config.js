@@ -12,9 +12,12 @@ const BRAND = {
   // homepage a light/light rhythm from section to section (see mnPageBackground and the home
   // section builders in assets/js/home.js) without ever going dark or introducing a second hue
   sable: "#E8DFD0", // warm accent, used sparingly (a divider, a small fill) — never a full section
-  anthracite: "#35322C" // rare dark accent for small marks/icons that need more weight than
+  anthracite: "#35322C", // rare dark accent for small marks/icons that need more weight than
   // marine but shouldn't reach for the noir grounds — not used as a background
   // (no gold, no pure black anywhere in the palette)
+  metal: "#9C8B6E" // the ONE accent for the "La Table" domaine-viticole treatment (la-table.html
+  // and its product pages) — a muted pewter/bronze, deliberately not shiny gold. Used nowhere
+  // else: that page group's palette is noir/ivoire/metal only, no marine, no glacier, no sable.
 };
 
 module.exports = {
@@ -28,6 +31,7 @@ module.exports = {
         glacier: BRAND.glacier,
         sable: BRAND.sable,
         anthracite: BRAND.anthracite,
+        metal: BRAND.metal,
 
         /**
          * Legacy token names, reused across every page (bg-ink-900, text-ink-200, border-ink-600, …).
@@ -71,7 +75,12 @@ module.exports = {
         // Tailwind keys only because every page already calls font-titre/font-texte; weight
         // (400/500/600) is what carries the hierarchy now, not a font swap.
         titre: ["Switzer", "Inter", "-apple-system", "sans-serif"],
-        texte: ["Switzer", "Inter", "-apple-system", "sans-serif"]
+        texte: ["Switzer", "Inter", "-apple-system", "sans-serif"],
+        // "La Table" (domaine-viticole treatment) only: an elegant display serif for titles,
+        // loaded once in src/input.css (Google Fonts) — everywhere else on the site keeps the
+        // single-typeface Switzer system above untouched. Body/technical text on those pages
+        // still uses font-texte (Switzer) — no second sans-serif was introduced.
+        domaine: ["Cormorant Garamond", "Georgia", "serif"]
       },
       boxShadow: {
         soft: "0 4px 14px rgba(17,17,16,0.35)",

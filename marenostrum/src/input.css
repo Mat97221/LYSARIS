@@ -5,6 +5,10 @@
    set by Fontshare's own stylesheet response, not repeated here. */
 @import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap');
 
+/* "La Table" (domaine-viticole treatment) only — an elegant display serif for titles, loaded
+   once here. Weights 400/500 upright for running titles, 400 italic for the tasting-note voice. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -151,29 +155,6 @@
   /* Borderless product card — no frame, no surface: the product image sits directly on the
      ivoire page with its text below, integrating seamlessly (only the image itself is rounded,
      see the image wrapper in mnProductCard). */
-  .card-product {
-    @apply relative flex flex-col bg-transparent;
-  }
-
-  /* Statut de disponibilité d'une pièce (La Table) — jamais un prix, jamais un stock chiffré.
-     Trois états seulement : disponible (plein), sur allocation (contour), ouverture prochaine
-     (contour atténué). Positionnée en absolute par l'appelant (voir la-table.html). */
-  .mn-status {
-    @apply absolute left-3 top-3 z-10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest2;
-  }
-
-  .mn-status-dispo {
-    @apply bg-marine text-ivoire;
-  }
-
-  .mn-status-allocation {
-    @apply border border-marine bg-ivoire text-marine;
-  }
-
-  .mn-status-ouverture {
-    @apply border border-ink-400 bg-ivoire text-ink-400;
-  }
-
   .nav-glass {
     @apply bg-ink-900/85 backdrop-blur-md border-b border-ink-600/50 transition-shadow duration-300 ease-fluid;
   }
@@ -465,37 +446,6 @@
   .mn-shine-text { animation: none; }
 }
 
-/* Caviar tin whose lid slides open (and fades out, so it doesn't visibly drag across the grains
-   mid-slide) on hover — see mnTinReveal() in ui.js. A single trigger rule, `.mn-tin-reveal:hover`,
-   covers every placement: on the two standalone photos (product page, homepage "pièce maîtresse")
-   .mn-tin-reveal already matches the visible tin exactly (aspect-square, see mnTinReveal()). Inside
-   a product card, mnProductCard() wraps the photo in its own small link (z-[5]) sitting above the
-   card's full-cover .stretched-link (z-index:auto — see that class below), so the tin genuinely
-   receives the pointer there too instead of the click-through overlay swallowing it; this also
-   means hovering the rest of the card (title, "Découvrir") no longer opens the lid, only the photo
-   itself does. Mouse only: gated behind (hover: hover) so a tap on touch devices can't leave
-   :hover "stuck" with the lid hanging open — touch just shows the closed tin, the safer default.
-   translateX is a % of the <img> tag's own box, which mnTinReveal() now sizes to match the visible
-   lid disc (aspect-square) — so unlike a plain 100%, a shift a bit past that (150%) reliably clears
-   the disc's far edge with margin, in every fixed-height layout this is used in (product photo,
-   card thumbnail); the container clips it with overflow-hidden, so overshoot is free. Duration
-   700ms and the site's "water" easing (see tailwind.config.js) for a slow, fluid glide rather than
-   a mechanical snap. */
-.mn-tin-lid {
-  transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1), opacity 700ms cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-@media (hover: hover) {
-  .mn-tin-reveal:hover .mn-tin-lid {
-    transform: translateX(150%);
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mn-tin-lid { transition: none; }
-}
-
 /* ============================================================
    Homepage hero navigation — full-bleed image, header overlaid
    ============================================================
@@ -559,4 +509,53 @@
 
 .nav-glass.mn-hero-nav.is-scrolled img {
   filter: none;
+}
+
+/* ============================================================================================
+ * "LA TABLE" — traitement domaine-viticole (la-table.html + pages produit dédiées uniquement).
+ * Palette strictement réduite à trois valeurs : ivoire (fond), noir (texte/fonds sombres),
+ * metal (unique accent, un pewter/bronze mat — jamais doré ni brillant). Aucune autre couleur de
+ * la palette du site (marine, glacier, sable, ink-*...) n'apparaît sur ces pages. Serif Cormorant
+ * Garamond pour les titres, Switzer (déjà chargé sitewide) pour tout le reste. Pas de carte, pas
+ * de cadre, pas d'arrondi, pas d'ombre : le rythme vient du vide et de l'échelle typographique.
+ * ============================================================================================ */
+
+.lt-eyebrow {
+  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] text-metal;
+}
+
+.lt-title {
+  @apply font-domaine font-medium leading-[1.05] text-noir text-5xl sm:text-6xl lg:text-7xl;
+}
+
+.lt-title-hero {
+  @apply font-domaine font-medium leading-[0.98] text-ivoire text-6xl sm:text-7xl lg:text-8xl;
+}
+
+.lt-tagline {
+  @apply font-domaine italic leading-snug text-noir/80 text-xl sm:text-2xl;
+}
+
+.lt-tasting {
+  @apply font-texte text-base sm:text-lg leading-[1.8] text-noir/75 max-w-md;
+}
+
+.lt-status {
+  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] text-metal;
+}
+
+.lt-link {
+  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] text-noir transition-colors duration-200 hover:text-metal;
+}
+
+.lt-tech-list {
+  @apply flex flex-col gap-3 border-t border-noir/15 pt-6 max-w-sm;
+}
+
+.lt-tech-item {
+  @apply flex items-baseline justify-between gap-6 font-texte text-xs uppercase tracking-[0.14em] text-noir/60;
+}
+
+.lt-tech-item span:last-child {
+  @apply text-right text-noir/85 tracking-normal normal-case;
 }

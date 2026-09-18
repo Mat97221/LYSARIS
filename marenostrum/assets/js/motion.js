@@ -129,6 +129,30 @@ function mnInitTextureParallax() {
   });
 }
 
+/**
+ * Parallaxe légère sur une image produit (La Table et ses pages produit) : amplitude maximale
+ * de 30px, liée au scroll via scrub plutôt que jouée d'un coup. `data-product-parallax` doit
+ * être posé sur un DIV enveloppant (jamais l'<img> elle-même) — exactement comme les bandes de
+ * texture : GSAP écrit son propre `transform` inline sur l'élément qu'il anime, ce qui écraserait
+ * silencieusement la classe `scale-110`/`scale-125` si elle était sur ce même élément. L'image à
+ * l'intérieur du wrapper garde donc sa sur-échelle en pure CSS, et le wrapper (overflow-hidden)
+ * assure qu'aucun bord vide n'apparaît pendant le glissement.
+ */
+function mnInitProductParallax() {
+  document.querySelectorAll("[data-product-parallax]").forEach((wrap) => {
+    gsap.to(wrap, {
+      y: 30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: wrap,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+  });
+}
+
 /** Animation 3 — révélation du slogan mot par mot, au chargement (pas au scroll). */
 function mnInitSloganReveal() {
   const container = document.querySelector("[data-slogan]");
@@ -158,7 +182,7 @@ function mnInitMotion() {
     document.querySelectorAll("[data-reveal-item], [data-reveal]").forEach((el) => {
       gsap.set(el, { opacity: 1, y: 0, scale: 1 });
     });
-    document.querySelectorAll("[data-texture-strip]").forEach((el) => gsap.set(el, { y: 0 }));
+    document.querySelectorAll("[data-texture-strip], [data-product-parallax]").forEach((el) => gsap.set(el, { y: 0 }));
     mnInitSloganReveal();
     mnInitAnchorNav();
     mnInitActiveNav();
@@ -170,6 +194,7 @@ function mnInitMotion() {
   mnInitActiveNav();
   mnInitRevealAnimations();
   mnInitTextureParallax();
+  mnInitProductParallax();
   mnInitSloganReveal();
 
   const refresh = () => ScrollTrigger.refresh();
