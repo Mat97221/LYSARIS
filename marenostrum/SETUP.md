@@ -83,12 +83,19 @@ marenostrum/
   `mnInitAnchorNav()`/`mnInitActiveNav()` dans `motion.js`. Sur les autres pages (fiche technique,
   conditions pro, mentions légales, fiches produit de La Table...), les mêmes ancres pointent vers
   `index.html#ancre` — une navigation normale, ces pages ne chargent pas Lenis.
-- **Défilement lissé, sans conflit avec le CSS** : `mnInitSmoothScroll()` pose la classe
-  `lenis-active` sur `<html>` dès que Lenis démarre, ce qui coupe le `scroll-behavior: smooth`
-  natif (`src/input.css`) — les deux mécanismes de défilement doux se disputeraient sinon la
-  position à chaque frame (le navigateur relance sa propre easing sur chaque `scrollTop` que Lenis
-  écrit), d'où des saccades. `mnScrollTo()` applique aussi un décalage (`MN_HEADER_OFFSET`,
-  `motion.js`) pour qu'une section n'arrive jamais masquée sous l'en-tête fixe.
+- **Défilement lissé, réactif à la molette** : Lenis est configuré en `lerp: 0.1` (rattrapage
+  exponentiel continu), pas en `duration`/`easing` — ces deux réglages sont mutuellement exclusifs,
+  et `duration` routerait chaque impulsion de molette à travers une animation de durée fixe
+  identique quel que soit le geste, rendant la vitesse de défilement perçue indépendante de la
+  vitesse réelle de la molette. `duration`/`easing` restent utilisés, mais seulement en argument de
+  `lenis.scrollTo()` pour l'animation ponctuelle d'un clic de navigation (`mnScrollTo()` dans
+  `motion.js`), où une trajectoire éditoriale a du sens.
+- **Sans conflit avec le CSS** : `mnInitSmoothScroll()` pose la classe `lenis-active` sur `<html>`
+  dès que Lenis démarre, ce qui coupe le `scroll-behavior: smooth` natif (`src/input.css`) — les
+  deux mécanismes de défilement doux se disputeraient sinon la position à chaque frame (le
+  navigateur relance sa propre easing sur chaque `scrollTop` que Lenis écrit), d'où des saccades.
+  `mnScrollTo()` applique aussi un décalage (`MN_HEADER_OFFSET`, `motion.js`) pour qu'une section
+  n'arrive jamais masquée sous l'en-tête fixe.
 - **"Demander une allocation"** (La Table) ne recharge pas la page : un clic depuis une fiche
   produit navigue vers `index.html?produit=<slug>#contact`, qui pré-remplit le formulaire de la
   section `#contact` et y défile au chargement (`mnPrefillProduit()`/`mnInitProduitCTAs()` dans

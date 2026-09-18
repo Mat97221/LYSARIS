@@ -21,13 +21,21 @@ function mnReducedMotion() {
   return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 }
 
-/** Lenis, amorti de façon exponentielle, piloté par le ticker GSAP. */
+/**
+ * Lenis. Le lissage de la molette/trackpad utilise `lerp` (rattrapage exponentiel continu de 10%
+ * par frame), pas `duration`/`easing` : ces deux réglages sont mutuellement exclusifs dans Lenis,
+ * et `duration` route CHAQUE mouvement de molette à travers une animation de durée fixe (1.1s,
+ * quelle que soit la vitesse du geste) — la vitesse de défilement était donc toujours la même,
+ * jamais celle imprimée par l'utilisateur. `lerp` répond au contraire immédiatement à chaque
+ * impulsion de molette, avec un simple lissage des à-coups : la vitesse perçue suit la vitesse du
+ * geste. `duration`/`easing` restent utilisés, mais seulement pour l'animation ponctuelle d'un
+ * clic de navigation (voir `mnScrollTo`), où une trajectoire éditoriale a du sens.
+ */
 function mnInitSmoothScroll() {
   if (typeof Lenis === "undefined") return null;
 
   const lenis = new Lenis({
-    duration: 1.1,
-    easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t))
+    lerp: 0.1
   });
 
   lenis.on("scroll", ScrollTrigger.update);
@@ -48,10 +56,14 @@ function mnInitSmoothScroll() {
     jamais masquée sous la barre de navigation en fin de défilement. */
 const MN_HEADER_OFFSET = -84;
 
+/** Trajectoire animée d'un clic de navigation (jamais utilisée pour la molette, voir
+    mnInitSmoothScroll) : ~1s, décélération franche mais sans à-coup. */
+const MN_SCROLL_TO_EASING = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
 /** Défilement vers une ancre : toujours via Lenis quand il tourne, jamais le scroll natif. */
 function mnScrollTo(target) {
   if (mnLenis) {
-    mnLenis.scrollTo(target, { offset: MN_HEADER_OFFSET });
+    mnLenis.scrollTo(target, { offset: MN_HEADER_OFFSET, duration: 1.1, easing: MN_SCROLL_TO_EASING });
     return;
   }
   const el = typeof target === "string" ? document.querySelector(target) : target;
