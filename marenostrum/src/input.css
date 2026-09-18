@@ -18,7 +18,13 @@
     color-scheme: light;
   }
 
-  html {
+  /* Défilement natif doux pour les pages sans Lenis (fiche technique, conditions pro, mentions
+     légales...). Désactivé dès que Lenis pilote effectivement le défilement (classe posée par
+     mnInitSmoothScroll dans motion.js, sur l'accueil et les fiches produit de La Table) : les deux
+     mécanismes de "smooth scroll" se disputeraient sinon la position de défilement à chaque frame
+     (le navigateur relance sa propre easing sur chaque scrollTop que Lenis écrit), provoquant les
+     saccades qui rendaient la navigation peu fluide. */
+  html:not(.lenis-active) {
     scroll-behavior: smooth;
   }
 

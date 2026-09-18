@@ -7,13 +7,13 @@ ligne, aucun prix affiché** : le site fonctionne entièrement sur un modèle de
 référencement — chaque pièce affiche un statut (Disponible / Sur allocation / Ouverture
 prochaine), jamais un tarif.
 
-L'accueil (`index.html`) est une **page unique défilante** (La Maison / Notre savoir-faire /
-Contact enchaînés en une seule page, animée au défilement via Lenis + GSAP). **La Table** est son
-propre mini-site (`la-table.html` + une page par produit), traité comme un domaine viticole
-présente ses cuvées — palette et typographie propres, aucun prix, aucun bouton d'ajout au panier
-(voir "La Table — mini-site domaine-viticole" ci-dessous). Les autres pages restent en dehors du
-défilement, avec leur propre URL pour être partagées par e-mail : `fiche-technique-produit.html`
-et `conditions-professionnelles.html`.
+L'accueil (`index.html`) est une **page unique défilante** : La Maison, La Table, Notre
+savoir-faire et Contact s'enchaînent dans cet ordre — celui du menu d'en-tête — en une seule page,
+animée au défilement via Lenis + GSAP. La Table y est traitée comme un domaine viticole présente
+ses cuvées — palette et typographie propres, aucun prix, aucun bouton d'ajout au panier (voir "La
+Table" ci-dessous) — tout en restant une section de ce même défilement, jamais une page à part :
+seule chaque fiche produit individuelle garde sa propre URL, avec `fiche-technique-produit.html`
+et `conditions-professionnelles.html`, partageables par e-mail.
 
 ## Lancer le site en local
 
@@ -38,10 +38,9 @@ quel sans étape de build si vous ne touchez pas aux styles.
 ```
 marenostrum/
 ├── index.html                     — accueil one-page : hero, bandeau de textures (parallaxe),
-│                                     puis les sections #maison / #savoir-faire / #contact
-│                                     enchaînées (voir "Accueil one-page" ci-dessous)
-├── la-table.html                  — index La Table : liste verticale alternée Le Caviar / La Mer
-│                                     (voir "La Table — mini-site domaine-viticole" ci-dessous)
+│                                     puis les sections #maison / #table / #savoir-faire /
+│                                     #contact enchaînées, dans cet ordre (voir "Accueil one-page"
+│                                     ci-dessous)
 ├── caviar-oscietre.html, caviar-beluga.html, caviar-baeri.html, caviar-sevruga.html
 │                                   — fiches produit Le Caviar, une page par cuvée
 ├── mer-poisson-ligne.html, mer-langoustine.html, mer-terrines.html
@@ -58,60 +57,67 @@ marenostrum/
 │   │                          résolution native), voir "Images responsives" ci-dessous
 │   └── js/
 │       ├── home.js         — sections de l'accueil one-page (hero, bandeau de textures,
-│       │                      #maison, #savoir-faire, #contact) + helper <picture>. Expose aussi
-│       │                      `mnHomeTextureBand()`, réutilisé tel quel par `la-table.html` comme
-│       │                      bandeau séparateur entre Le Caviar et La Mer.
+│       │                      #maison, #table, #savoir-faire, #contact) + helper <picture>
 │       ├── motion.js       — Lenis (défilement lissé) + GSAP/ScrollTrigger : les animations
-│       │                      partagées par l'accueil ET La Table (voir plus bas)
+│       │                      de l'accueil, plus la parallaxe produit réutilisée par les fiches
+│       │                      produit de La Table (voir plus bas)
 │       ├── image-slot.js   — composant <image-slot> (placeholder photo, non utilisé
 │       │                      actuellement — toutes les photos du site sont réelles)
 │       └── ui.js           — header/footer, icônes SVG
 ├── src/input.css            — source Tailwind (éditer ici) — contient la section dédiée aux
 │                              classes `.lt-*` de La Table (voir plus bas)
 ├── tailwind.config.js       — tokens de couleur/typo/animation, dont `metal` et `domaine`
-│                              (voir "La Table — mini-site domaine-viticole" ci-dessous)
+│                              (voir "La Table" ci-dessous)
 └── design-system/marenostrum/MASTER.md — décisions de design historiques
     (très en amont du positionnement actuel — voir le code pour l'état réel)
 ```
 
 ## Accueil one-page
 
-- **Trois sections** : `#maison` (positionnement, aucune revendication d'origine géographique,
-  avec un lien "Découvrir La Table →" vers `la-table.html`), `#savoir-faire` (sélection,
-  traçabilité, chaîne du froid, conditionnement), `#contact` (formulaire de référencement
-  qualifiant).
-- **Navigation fixe** : les liens de l'en-tête défilent en douceur vers chaque ancre via
-  `lenis.scrollTo()` (jamais le scroll natif), voir `mnInitAnchorNav()`/`mnInitActiveNav()` dans
-  `motion.js`. Le lien "La Table" de l'en-tête n'est plus une ancre : c'est une navigation normale
-  vers `la-table.html`. Sur les autres pages (fiche technique, conditions pro, mentions
-  légales...), les liens d'ancre pointent vers `index.html#ancre` — une navigation normale, ces
-  pages ne chargent ni Lenis ni GSAP.
-- **"Demander une allocation"** (La Table) ne recharge pas la page de contact : un clic depuis une
-  fiche produit navigue vers `index.html?produit=<slug>#contact`, qui pré-remplit le formulaire de
-  la section `#contact` et y défile au chargement (`mnPrefillProduit()`/`mnInitProduitCTAs()` dans
+- **Quatre sections, dans l'ordre du menu d'en-tête** : `#maison` (positionnement, aucune
+  revendication d'origine géographique, avec un lien "Découvrir La Table →" qui défile jusqu'à
+  `#table`), `#table` (voir "La Table" ci-dessous), `#savoir-faire` (sélection, traçabilité, chaîne
+  du froid, conditionnement), `#contact` (formulaire de référencement qualifiant).
+- **Navigation fixe** : les quatre liens de l'en-tête défilent en douceur vers leur ancre via
+  `lenis.scrollTo()` (jamais le scroll natif, jamais un rechargement de page), voir
+  `mnInitAnchorNav()`/`mnInitActiveNav()` dans `motion.js`. Sur les autres pages (fiche technique,
+  conditions pro, mentions légales, fiches produit de La Table...), les mêmes ancres pointent vers
+  `index.html#ancre` — une navigation normale, ces pages ne chargent pas Lenis.
+- **Défilement lissé, sans conflit avec le CSS** : `mnInitSmoothScroll()` pose la classe
+  `lenis-active` sur `<html>` dès que Lenis démarre, ce qui coupe le `scroll-behavior: smooth`
+  natif (`src/input.css`) — les deux mécanismes de défilement doux se disputeraient sinon la
+  position à chaque frame (le navigateur relance sa propre easing sur chaque `scrollTop` que Lenis
+  écrit), d'où des saccades. `mnScrollTo()` applique aussi un décalage (`MN_HEADER_OFFSET`,
+  `motion.js`) pour qu'une section n'arrive jamais masquée sous l'en-tête fixe.
+- **"Demander une allocation"** (La Table) ne recharge pas la page : un clic depuis une fiche
+  produit navigue vers `index.html?produit=<slug>#contact`, qui pré-remplit le formulaire de la
+  section `#contact` et y défile au chargement (`mnPrefillProduit()`/`mnInitProduitCTAs()` dans
   `home.js`, `MN_PRODUIT_LABELS` pour l'intitulé affiché par slug).
 
-## La Table — mini-site domaine-viticole
+## La Table
 
-`la-table.html` (index) et ses sept fiches produit (`caviar-oscietre.html`, `caviar-beluga.html`,
-`caviar-baeri.html`, `caviar-sevruga.html`, `mer-poisson-ligne.html`, `mer-langoustine.html`,
-`mer-terrines.html`) forment un mini-site à part, avec sa propre URL par produit — chaque pièce y
-est présentée comme une cuvée de domaine viticole, pas comme une référence de catalogue.
+La section `#table` de l'accueil (`mnSectionTable()` dans `home.js`) présente Le Caviar et La Mer
+comme des cuvées de domaine viticole, pas comme des références de catalogue — mais fait pleinement
+partie du défilement Lenis/GSAP de la page, au même titre que `#maison`/`#savoir-faire`/`#contact`.
+Chaque pièce garde en revanche sa propre fiche produit, avec sa propre URL, partageable par e-mail :
+`caviar-oscietre.html`, `caviar-beluga.html`, `caviar-baeri.html`, `caviar-sevruga.html`,
+`mer-poisson-ligne.html`, `mer-langoustine.html`, `mer-terrines.html` — atteintes depuis un lien
+"Découvrir →" sur chaque entrée de `#table`.
 
-- **Palette et typographie propres, scopées à ce groupe de pages uniquement** : trois valeurs
-  seulement — `noir` (#111110), `ivoire` (#F6F2EA, existants) et un nouvel accent métallique
-  discret, `metal` (#9C8B6E, `tailwind.config.js`) — jamais `marine`/`glacier`/`sable` ailleurs
-  utilisés sur le site. Les titres utilisent une police à empattements dédiée, `font-domaine`
-  (Cormorant Garamond, chargée via Google Fonts dans `src/input.css`) ; les textes techniques
-  restent en `font-texte` (Switzer, comme sur le reste du site) avec un interlettrage ouvert. Les
-  classes composants `.lt-*` (eyebrow, title, title-hero, tagline, tasting, status, link,
-  tech-list, tech-item) sont regroupées dans une section dédiée en fin de `src/input.css`.
-- **Index (`la-table.html`)** : une liste verticale d'entrées pleine largeur, chacune avec une
-  image en pleine colonne (sans cadre, sans ombre, sans arrondi) et, de l'autre côté, le nom, une
-  ligne de caractérisation et un lien discret "Découvrir →" — l'alternance gauche/droite s'inverse
-  à chaque entrée. Un bandeau de textures (`mnHomeTextureBand()`, réutilisé depuis `home.js`)
-  sépare les deux univers : Le Caviar (Osciètre, Beluga, Baeri, Sevruga) et La Mer (poisson de
-  ligne, langoustine, terrines & conserves, statut "Ouverture prochaine").
+- **Palette et typographie propres, scopées à ce groupe (`#table` + ses sept fiches)** : trois
+  valeurs seulement — `noir` (#111110), `ivoire` (#F6F2EA, existants) et un nouvel accent
+  métallique discret, `metal` (#9C8B6E, `tailwind.config.js`) — jamais `marine`/`glacier`/`sable`
+  ailleurs utilisés sur le site. Les titres utilisent une police à empattements dédiée,
+  `font-domaine` (Cormorant Garamond, chargée via Google Fonts dans `src/input.css`) ; les textes
+  techniques restent en `font-texte` (Switzer, comme sur le reste du site) avec un interlettrage
+  ouvert. Les classes composants `.lt-*` (eyebrow, title, title-hero, tagline, tasting, status,
+  link, tech-list, tech-item) sont regroupées dans une section dédiée en fin de `src/input.css`.
+- **`#table`** : une liste verticale d'entrées pleine largeur, chacune avec une image en pleine
+  colonne (sans cadre, sans ombre, sans arrondi) et, de l'autre côté, le nom, une ligne de
+  caractérisation et un lien discret "Découvrir →" — l'alternance gauche/droite s'inverse à chaque
+  entrée : Le Caviar (Osciètre, Beluga, Baeri, Sevruga) puis La Mer (poisson de ligne, langoustine,
+  terrines & conserves, statut "Ouverture prochaine"), séparés par une simple bordure — le bandeau
+  de textures marines n'est pas répété ici, il n'apparaît qu'une fois, juste sous le hero.
 - **Fiche produit** : chapitres verticaux — image plein écran avec le nom en grand
   (`.lt-title-hero`) ; un paragraphe de caractère écrit comme une note de dégustation
   (`.lt-tasting`) ; un bloc de données sobres en liste dépouillée sans tableau ni bordure
@@ -125,14 +131,14 @@ est présentée comme une cuvée de domaine viticole, pas comme une référence 
 - **Parallaxe produit** (`mnInitProductParallax()` dans `motion.js`) : amplitude 30px, `scrub`,
   posée sur un `<div data-product-parallax>` qui enveloppe l'image — jamais sur l'`<img>`
   elle-même, car GSAP écrirait son propre `transform` inline et écraserait la classe Tailwind
-  `scale-110`/`scale-125` portée par l'image. Le même Lenis/GSAP CDN et les mêmes animations
-  d'apparition (`[data-reveal]`/`[data-reveal-item]`) que l'accueil sont chargés indépendamment sur
-  ces huit pages.
+  `scale-110`/`scale-125` portée par l'image. Les sept fiches produit chargent Lenis/GSAP/`ui.js`/
+  `motion.js` indépendamment (pas `home.js`, leur contenu est du HTML statique) pour cette même
+  animation et celles d'apparition (`[data-reveal]`/`[data-reveal-item]`).
 
 ### Lenis + GSAP/ScrollTrigger — animations partagées, aucune autre
 
-Chargés via CDN (jsDelivr) sur `index.html`, `la-table.html` et les sept fiches produit — aucune
-autre page n'en dépend :
+Chargés via CDN (jsDelivr) sur `index.html` et les sept fiches produit de La Table — aucune autre
+page n'en dépend :
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
@@ -149,15 +155,18 @@ comme les polices Google/Fontshare déjà chargées ainsi sur tout le site.
    `[data-reveal-item]` cascadent à 0.12s d'écart (`gsap.from(..., {opacity:0,y:40,scale:1.02})`,
    0.9s, `power3.out`, `ScrollTrigger` `start:"top 85%"`, `toggleActions:"play none none none"` —
    une seule fois).
-2. **Parallaxe du bandeau de textures** : cinq bandes verticales (`[data-texture-strip]` dans
-   `[data-texture-band]`), amplitudes -30/+20/-45/+15/-25px, `scrub:1`, `start:"top bottom"`,
-   `end:"bottom top"`.
+2. **Parallaxe du bandeau de textures** : cinq bandes verticales, amplitudes -30/+20/-45/+15/-25px,
+   `scrub:1`, `start:"top bottom"`, `end:"bottom top"`. `[data-texture-strip]` (ciblé par GSAP) est
+   posé sur un `<div>` intermédiaire surdimensionné (-48px en haut et en bas), jamais sur la
+   cellule `overflow-hidden` de largeur/hauteur fixes qui définit le cadre visible — sans cette
+   marge, glisser la cellule elle-même découvrirait le fond ivoire à chaque extrémité au lieu de
+   simplement faire glisser la photo (voir le commentaire de `mnHomeTextureBand()` dans `home.js`).
 3. **Révélation du slogan** : chaque mot du hero (`[data-slogan-word]`, masqué par
    `.mn-slogan-mask`) remonte depuis `yPercent:100`/`opacity:0`, cascade 0.08s, `power4.out`, 1s,
    déclenchée au chargement (pas au scroll). Uniquement sur `index.html`.
 4. **Parallaxe des images produit** (La Table) : tout `[data-product-parallax]` (un `<div>`
    enveloppant l'image, jamais l'image elle-même) glisse de 30px, `scrub:1`, `start:"top bottom"`,
-   `end:"bottom top"` — voir "La Table — mini-site domaine-viticole" ci-dessus.
+   `end:"bottom top"` — voir "La Table" ci-dessus.
 
 `mnInitMotion()` (appelé une fois toutes les sections montées — par `index.html`, et directement
 par chaque page statique de La Table) désactive Lenis et affiche tout dans son état final si
@@ -212,10 +221,10 @@ Toutes les photos utilisées sont réelles (`hero-mer.jpg`, `texture-mareyage.jp
 `langoustine.jpg`, `gamme-boites.webp`) ; le composant `<image-slot>` (`assets/js/image-slot.js`)
 reste disponible pour un futur emplacement sans photo, mais n'est utilisé nulle part actuellement.
 Sur La Table, faute de photo par espèce, `boite-ouverte.png` (variante unique
-`boite-ouverte-800w`) est réutilisée telle quelle sur l'index et les quatre fiches Le Caviar —
-sans l'ancienne interaction de couvercle survolable (`couvercle.png` a été supprimée avec elle,
-cette interaction n'étant pas l'une des animations autorisées par la direction artistique de La
-Table).
+`boite-ouverte-800w`) est réutilisée telle quelle dans `#table` et sur les quatre fiches Le
+Caviar — sans l'ancienne interaction de couvercle survolable (`couvercle.png` a été supprimée avec
+elle, cette interaction n'étant pas l'une des animations autorisées par la direction artistique de
+La Table).
 
 Le logo (`assets/img/logo-marenostrum-horizontal-noir.png`, fond transparent)
 remplace le wordmark texte dans l'en-tête (`mnHeader()` dans `ui.js`).

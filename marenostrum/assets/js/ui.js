@@ -2,7 +2,7 @@
  * MARENOSTRUM — Composants d'interface partagés (header, footer, icônes SVG). Injection DOM
  * directe (pas de fetch) afin de fonctionner aussi bien via file:// que via un serveur. Ce
  * fichier ne gère pas le scroll-reveal : cette responsabilité appartient entièrement à
- * GSAP/ScrollTrigger (voir motion.js), sur l'accueil comme sur La Table.
+ * GSAP/ScrollTrigger (voir motion.js), sur l'accueil comme sur les fiches produit de La Table.
  *
  * Site vitrine B2B (maison de produits de la mer d'exception, exclusivement professionnels) :
  * aucun panier, aucun prix — chaque pièce de La Table porte une pastille de statut (Disponible /
@@ -29,21 +29,20 @@ const MN_ICONS = {
 
 /**
  * En-tête. Sur l'accueil (data-page="accueil"), le site est une page unique défilante : les
- * liens d'ancre (#maison, #savoir-faire, #contact) portent `data-scroll-link` pour que motion.js
- * les fasse défiler via Lenis plutôt que par un saut natif. Sur toute autre page (fiche
- * technique, conditions professionnelles, mentions légales, la-table.html...), les mêmes ancres
- * redirigent vers `index.html#...` — une navigation normale, ces pages ne chargent pas Lenis.
- * "La Table" n'est pas une ancre : c'est son propre mini-site (la-table.html + une page par
- * produit), avec Lenis/GSAP chargés indépendamment pour ses propres animations.
+ * liens d'ancre (#maison, #table, #savoir-faire, #contact — dans cet ordre, celui du menu) portent
+ * `data-scroll-link` pour que motion.js les fasse défiler via Lenis plutôt que par un saut natif.
+ * Sur toute autre page (fiche technique, conditions professionnelles, mentions légales, fiches
+ * produit de La Table...), les mêmes ancres redirigent vers `index.html#...` — une navigation
+ * normale, ces pages ne chargent pas Lenis. La Table fait partie intégrante du défilement de
+ * l'accueil ; seules ses fiches produit individuelles (caviar-oscietre.html, etc.) restent des
+ * pages à part, atteintes depuis un lien "Découvrir".
  */
 function mnHeader(active) {
   const isOnePager = active === "accueil";
   const prefix = isOnePager ? "" : "index.html";
 
-  // Chaque entrée est soit une ancre de l'accueil one-page (préfixée par index.html et pilotée
-  // par Lenis via data-scroll-link quand on est déjà sur l'accueil), soit une vraie page (La
-  // Table, depuis ce brief, est redevenue un mini-site à part avec ses propres pages produit) —
-  // dans ce cas son href ne change jamais et n'a pas besoin de data-scroll-link.
+  // Chaque entrée est une ancre de l'accueil one-page, préfixée par index.html et pilotée par
+  // Lenis via data-scroll-link quand on est déjà sur l'accueil.
   const link = (href, label) => {
     const isAnchor = href.startsWith("#");
     const finalHref = isAnchor ? `${prefix}${href}` : href;
@@ -57,7 +56,7 @@ function mnHeader(active) {
 
   const navLinks = [
     ["#maison", "La Maison"],
-    ["la-table.html", "La Table"],
+    ["#table", "La Table"],
     ["#savoir-faire", "Notre savoir-faire"],
     ["#contact", "Contact"]
   ];
@@ -102,7 +101,7 @@ function mnFooter() {
         <p class="eyebrow text-ivoire mb-4">Découvrir</p>
         <ul class="space-y-2.5 text-sm text-ivoire/70">
           <li><a class="hover:text-ivoire transition-colors" href="${prefix}#maison">La Maison</a></li>
-          <li><a class="hover:text-ivoire transition-colors" href="la-table.html">La Table</a></li>
+          <li><a class="hover:text-ivoire transition-colors" href="${prefix}#table">La Table</a></li>
           <li><a class="hover:text-ivoire transition-colors" href="${prefix}#savoir-faire">Notre savoir-faire</a></li>
         </ul>
       </div>

@@ -37,13 +37,21 @@ function mnInitSmoothScroll() {
   });
   gsap.ticker.lagSmoothing(0);
 
+  // Coupe le `scroll-behavior: smooth` natif (src/input.css) : les deux animations de défilement
+  // se disputeraient sinon la position à chaque frame, d'où les saccades.
+  document.documentElement.classList.add("lenis-active");
+
   return lenis;
 }
+
+/** Hauteur de l'en-tête fixe (h-20 = 80px) : décalage à soustraire pour qu'une section n'arrive
+    jamais masquée sous la barre de navigation en fin de défilement. */
+const MN_HEADER_OFFSET = -84;
 
 /** Défilement vers une ancre : toujours via Lenis quand il tourne, jamais le scroll natif. */
 function mnScrollTo(target) {
   if (mnLenis) {
-    mnLenis.scrollTo(target);
+    mnLenis.scrollTo(target, { offset: MN_HEADER_OFFSET });
     return;
   }
   const el = typeof target === "string" ? document.querySelector(target) : target;

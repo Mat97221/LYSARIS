@@ -24,6 +24,7 @@
     <div id="mn-hero-slot" data-hero></div>
     <div id="mn-texture-slot" data-texture></div>
     <div id="mn-maison-slot" data-maison></div>
+    <div id="mn-table-slot" data-table></div>
     <div id="mn-savoir-faire-slot" data-savoir-faire></div>
     <div id="mn-contact-slot" data-contact></div>
   </main>
@@ -44,6 +45,7 @@
       document.querySelector("[data-hero]").outerHTML = mnHomeHero();
       document.querySelector("[data-texture]").outerHTML = mnHomeTextureBand();
       document.querySelector("[data-maison]").outerHTML = mnSectionMaison();
+      document.querySelector("[data-table]").outerHTML = mnSectionTable();
       document.querySelector("[data-savoir-faire]").outerHTML = mnSectionSavoirFaire();
       document.querySelector("[data-contact]").outerHTML = mnSectionContact();
 

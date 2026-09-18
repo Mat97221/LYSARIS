@@ -15,9 +15,10 @@ const BRAND = {
   anthracite: "#35322C", // rare dark accent for small marks/icons that need more weight than
   // marine but shouldn't reach for the noir grounds — not used as a background
   // (no gold, no pure black anywhere in the palette)
-  metal: "#9C8B6E" // the ONE accent for the "La Table" domaine-viticole treatment (la-table.html
-  // and its product pages) — a muted pewter/bronze, deliberately not shiny gold. Used nowhere
-  // else: that page group's palette is noir/ivoire/metal only, no marine, no glacier, no sable.
+  metal: "#9C8B6E" // the ONE accent for the "La Table" domaine-viticole treatment (the #table
+  // section of index.html and its individual product pages) — a muted pewter/bronze, deliberately
+  // not shiny gold. Used nowhere else: that group's palette is noir/ivoire/metal only, no marine,
+  // no glacier, no sable.
 };
 
 module.exports = {

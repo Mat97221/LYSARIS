@@ -3,12 +3,14 @@
  * index.html via le motif déjà utilisé ailleurs sur le site : un placeholder statique remplacé
  * par `outerHTML` une fois le DOM prêt. Seul index.html charge ce fichier.
  *
- * Trois sections défilantes (#maison, #savoir-faire, #contact) portent chacune
+ * Quatre sections défilantes (#maison, #table, #savoir-faire, #contact) portent chacune
  * `data-scroll-section` (pour la surbrillance de nav de motion.js) et un `id` correspondant à
- * l'ancre de navigation. La Table est redevenue son propre mini-site (la-table.html + une page
- * par produit, traitement domaine-viticole) et n'est plus injectée ici — voir la-table.html.
- * La fiche technique produit et les conditions professionnelles restent aussi des pages séparées
- * (fiche-technique-produit.html, conditions-professionnelles.html).
+ * l'ancre de navigation — dans cet ordre, qui est aussi celui du menu d'en-tête. La Table
+ * (traitement domaine-viticole : palette noir/ivoire/metal, classes `.lt-*`, voir
+ * mnSectionTable()) fait pleinement partie du défilement Lenis/GSAP de l'accueil ; chaque produit
+ * garde toutefois sa propre fiche à part (caviar-oscietre.html, mer-langoustine.html, etc.),
+ * atteinte depuis un lien "Découvrir" — comme la fiche technique produit et les conditions
+ * professionnelles, qui restent elles aussi des pages séparées.
  *
  * Animation 1 (apparition au défilement, voir motion.js) : tout élément `data-reveal` est un
  * groupe ; ses enfants directs `data-reveal-item` cascadent à 0.12s d'écart. Un `data-reveal`
@@ -73,6 +75,13 @@ function mnHomeHero() {
 
 /* ------------------------------------------------------------------------------------------ *
  * 2) BANDEAU DE TEXTURES MARINES — animation 2 (parallaxe), cinq bandes, cinq vitesses
+ *
+ * `data-texture-strip` (ciblé par le glissement GSAP dans motion.js) est posé sur un DIV
+ * intermédiaire surdimensionné (-inset-y-12, soit 48px de marge en haut et en bas au-delà de la
+ * cellule visible), jamais sur la cellule elle-même : sans cette marge, translater la cellule qui
+ * définit le cadre visible (overflow-hidden, hauteur exacte de la bande) découvrirait le fond
+ * ivoire au-dessus ou en dessous de la photo pendant le défilement — un bord qui se désaligne au
+ * lieu de simplement glisser. 48px de marge couvre l'amplitude maximale (45px).
  * ------------------------------------------------------------------------------------------ */
 function mnHomeTextureBand() {
   const strips = [
@@ -87,8 +96,10 @@ function mnHomeTextureBand() {
     ${strips
       .map(
         (s) => `
-    <div class="relative h-full overflow-hidden" data-texture-strip>
-      ${mnPicture({ stem: s.stem, alt: s.alt, sizes: "20vw", className: "absolute inset-0 h-full w-full object-cover scale-125" })}
+    <div class="relative h-full overflow-hidden">
+      <div class="absolute -inset-y-12 inset-x-0" data-texture-strip>
+        ${mnPicture({ stem: s.stem, alt: s.alt, sizes: "20vw", className: "h-full w-full object-cover scale-125" })}
+      </div>
     </div>`
       )
       .join("")}
@@ -157,7 +168,7 @@ function mnSectionMaison() {
         <p class="eyebrow mb-4" data-reveal-item>Le caviar</p>
         <h3 class="h-card mb-6" data-reveal-item>La même exigence, portée plus loin</h3>
         <p class="prose-copy max-w-2xl" data-reveal-item>Le caviar reste notre exception : un produit qui ne pardonne aucune approximation, sur le calibrage comme sur la garantie. Espèces, formats et disponibilités se retrouvent dans La Table.</p>
-        <a href="la-table.html" class="mt-6 inline-block text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline" data-reveal-item>Découvrir La Table →</a>
+        <a href="#table" class="mt-6 inline-block text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline" data-scroll-link data-reveal-item>Découvrir La Table →</a>
       </div>
     </div>
     <div class="ml-auto w-[85%] lg:w-3/5" data-reveal>
@@ -185,6 +196,165 @@ function mnSectionMaison() {
           <h4 class="h-card mb-3">Garantie</h4>
           <p class="text-ink-200 leading-relaxed">La maison répond de chaque pièce qui porte son nom — sans exception.</p>
         </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ------------------------------------------------------------------------------------------ *
+ * #table — Le Caviar et La Mer, présentés comme des cuvées de domaine viticole (palette
+ * noir/ivoire/metal, typographie à empattements, classes `.lt-*` définies dans src/input.css).
+ * Liste verticale alternée gauche/droite ; chaque pièce garde sa propre fiche produit à part
+ * (caviar-oscietre.html, mer-langoustine.html...), atteinte depuis son lien "Découvrir". La
+ * parallaxe légère sur chaque image (`data-product-parallax`, motion.js) est posée sur le DIV
+ * enveloppant, jamais sur l'image elle-même, pour ne pas écraser son `scale-110`/`scale-125` avec
+ * le `transform` inline que GSAP y écrit.
+ * ------------------------------------------------------------------------------------------ */
+function mnSectionTable() {
+  return `
+  <section id="table" data-scroll-section class="bg-ivoire">
+    <div class="py-24 lg:py-32">
+      <div class="container-page max-w-2xl" data-reveal>
+        <p class="lt-eyebrow mb-6" data-reveal-item>La Table</p>
+        <h2 class="lt-title mb-8" data-reveal-item>Deux univers,<br />une même exigence</h2>
+        <p class="lt-tasting" data-reveal-item>Le Caviar et La Mer. Aucun prix affiché : chaque pièce se découvre, puis s'obtient sur demande d'allocation.</p>
+      </div>
+    </div>
+
+    <div class="container-page pb-16" data-reveal>
+      <p class="lt-eyebrow mb-3" data-reveal-item>Univers</p>
+      <h3 class="lt-title !text-4xl sm:!text-5xl" data-reveal-item>Le Caviar</h3>
+    </div>
+
+    <!-- Osciètre — image gauche -->
+    <div class="border-t border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Osciètre ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Disponible</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Osciètre</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Grain ferme, note de noisette nette.</p>
+          <a href="caviar-oscietre.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beluga — image droite -->
+    <div class="border-t border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:order-2 lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Beluga ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Sur allocation</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Beluga</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Le grain le plus large, une texture enveloppante.</p>
+          <a href="caviar-beluga.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Baeri — image gauche -->
+    <div class="border-t border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Baeri ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Disponible</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Baeri</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Texture souple, grain régulier.</p>
+          <a href="caviar-baeri.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sevruga — image droite -->
+    <div class="border-t border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:order-2 lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Sevruga ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Ouverture prochaine</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Sevruga</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Grain dense, attaque iodée.</p>
+          <a href="caviar-sevruga.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-page border-t border-noir/10 pt-24 pb-16 lg:pt-32" data-reveal>
+      <p class="lt-eyebrow mb-3" data-reveal-item>Univers</p>
+      <h3 class="lt-title !text-4xl sm:!text-5xl" data-reveal-item>La Mer</h3>
+    </div>
+
+    <!-- Poisson de ligne — image gauche -->
+    <div class="border-t border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            ${mnPicture({ stem: "bar-loup", alt: "Bar de ligne entier, produit de la mer Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full scale-110 object-cover" })}
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Disponible</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Poisson de ligne</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Chair ferme, se détache en lamelles nettes.</p>
+          <a href="mer-poisson-ligne.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Langoustine — image droite -->
+    <div class="border-t border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden lg:order-2 lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            ${mnPicture({ stem: "langoustine", alt: "Langoustine entière, produit de la mer Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full scale-110 object-cover" })}
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Sur allocation</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Langoustine</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Chair translucide, sucrée, à peine contractée à la cuisson.</p>
+          <a href="mer-langoustine.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terrines & conserves — image gauche -->
+    <div class="border-t border-b border-noir/10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
+        <div class="relative order-1 h-[48vh] overflow-hidden lg:h-auto" data-reveal>
+          <div class="absolute inset-0" data-product-parallax>
+            ${mnPicture({ stem: "gamme-boites", alt: "Coffrets et conditionnement Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full scale-110 object-cover" })}
+          </div>
+        </div>
+        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
+          <p class="lt-status mb-3" data-reveal-item>Ouverture prochaine</p>
+          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Terrines & conserves</h4>
+          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Texture dense, travaillée pour tenir en tranche.</p>
+          <a href="mer-terrines.html" class="lt-link" data-reveal-item>Découvrir →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-24 text-center lg:py-32">
+      <div class="container-page max-w-md mx-auto" data-reveal>
+        <p class="lt-eyebrow mb-4" data-reveal-item>Accès à la collection</p>
+        <p class="lt-tasting mx-auto mb-10" data-reveal-item>Cette présentation n'est pas exhaustive. Traçabilité, conditionnement et détail technique : <a href="fiche-technique-produit.html" class="underline hover:no-underline">fiche technique produit</a>.</p>
+        <a href="#contact" class="lt-link" data-scroll-link data-reveal-item>Demander une allocation →</a>
       </div>
     </div>
   </section>`;
