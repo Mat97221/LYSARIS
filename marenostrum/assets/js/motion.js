@@ -1,76 +1,33 @@
 /**
- * MARENOSTRUM — Moteur de défilement et d'animation de l'accueil one-page (index.html
- * uniquement ; les autres pages gardent un défilement natif ordinaire).
+ * MARENOSTRUM — Moteur d'animation de l'accueil one-page (index.html uniquement ; les autres
+ * pages gardent un défilement natif ordinaire).
  *
- * Lenis pilote le défilement lissé ; GSAP + ScrollTrigger pilotent exactement trois animations,
- * aucune autre : (1) apparition des images/blocs au défilement, (2) parallaxe du bandeau de
- * textures marines, (3) révélation du slogan mot par mot au chargement. Lenis est branché sur le
- * ticker GSAP (gsap.ticker.add) plutôt que sur son propre requestAnimationFrame, afin que GSAP et
- * Lenis restent sur une seule et même horloge — ScrollTrigger.update() est appelé à chaque
- * événement de scroll Lenis pour que les triggers restent synchrones avec la position lissée
- * (et non la position native, que Lenis découple du defilement réel de la page).
+ * Le défilement lui-même est 100% natif — molette, trackpad, clavier, ascenseur : rien ne
+ * l'intercepte ni n'en modifie la vitesse (un essai avec Lenis, une bibliothèque de "smooth
+ * scroll", a été retiré : quel que soit son réglage, elle impose sa propre physique de
+ * défilement à la place de celle voulue par la personne qui scrolle). GSAP + ScrollTrigger
+ * pilotent uniquement des animations déclenchées PAR la position de défilement native — elles
+ * ne la pilotent jamais elles-mêmes : (1) apparition des images/blocs au défilement, (2)
+ * parallaxe du bandeau de textures marines, (3) révélation du slogan mot par mot au chargement,
+ * (4) parallaxe légère des images produit de La Table.
  *
  * Ce fichier ne s'auto-exécute pas au DOMContentLoaded : `mnInitMotion()` doit être appelé
  * explicitement une fois que les sections de la page (injectées par home.js) existent dans le
  * DOM, sans quoi les ScrollTrigger seraient créés sur des éléments absents.
  */
 
-let mnLenis = null;
-
 function mnReducedMotion() {
   return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 }
 
-/**
- * Lenis. Le lissage de la molette/trackpad utilise `lerp` (rattrapage exponentiel continu de 10%
- * par frame), pas `duration`/`easing` : ces deux réglages sont mutuellement exclusifs dans Lenis,
- * et `duration` route CHAQUE mouvement de molette à travers une animation de durée fixe (1.1s,
- * quelle que soit la vitesse du geste) — la vitesse de défilement était donc toujours la même,
- * jamais celle imprimée par l'utilisateur. `lerp` répond au contraire immédiatement à chaque
- * impulsion de molette, avec un simple lissage des à-coups : la vitesse perçue suit la vitesse du
- * geste. `duration`/`easing` restent utilisés, mais seulement pour l'animation ponctuelle d'un
- * clic de navigation (voir `mnScrollTo`), où une trajectoire éditoriale a du sens.
- */
-function mnInitSmoothScroll() {
-  if (typeof Lenis === "undefined") return null;
-
-  const lenis = new Lenis({
-    lerp: 0.1
-  });
-
-  lenis.on("scroll", ScrollTrigger.update);
-
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-
-  // Coupe le `scroll-behavior: smooth` natif (src/input.css) : les deux animations de défilement
-  // se disputeraient sinon la position à chaque frame, d'où les saccades.
-  document.documentElement.classList.add("lenis-active");
-
-  return lenis;
-}
-
-/** Hauteur de l'en-tête fixe (h-20 = 80px) : décalage à soustraire pour qu'une section n'arrive
-    jamais masquée sous la barre de navigation en fin de défilement. */
-const MN_HEADER_OFFSET = -84;
-
-/** Trajectoire animée d'un clic de navigation (jamais utilisée pour la molette, voir
-    mnInitSmoothScroll) : ~1s, décélération franche mais sans à-coup. */
-const MN_SCROLL_TO_EASING = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
-
-/** Défilement vers une ancre : toujours via Lenis quand il tourne, jamais le scroll natif. */
+/** Défilement vers une ancre, en douceur (scroll natif, `scroll-margin-top` sur
+    `[data-scroll-section]` dans src/input.css évite qu'elle n'arrive masquée sous l'en-tête). */
 function mnScrollTo(target) {
-  if (mnLenis) {
-    mnLenis.scrollTo(target, { offset: MN_HEADER_OFFSET, duration: 1.1, easing: MN_SCROLL_TO_EASING });
-    return;
-  }
   const el = typeof target === "string" ? document.querySelector(target) : target;
   if (el) el.scrollIntoView({ behavior: mnReducedMotion() ? "auto" : "smooth" });
 }
 
-/** Navigation fixe : chaque lien d'ancre défile via Lenis ; les liens vers d'autres pages
+/** Navigation fixe : chaque lien d'ancre défile en douceur ; les liens vers d'autres pages
     (ex. index.html#contact depuis une page profonde) gardent leur comportement natif. */
 function mnInitAnchorNav() {
   document.querySelectorAll("[data-scroll-link]").forEach((link) => {
@@ -198,7 +155,7 @@ function mnInitMotion() {
   gsap.registerPlugin(ScrollTrigger);
 
   if (mnReducedMotion()) {
-    // Lenis désactivé, défilement natif ; tout apparaît directement dans son état final.
+    // Tout apparaît directement dans son état final, sans animation.
     document.querySelectorAll("[data-reveal-item], [data-reveal]").forEach((el) => {
       gsap.set(el, { opacity: 1, y: 0, scale: 1 });
     });
@@ -209,7 +166,6 @@ function mnInitMotion() {
     return;
   }
 
-  mnLenis = mnInitSmoothScroll();
   mnInitAnchorNav();
   mnInitActiveNav();
   mnInitRevealAnimations();

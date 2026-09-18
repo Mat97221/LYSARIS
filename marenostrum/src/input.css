@@ -18,14 +18,19 @@
     color-scheme: light;
   }
 
-  /* Défilement natif doux pour les pages sans Lenis (fiche technique, conditions pro, mentions
-     légales...). Désactivé dès que Lenis pilote effectivement le défilement (classe posée par
-     mnInitSmoothScroll dans motion.js, sur l'accueil et les fiches produit de La Table) : les deux
-     mécanismes de "smooth scroll" se disputeraient sinon la position de défilement à chaque frame
-     (le navigateur relance sa propre easing sur chaque scrollTop que Lenis écrit), provoquant les
-     saccades qui rendaient la navigation peu fluide. */
-  html:not(.lenis-active) {
+  /* Défilement 100% natif sur tout le site (aucune bibliothèque de "smooth scroll" — un essai
+     avec Lenis a été retiré : elle imposait sa propre vitesse de défilement à la molette au lieu
+     de répondre au geste réel). Cette seule règle adoucit uniquement les sauts déclenchés par un
+     lien d'ancre ou `scrollIntoView()` (voir mnScrollTo dans motion.js) ; le défilement continu à
+     la molette/au trackpad n'est jamais intercepté. */
+  html {
     scroll-behavior: smooth;
+  }
+
+  /* Empêche une section ciblée par une ancre (#maison, #table, #savoir-faire, #contact) d'arriver
+     masquée sous l'en-tête fixe (h-20 = 80px) en fin de défilement. */
+  [data-scroll-section] {
+    scroll-margin-top: 84px;
   }
 
   @media (prefers-reduced-motion: reduce) {

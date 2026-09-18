@@ -7,7 +7,7 @@
  * `data-scroll-section` (pour la surbrillance de nav de motion.js) et un `id` correspondant à
  * l'ancre de navigation — dans cet ordre, qui est aussi celui du menu d'en-tête. La Table
  * (traitement domaine-viticole : palette noir/ivoire/metal, classes `.lt-*`, voir
- * mnSectionTable()) fait pleinement partie du défilement Lenis/GSAP de l'accueil ; chaque produit
+ * mnSectionTable()) fait pleinement partie du défilement (natif) de l'accueil ; chaque produit
  * garde toutefois sa propre fiche à part (caviar-oscietre.html, mer-langoustine.html, etc.),
  * atteinte depuis un lien "Découvrir" — comme la fiche technique produit et les conditions
  * professionnelles, qui restent elles aussi des pages séparées.
@@ -86,7 +86,11 @@ function mnHomeHero() {
 function mnHomeTextureBand() {
   const strips = [
     { stem: "grain-macro", alt: "Grain de caviar Marenostrum, vue macro" },
-    { stem: "bar-loup", alt: "Bar de ligne, texture de peau" },
+    // Colonne étroite (~0.2 de large sur ~1 de haut) découpée dans une photo panoramique
+    // (1.83:1) : à la position centrale par défaut, seule une bande médiane du poisson est
+    // visible — sans tête ni œil, illisible comme "poisson entier". Recadrée vers la gauche
+    // pour garder la tête et le départ de la nageoire dorsale, quitte à perdre la queue.
+    { stem: "bar-loup", alt: "Bar de ligne, texture de peau", objectPosition: "object-[15%_50%]" },
     { stem: "texture-mareyage", alt: "Textures de produits de la mer d'exception" },
     { stem: "trois-caviars", alt: "Boîtes de caviar Marenostrum ouvertes" },
     { stem: "langoustine", alt: "Langoustine, texture de carapace" }
@@ -98,7 +102,7 @@ function mnHomeTextureBand() {
         (s) => `
     <div class="relative h-full overflow-hidden">
       <div class="absolute -inset-y-12 inset-x-0" data-texture-strip>
-        ${mnPicture({ stem: s.stem, alt: s.alt, sizes: "20vw", className: "h-full w-full object-cover scale-125" })}
+        ${mnPicture({ stem: s.stem, alt: s.alt, sizes: "20vw", className: `h-full w-full object-cover scale-125 ${s.objectPosition || ""}`.trim() })}
       </div>
     </div>`
       )

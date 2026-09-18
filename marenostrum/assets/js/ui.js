@@ -30,19 +30,19 @@ const MN_ICONS = {
 /**
  * En-tête. Sur l'accueil (data-page="accueil"), le site est une page unique défilante : les
  * liens d'ancre (#maison, #table, #savoir-faire, #contact — dans cet ordre, celui du menu) portent
- * `data-scroll-link` pour que motion.js les fasse défiler via Lenis plutôt que par un saut natif.
- * Sur toute autre page (fiche technique, conditions professionnelles, mentions légales, fiches
- * produit de La Table...), les mêmes ancres redirigent vers `index.html#...` — une navigation
- * normale, ces pages ne chargent pas Lenis. La Table fait partie intégrante du défilement de
- * l'accueil ; seules ses fiches produit individuelles (caviar-oscietre.html, etc.) restent des
- * pages à part, atteintes depuis un lien "Découvrir".
+ * `data-scroll-link` pour que motion.js les fasse défiler en douceur (scroll natif) plutôt que par
+ * un saut instantané. Sur toute autre page (fiche technique, conditions professionnelles, mentions
+ * légales, fiches produit de La Table...), les mêmes ancres redirigent vers `index.html#...` — une
+ * navigation normale. La Table fait partie intégrante du défilement de l'accueil ; seules ses
+ * fiches produit individuelles (caviar-oscietre.html, etc.) restent des pages à part, atteintes
+ * depuis un lien "Découvrir".
  */
 function mnHeader(active) {
   const isOnePager = active === "accueil";
   const prefix = isOnePager ? "" : "index.html";
 
-  // Chaque entrée est une ancre de l'accueil one-page, préfixée par index.html et pilotée par
-  // Lenis via data-scroll-link quand on est déjà sur l'accueil.
+  // Chaque entrée est une ancre de l'accueil one-page, préfixée par index.html et défilée en
+  // douceur via data-scroll-link quand on est déjà sur l'accueil.
   const link = (href, label) => {
     const isAnchor = href.startsWith("#");
     const finalHref = isAnchor ? `${prefix}${href}` : href;

@@ -8,12 +8,15 @@ référencement — chaque pièce affiche un statut (Disponible / Sur allocation
 prochaine), jamais un tarif.
 
 L'accueil (`index.html`) est une **page unique défilante** : La Maison, La Table, Notre
-savoir-faire et Contact s'enchaînent dans cet ordre — celui du menu d'en-tête — en une seule page,
-animée au défilement via Lenis + GSAP. La Table y est traitée comme un domaine viticole présente
-ses cuvées — palette et typographie propres, aucun prix, aucun bouton d'ajout au panier (voir "La
-Table" ci-dessous) — tout en restant une section de ce même défilement, jamais une page à part :
-seule chaque fiche produit individuelle garde sa propre URL, avec `fiche-technique-produit.html`
-et `conditions-professionnelles.html`, partageables par e-mail.
+savoir-faire et Contact s'enchaînent dans cet ordre — celui du menu d'en-tête — en une seule page.
+Le défilement lui-même est **100% natif** (aucune bibliothèque de "smooth scroll" : un essai avec
+Lenis a été retiré, voir "Accueil one-page" ci-dessous) ; GSAP + ScrollTrigger animent uniquement
+des éléments EN RÉACTION à la position de défilement native, jamais la vitesse ou la trajectoire
+du défilement lui-même. La Table y est traitée comme un domaine viticole présente ses cuvées —
+palette et typographie propres, aucun prix, aucun bouton d'ajout au panier (voir "La Table"
+ci-dessous) — tout en restant une section de ce même défilement, jamais une page à part : seule
+chaque fiche produit individuelle garde sa propre URL, avec `fiche-technique-produit.html` et
+`conditions-professionnelles.html`, partageables par e-mail.
 
 ## Lancer le site en local
 
@@ -58,9 +61,9 @@ marenostrum/
 │   └── js/
 │       ├── home.js         — sections de l'accueil one-page (hero, bandeau de textures,
 │       │                      #maison, #table, #savoir-faire, #contact) + helper <picture>
-│       ├── motion.js       — Lenis (défilement lissé) + GSAP/ScrollTrigger : les animations
-│       │                      de l'accueil, plus la parallaxe produit réutilisée par les fiches
-│       │                      produit de La Table (voir plus bas)
+│       ├── motion.js       — GSAP/ScrollTrigger : les animations de l'accueil (réagissant au
+│       │                      défilement natif, jamais un moteur de scroll), plus la parallaxe
+│       │                      produit réutilisée par les fiches produit de La Table (voir plus bas)
 │       ├── image-slot.js   — composant <image-slot> (placeholder photo, non utilisé
 │       │                      actuellement — toutes les photos du site sont réelles)
 │       └── ui.js           — header/footer, icônes SVG
@@ -78,24 +81,19 @@ marenostrum/
   revendication d'origine géographique, avec un lien "Découvrir La Table →" qui défile jusqu'à
   `#table`), `#table` (voir "La Table" ci-dessous), `#savoir-faire` (sélection, traçabilité, chaîne
   du froid, conditionnement), `#contact` (formulaire de référencement qualifiant).
-- **Navigation fixe** : les quatre liens de l'en-tête défilent en douceur vers leur ancre via
-  `lenis.scrollTo()` (jamais le scroll natif, jamais un rechargement de page), voir
-  `mnInitAnchorNav()`/`mnInitActiveNav()` dans `motion.js`. Sur les autres pages (fiche technique,
+- **Navigation fixe, défilement natif** : les quatre liens de l'en-tête défilent vers leur ancre
+  via `element.scrollIntoView({behavior:"smooth"})` (`mnScrollTo()` dans `motion.js`) — jamais un
+  rechargement de page. `scroll-margin-top` sur `[data-scroll-section]` (`src/input.css`) évite
+  qu'une section n'arrive masquée sous l'en-tête fixe. Sur les autres pages (fiche technique,
   conditions pro, mentions légales, fiches produit de La Table...), les mêmes ancres pointent vers
-  `index.html#ancre` — une navigation normale, ces pages ne chargent pas Lenis.
-- **Défilement lissé, réactif à la molette** : Lenis est configuré en `lerp: 0.1` (rattrapage
-  exponentiel continu), pas en `duration`/`easing` — ces deux réglages sont mutuellement exclusifs,
-  et `duration` routerait chaque impulsion de molette à travers une animation de durée fixe
-  identique quel que soit le geste, rendant la vitesse de défilement perçue indépendante de la
-  vitesse réelle de la molette. `duration`/`easing` restent utilisés, mais seulement en argument de
-  `lenis.scrollTo()` pour l'animation ponctuelle d'un clic de navigation (`mnScrollTo()` dans
-  `motion.js`), où une trajectoire éditoriale a du sens.
-- **Sans conflit avec le CSS** : `mnInitSmoothScroll()` pose la classe `lenis-active` sur `<html>`
-  dès que Lenis démarre, ce qui coupe le `scroll-behavior: smooth` natif (`src/input.css`) — les
-  deux mécanismes de défilement doux se disputeraient sinon la position à chaque frame (le
-  navigateur relance sa propre easing sur chaque `scrollTop` que Lenis écrit), d'où des saccades.
-  `mnScrollTo()` applique aussi un décalage (`MN_HEADER_OFFSET`, `motion.js`) pour qu'une section
-  n'arrive jamais masquée sous l'en-tête fixe.
+  `index.html#ancre` — une navigation normale.
+- **Aucune bibliothèque de "smooth scroll"** : un essai avec Lenis a été retiré — quel que soit son
+  réglage (`duration`/`easing` ou `lerp`), une telle bibliothèque intercepte la molette/le trackpad
+  et impose sa propre physique de défilement à la place de celle voulue par la personne qui
+  scrolle, ce qui a été signalé comme non souhaitable. Le défilement continu (molette, trackpad,
+  clavier, ascenseur) est donc désormais 100% natif et non intercepté ; seul le saut ponctuel d'un
+  clic sur un lien d'ancre bénéficie d'un `scroll-behavior: smooth` CSS, qui n'affecte jamais le
+  défilement libre.
 - **"Demander une allocation"** (La Table) ne recharge pas la page : un clic depuis une fiche
   produit navigue vers `index.html?produit=<slug>#contact`, qui pré-remplit le formulaire de la
   section `#contact` et y défile au chargement (`mnPrefillProduit()`/`mnInitProduitCTAs()` dans
@@ -105,7 +103,7 @@ marenostrum/
 
 La section `#table` de l'accueil (`mnSectionTable()` dans `home.js`) présente Le Caviar et La Mer
 comme des cuvées de domaine viticole, pas comme des références de catalogue — mais fait pleinement
-partie du défilement Lenis/GSAP de la page, au même titre que `#maison`/`#savoir-faire`/`#contact`.
+partie du défilement (natif) de la page, au même titre que `#maison`/`#savoir-faire`/`#contact`.
 Chaque pièce garde en revanche sa propre fiche produit, avec sa propre URL, partageable par e-mail :
 `caviar-oscietre.html`, `caviar-beluga.html`, `caviar-baeri.html`, `caviar-sevruga.html`,
 `mer-poisson-ligne.html`, `mer-langoustine.html`, `mer-terrines.html` — atteintes depuis un lien
@@ -138,25 +136,27 @@ Chaque pièce garde en revanche sa propre fiche produit, avec sa propre URL, par
 - **Parallaxe produit** (`mnInitProductParallax()` dans `motion.js`) : amplitude 30px, `scrub`,
   posée sur un `<div data-product-parallax>` qui enveloppe l'image — jamais sur l'`<img>`
   elle-même, car GSAP écrirait son propre `transform` inline et écraserait la classe Tailwind
-  `scale-110`/`scale-125` portée par l'image. Les sept fiches produit chargent Lenis/GSAP/`ui.js`/
+  `scale-110`/`scale-125` portée par l'image. Les sept fiches produit chargent GSAP/`ui.js`/
   `motion.js` indépendamment (pas `home.js`, leur contenu est du HTML statique) pour cette même
   animation et celles d'apparition (`[data-reveal]`/`[data-reveal-item]`).
 
-### Lenis + GSAP/ScrollTrigger — animations partagées, aucune autre
+### GSAP/ScrollTrigger — animations partagées, aucune autre, jamais le scroll lui-même
 
 Chargés via CDN (jsDelivr) sur `index.html` et les sept fiches produit de La Table — aucune autre
 page n'en dépend :
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 ```
 
-Ils ne sont pas dans `package.json` : le site n'a pas de bundler (seul Tailwind CLI compile le
-CSS), donc rien ne consommerait un `npm install lenis gsap` — le CDN est le point d'intégration
-réel, chargé en balises `<script>` classiques (globals `Lenis`/`gsap`/`ScrollTrigger`), exactement
-comme les polices Google/Fontshare déjà chargées ainsi sur tout le site.
+Pas dans `package.json` : le site n'a pas de bundler (seul Tailwind CLI compile le CSS), donc rien
+ne consommerait un `npm install gsap` — le CDN est le point d'intégration réel, chargé en balises
+`<script>` classiques (global `gsap`/`ScrollTrigger`), exactement comme les polices
+Google/Fontshare déjà chargées ainsi sur tout le site. Ces deux scripts pilotent uniquement les
+quatre animations listées ci-dessous, jamais le défilement lui-même (voir "Accueil one-page" plus
+haut : le défilement est natif, non intercepté — une bibliothèque de "smooth scroll", Lenis, a été
+essayée puis retirée car elle contrôlait la vitesse de défilement à la place de l'utilisateur).
 
 1. **Apparition des images/blocs** : tout `[data-reveal]` est un groupe ; ses enfants directs
    `[data-reveal-item]` cascadent à 0.12s d'écart (`gsap.from(..., {opacity:0,y:40,scale:1.02})`,
@@ -176,10 +176,10 @@ comme les polices Google/Fontshare déjà chargées ainsi sur tout le site.
    `end:"bottom top"` — voir "La Table" ci-dessus.
 
 `mnInitMotion()` (appelé une fois toutes les sections montées — par `index.html`, et directement
-par chaque page statique de La Table) désactive Lenis et affiche tout dans son état final si
-`prefers-reduced-motion: reduce`, ou si `gsap` n'a pas pu se charger (repli silencieux : la
-navigation par ancre retombe alors sur le saut natif du navigateur, et `mnScrollTo()` sur
-`element.scrollIntoView()`).
+par chaque page statique de La Table) affiche tout dans son état final, sans animation, si
+`prefers-reduced-motion: reduce` ; si `gsap` n'a pas pu se charger, ces quatre animations sont
+simplement absentes mais le défilement natif fonctionne exactement comme d'habitude (il n'en a
+jamais dépendu).
 
 ### Images responsives
 
@@ -216,9 +216,9 @@ plein cadre) pour ne jamais décaler la mise en page pendant le chargement.
 - Contraste texte/fond vérifié (≥ 4.5:1) pour les combinaisons de couleurs
   principales (texte bleu marine sur crème/blanc, texte blanc sur fond
   marine, etc.).
-- `prefers-reduced-motion` respecté : Lenis désactivé, animations GSAP jouées directement dans
-  leur état final (voir "Lenis + GSAP/ScrollTrigger" ci-dessus) ; les transitions CSS restantes
-  (survol de boutons, etc.) sont neutralisées globalement.
+- `prefers-reduced-motion` respecté : animations GSAP jouées directement dans leur état final
+  (voir "GSAP/ScrollTrigger" ci-dessus) ; les transitions CSS restantes (survol de boutons, etc.)
+  sont neutralisées globalement.
 - Focus clavier visible sur tous les éléments interactifs.
 
 ## Photos
