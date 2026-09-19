@@ -5,9 +5,11 @@
 // Tailwind color utility below is automatically theme-reactive: the SAME class (bg-page,
 // text-ink...) renders light or dark depending on whether it sits inside a [data-theme="dark"]
 // wrapper (hero, footer, contact, La Table's product heroes, the data band, the full-screen menu,
-// the loading screen) or the default light document flow. Exactly eight tokens per theme, no more:
-// bg, surface, surface-high (dark only), shadow/border, text, text-2, accent, accent-dark
-// (light only, fixed). Never a gradient, never a glow — flat fills only.
+// the loading screen) or the default light document flow. Exactly seven tokens per theme, no
+// more: bg, surface, surface-high (dark only), shadow/border, text, text-2, accent. No gold,
+// copper, metal or warm color of any kind — ivory/navy contrast is the site's only chromatic
+// driver; the accent is a muted blue-grey, reserved for links, never a background fill. Never a
+// gradient, never a glow — flat fills only.
 module.exports = {
   content: ["./*.html", "./assets/js/**/*.js"],
   theme: {
@@ -19,8 +21,8 @@ module.exports = {
         line: "var(--color-border)", // hairline borders AND the "shadow" alternate-tint fill
         ink: "var(--color-text)", // primary text — inverts automatically light/dark
         "ink-2": "var(--color-text-2)", // secondary text, eyebrows, dark-theme surfaces
-        gold: "var(--color-accent)", // the one accent — filets, chiffres, libellés de survol
-        "gold-dark": "#9A7F42", // fixed (not theme-reactive): body-text links on the light theme
+        accent: "var(--color-accent)", // le seul accent — liens et filets, jamais un fond
+        "accent-hover": "var(--color-accent-hover)", // survol des liens
         error: "#B3261E"
       },
       fontFamily: {

@@ -80,21 +80,28 @@ marenostrum/
 
 ### Palette — deux thèmes via `data-theme`
 
-Huit jetons par thème, définis comme variables CSS dans `src/input.css` (`:root` pour le thème
+Sept jetons par thème, définis comme variables CSS dans `src/input.css` (`:root` pour le thème
 clair, `[data-theme="dark"]` pour le sombre), exposés comme couleurs Tailwind dans
 `tailwind.config.js` : `page` (fond), `surface` (cartes/champs), `surface-high` (sombre
 uniquement), `line` (bordures — sert aussi de teinte d'alternance de fond), `ink` (texte),
-`ink-2` (texte secondaire), `gold` (accent), `gold-dark` (fixe, `#9A7F42` — liens en corps de
-texte sur fond clair, l'or `gold` n'y passant qu'à peine le contraste). **Aucune autre couleur.
-Jamais de dégradé, jamais de halo/lueur, jamais de variation de teinte dans un fond — des aplats
-uniquement.**
+`ink-2` (texte secondaire), `accent` (liens et filets), `accent-hover` (survol des liens).
+**Aucune couleur dorée, cuivrée, métallique ou chaude d'aucune sorte : l'accent est un bleu-gris
+sourd (`#3D5478` en clair, `#A8B6CC` en sombre), jamais posé en fond. Le contraste ivoire/bleu
+nuit est le seul moteur chromatique du site. Aucune autre couleur, jamais de dégradé, jamais de
+halo/lueur, jamais de variation de teinte dans un fond — des aplats uniquement.**
 
 Le thème est posé localement sur les sections qui doivent rester sombres quel que soit le
-défilement — le hero, le bandeau de données, le pied de page, `#contact`, le menu plein écran,
-l'écran de chargement, le chapitre d'ouverture des fiches produit de La Table — via
-`data-theme="dark"` sur leur conteneur. Comme les jetons sont des variables CSS qui se recalculent
-par portée, une même classe (`bg-page`, `text-ink`...) rend clair ou sombre selon qu'elle vit ou
-non dans une portée `[data-theme="dark"]`, sans jamais dupliquer une règle.
+défilement — le hero, le bandeau de données, le pied de page, `#contact`, **`#table`** (La Table
+alterne avec La Maison et Notre savoir-faire, toutes deux claires — deux sections ivoire ne se
+suivent jamais sans respiration sombre entre elles), le menu plein écran, l'écran de chargement,
+le chapitre d'ouverture des fiches produit de La Table — via `data-theme="dark"` sur leur
+conteneur. Comme les jetons sont des variables CSS qui se recalculent par portée, une même classe
+(`bg-page`, `text-ink`...) rend clair ou sombre selon qu'elle vit ou non dans une portée
+`[data-theme="dark"]`, sans jamais dupliquer une règle.
+
+La hiérarchie visuelle ne repose plus que sur l'échelle typographique et le vide (voir
+"Typographie" ci-dessous) : les chiffres du bandeau de données, par exemple, ne sont plus en
+accent mais en `--color-text` brut, la taille seule les distinguant des libellés.
 
 ### Typographie
 
@@ -168,11 +175,19 @@ sections horizontal (`#section-splide`, sous le bandeau de données). `mnInitHer
 
 ### Curseur personnalisé
 
-`mnInitCursor()` dans `ui.js` : un disque (`.mn-cursor`, `18px`, aplat `--color-accent`) suit le
-pointeur (`transform: translate(...)`, mis à jour à chaque `mousemove`), s'agrandit à `72px` et
-affiche le libellé porté par l'attribut `data-hover="…"` de l'élément survolé. Désactivé sur
-tactile : la classe qui masque le curseur système (`html.has-custom-cursor`) n'est posée qu'après
-un `matchMedia("(pointer: fine)")` positif ET un premier `mousemove` réel.
+`mnInitCursor()` dans `ui.js` : un disque (`.mn-cursor`, `18px`) suit le pointeur
+(`transform: translate(...)`, mis à jour à chaque `mousemove`), s'agrandit à `72px` et affiche le
+libellé porté par l'attribut `data-hover="…"` de l'élément survolé. Sa couleur n'est **jamais**
+l'accent (réservé aux liens) : un aplat texte/fond inversé (`--color-cursor-bg`/
+`--color-cursor-text`, `#17263F`/`#F4EFE6` en clair, l'inverse en sombre) qui suit le thème local
+survolé plutôt que le thème de la racine du document — à chaque `mouseover`, le disque recopie sur
+lui-même l'attribut `data-theme` de l'ancêtre le plus proche de l'élément survolé (l'héritage des
+variables CSS suit l'arbre du DOM, pas la position à l'écran, donc ça suffit même si le curseur
+est positionné `fixed`). Deux composants gèrent leur contraste par classe plutôt que par
+`data-theme` (l'en-tête flottant sur le hero, le menu plein écran) et sont traités comme des cas
+sombres explicites dans cette même logique. Désactivé sur tactile : la classe qui masque le
+curseur système (`html.has-custom-cursor`) n'est posée qu'après un
+`matchMedia("(pointer: fine)")` positif ET un premier `mousemove` réel.
 
 ### Écran de chargement
 
@@ -242,21 +257,26 @@ de La Mer). `mnPicture()` (`home.js`) construit systématiquement un `<picture>`
 avec `width`/`height` explicites (jamais de décalage de mise en page pendant le chargement),
 `loading="lazy"` sauf le hero.
 
-**Emplacements d'image non encore livrés** : plusieurs zones du site attendent une photo qui
-n'existe pas encore (le hero, les quatre aperçus du menu plein écran, les deux univers de La
-Table, deux blocs de Notre savoir-faire). Chacune est laissée vide dans le code, avec un
-commentaire `[IMAGE — …]` décrivant précisément le visuel attendu, et son espace réservé via
-`aspect-ratio` (`mnImagePlaceholder()` dans `home.js` pour les blocs de contenu — bordure fine et
-libellé discret pour se lire comme un slot volontairement vide plutôt que comme une image cassée ;
-un aplat `--color-surface-high` pour le hero). Remplacer un emplacement par une vraie photo
-consiste à appeler `mnPicture()`/construire le `<picture>` correspondant à la place du
-placeholder — la mise en page ne bouge pas.
+**Emplacements d'image non encore livrés** : le hero est réglé (`hero-mer`, givre en gros plan,
+recadrage portrait dédié pour mobile) et deux des quatre emplacements de contenu ont reçu une
+photo déjà existante mais jusqu'ici inutilisée sur l'accueil (langoustine pour "La Table, univers
+La Mer" ; trois-caviars pour "Notre savoir-faire, La sélection"). Restent vides, faute de photo
+correspondante : les quatre aperçus du menu plein écran (grain de caviar sur fond bleu nuit, boîte
+fermée, cuillère de nacre, littoral breton), "La Table, univers Caviar" (packshot de boîte
+ouverte) et "Notre savoir-faire, La traçabilité" (macro étiquette CITES). Chacune est laissée vide
+dans le code, avec un commentaire `[IMAGE — …]` décrivant précisément le visuel attendu, et son
+espace réservé via `aspect-ratio` (`mnImagePlaceholder()` dans `home.js` pour les blocs de
+contenu — bordure fine et libellé discret pour se lire comme un slot volontairement vide plutôt
+que comme une image cassée). Remplacer un emplacement par une vraie photo consiste à appeler
+`mnPicture()`/construire le `<picture>` correspondant à la place du placeholder — la mise en page
+ne bouge pas.
 
-Photos déjà réelles et utilisées : `hero-mer.jpg` (actuellement inutilisée directement, le hero
-attend sa photo définitive), `texture-mareyage.jpg`, `grain-macro.webp`, `trois-caviars.webp`,
-`bar-loup.jpg`, `langoustine.jpg`, `gamme-boites.webp`, `boite-ouverte.png` (boîte de caviar,
-réutilisée telle quelle sur les quatre fiches Le Caviar, faute de photo par espèce). Le logo
-(`assets/img/logo-marenostrum-horizontal-noir.png`) remplace le wordmark texte dans l'en-tête.
+Photos réelles et utilisées : `hero-mer.jpg` (hero, avec recadrage portrait), `texture-mareyage.jpg`,
+`grain-macro.webp`, `trois-caviars.webp` (accueil, "La sélection"), `bar-loup.jpg`,
+`langoustine.jpg` (accueil, "univers La Mer", et fiche produit dédiée), `gamme-boites.webp`,
+`boite-ouverte.png` (boîte de caviar, réutilisée telle quelle sur les quatre fiches Le Caviar,
+faute de photo par espèce). Le logo (`assets/img/logo-marenostrum-horizontal-noir.png`) remplace
+le wordmark texte dans l'en-tête.
 
 ## Modèle "demande de référencement"
 

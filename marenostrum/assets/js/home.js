@@ -32,15 +32,27 @@ const MN_IMG_WIDTHS = {
 
 /** `<picture>` complet — AVIF, WebP, repli JPEG — avec `width`/`height` explicites pour réserver
     l'espace (calculés depuis la largeur de secours et le ratio fourni, jamais de décalage de
-    mise en page pendant le chargement). `loading="lazy"` sauf le hero (`eager`). */
-function mnPicture({ stem, alt, sizes, className, eager, ratio }) {
+    mise en page pendant le chargement). `loading="lazy"` sauf le hero (`eager`). `portraitStem`
+    optionnel : insère des sources dédiées `-portrait-900w` sous 768px (voir generate-responsive-
+    images.py, PORTRAIT_CROPS) pour les visuels plein écran qui ont besoin d'un cadrage vertical
+    propre sur mobile plutôt que du simple recadrage automatique de la version paysage. */
+function mnPicture({ stem, alt, sizes, className, eager, ratio, portraitStem }) {
   const widths = MN_IMG_WIDTHS[stem];
   const src = (ext) => widths.map((w) => `assets/img/responsive/${stem}-${w}w.${ext} ${w}w`).join(", ");
   const fallback = widths[widths.length - 1];
   const height = ratio ? Math.round(fallback / ratio) : undefined;
   const loadingAttr = eager ? `fetchpriority="high"` : `loading="lazy"`;
+  const portrait = portraitStem
+    ? ["avif", "webp", "jpeg"]
+        .map(
+          (ext) =>
+            `<source type="image/${ext}" media="(max-width: 767px)" srcset="assets/img/responsive/${portraitStem}-portrait-900w.${ext === "jpeg" ? "jpg" : ext}" />`
+        )
+        .join("\n    ")
+    : "";
   return `
   <picture>
+    ${portrait}
     <source type="image/avif" srcset="${src("avif")}" sizes="${sizes}" />
     <source type="image/webp" srcset="${src("webp")}" sizes="${sizes}" />
     <img src="assets/img/responsive/${stem}-${fallback}w.jpg" srcset="${src("jpg")}" sizes="${sizes}" alt="${alt}" width="${fallback}"${height ? ` height="${height}"` : ""} ${loadingAttr} class="${className || ""}" />
@@ -60,14 +72,8 @@ function mnImagePlaceholder({ ratio, label, className }) {
 
 /* ------------------------------------------------------------------------------------------ *
  * 1) HERO — plein écran, prêt pour Splide (une diapositive pour l'instant), parallaxe légère,
- * bandeau de données vivantes juste en dessous.
- *
- * [IMAGE — Hero, plein écran : à définir.
- *   Option A : macro de grain de caviar noir occupant tout le cadre.
- *   Option B : bande de textures marines existante recadrée en panoramique.
- *   Prévoir 2400/1920/1200/900px et une version portrait dédiée pour mobile.]
- * En l'absence de cette photo, l'aplat --color-surface-high (thème sombre) réserve l'espace
- * exact du futur visuel — aucun décalage de mise en page le jour où elle sera livrée.
+ * bandeau de données vivantes juste en dessous. Photo : texture de givre en gros plan, fond
+ * bleu nuit qui tourne vers le clair — choisie et validée pour cet emplacement (hero-mer).
  * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
   return `
@@ -77,7 +83,10 @@ function mnHomeHero() {
         <ul class="splide__list">
           <li class="splide__slide">
             <div class="relative h-screen w-full overflow-hidden" data-hero-parallax>
-              <div class="absolute inset-0 -top-12 -bottom-12" data-hero-parallax-layer style="background-color:var(--color-surface-high)"></div>
+              <div class="absolute inset-0 -top-12 -bottom-12" data-hero-parallax-layer>
+                ${mnPicture({ stem: "hero-mer", portraitStem: "hero-mer", alt: "Givre en gros plan, Maison Marenostrum", sizes: "100vw", className: "h-full w-full object-cover", eager: true })}
+              </div>
+              <div class="absolute inset-x-0 bottom-0 h-2/3 pointer-events-none" style="background-color:var(--color-bg); opacity:0.55"></div>
             </div>
           </li>
         </ul>
@@ -90,18 +99,19 @@ function mnHomeHero() {
     </div>
   </section>
 
-  <!-- Bandeau de données vivantes — aplat sombre fixe, chiffres en accent, sous le hero. -->
+  <!-- Bandeau de données vivantes — aplat sombre fixe, chiffres en ivoire (la taille porte la
+       hiérarchie, pas la couleur), filet vertical entre chaque donnée. -->
   <div class="mn-data-band" data-theme="dark">
     <div class="container-page grid grid-cols-1 gap-8 py-10 sm:grid-cols-3 sm:gap-6">
-      <div class="text-center sm:text-left">
+      <div class="text-center sm:border-l sm:pl-6 sm:text-left first:border-l-0 first:pl-0" style="border-color:var(--color-border)">
         <p class="mn-data-figure font-texte text-3xl font-medium">2024</p>
         <p class="eyebrow mt-2 !text-[0.7rem]">Millésime du cru en cours</p>
       </div>
-      <div class="text-center sm:text-left">
+      <div class="text-center sm:border-l sm:pl-6 sm:text-left" style="border-color:var(--color-border)">
         <p class="mn-data-figure font-texte text-3xl font-medium">38</p>
         <p class="eyebrow mt-2 !text-[0.7rem]">Maisons référencées</p>
       </div>
-      <div class="text-center sm:text-left">
+      <div class="text-center sm:border-l sm:pl-6 sm:text-left" style="border-color:var(--color-border)">
         <p class="mn-data-figure font-texte text-3xl font-medium">14 oct.</p>
         <p class="eyebrow mt-2 !text-[0.7rem]">Prochaine date d'allocation</p>
       </div>
@@ -109,8 +119,9 @@ function mnHomeHero() {
   </div>
 
   <!-- Sélecteur de sections horizontal (Splide) — navigation secondaire, complète le menu
-       plein écran plutôt que de le remplacer. -->
-  <nav class="border-b" style="border-color:var(--color-border)" aria-label="Sections de la page">
+       plein écran plutôt que de le remplacer. Rattaché visuellement au bandeau de données
+       (même thème sombre) pour ne pas rouvrir une bande claire juste avant La Maison. -->
+  <nav class="border-b" data-theme="dark" style="background-color:var(--color-bg); border-color:var(--color-border); color:var(--color-text)" aria-label="Sections de la page">
     <div class="splide" id="section-splide" aria-label="Sections">
       <div class="splide__track">
         <ul class="splide__list">
@@ -262,7 +273,7 @@ function mnSectionTable() {
     </ul>`;
 
   return `
-  <section id="table" data-scroll-section class="section-pad">
+  <section id="table" data-scroll-section data-theme="dark" class="section-pad" style="background-color:var(--color-bg); color:var(--color-text)">
     <div class="strip strip--normal" data-reveal>
       <p class="eyebrow mb-4 anima--bottom-in">La Table</p>
       <h2 class="h-section mb-6 anima--bottom-in">Deux univers, une même exigence</h2>
@@ -301,7 +312,7 @@ function mnSectionTable() {
 
     <div class="strip strip--normal mt-lg text-center">
       <p class="eyebrow mb-4">Accès à la collection</p>
-      <p class="prose-copy mx-auto mb-6 max-w-md">Cette présentation n'est pas exhaustive. Traçabilité, conditionnement et détail technique : <a href="fiche-technique-produit.html" class="underline hover:no-underline" style="color:var(--color-gold-dark, #9A7F42)">fiche technique produit</a>.</p>
+      <p class="prose-copy mx-auto mb-6 max-w-md">Cette présentation n'est pas exhaustive. Traçabilité, conditionnement et détail technique : <a href="fiche-technique-produit.html" class="underline hover:no-underline text-accent">fiche technique produit</a>.</p>
       <a href="#contact" class="btn-quiet" data-scroll-link data-hover="Écrire">Demander une allocation →</a>
     </div>
   </section>`;
@@ -342,7 +353,7 @@ function mnSectionSavoirFaire() {
         <div class="flex flex-col justify-center order-2 md:order-1">
           <p class="eyebrow mb-3">La traçabilité</p>
           <h3 class="h-card mb-4">Une fiche de lot par expédition</h3>
-          <p class="prose-copy">Étiquette CITES, numéro de lot, date de conditionnement. Détail sur la <a href="fiche-technique-produit.html" class="underline hover:no-underline" style="color:#9A7F42">fiche technique produit</a>.</p>
+          <p class="prose-copy">Étiquette CITES, numéro de lot, date de conditionnement. Détail sur la <a href="fiche-technique-produit.html" class="underline hover:no-underline text-accent">fiche technique produit</a>.</p>
         </div>
         ${mnImagePlaceholder({ ratio: "1/1", label: "Macro étiquette CITES sur un couvercle", className: "order-1 md:order-2 js-image-anime" })}
       </div>
@@ -366,7 +377,7 @@ function mnSectionSavoirFaire() {
           <p class="prose-copy text-sm">Un besoin transmis via le formulaire de référencement, une allocation confirmée sous 48h.</p>
         </div>
       </div>
-      <p class="mt-md text-center text-sm opacity-70">Conditions détaillées applicables aux établissements référencés : <a href="conditions-professionnelles.html" class="underline hover:no-underline" style="color:#9A7F42">conditions professionnelles</a>.</p>
+      <p class="mt-md text-center text-sm opacity-70">Conditions détaillées applicables aux établissements référencés : <a href="conditions-professionnelles.html" class="underline hover:no-underline text-accent">conditions professionnelles</a>.</p>
     </div>
   </section>`;
 }

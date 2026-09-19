@@ -35,7 +35,7 @@ SINGLE_SIZE_IMAGES = [
 # dedicated portrait crop for mobile, in addition to the landscape ladder above — recadrées au
 # centre en 3:4, jamais un simple redimensionnement de la version paysage (qui laisserait des
 # bandes vides ou un cadrage absurde en plein écran vertical).
-PORTRAIT_CROPS = ["bar-loup", "langoustine", "gamme-boites"]
+PORTRAIT_CROPS = ["bar-loup", "langoustine", "gamme-boites", "hero-mer"]
 PORTRAIT_WIDTH = 900
 PORTRAIT_RATIO = 3 / 4  # width / height
 

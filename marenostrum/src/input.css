@@ -19,10 +19,15 @@
     --color-bg: #F4EFE6;
     --color-surface: #FAF7F2;
     --color-surface-high: #FAF7F2; /* pas de palier distinct en clair — égal à la surface */
-    --color-border: #E8E0D3; /* sert aussi de teinte "ombre" pour une alternance de fond légère */
+    --color-border: #E2DACE;
     --color-text: #111110;
     --color-text-2: #17263F;
-    --color-accent: #C4A35A;
+    --color-accent: #3D5478;
+    --color-accent-hover: #17263F;
+    /* Curseur personnalisé : jamais la couleur d'accent (réservée aux liens) — un aplat texte/fond
+       inversé entre les deux thèmes, voir la section "Curseur personnalisé" plus bas. */
+    --color-cursor-bg: #17263F;
+    --color-cursor-text: #F4EFE6;
 
     /* Typographie */
     --titleSize: 4.7rem;
@@ -42,7 +47,10 @@
     --color-border: #2A3A55;
     --color-text: #F4EFE6;
     --color-text-2: #C2C8D2;
-    --color-accent: #D9BF85;
+    --color-accent: #A8B6CC;
+    --color-accent-hover: #F4EFE6;
+    --color-cursor-bg: #F4EFE6;
+    --color-cursor-text: #17263F;
   }
 
   @screen sm {
@@ -82,7 +90,7 @@
   }
 
   ::selection {
-    background-color: rgba(196, 163, 90, 0.25);
+    background-color: rgba(61, 84, 120, 0.2);
     color: var(--color-text);
   }
 
@@ -148,13 +156,13 @@
   }
 
   .h-section {
-    @apply font-texte leading-tight text-2xl sm:text-3xl;
+    @apply font-texte leading-tight text-2xl sm:text-3xl lg:text-4xl;
     font-weight: var(--fontBold);
     color: var(--color-text);
   }
 
   .h-card {
-    @apply font-texte text-xl sm:text-2xl;
+    @apply font-texte text-xl sm:text-2xl lg:text-3xl;
     font-weight: var(--fontBold);
     color: var(--color-text);
   }
@@ -374,7 +382,7 @@
   color: var(--color-text);
 }
 .mn-data-band .mn-data-figure {
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 /* ============================================================================
@@ -382,6 +390,10 @@
  * survol d'un élément portant data-hover. Un seul disque, aucun halo, aucun dégradé. Désactivé
  * sur tactile (voir la détection JS dans mnInitCursor, ui.js) : la classe n'est posée que quand
  * un pointeur fin est confirmé.
+ * Couleur jamais l'accent (réservé aux liens) : un aplat texte/fond inversé qui suit le thème
+ * local survolé — mnInitCursor recopie l'attribut data-theme de l'élément sous le curseur sur
+ * le disque lui-même, ce qui suffit à faire résoudre --color-cursor-bg/--color-cursor-text au
+ * bon thème (l'héritage des variables CSS suit l'arbre du DOM, pas la position à l'écran).
  * ============================================================================ */
 .mn-cursor {
   position: fixed;
@@ -391,7 +403,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: var(--color-accent);
+  background-color: var(--color-cursor-bg);
   pointer-events: none;
   transform: translate(-50%, -50%);
   transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1), height 250ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -407,7 +419,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #111110;
+  color: var(--color-cursor-text);
   white-space: nowrap;
   transition: opacity 150ms ease;
 }
@@ -438,7 +450,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1.5px solid #D9BF85;
+  border: 1.5px solid #F4EFE6;
   transform: translateX(24px);
   opacity: 0;
   transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 700ms ease;
@@ -503,7 +515,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  color: #D9BF85;
+  color: #A8B6CC;
 }
 .mn-fullmenu-item:hover .mn-fullmenu-link span {
   transform: translateY(-100%);
@@ -538,7 +550,7 @@
 }
 .mn-lang-switch button.is-active,
 .mn-lang-switch button:hover {
-  color: #D9BF85;
+  color: #A8B6CC;
 }
 
 /* ============================================================================
@@ -629,7 +641,7 @@
 
 .nav-glass.mn-hero-nav.is-scrolled {
   background: rgba(244, 239, 230, 0.9);
-  border-color: rgba(232, 224, 211, 0.6);
+  border-color: rgba(226, 218, 206, 0.6);
   backdrop-filter: blur(12px);
 }
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,

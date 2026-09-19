@@ -130,7 +130,7 @@ function mnFullMenu(active) {
   };
 
   return `
-  <div id="mn-fullmenu" class="mn-fullmenu" aria-hidden="true">
+  <div id="mn-fullmenu" class="mn-fullmenu" data-theme="dark" aria-hidden="true">
     <div class="container-page flex h-20 items-center justify-between">
       <span class="font-texte font-medium tracking-[0.18em] text-lg" style="color:#F4EFE6">MARENOSTRUM</span>
       <button id="mn-fullmenu-close" aria-label="Fermer le menu" data-hover="Fermer" class="flex items-center gap-2" style="color:#F4EFE6">
@@ -149,7 +149,7 @@ function mnFullMenu(active) {
         <span style="color:#2A3A55">/</span>
         <button type="button" data-lang="en">EN</button>
       </div>
-      <a href="${prefix}#contact"${isOnePager ? " data-scroll-link data-fullmenu-link" : " data-fullmenu-link"} class="btn-outline !text-xs" style="border-color:#D9BF85; color:#D9BF85" data-hover="Écrire">Demander un référencement</a>
+      <a href="${prefix}#contact"${isOnePager ? " data-scroll-link data-fullmenu-link" : " data-fullmenu-link"} class="btn-outline !text-xs" style="border-color:#A8B6CC; color:#A8B6CC" data-hover="Écrire">Demander un référencement</a>
     </div>
     <!-- Aperçu image au survol (desktop) : une image verticale 400×600 par entrée, permutée par
          mnInitFullMenu() selon l'entrée survolée. Les quatre photos n'existent pas encore :
@@ -235,6 +235,25 @@ function mnInitCursor() {
     (e) => {
       activate();
       cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    },
+    { passive: true }
+  );
+
+  // Le disque n'est jamais dans la couleur d'accent (réservée aux liens) : un aplat texte/fond
+  // inversé qui doit suivre le thème local survolé, pas le thème de la racine du document. On
+  // recopie l'attribut data-theme de l'ancêtre le plus proche sur le disque lui-même : l'héritage
+  // des variables CSS suit l'arbre du DOM, pas la position à l'écran, donc --color-cursor-bg /
+  // --color-cursor-text se résolvent alors correctement même si le curseur est positionné fixed.
+  document.addEventListener(
+    "mouseover",
+    (e) => {
+      const themed = e.target.closest("[data-theme]");
+      // Cas particulier : l'en-tête flottant sur le hero (mn-hero-nav) gère son propre contraste
+      // par classe plutôt que par data-theme (transparent sur le hero, clair une fois défilé) —
+      // sans ce test le curseur le lirait toujours comme "clair" alors qu'il est sombre tant que
+      // .is-scrolled n'est pas posée.
+      const overTransparentHeroNav = e.target.closest(".mn-hero-nav:not(.is-scrolled)");
+      cursor.setAttribute("data-theme", themed ? themed.dataset.theme : overTransparentHeroNav ? "dark" : "light");
     },
     { passive: true }
   );
