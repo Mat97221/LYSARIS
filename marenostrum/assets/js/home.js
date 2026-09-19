@@ -3,100 +3,220 @@
  * index.html via le motif déjà utilisé ailleurs sur le site : un placeholder statique remplacé
  * par `outerHTML` une fois le DOM prêt. Seul index.html charge ce fichier.
  *
- * Quatre sections défilantes (#maison, #table, #savoir-faire, #contact) portent chacune
- * `data-scroll-section` (pour la surbrillance de nav de motion.js) et un `id` correspondant à
- * l'ancre de navigation — dans cet ordre, qui est aussi celui du menu d'en-tête. La Table
- * (traitement domaine-viticole : palette noir/ivoire/metal, classes `.lt-*`, voir
- * mnSectionTable()) fait pleinement partie du défilement (natif) de l'accueil ; chaque produit
- * garde toutefois sa propre fiche à part (caviar-oscietre.html, mer-langoustine.html, etc.),
- * atteinte depuis un lien "Découvrir" — comme la fiche technique produit et les conditions
- * professionnelles, qui restent elles aussi des pages séparées.
+ * Quatre sections défilantes (#maison, #table, #savoir-faire, #contact), dans l'ordre du menu.
+ * Construites sur le système de bandes ("strip", voir src/input.css) : chaque `strip--columns`/
+ * `strip--3-cols` accepte des variables inline `--w1`/`--w2` qui décalent verticalement ses deux
+ * premières colonnes — le seul dispositif de rythme visuel d'une palette à huit jetons.
  *
- * Animation 1 (apparition au défilement, voir motion.js) : tout élément `data-reveal` est un
- * groupe ; ses enfants directs `data-reveal-item` cascadent à 0.12s d'écart. Un `data-reveal`
- * sans enfant marqué s'anime comme bloc unique.
+ * `.anima--bottom-in` (apparition douce, motion.js) n'est posée que sur une dizaine de blocs sur
+ * toute la page, pas systématiquement — conformément au principe d'animations minimales.
  */
 
 /* ------------------------------------------------------------------------------------------ *
- * Images responsives — WebP + repli JPEG, trois largeurs plafonnées à la résolution native.
+ * Images responsives — AVIF + WebP + repli JPEG, quatre largeurs plafonnées à la résolution
+ * native (voir "Images responsives" dans SETUP.md et scripts/generate-responsive-images.py).
  * ------------------------------------------------------------------------------------------ */
+/* Largeurs réellement générées par scripts/generate-responsive-images.py — plafonnées à la
+   résolution native de chaque source (jamais d'agrandissement), donc pas toujours les quatre
+   paliers 900/1200/1920/2400 complets. Garder cette table strictement synchronisée avec la
+   sortie du script : une largeur listée ici sans fichier correspondant casse l'image. */
 const MN_IMG_WIDTHS = {
-  "hero-mer": [768, 1280, 1376],
-  "texture-mareyage": [768, 1280, 1408],
-  "trois-caviars": [768, 1024],
-  "hero-montagne": [768, 1280, 1408],
-  "bar-loup": [768, 1280, 1408],
-  "langoustine": [768, 1280, 1408],
-  "gamme-boites": [768, 1280, 1376],
-  "grain-macro": [768, 1024]
+  "hero-mer": [900, 1200, 1376],
+  "texture-mareyage": [900, 1200, 1408],
+  "trois-caviars": [900, 1024],
+  "bar-loup": [900, 1200, 1408],
+  "langoustine": [900, 1200, 1408],
+  "gamme-boites": [900, 1200, 1376],
+  "grain-macro": [900, 1024]
 };
 
-function mnPicture({ stem, alt, sizes, className, eager }) {
+/** `<picture>` complet — AVIF, WebP, repli JPEG — avec `width`/`height` explicites pour réserver
+    l'espace (calculés depuis la largeur de secours et le ratio fourni, jamais de décalage de
+    mise en page pendant le chargement). `loading="lazy"` sauf le hero (`eager`). */
+function mnPicture({ stem, alt, sizes, className, eager, ratio }) {
   const widths = MN_IMG_WIDTHS[stem];
   const src = (ext) => widths.map((w) => `assets/img/responsive/${stem}-${w}w.${ext} ${w}w`).join(", ");
   const fallback = widths[widths.length - 1];
+  const height = ratio ? Math.round(fallback / ratio) : undefined;
   const loadingAttr = eager ? `fetchpriority="high"` : `loading="lazy"`;
   return `
   <picture>
+    <source type="image/avif" srcset="${src("avif")}" sizes="${sizes}" />
     <source type="image/webp" srcset="${src("webp")}" sizes="${sizes}" />
-    <img src="assets/img/responsive/${stem}-${fallback}w.jpg" srcset="${src("jpg")}" sizes="${sizes}" alt="${alt}" ${loadingAttr} class="${className || ""}" />
+    <img src="assets/img/responsive/${stem}-${fallback}w.jpg" srcset="${src("jpg")}" sizes="${sizes}" alt="${alt}" width="${fallback}"${height ? ` height="${height}"` : ""} ${loadingAttr} class="${className || ""}" />
   </picture>`;
 }
 
-/* ------------------------------------------------------------------------------------------ *
- * 1) HERO — plein écran, slogan mot par mot (animation 3)
- * ------------------------------------------------------------------------------------------ */
-function mnSloganMarkup(text) {
-  return text
-    .split(" ")
-    .map((word) => `<span class="mn-slogan-mask"><span class="mn-slogan-word" data-slogan-word>${word}</span></span>`)
-    .join(" ");
+/** Emplacement d'image pas encore livrée (voir les commentaires [IMAGE — ...] à chaque appel) :
+    espace réservé via aspect-ratio, bordure fine + libellé discret pour qu'il se lise comme un
+    slot volontairement vide plutôt que comme une image cassée. À remplacer par mnPicture() dès
+    que la photo existe — rien d'autre à changer, la mise en page ne bougera pas. */
+function mnImagePlaceholder({ ratio, label, className }) {
+  return `
+  <div class="relative flex items-center justify-center border ${className || ""}" style="aspect-ratio:${ratio}; background-color:var(--color-surface); border-color:var(--color-border)">
+    <p class="px-4 text-center text-xs uppercase tracking-label opacity-40">${label}</p>
+  </div>`;
 }
 
+/* ------------------------------------------------------------------------------------------ *
+ * 1) HERO — plein écran, prêt pour Splide (une diapositive pour l'instant), parallaxe légère,
+ * bandeau de données vivantes juste en dessous.
+ *
+ * [IMAGE — Hero, plein écran : à définir.
+ *   Option A : macro de grain de caviar noir occupant tout le cadre.
+ *   Option B : bande de textures marines existante recadrée en panoramique.
+ *   Prévoir 2400/1920/1200/900px et une version portrait dédiée pour mobile.]
+ * En l'absence de cette photo, l'aplat --color-surface-high (thème sombre) réserve l'espace
+ * exact du futur visuel — aucun décalage de mise en page le jour où elle sera livrée.
+ * ------------------------------------------------------------------------------------------ */
 function mnHomeHero() {
-  const heroImg = mnPicture({
-    stem: "hero-mer",
-    alt: "Macro de glace pilée sur fond bleu marine",
-    sizes: "100vw",
-    className: "absolute inset-0 h-full w-full object-cover",
-    eager: true
-  });
   return `
-  <section class="relative h-screen overflow-hidden bg-marine">
-    ${heroImg}
-    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg, rgba(17,17,16,0.28) 0%, transparent 22%), linear-gradient(90deg, rgba(17,17,16,0.22) 0%, rgba(17,17,16,0.08) 42%, transparent 68%)"></div>
-    <div class="container-page relative z-10 flex h-full flex-col justify-center">
-      <p class="mb-4 text-xs font-semibold uppercase tracking-widest2 text-ivoire/80 sm:text-sm">Maison Marenostrum</p>
-      <p data-slogan class="font-titre text-4xl italic text-ivoire sm:text-5xl lg:text-6xl">${mnSloganMarkup("L'apogée des saveurs")}</p>
-      <p class="mt-6 max-w-lg text-base text-ivoire/90 sm:text-lg">Le caviar choisi, calibré, garanti — pour les tables qui ne pardonnent rien.</p>
+  <section class="relative h-screen overflow-hidden" data-theme="dark" style="background-color:var(--color-bg)">
+    <div class="splide" id="hero-splide" aria-label="Maison Marenostrum">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <li class="splide__slide">
+            <div class="relative h-screen w-full overflow-hidden" data-hero-parallax>
+              <div class="absolute inset-0 -top-12 -bottom-12" data-hero-parallax-layer style="background-color:var(--color-surface-high)"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container-page absolute inset-x-0 bottom-32 z-10" style="color:var(--color-text)">
+      <p class="eyebrow mb-4">Maison Marenostrum</p>
+      <h1 class="h-hero max-w-2xl">L'apogée des saveurs</h1>
+      <p class="mt-6 max-w-lg text-base sm:text-lg opacity-80">Le caviar choisi, calibré, garanti — pour les tables qui ne pardonnent rien.</p>
+    </div>
+  </section>
+
+  <!-- Bandeau de données vivantes — aplat sombre fixe, chiffres en accent, sous le hero. -->
+  <div class="mn-data-band" data-theme="dark">
+    <div class="container-page grid grid-cols-1 gap-8 py-10 sm:grid-cols-3 sm:gap-6">
+      <div class="text-center sm:text-left">
+        <p class="mn-data-figure font-texte text-3xl font-medium">2024</p>
+        <p class="eyebrow mt-2 !text-[0.7rem]">Millésime du cru en cours</p>
+      </div>
+      <div class="text-center sm:text-left">
+        <p class="mn-data-figure font-texte text-3xl font-medium">38</p>
+        <p class="eyebrow mt-2 !text-[0.7rem]">Maisons référencées</p>
+      </div>
+      <div class="text-center sm:text-left">
+        <p class="mn-data-figure font-texte text-3xl font-medium">14 oct.</p>
+        <p class="eyebrow mt-2 !text-[0.7rem]">Prochaine date d'allocation</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sélecteur de sections horizontal (Splide) — navigation secondaire, complète le menu
+       plein écran plutôt que de le remplacer. -->
+  <nav class="border-b" style="border-color:var(--color-border)" aria-label="Sections de la page">
+    <div class="splide" id="section-splide" aria-label="Sections">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <li class="splide__slide"><a href="#maison" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">La Maison</a></li>
+          <li class="splide__slide"><a href="#table" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">La Table</a></li>
+          <li class="splide__slide"><a href="#savoir-faire" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">Notre savoir-faire</a></li>
+          <li class="splide__slide"><a href="#contact" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>`;
+}
+
+function mnInitHeroSplide() {
+  if (typeof Splide === "undefined") return;
+  new Splide("#hero-splide", {
+    type: "fade",
+    arrows: false,
+    pagination: false,
+    drag: false,
+    autoplay: false
+  }).mount();
+  new Splide("#section-splide", {
+    perPage: 4,
+    perMove: 1,
+    pagination: false,
+    arrows: false,
+    gap: "0.5rem",
+    breakpoints: {
+      768: { perPage: 2 }
+    }
+  }).mount();
+}
+
+/* ------------------------------------------------------------------------------------------ *
+ * 2) #maison — deux bandes (strip--columns), décalage vertical franc et asymétrique entre les
+ * deux colonnes de chacune (le dispositif de rythme demandé). La bande de textures marines,
+ * seule image déjà existante réutilisée telle quelle ici, devient une strip--wide 21:9 bord à
+ * bord, plus large et plus courte que l'ancien bandeau à hauteur fixe.
+ * ------------------------------------------------------------------------------------------ */
+function mnSectionMaison() {
+  return `
+  <section id="maison" data-scroll-section class="section-pad">
+    <div class="strip strip--normal" data-reveal>
+      <p class="eyebrow mb-4 anima--bottom-in">La Maison</p>
+      <h2 class="h-section mb-6 anima--bottom-in">Choisir, calibrer, garantir</h2>
+      <p class="prose-copy max-w-2xl anima--bottom-in">MARENOSTRUM n'est ni un fournisseur généraliste ni un catalogue : une maison qui retient peu de pièces, les calibre avec rigueur, et en garantit la régularité, commande après commande.</p>
+    </div>
+
+    <div class="strip strip--normal mt-lg" style="--w1:6; --w2:-5">
+      <div class="strip--columns">
+        <div>
+          <p class="eyebrow mb-4">Le constat</p>
+          <h3 class="h-card mb-6">Chaque intermédiaire coûte un jour</h3>
+          <p class="prose-copy">Le circuit classique empile les étapes — chacune ajoute un délai, un coût, et dilue un peu plus l'exigence sur le produit.</p>
+        </div>
+        <div class="flex flex-col justify-center gap-3 text-sm uppercase tracking-wide">
+          <span class="opacity-50">Producteur</span>
+          <span class="opacity-50">Intermédiaire</span>
+          <span class="opacity-50">Grossiste régional</span>
+          <span class="font-medium">Votre établissement</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip strip--normal mt-lg" style="--w1:-6; --w2:5">
+      <div class="strip--columns">
+        <div>
+          <p class="eyebrow mb-4">Notre parti pris</p>
+          <h3 class="h-card mb-6">Une signature, pas une provenance</h3>
+          <p class="prose-copy mb-4">Nous sélectionnons directement producteurs et mareyeurs, sans intermédiaire superflu — mais ce n'est pas l'origine qui nous engage, c'est notre validation.</p>
+          <p class="prose-copy">Chaque lot est examiné selon un cahier des charges strict — calibre, régularité, texture. Ce qui ne le satisfait pas n'entre jamais dans notre collection.</p>
+        </div>
+        <dl class="grid grid-cols-2 gap-6 border-t pt-6" style="border-color:var(--color-border)">
+          <div><dt class="field-label">Sélection</dt><dd class="text-sm">Lot par lot, validée avant intégration</dd></div>
+          <div><dt class="field-label">Calibrage</dt><dd class="text-sm">Un standard constant, jamais approximatif</dd></div>
+          <div><dt class="field-label">Livraison</dt><dd class="text-sm">Réfrigérée, 24-48h</dd></div>
+          <div><dt class="field-label">Garantie</dt><dd class="text-sm">La maison répond de chaque pièce</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- [IMAGE — La Maison, pleine largeur : bande de textures marines à cinq bandes, ratio
+         21:9, bords à bords] — seule photo déjà existante de cette liste, réutilisée telle
+         quelle (voir mnHomeTextureBand). -->
+    <div class="strip strip--wide strip--image mt-lg js-image-anime" id="mn-texture-slot" data-texture></div>
+
+    <div class="strip strip--normal mt-lg text-center">
+      <p class="eyebrow mb-4">Le caviar</p>
+      <h3 class="h-card mb-6">La même exigence, portée plus loin</h3>
+      <p class="prose-copy mx-auto max-w-2xl mb-6">Le caviar reste notre exception : un produit qui ne pardonne aucune approximation, sur le calibrage comme sur la garantie.</p>
+      <a href="#table" class="btn-quiet" data-scroll-link data-hover="Voir">Découvrir La Table →</a>
     </div>
   </section>`;
 }
 
-/* ------------------------------------------------------------------------------------------ *
- * 2) BANDEAU DE TEXTURES MARINES — animation 2 (parallaxe), cinq bandes, cinq vitesses
- *
- * `data-texture-strip` (ciblé par le glissement GSAP dans motion.js) est posé sur un DIV
- * intermédiaire surdimensionné (-inset-y-12, soit 48px de marge en haut et en bas au-delà de la
- * cellule visible), jamais sur la cellule elle-même : sans cette marge, translater la cellule qui
- * définit le cadre visible (overflow-hidden, hauteur exacte de la bande) découvrirait le fond
- * ivoire au-dessus ou en dessous de la photo pendant le défilement — un bord qui se désaligne au
- * lieu de simplement glisser. 48px de marge couvre l'amplitude maximale (45px).
- * ------------------------------------------------------------------------------------------ */
 function mnHomeTextureBand() {
   const strips = [
     { stem: "grain-macro", alt: "Grain de caviar Marenostrum, vue macro" },
-    // Colonne étroite (~0.2 de large sur ~1 de haut) découpée dans une photo panoramique
-    // (1.83:1) : à la position centrale par défaut, seule une bande médiane du poisson est
-    // visible — sans tête ni œil, illisible comme "poisson entier". Recadrée vers la gauche
-    // pour garder la tête et le départ de la nageoire dorsale, quitte à perdre la queue.
     { stem: "bar-loup", alt: "Bar de ligne, texture de peau", objectPosition: "object-[15%_50%]" },
     { stem: "texture-mareyage", alt: "Textures de produits de la mer d'exception" },
     { stem: "trois-caviars", alt: "Boîtes de caviar Marenostrum ouvertes" },
     { stem: "langoustine", alt: "Langoustine, texture de carapace" }
   ];
   return `
-  <section class="mn-texture-band h-64 overflow-hidden sm:h-80 lg:h-96" data-texture-band>
+  <div class="grid grid-cols-5" style="aspect-ratio:21/9" data-texture-band>
     ${strips
       .map(
         (s) => `
@@ -107,452 +227,265 @@ function mnHomeTextureBand() {
     </div>`
       )
       .join("")}
-  </section>`;
+  </div>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 3) #maison — reprend le contenu de l'ancienne page La Maison
- * ------------------------------------------------------------------------------------------ */
-function mnSectionMaison() {
-  return `
-  <section id="maison" data-scroll-section class="bg-ivoire py-24 lg:py-32">
-    <div class="container-page" data-reveal>
-      <p class="eyebrow mb-4" data-reveal-item>La Maison</p>
-      <h2 class="h-section mb-6" data-reveal-item>Choisir, calibrer, garantir</h2>
-      <p class="prose-copy max-w-2xl" data-reveal-item>MARENOSTRUM n'est ni un fournisseur généraliste ni un catalogue : une maison qui retient peu de pièces, les calibre avec rigueur, et en garantit la régularité, commande après commande.</p>
-    </div>
-
-    <div class="container-page py-16 text-center" data-reveal>
-      <p class="eyebrow mb-4" data-reveal-item>Le constat</p>
-      <h3 class="h-card mb-6" data-reveal-item>Chaque intermédiaire coûte un jour</h3>
-      <p class="prose-copy mx-auto mb-10 max-w-2xl" data-reveal-item>Le circuit classique empile les étapes — chacune ajoute un délai, un coût, et dilue un peu plus l'exigence sur le produit.</p>
-      <div class="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-4 text-sm uppercase tracking-wide text-ink-300 sm:text-base" data-reveal-item>
-        <span>Producteur</span>
-        <span class="text-ink-500" aria-hidden="true">→</span>
-        <span>Intermédiaire</span>
-        <span class="text-ink-500" aria-hidden="true">→</span>
-        <span>Grossiste régional</span>
-        <span class="text-ink-500" aria-hidden="true">→</span>
-        <span class="font-semibold text-ink-100">Votre établissement</span>
-      </div>
-    </div>
-
-    <div class="container-page py-16">
-      <div data-reveal>
-        <p class="eyebrow mb-4" data-reveal-item>Notre parti pris</p>
-        <h3 class="h-card mb-6" data-reveal-item>Une signature, pas une provenance</h3>
-        <p class="prose-copy mb-4 max-w-2xl" data-reveal-item>Nous sélectionnons directement producteurs et mareyeurs, sans intermédiaire superflu — mais ce n'est pas l'origine qui nous engage, c'est notre validation.</p>
-        <p class="prose-copy mb-8 max-w-2xl" data-reveal-item>Chaque lot est examiné par notre responsable sélection selon un cahier des charges strict — calibre, régularité, texture. Ce qui ne le satisfait pas n'entre jamais dans notre collection.</p>
-        <dl class="grid grid-cols-2 gap-6 border-t border-ink-600/50 pt-6 sm:grid-cols-4" data-reveal-item>
-          <div>
-            <dt class="field-label">Sélection</dt>
-            <dd class="text-ink-100 text-sm">Lot par lot, validée avant intégration</dd>
-          </div>
-          <div>
-            <dt class="field-label">Calibrage</dt>
-            <dd class="text-ink-100 text-sm">Un standard constant, jamais approximatif</dd>
-          </div>
-          <div>
-            <dt class="field-label">Livraison</dt>
-            <dd class="text-ink-100 text-sm">Réfrigérée, 24-48h</dd>
-          </div>
-          <div>
-            <dt class="field-label">Garantie</dt>
-            <dd class="text-ink-100 text-sm">La maison répond de chaque pièce</dd>
-          </div>
-        </dl>
-      </div>
-    </div>
-    <div class="w-[85%] lg:w-3/5" data-reveal>
-      ${mnPicture({ stem: "texture-mareyage", alt: "Textures de produits de la mer d'exception", sizes: "(min-width: 1024px) 60vw, 85vw", className: "aspect-[16/9] lg:aspect-[21/9] w-full object-cover object-center" })}
-    </div>
-
-    <div class="container-page py-16 mt-16">
-      <div data-reveal>
-        <p class="eyebrow mb-4" data-reveal-item>Le caviar</p>
-        <h3 class="h-card mb-6" data-reveal-item>La même exigence, portée plus loin</h3>
-        <p class="prose-copy max-w-2xl" data-reveal-item>Le caviar reste notre exception : un produit qui ne pardonne aucune approximation, sur le calibrage comme sur la garantie. Espèces, formats et disponibilités se retrouvent dans La Table.</p>
-        <a href="#table" class="mt-6 inline-block text-xs font-semibold uppercase tracking-widest2 text-marine hover:underline" data-scroll-link data-reveal-item>Découvrir La Table →</a>
-      </div>
-    </div>
-    <div class="ml-auto w-[85%] lg:w-3/5" data-reveal>
-      ${mnPicture({ stem: "trois-caviars", alt: "Trois boîtes de caviar Marenostrum ouvertes, grains vus de dessus", sizes: "(min-width: 1024px) 60vw, 85vw", className: "aspect-[16/9] lg:aspect-[21/9] w-full object-cover object-center" })}
-    </div>
-
-    <div class="border-y border-ink-600/50 bg-ink-800 mt-16">
-      <div class="container-page py-16" data-reveal>
-        <p class="eyebrow mb-4 text-center" data-reveal-item>Ce qui ne se négocie pas</p>
-        <h3 class="h-card mb-12 text-center" data-reveal-item>Sélection, calibrage, garantie</h3>
-      </div>
-      <div class="container-page pb-16 grid grid-cols-1 gap-12 sm:grid-cols-3" data-reveal>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-value-icon-1"></span>
-          <h4 class="h-card mb-3">Sélection</h4>
-          <p class="text-ink-200 leading-relaxed">Un lot qui ne répond pas à notre cahier des charges n'entre jamais dans notre collection.</p>
-        </div>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-value-icon-2"></span>
-          <h4 class="h-card mb-3">Calibrage</h4>
-          <p class="text-ink-200 leading-relaxed">Un standard constant, d'une commande à l'autre, quelle que soit la saison.</p>
-        </div>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-value-icon-3"></span>
-          <h4 class="h-card mb-3">Garantie</h4>
-          <p class="text-ink-200 leading-relaxed">La maison répond de chaque pièce qui porte son nom — sans exception.</p>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ------------------------------------------------------------------------------------------ *
- * #table — Le Caviar et La Mer, présentés comme des cuvées de domaine viticole (palette
- * noir/ivoire/metal, typographie à empattements, classes `.lt-*` définies dans src/input.css).
- * Liste verticale alternée gauche/droite ; chaque pièce garde sa propre fiche produit à part
- * (caviar-oscietre.html, mer-langoustine.html...), atteinte depuis son lien "Découvrir". La
- * parallaxe légère sur chaque image (`data-product-parallax`, motion.js) est posée sur le DIV
- * enveloppant, jamais sur l'image elle-même, pour ne pas écraser son `scale-110`/`scale-125` avec
- * le `transform` inline que GSAP y écrit.
+ * 3) #table — Le Caviar et La Mer, chacun résumé en une bande éditoriale (une image, un texte,
+ * la liste des pièces), plutôt qu'une ligne par pièce comme auparavant : chaque pièce garde sa
+ * fiche dédiée (caviar-oscietre.html, etc.), atteinte depuis le lien de sa ligne.
  * ------------------------------------------------------------------------------------------ */
 function mnSectionTable() {
+  const caviarItems = [
+    ["caviar-oscietre.html", "Osciètre", "Disponible"],
+    ["caviar-beluga.html", "Beluga", "Sur allocation"],
+    ["caviar-baeri.html", "Baeri", "Disponible"],
+    ["caviar-sevruga.html", "Sevruga", "Ouverture prochaine"]
+  ];
+  const merItems = [
+    ["mer-poisson-ligne.html", "Poisson de ligne", "Disponible"],
+    ["mer-langoustine.html", "Langoustine", "Sur allocation"],
+    ["mer-terrines.html", "Terrines & conserves", "Ouverture prochaine"]
+  ];
+
+  const list = (items) =>
+    `<ul class="flex flex-col gap-3 border-t pt-6" style="border-color:var(--color-border)">
+      ${items
+        .map(
+          ([href, name, status]) => `
+      <li class="flex items-baseline justify-between gap-4">
+        <a href="${href}" class="lt-link !text-sm normal-case !tracking-normal" data-hover="Voir">${name}</a>
+        <span class="lt-status !text-[0.65rem]">${status}</span>
+      </li>`
+        )
+        .join("")}
+    </ul>`;
+
   return `
-  <section id="table" data-scroll-section class="bg-ivoire">
-    <div class="py-24 lg:py-32">
-      <div class="container-page max-w-2xl" data-reveal>
-        <p class="lt-eyebrow mb-6" data-reveal-item>La Table</p>
-        <h2 class="lt-title mb-8" data-reveal-item>Deux univers,<br />une même exigence</h2>
-        <p class="lt-tasting" data-reveal-item>Le Caviar et La Mer. Aucun prix affiché : chaque pièce se découvre, puis s'obtient sur demande d'allocation.</p>
-      </div>
+  <section id="table" data-scroll-section class="section-pad">
+    <div class="strip strip--normal" data-reveal>
+      <p class="eyebrow mb-4 anima--bottom-in">La Table</p>
+      <h2 class="h-section mb-6 anima--bottom-in">Deux univers, une même exigence</h2>
+      <p class="prose-copy max-w-2xl anima--bottom-in">Le Caviar et La Mer. Aucun prix affiché : chaque pièce se découvre, puis s'obtient sur demande d'allocation.</p>
     </div>
 
-    <div class="container-page pb-16" data-reveal>
-      <p class="lt-eyebrow mb-3" data-reveal-item>Univers</p>
-      <h3 class="lt-title !text-4xl sm:!text-5xl" data-reveal-item>Le Caviar</h3>
-    </div>
-
-    <!-- Osciètre — image gauche -->
-    <div class="border-t border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Osciètre ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
-          </div>
-        </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Disponible</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Osciètre</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Grain ferme, note de noisette nette.</p>
-          <a href="caviar-oscietre.html" class="lt-link" data-reveal-item>Découvrir →</a>
+    <!-- [IMAGE — La Table, univers Caviar : packshot vertical d'une boîte ouverte vue en légère
+         plongée, fond gris-bleu mat] — emplacement réservé, espace tenu via aspect-ratio. -->
+    <div class="strip strip--normal mt-lg" style="--w1:7; --w2:-6">
+      <div class="strip--columns">
+        ${mnImagePlaceholder({ ratio: "4/5", label: "Packshot vertical, boîte ouverte, légère plongée", className: "js-image-anime" })}
+        <div class="flex flex-col justify-center">
+          <p class="lt-eyebrow mb-3">Univers</p>
+          <h3 class="h-card mb-5">Le Caviar</h3>
+          <p class="prose-copy mb-6 max-w-sm">Osciètre, Beluga, Baeri, Sevruga — quatre espèces, un seul niveau d'exigence.</p>
+          ${list(caviarItems)}
         </div>
       </div>
     </div>
 
-    <!-- Beluga — image droite -->
-    <div class="border-t border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:order-2 lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Beluga ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
-          </div>
+    <!-- [IMAGE — La Table, univers La Mer : flat lay de langoustines, vue du dessus à 90°, fond
+         gris-bleu mat, ombre dure, sans accessoire] — emplacement réservé. -->
+    <div class="strip strip--normal mt-lg" style="--w1:-7; --w2:6">
+      <div class="strip--columns">
+        <div class="flex flex-col justify-center order-2 md:order-1">
+          <p class="lt-eyebrow mb-3">Univers</p>
+          <h3 class="h-card mb-5">La Mer</h3>
+          <p class="prose-copy mb-6 max-w-sm">Une sélection resserrée de pièces d'exception, au-delà du caviar.</p>
+          ${list(merItems)}
         </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Sur allocation</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Beluga</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Le grain le plus large, une texture enveloppante.</p>
-          <a href="caviar-beluga.html" class="lt-link" data-reveal-item>Découvrir →</a>
-        </div>
+        ${mnImagePlaceholder({ ratio: "4/5", label: "Flat lay langoustines, vue à 90°", className: "order-1 md:order-2 js-image-anime" })}
       </div>
     </div>
 
-    <!-- Baeri — image gauche -->
-    <div class="border-t border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Baeri ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
-          </div>
-        </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Disponible</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Baeri</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Texture souple, grain régulier.</p>
-          <a href="caviar-baeri.html" class="lt-link" data-reveal-item>Découvrir →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sevruga — image droite -->
-    <div class="border-t border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden bg-ivoire lg:order-2 lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            <img src="assets/img/responsive/boite-ouverte-800w.webp" alt="Boîte de caviar Sevruga ouverte, grains vus de dessus" loading="lazy" class="h-full w-full scale-110 object-contain" />
-          </div>
-        </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Ouverture prochaine</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Sevruga</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Grain dense, attaque iodée.</p>
-          <a href="caviar-sevruga.html" class="lt-link" data-reveal-item>Découvrir →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-page border-t border-noir/10 pt-24 pb-16 lg:pt-32" data-reveal>
-      <p class="lt-eyebrow mb-3" data-reveal-item>Univers</p>
-      <h3 class="lt-title !text-4xl sm:!text-5xl" data-reveal-item>La Mer</h3>
-    </div>
-
-    <!-- Poisson de ligne — image gauche -->
-    <div class="border-t border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            ${mnPicture({ stem: "bar-loup", alt: "Bar de ligne entier, produit de la mer Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full scale-110 object-cover" })}
-          </div>
-        </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Disponible</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Poisson de ligne</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Chair ferme, se détache en lamelles nettes.</p>
-          <a href="mer-poisson-ligne.html" class="lt-link" data-reveal-item>Découvrir →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Langoustine — image droite -->
-    <div class="border-t border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden lg:order-2 lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            ${mnPicture({ stem: "langoustine", alt: "Langoustine entière, produit de la mer Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full scale-110 object-cover" })}
-          </div>
-        </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Sur allocation</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Langoustine</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Chair translucide, sucrée, à peine contractée à la cuisson.</p>
-          <a href="mer-langoustine.html" class="lt-link" data-reveal-item>Découvrir →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Terrines & conserves — image gauche -->
-    <div class="border-t border-b border-noir/10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[80vh]">
-        <div class="relative order-1 h-[48vh] overflow-hidden lg:h-auto" data-reveal>
-          <div class="absolute inset-0" data-product-parallax>
-            ${mnPicture({ stem: "gamme-boites", alt: "Coffrets et conditionnement Marenostrum", sizes: "(min-width: 1024px) 50vw, 100vw", className: "h-full w-full scale-110 object-cover" })}
-          </div>
-        </div>
-        <div class="order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-20 lg:py-0" data-reveal>
-          <p class="lt-status mb-3" data-reveal-item>Ouverture prochaine</p>
-          <h4 class="lt-title !text-4xl sm:!text-5xl mb-5" data-reveal-item>Terrines & conserves</h4>
-          <p class="lt-tagline mb-10 max-w-xs" data-reveal-item>Texture dense, travaillée pour tenir en tranche.</p>
-          <a href="mer-terrines.html" class="lt-link" data-reveal-item>Découvrir →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="py-24 text-center lg:py-32">
-      <div class="container-page max-w-md mx-auto" data-reveal>
-        <p class="lt-eyebrow mb-4" data-reveal-item>Accès à la collection</p>
-        <p class="lt-tasting mx-auto mb-10" data-reveal-item>Cette présentation n'est pas exhaustive. Traçabilité, conditionnement et détail technique : <a href="fiche-technique-produit.html" class="underline hover:no-underline">fiche technique produit</a>.</p>
-        <a href="#contact" class="lt-link" data-scroll-link data-reveal-item>Demander une allocation →</a>
-      </div>
+    <div class="strip strip--normal mt-lg text-center">
+      <p class="eyebrow mb-4">Accès à la collection</p>
+      <p class="prose-copy mx-auto mb-6 max-w-md">Cette présentation n'est pas exhaustive. Traçabilité, conditionnement et détail technique : <a href="fiche-technique-produit.html" class="underline hover:no-underline" style="color:var(--color-gold-dark, #9A7F42)">fiche technique produit</a>.</p>
+      <a href="#contact" class="btn-quiet" data-scroll-link data-hover="Écrire">Demander une allocation →</a>
     </div>
   </section>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * #savoir-faire — reprend l'ancienne page Notre savoir-faire
+ * 4) #savoir-faire — quatre blocs en strip--columns/strip--3-cols ; deux d'entre eux (la
+ * sélection, la traçabilité) portent une image dédiée, conformément à la liste d'images fournie.
  * ------------------------------------------------------------------------------------------ */
 function mnSectionSavoirFaire() {
   return `
-  <section id="savoir-faire" data-scroll-section class="bg-ivoire py-24 lg:py-32">
-    <div class="container-page" data-reveal>
-      <p class="eyebrow mb-4" data-reveal-item>Notre savoir-faire</p>
-      <h2 class="h-section mb-6" data-reveal-item>Ce qui garantit chaque expédition</h2>
-      <p class="prose-copy max-w-2xl" data-reveal-item>Un besoin transmis, une réponse sous 48h, une livraison réfrigérée adaptée à votre cuisine : voici ce qui se passe entre votre demande et votre réception.</p>
+  <section id="savoir-faire" data-scroll-section class="section-pad">
+    <div class="strip strip--normal" data-reveal>
+      <p class="eyebrow mb-4 anima--bottom-in">Notre savoir-faire</p>
+      <h2 class="h-section mb-6 anima--bottom-in">Ce qui garantit chaque expédition</h2>
+      <p class="prose-copy max-w-2xl anima--bottom-in">Un besoin transmis, une réponse sous 48h, une livraison réfrigérée adaptée à votre cuisine.</p>
     </div>
 
-    <div class="container-page py-16">
-      <div class="grid grid-cols-1 gap-16 sm:grid-cols-2" data-reveal>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-sf-icon-1"></span>
-          <h3 class="h-card mb-3">La sélection</h3>
-          <p class="text-ink-200 leading-relaxed">Un lot est retenu ou refusé selon des critères précis : calibre, régularité, texture, absence de défaut. Ce qui ne répond pas à notre cahier des charges n'entre jamais dans notre collection.</p>
-        </div>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-sf-icon-2"></span>
-          <h3 class="h-card mb-3">La traçabilité</h3>
-          <p class="text-ink-200 leading-relaxed">Étiquette CITES, numéro de lot, date de conditionnement : chaque expédition est accompagnée d'une fiche de lot complète, remise avec chaque commande. Détail sur la <a href="fiche-technique-produit.html" class="text-marine hover:underline">fiche technique produit</a>.</p>
-        </div>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-sf-icon-3"></span>
-          <h3 class="h-card mb-3">La chaîne du froid et la livraison</h3>
-          <p class="text-ink-200 leading-relaxed">Livraison réfrigérée en France, en Suisse, à Monaco et au Luxembourg. Le délai de réassort est annoncé dès la commande, et les formalités d'import sont gérées pour vous.</p>
-        </div>
-        <div data-reveal-item>
-          <span class="mb-5 flex h-9 w-9 text-marine" id="mn-sf-icon-4"></span>
-          <h3 class="h-card mb-3">Le conditionnement</h3>
-          <p class="text-ink-200 leading-relaxed">Des grammages adaptés à votre service, des boîtes à la marque de votre établissement, des coffrets pour vos temps forts.</p>
+    <!-- [IMAGE — Notre savoir-faire, bloc « La sélection » : grille de perles de caviar
+         régulières illustrant la constance] — emplacement réservé. -->
+    <div class="strip strip--normal mt-lg" style="--w1:5; --w2:-5">
+      <div class="strip--columns">
+        ${mnImagePlaceholder({ ratio: "1/1", label: "Grille de perles de caviar régulières", className: "js-image-anime" })}
+        <div class="flex flex-col justify-center">
+          <p class="eyebrow mb-3">La sélection</p>
+          <h3 class="h-card mb-4">Un lot retenu, ou refusé</h3>
+          <p class="prose-copy">Calibre, régularité, texture, absence de défaut. Ce qui ne répond pas à notre cahier des charges n'entre jamais dans notre collection.</p>
         </div>
       </div>
     </div>
 
-    <div class="border-y border-ink-600/50 bg-ink-800">
-      <div class="container-page py-16">
-        <div class="mx-auto max-w-2xl text-center" data-reveal>
-          <p class="eyebrow mb-4" data-reveal-item>Comment nous travaillons</p>
-          <h3 class="h-card mb-8" data-reveal-item>Trois étapes, une réponse sous 48h</h3>
+    <!-- [IMAGE — Notre savoir-faire, bloc « La traçabilité » : macro d'une étiquette CITES sur
+         un couvercle] — emplacement réservé. -->
+    <div class="strip strip--normal mt-lg" style="--w1:-5; --w2:5">
+      <div class="strip--columns">
+        <div class="flex flex-col justify-center order-2 md:order-1">
+          <p class="eyebrow mb-3">La traçabilité</p>
+          <h3 class="h-card mb-4">Une fiche de lot par expédition</h3>
+          <p class="prose-copy">Étiquette CITES, numéro de lot, date de conditionnement. Détail sur la <a href="fiche-technique-produit.html" class="underline hover:no-underline" style="color:#9A7F42">fiche technique produit</a>.</p>
         </div>
-        <div class="mx-auto grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3" data-reveal>
-          <div class="text-center" data-reveal-item>
-            <p class="mn-chapter-num mb-4">01</p>
-            <p class="text-sm text-ink-200 leading-relaxed">Vous transmettez votre besoin via notre formulaire de référencement.</p>
-          </div>
-          <div class="text-center" data-reveal-item>
-            <p class="mn-chapter-num mb-4">02</p>
-            <p class="text-sm text-ink-200 leading-relaxed">Nous étudions votre demande et confirmons l'allocation possible.</p>
-          </div>
-          <div class="text-center" data-reveal-item>
-            <p class="mn-chapter-num mb-4">03</p>
-            <p class="text-sm text-ink-200 leading-relaxed">Livraison réfrigérée, en colis isotherme, sur commande ponctuelle ou réassort planifié.</p>
-          </div>
-        </div>
-        <p class="mx-auto mt-10 max-w-2xl text-center text-sm text-ink-300" data-reveal>Conditions détaillées applicables aux établissements référencés : <a href="conditions-professionnelles.html" class="text-marine hover:underline">conditions professionnelles</a>.</p>
+        ${mnImagePlaceholder({ ratio: "1/1", label: "Macro étiquette CITES sur un couvercle", className: "order-1 md:order-2 js-image-anime" })}
       </div>
+    </div>
+
+    <div class="strip strip--normal mt-lg">
+      <div class="strip--3-cols" style="--w1:6; --w2:-6">
+        <div>
+          <p class="field-label mb-3">01</p>
+          <h4 class="h-card mb-3">La chaîne du froid</h4>
+          <p class="prose-copy text-sm">Livraison réfrigérée en France, en Suisse, à Monaco et au Luxembourg. Formalités d'import gérées pour vous.</p>
+        </div>
+        <div>
+          <p class="field-label mb-3">02</p>
+          <h4 class="h-card mb-3">Le conditionnement</h4>
+          <p class="prose-copy text-sm">Des grammages adaptés à votre service, des boîtes à la marque de votre établissement.</p>
+        </div>
+        <div>
+          <p class="field-label mb-3">03</p>
+          <h4 class="h-card mb-3">La réponse</h4>
+          <p class="prose-copy text-sm">Un besoin transmis via le formulaire de référencement, une allocation confirmée sous 48h.</p>
+        </div>
+      </div>
+      <p class="mt-md text-center text-sm opacity-70">Conditions détaillées applicables aux établissements référencés : <a href="conditions-professionnelles.html" class="underline hover:no-underline" style="color:#9A7F42">conditions professionnelles</a>.</p>
     </div>
   </section>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * 6) #contact — formulaire de référencement (ex-contact.html)
+ * 5) #contact — thème sombre local (data-theme="dark"), formulaire de référencement.
  * ------------------------------------------------------------------------------------------ */
 function mnSectionContact() {
   return `
-  <section id="contact" data-scroll-section class="bg-marine py-24 lg:py-32">
-    <div class="container-page mb-16 text-center" data-reveal>
-      <p class="eyebrow mb-4 !text-ivoire/70" data-reveal-item>Demande de référencement</p>
-      <h2 class="h-section mb-6 text-ivoire" data-reveal-item>Devenir un établissement référencé</h2>
-      <p class="mx-auto max-w-xl text-ivoire/80" data-reveal-item>MARENOSTRUM référence un nombre restreint d'établissements. Cette candidature est étudiée individuellement — ce n'est pas une prise de commande.</p>
+  <section id="contact" data-scroll-section data-theme="dark" class="section-pad" style="background-color:var(--color-bg); color:var(--color-text)">
+    <div class="strip strip--normal mb-lg text-center" data-reveal>
+      <p class="eyebrow mb-4 anima--bottom-in">Demande de référencement</p>
+      <h2 class="h-section mb-6 anima--bottom-in">Devenir un établissement référencé</h2>
+      <p class="prose-copy mx-auto max-w-xl anima--bottom-in">MARENOSTRUM référence un nombre restreint d'établissements. Cette candidature est étudiée individuellement — ce n'est pas une prise de commande.</p>
     </div>
 
-    <div class="container-page grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-20" data-reveal>
-      <form id="mn-contact-form" novalidate class="lg:col-span-2 flex flex-col gap-6 rounded bg-ivoire p-6 sm:p-10" data-reveal-item>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div>
-            <label class="field-label" for="ct-establishment">Nom de l'établissement</label>
-            <input id="ct-establishment" type="text" class="input-field" required />
-            <p id="ct-establishment-error" class="field-error hidden">Merci d'indiquer le nom de votre établissement.</p>
+    <div class="strip strip--normal">
+      <div class="grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-20">
+        <form id="mn-contact-form" novalidate class="lg:col-span-2 flex flex-col gap-6 p-6 sm:p-10" style="background-color:var(--color-surface)">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div>
+              <label class="field-label" for="ct-establishment">Nom de l'établissement</label>
+              <input id="ct-establishment" type="text" class="input-field" required />
+              <p id="ct-establishment-error" class="field-error hidden">Merci d'indiquer le nom de votre établissement.</p>
+            </div>
+            <div>
+              <label class="field-label" for="ct-name">Nom du contact</label>
+              <input id="ct-name" type="text" class="input-field" required />
+              <p id="ct-name-error" class="field-error hidden">Merci d'indiquer votre nom.</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div>
+              <label class="field-label" for="ct-email">E-mail</label>
+              <input id="ct-email" type="email" class="input-field" required />
+              <p id="ct-email-error" class="field-error hidden">Adresse e-mail invalide.</p>
+            </div>
+            <div>
+              <label class="field-label" for="ct-phone">Téléphone</label>
+              <input id="ct-phone" type="tel" class="input-field" />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div>
+              <label class="field-label" for="ct-type">Type d'établissement</label>
+              <select id="ct-type" class="input-field" required>
+                <option value="">Sélectionnez...</option>
+                <option>Restaurant gastronomique</option>
+                <option>Brasserie / bistrot</option>
+                <option>Hôtel</option>
+                <option>Traiteur</option>
+                <option>Poissonnerie</option>
+                <option>Mareyeur</option>
+                <option>Grossiste</option>
+                <option>Autre</option>
+              </select>
+              <p id="ct-type-error" class="field-error hidden">Merci de préciser votre type d'établissement.</p>
+            </div>
+            <div>
+              <label class="field-label" for="ct-city">Ville</label>
+              <input id="ct-city" type="text" class="input-field" required />
+              <p id="ct-city-error" class="field-error hidden">Merci d'indiquer votre ville.</p>
+            </div>
           </div>
           <div>
-            <label class="field-label" for="ct-name">Nom du contact</label>
-            <input id="ct-name" type="text" class="input-field" required />
-            <p id="ct-name-error" class="field-error hidden">Merci d'indiquer votre nom.</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div>
-            <label class="field-label" for="ct-email">E-mail</label>
-            <input id="ct-email" type="email" class="input-field" required />
-            <p id="ct-email-error" class="field-error hidden">Adresse e-mail invalide.</p>
-          </div>
-          <div>
-            <label class="field-label" for="ct-phone">Téléphone</label>
-            <input id="ct-phone" type="tel" class="input-field" />
-          </div>
-        </div>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div>
-            <label class="field-label" for="ct-type">Type d'établissement</label>
-            <select id="ct-type" class="input-field" required>
-              <option value="">Sélectionnez...</option>
-              <option>Restaurant gastronomique</option>
-              <option>Brasserie / bistrot</option>
-              <option>Hôtel</option>
-              <option>Traiteur</option>
-              <option>Poissonnerie</option>
-              <option>Mareyeur</option>
-              <option>Grossiste</option>
-              <option>Autre</option>
+            <label class="field-label" for="ct-volume">Volumes estimés</label>
+            <select id="ct-volume" class="input-field">
+              <option>À définir</option>
+              <option>Moins de 1 kg / semaine</option>
+              <option>1 à 5 kg / semaine</option>
+              <option>5 à 20 kg / semaine</option>
+              <option>Plus de 20 kg / semaine</option>
             </select>
-            <p id="ct-type-error" class="field-error hidden">Merci de préciser votre type d'établissement.</p>
           </div>
+          <fieldset>
+            <legend class="field-label">Produits concernés</legend>
+            <div class="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <label class="flex items-center gap-2.5 text-sm">
+                <input type="checkbox" class="mn-checkbox h-4 w-4" name="ct-produit" value="caviar" />
+                Le Caviar
+              </label>
+              <label class="flex items-center gap-2.5 text-sm">
+                <input type="checkbox" class="mn-checkbox h-4 w-4" name="ct-produit" value="mer" />
+                La Mer
+              </label>
+            </div>
+          </fieldset>
           <div>
-            <label class="field-label" for="ct-city">Ville</label>
-            <input id="ct-city" type="text" class="input-field" required />
-            <p id="ct-city-error" class="field-error hidden">Merci d'indiquer votre ville.</p>
+            <label class="field-label" for="ct-message">Message</label>
+            <textarea id="ct-message" rows="6" class="input-field resize-none" placeholder="Précisez votre besoin (pièces recherchées, fréquence, contraintes de livraison...)"></textarea>
           </div>
-        </div>
-        <div>
-          <label class="field-label" for="ct-volume">Volumes estimés</label>
-          <select id="ct-volume" class="input-field">
-            <option>À définir</option>
-            <option>Moins de 1 kg / semaine</option>
-            <option>1 à 5 kg / semaine</option>
-            <option>5 à 20 kg / semaine</option>
-            <option>Plus de 20 kg / semaine</option>
-          </select>
-        </div>
-        <fieldset>
-          <legend class="field-label">Produits concernés</legend>
-          <div class="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <label class="flex items-center gap-2.5 text-sm text-ink-100">
-              <input type="checkbox" class="mn-checkbox h-4 w-4" name="ct-produit" value="caviar" />
-              Le Caviar
-            </label>
-            <label class="flex items-center gap-2.5 text-sm text-ink-100">
-              <input type="checkbox" class="mn-checkbox h-4 w-4" name="ct-produit" value="mer" />
-              La Mer
-            </label>
-          </div>
-        </fieldset>
-        <div>
-          <label class="field-label" for="ct-message">Message</label>
-          <textarea id="ct-message" rows="6" class="input-field resize-none" placeholder="Précisez votre besoin (pièces recherchées, fréquence, contraintes de livraison...)"></textarea>
-        </div>
-        <button type="submit" class="btn-navy w-full self-center sm:w-auto">Envoyer ma demande de référencement</button>
-        <p id="mn-contact-feedback" class="hidden flex items-center justify-center gap-2 text-center text-sm text-marine" role="status">
-          <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre demande a bien été transmise. Nous l'étudions et revenons vers vous sous 48h.
-        </p>
-        <p class="text-center text-xs text-ink-300">Site de démonstration : ce formulaire ne transmet aucune demande réelle. En le soumettant, vous reconnaissez avoir pris connaissance des <a href="conditions-professionnelles.html" class="text-marine hover:underline">conditions professionnelles</a>.</p>
-      </form>
+          <button type="submit" class="btn-navy w-full self-center sm:w-auto" data-hover="Envoyer">Envoyer ma demande de référencement</button>
+          <p id="mn-contact-feedback" class="hidden flex items-center justify-center gap-2 text-center text-sm" style="color:var(--color-accent)" role="status">
+            <span class="h-4 w-4" id="mn-contact-feedback-icon"></span> Votre demande a bien été transmise. Nous l'étudions et revenons vers vous sous 48h.
+          </p>
+          <p class="text-center text-xs opacity-60">Site de démonstration : ce formulaire ne transmet aucune demande réelle. En le soumettant, vous reconnaissez avoir pris connaissance des <a href="conditions-professionnelles.html" class="underline hover:no-underline">conditions professionnelles</a>.</p>
+        </form>
 
-      <aside class="flex flex-col items-center text-center" data-reveal-item>
-        <div class="flex flex-col items-center gap-8">
-          <div class="flex flex-col items-center gap-2">
-            <span class="h-5 w-5 shrink-0 text-brass" id="mn-contact-icon-mail"></span>
-            <div>
-              <p class="field-label !mb-1 !text-ivoire/70">E-mail</p>
-              <p class="text-sm text-ivoire/90">contact@marenostrum.example</p>
+        <aside class="flex flex-col items-center text-center">
+          <div class="flex flex-col items-center gap-8">
+            <div class="flex flex-col items-center gap-2">
+              <span class="h-5 w-5 shrink-0" style="color:var(--color-accent)" id="mn-contact-icon-mail"></span>
+              <div><p class="field-label !mb-1">E-mail</p><p class="text-sm opacity-90">contact@marenostrum.example</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <span class="h-5 w-5 shrink-0" style="color:var(--color-accent)" id="mn-contact-icon-phone"></span>
+              <div><p class="field-label !mb-1">Téléphone</p><p class="text-sm opacity-90">01 23 45 67 89 — lun.–ven., 9h–18h</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <span class="h-5 w-5 shrink-0" style="color:var(--color-accent)" id="mn-contact-icon-pin"></span>
+              <div><p class="field-label !mb-1">Maison MARENOSTRUM</p><p class="text-sm opacity-90">12 quai des Salinières, 33000 Bordeaux, France</p></div>
             </div>
           </div>
-          <div class="flex flex-col items-center gap-2">
-            <span class="h-5 w-5 shrink-0 text-brass" id="mn-contact-icon-phone"></span>
-            <div>
-              <p class="field-label !mb-1 !text-ivoire/70">Téléphone</p>
-              <p class="text-sm text-ivoire/90">01 23 45 67 89 — lun.–ven., 9h–18h</p>
-            </div>
-          </div>
-          <div class="flex flex-col items-center gap-2">
-            <span class="h-5 w-5 shrink-0 text-brass" id="mn-contact-icon-pin"></span>
-            <div>
-              <p class="field-label !mb-1 !text-ivoire/70">Maison MARENOSTRUM</p>
-              <p class="text-sm text-ivoire/90">12 quai des Salinières, 33000 Bordeaux, France</p>
-            </div>
-          </div>
-        </div>
-        <p class="mx-auto mt-10 max-w-xs border-t border-ivoire/15 pt-8 text-center text-sm text-ivoire/70">Chaque candidature est étudiée individuellement avant qu'une allocation ne soit proposée.</p>
-      </aside>
+          <p class="mx-auto mt-10 max-w-xs border-t pt-8 text-center text-sm opacity-70" style="border-color:var(--color-border)">Chaque candidature est étudiée individuellement avant qu'une allocation ne soit proposée.</p>
+        </aside>
+      </div>
     </div>
   </section>`;
 }
 
 /* ------------------------------------------------------------------------------------------ *
- * Pré-remplissage du formulaire depuis un CTA "Demander une allocation" (La Table) ou une URL
- * partagée (?produit=<slug>) — plus besoin de recharger la page, tout vit sur index.html.
+ * Pré-remplissage du formulaire depuis un lien "Demander une allocation" (fiche produit) ou une
+ * URL partagée (?produit=<slug>).
  * ------------------------------------------------------------------------------------------ */
 const MN_PRODUIT_LABELS = {
   "caviar-oscietre": "Caviar Osciètre",
@@ -616,8 +549,6 @@ function mnInitContactForm() {
 
     if (!(establishmentValid && nameValid && emailValid && typeValid && cityValid)) return;
 
-    // Site statique, sans back-end : rien n'est réellement transmis — visible en console à la
-    // place d'un vrai service d'envoi, comme le reste du site.
     const payload = {
       etablissement: establishment.value.trim(),
       contact: name.value.trim(),
@@ -641,11 +572,4 @@ function mnInitContactIcons() {
   document.getElementById("mn-contact-icon-phone").innerHTML = MN_ICONS.phone;
   document.getElementById("mn-contact-icon-pin").innerHTML = MN_ICONS.pin;
   document.getElementById("mn-contact-feedback-icon").innerHTML = MN_ICONS.check;
-  document.getElementById("mn-value-icon-1").innerHTML = MN_ICONS.leaf;
-  document.getElementById("mn-value-icon-2").innerHTML = MN_ICONS.shield;
-  document.getElementById("mn-value-icon-3").innerHTML = MN_ICONS.check;
-  document.getElementById("mn-sf-icon-1").innerHTML = MN_ICONS.leaf;
-  document.getElementById("mn-sf-icon-2").innerHTML = MN_ICONS.shield;
-  document.getElementById("mn-sf-icon-3").innerHTML = MN_ICONS.truck;
-  document.getElementById("mn-sf-icon-4").innerHTML = MN_ICONS.box;
 }

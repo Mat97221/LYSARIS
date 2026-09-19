@@ -14,6 +14,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111110'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4EFE6' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body data-page="accueil">
@@ -22,7 +23,6 @@
 
   <main>
     <div id="mn-hero-slot" data-hero></div>
-    <div id="mn-texture-slot" data-texture></div>
     <div id="mn-maison-slot" data-maison></div>
     <div id="mn-table-slot" data-table></div>
     <div id="mn-savoir-faire-slot" data-savoir-faire></div>
@@ -31,10 +31,10 @@
 
   <div id="site-footer"></div>
 
-  <!-- GSAP/ScrollTrigger — chargés uniquement sur cet accueil one-page ; aucune autre page du
-       site n'en dépend. Défilement natif : rien n'intercepte la molette/le trackpad. -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- Splide — le seul carrousel du site (hero + sélecteur de sections horizontal). Aucun GSAP,
+       aucune bibliothèque de smooth-scroll : le défilement reste natif, rien n'intercepte la
+       molette/le trackpad (voir motion.js). -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 
   <script src="assets/js/ui.js"></script>
   <script src="assets/js/motion.js"></script>
@@ -42,8 +42,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("[data-hero]").outerHTML = mnHomeHero();
-      document.querySelector("[data-texture]").outerHTML = mnHomeTextureBand();
       document.querySelector("[data-maison]").outerHTML = mnSectionMaison();
+      document.querySelector("[data-texture]").outerHTML = mnHomeTextureBand();
       document.querySelector("[data-table]").outerHTML = mnSectionTable();
       document.querySelector("[data-savoir-faire]").outerHTML = mnSectionSavoirFaire();
       document.querySelector("[data-contact]").outerHTML = mnSectionContact();
@@ -51,10 +51,10 @@
       mnInitContactIcons();
       mnInitContactForm();
       mnInitProduitCTAs();
+      mnInitHeroSplide();
 
-      // mnInitMotion() (GSAP/ScrollTrigger) doit s'exécuter une fois toutes les sections
-      // ci-dessus réellement présentes dans le DOM, faute de quoi les ScrollTrigger seraient
-      // créés sur des éléments absents.
+      // mnInitMotion() (IntersectionObserver + parallaxe hero) doit s'exécuter une fois toutes
+      // les sections ci-dessus réellement présentes dans le DOM.
       mnInitMotion();
 
       // Arrivée directe sur une ancre ou avec un produit à pré-remplir (lien partagé, ou retour

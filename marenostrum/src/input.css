@@ -1,13 +1,6 @@
-/* Single loading point for the brand typeface — change weights here only. One family, Switzer
-   (Fontshare, free license), used sitewide (see tailwind.config.js: both "titre" and "texte"
-   resolve to it) — weight alone carries the hierarchy: 400 for body copy, 500 for
-   subtitles/buttons/labels, 600 for section headings (H1/H2). font-display: swap is already
-   set by Fontshare's own stylesheet response, not repeated here. */
-@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap');
-
-/* "La Table" (domaine-viticole treatment) only — an elegant display serif for titles, loaded
-   once here. Weights 400/500 upright for running titles, 400 italic for the tasting-note voice. */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+/* Switzer seul, sitewide, aucune exception — le traitement "domaine viticole" de La Table
+   (ex-Cormorant Garamond) a été retiré : une seule famille, une seule échelle de graisse. */
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,27 +9,64 @@
 @layer base {
   :root {
     color-scheme: light;
+
+    /* ============================================================================
+     * PALETTE — huit jetons par thème, aucun autre, jamais de dégradé ni de halo.
+     * Thème clair (défaut). Le thème sombre ([data-theme="dark"] ci-dessous) redéfinit les
+     * mêmes variables : n'importe quelle règle qui les utilise s'inverse donc automatiquement
+     * selon qu'elle vit dans la portée claire ou sombre, sans classe dupliquée.
+     * ============================================================================ */
+    --color-bg: #F4EFE6;
+    --color-surface: #FAF7F2;
+    --color-surface-high: #FAF7F2; /* pas de palier distinct en clair — égal à la surface */
+    --color-border: #E8E0D3; /* sert aussi de teinte "ombre" pour une alternance de fond légère */
+    --color-text: #111110;
+    --color-text-2: #17263F;
+    --color-accent: #C4A35A;
+
+    /* Typographie */
+    --titleSize: 4.7rem;
+    --lineHeight: 1.6;
+    --fontBold: 500; /* plafond de graisse, y compris pour les titres — jamais plus */
+
+    /* Grille */
+    --container-maxWidth: 75rem;
+    --space-section: 1.6rem;
   }
 
-  /* Défilement 100% natif sur tout le site (aucune bibliothèque de "smooth scroll" — un essai
-     avec Lenis a été retiré : elle imposait sa propre vitesse de défilement à la molette au lieu
-     de répondre au geste réel). Cette seule règle adoucit uniquement les sauts déclenchés par un
-     lien d'ancre ou `scrollIntoView()` (voir mnScrollTo dans motion.js) ; le défilement continu à
-     la molette/au trackpad n'est jamais intercepté. */
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --color-bg: #17263F;
+    --color-surface: #0E1829;
+    --color-surface-high: #2A3A55;
+    --color-border: #2A3A55;
+    --color-text: #F4EFE6;
+    --color-text-2: #C2C8D2;
+    --color-accent: #D9BF85;
+  }
+
+  @screen sm {
+    :root { --space-section: 2.56rem; }
+  }
+  @screen lg {
+    :root { --space-section: 3.168rem; }
+  }
+  @screen xl {
+    :root { --space-section: 3.456rem; }
+  }
+
+  /* Défilement 100% natif (aucune bibliothèque de smooth-scroll) ; ce seul assouplissement gère
+     le saut d'un lien d'ancre, jamais le défilement continu à la molette/au trackpad. */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Empêche une section ciblée par une ancre (#maison, #table, #savoir-faire, #contact) d'arriver
-     masquée sous l'en-tête fixe (h-20 = 80px) en fin de défilement. */
   [data-scroll-section] {
     scroll-margin-top: 84px;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
@@ -45,234 +75,285 @@
     }
   }
 
-  /* Site-wide backdrop: rendered by a JS-injected `#site-bg` fixed-position layer (see
-     mnPageBackground() in ui.js), not via `background-attachment: fixed` here — that property
-     is unreliable across browsers/mobile (image ends up invisible outside the homepage hero).
-     The body just needs its own solid fallback color underneath that layer. */
   body {
-    @apply text-ink-50 font-texte antialiased;
-    background-color: #F6F2EA;
+    @apply font-texte antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
   }
 
   ::selection {
-    @apply bg-marine/15 text-noir;
+    background-color: rgba(196, 163, 90, 0.25);
+    color: var(--color-text);
   }
 
   a, button, [role="button"], input[type="submit"] {
     cursor: pointer;
   }
 
-  /* Visible, consistent focus ring for keyboard navigation */
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible,
-  [tabindex]:focus-visible {
-    outline: 2px solid theme('colors.marine.DEFAULT');
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+  textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  /* Curseur personnalisé actif (voir mnInitCursor dans ui.js) : masque le curseur système
+     partout où le disque le remplace. Coupé sur tactile — voir la vérification JS. */
+  html.has-custom-cursor, html.has-custom-cursor a, html.has-custom-cursor button {
+    cursor: none;
   }
 }
 
 @layer components {
   .container-page {
-    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
+    @apply max-w-container mx-auto px-5 sm:px-8 lg:px-10;
   }
 
-  /* Small letterspaced uppercase sur-titre — the signature detail. Marine by default (crisp on
-     the ivoire content sections); on dark grounds add `text-or` per-instance to switch to gold. */
+  /* Rythme vertical des sections — quatre valeurs, un seul point de vérité (--space-section,
+     recalculé aux points de rupture ci-dessus). */
+  .section-pad {
+    padding-top: calc(var(--space-section) * 3);
+    padding-bottom: calc(var(--space-section) * 3);
+  }
+
+  /* Échelle d'espacement nommée (xs/sm/md/lg), en plus de l'échelle numérique par défaut de
+     Tailwind — demandée explicitement pour le rythme vertical des blocs de contenu. */
+  .mt-xs { margin-top: 0.8rem; } .mb-xs { margin-bottom: 0.8rem; }
+  .pt-xs { padding-top: 0.8rem; } .pb-xs { padding-bottom: 0.8rem; }
+  .mt-sm { margin-top: 1.6rem; } .mb-sm { margin-bottom: 1.6rem; }
+  .pt-sm { padding-top: 1.6rem; } .pb-sm { padding-bottom: 1.6rem; }
+  .mt-md { margin-top: 2.56rem; } .mb-md { margin-bottom: 2.56rem; }
+  .pt-md { padding-top: 2.56rem; } .pb-md { padding-bottom: 2.56rem; }
+  .mt-lg { margin-top: 4rem; } .mb-lg { margin-bottom: 4rem; }
+  .pt-lg { padding-top: 4rem; } .pb-lg { padding-bottom: 4rem; }
+
+  /* Intertitre de section — capitales, interlettrage légèrement ouvert. */
   .eyebrow {
-    @apply text-xs sm:text-sm tracking-widest2 uppercase text-marine font-semibold;
+    @apply text-xs sm:text-sm tracking-widest2 uppercase font-medium;
+    color: var(--color-accent);
   }
 
-  /*
-   * Editorial heading scale — four tiers, all Cormorant Garamond at a medium weight (400 read
-   * too faint for a high-contrast serif at display sizes; 500 keeps it elegant without going
-   * heavy). Sizes run larger than the old single-typeface scale to compensate for a serif's
-   * lighter visual weight against Inter body copy.
-   * Margin/alignment/max-width stay as per-instance utility classes alongside these, since
-   * that's genuinely contextual — but font, size, weight and color live here once.
-   */
+  /* Titre de chapitre — casse normale, jamais plus que le plafond de graisse --fontBold (500). */
   .h-hero {
-    @apply font-titre font-medium leading-[1.08] text-ink-50 text-4xl sm:text-6xl lg:text-8xl;
+    @apply font-texte leading-[1.08] text-4xl sm:text-6xl;
+    font-size: clamp(2.5rem, 4vw + 1rem, var(--titleSize));
+    font-weight: var(--fontBold);
+    color: var(--color-text);
   }
 
   .h-page {
-    @apply font-titre font-semibold uppercase tracking-[0.05em] leading-tight text-ink-50 text-4xl sm:text-5xl lg:text-6xl;
+    @apply font-texte leading-tight text-3xl sm:text-4xl lg:text-5xl;
+    font-weight: var(--fontBold);
+    color: var(--color-text);
   }
 
   .h-section {
-    @apply font-titre font-semibold uppercase tracking-[0.06em] leading-tight text-ink-50 text-3xl sm:text-4xl;
+    @apply font-texte leading-tight text-2xl sm:text-3xl;
+    font-weight: var(--fontBold);
+    color: var(--color-text);
   }
 
   .h-card {
-    @apply font-titre font-medium text-ink-50 text-2xl sm:text-3xl;
+    @apply font-texte text-xl sm:text-2xl;
+    font-weight: var(--fontBold);
+    color: var(--color-text);
   }
 
-  /* Reading copy: comfortable size, airy line-height (see theme.lineHeight.relaxed), and a
-     line length that never runs too wide regardless of its container. */
   .prose-copy {
-    @apply max-w-prose text-base sm:text-lg text-ink-200 leading-relaxed;
+    @apply max-w-prose text-base sm:text-lg leading-relaxed font-normal;
+    color: var(--color-text);
+    opacity: 0.75;
   }
 
-  /* Editorial quote break — large centered italic line on a plain ground, generous
-     padding either side. The signature device of quiet apothecary-style sites: one considered
-     sentence given a whole section of space rather than another content block. */
   .h-quote {
-    @apply font-titre font-medium italic leading-snug text-ink-50 text-3xl sm:text-4xl lg:text-5xl;
+    @apply font-texte leading-snug text-2xl sm:text-3xl lg:text-4xl;
+    font-weight: var(--fontBold);
+    color: var(--color-text);
   }
 
-  /* Primary button — filled encre, softly rounded (2-4px, not sharp, not pill), lightens a touch
-     on hover rather than swapping to a different colour. This is now the site's one filled
-     button style; every page's key action ("Ajouter au panier", "Envoyer la demande", "Demander
-     un devis") reads the same way. */
+  /* Bouton plein — seul style de remplissage du site, aplat d'encre (ink), jamais l'or en fond. */
   .btn-navy {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-marine bg-marine px-7 py-3.5 min-h-[44px]
-           font-texte font-medium text-sm tracking-label uppercase text-ivoire
-           transition-colors duration-200 ease-fluid hover:bg-navy-hover hover:border-navy-hover;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-none border px-7 py-3.5 min-h-[44px]
+           font-texte font-medium text-sm tracking-label uppercase
+           transition-colors duration-200 ease-fluid;
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-bg);
+  }
+  .btn-navy:hover {
+    background-color: var(--color-text-2);
+    border-color: var(--color-text-2);
   }
 
-  /* Same look as .btn-navy, but drops any transform-based hover: pairs with .magnetic, whose
-     JS-driven `transform` would otherwise fight a CSS one. */
   .btn-navy-magnetic {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-marine bg-marine px-7 py-3.5 min-h-[44px]
-           font-texte font-medium text-sm tracking-label uppercase text-ivoire
-           transition-colors duration-200 ease-fluid hover:bg-navy-hover hover:border-navy-hover;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-none border px-7 py-3.5 min-h-[44px]
+           font-texte font-medium text-sm tracking-label uppercase
+           transition-colors duration-200 ease-fluid;
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-bg);
+  }
+  .btn-navy-magnetic:hover {
+    background-color: var(--color-text-2);
+    border-color: var(--color-text-2);
   }
 
-  /* Secondary button — thin encre outline, transparent fill; same rounding and rhythm as the
-     primary so the two read as one family. Hover washes in a faint tint rather than a hard fill,
-     keeping the fill/outline distinction legible even mid-transition. */
   .btn-outline {
-    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded border border-marine px-7 py-3.5 min-h-[44px]
-           font-texte font-medium text-sm tracking-label uppercase text-marine
-           transition-colors duration-200 ease-fluid hover:bg-marine/5;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-none border px-7 py-3.5 min-h-[44px]
+           font-texte font-medium text-sm tracking-label uppercase
+           transition-colors duration-200 ease-fluid;
+    border-color: var(--color-text);
+    color: var(--color-text);
+  }
+  .btn-outline:hover {
+    background-color: var(--color-border);
   }
 
-  /* Aesop-inspired quiet CTA: thin underline, no fill, letterspaced uppercase — used on the
-     homepage only, alongside the existing filled/outline buttons elsewhere on the site. */
   .btn-quiet {
-    @apply inline-flex items-center gap-2 border-b border-ink-50/40 pb-1
-           font-texte text-xs font-medium uppercase tracking-label text-ink-50
-           transition-colors duration-200 ease-fluid hover:border-marine hover:text-marine;
+    @apply inline-flex items-center gap-2 border-b pb-1
+           font-texte text-xs font-medium uppercase tracking-label
+           transition-colors duration-200 ease-fluid;
+    border-color: color-mix(in srgb, var(--color-text) 40%, transparent);
+    color: var(--color-text);
+  }
+  .btn-quiet:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[44px]
-           font-texte font-medium text-sm uppercase tracking-label text-ink-200 transition-colors duration-200 ease-fluid hover:text-marine;
+           font-texte font-medium text-sm uppercase tracking-label transition-colors duration-200 ease-fluid;
+    color: var(--color-text);
+    opacity: 0.7;
   }
+  .btn-ghost:hover { opacity: 1; color: var(--color-accent); }
 
-  /* Borderless product card — no frame, no surface: the product image sits directly on the
-     ivoire page with its text below, integrating seamlessly (only the image itself is rounded,
-     see the image wrapper in mnProductCard). */
   .nav-glass {
-    @apply bg-ink-900/85 backdrop-blur-md border-b border-ink-600/50 transition-shadow duration-300 ease-fluid;
+    backdrop-filter: blur(12px);
+    background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    border-bottom: 1px solid var(--color-border);
+    @apply transition-shadow duration-300 ease-fluid;
   }
 
   .input-field {
-    @apply w-full border border-ink-500 bg-ink-700 px-4 py-3 min-h-[44px] text-ink-50 placeholder:text-ink-300
-           transition-colors duration-200 ease-fluid focus:border-marine outline-none;
+    @apply w-full border px-4 py-3 min-h-[44px] outline-none transition-colors duration-200 ease-fluid;
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text);
   }
+  .input-field::placeholder { color: var(--color-text); opacity: 0.4; }
+  .input-field:focus { border-color: var(--color-accent); }
 
   .field-label {
-    @apply block text-xs font-medium uppercase tracking-label text-ink-200 mb-2;
+    @apply block text-xs font-medium uppercase tracking-label mb-2;
+    color: var(--color-text);
+    opacity: 0.75;
   }
 
-  .field-error {
-    @apply text-error text-xs mt-1.5;
+  .field-error { @apply text-error text-xs mt-1.5; }
+
+  .mn-checkbox { accent-color: var(--color-text-2); }
+
+  .divider-navy { height: 1px; width: 4rem; background-color: var(--color-accent); }
+
+  /* ============================================================================
+   * SYSTÈME DE BANDES ("strip") — le dispositif visuel principal du système.
+   * strip--normal : contenue dans le conteneur (--container-maxWidth).
+   * strip--wide   : pleine largeur (bord à bord).
+   * strip--columns: deux colonnes.
+   * strip--3-cols : trois colonnes.
+   * strip--image  : une image seule, pleine largeur de la bande.
+   * Chaque bande accepte deux variables inline --w1/--w2 (entiers, positifs ou négatifs) qui
+   * décalent verticalement sa première et sa deuxième colonne — jamais alignées en haut, c'est
+   * la seule source de rythme d'une palette volontairement sobre. Neutralisé sous 768px : les
+   * colonnes s'empilent, un décalage n'aurait plus de sens en une seule colonne.
+   * L'unité du décalage : 1 "unité" = 0.6rem. Un --w1 de 6 = 3.6rem plus bas que la position
+   * neutre ; un --w2 négatif remonte d'autant. Utiliser des valeurs franches (5 à 8 au moins),
+   * jamais 1 ou 2 — un décalage timide ne se voit pas. `transform` ne réservant pas d'espace,
+   * `.strip--columns`/`.strip--3-cols` portent une marge verticale généreuse (--strip-offset-pad)
+   * pour absorber le décalage sans jamais chevaucher la bande précédente ou suivante.
+   * ============================================================================ */
+  .strip {
+    --w1: 0;
+    --w2: 0;
+    --strip-offset-pad: 3.5rem;
+    @apply w-full;
   }
 
-  /* Native checkbox, just recoloured to the brand ink instead of the browser default blue —
-     no custom-built checkbox component, matches "menus déroulants natifs" elsewhere on the
-     cart/devis pages (native form controls stay easiest to use at arm's length on mobile).
-     `@apply accent-marine` here, not a raw `theme()` CSS value — theme() calls placed outside
-     @apply silently resolve to nothing in this project's build (see the now-transparent
-     focus-visible outline above, a pre-existing bug this sidesteps rather than fixes). */
-  .mn-checkbox {
-    @apply accent-marine;
+  .strip--normal {
+    @apply max-w-container mx-auto px-5 sm:px-8 lg:px-10;
   }
 
-  .divider-navy {
-    @apply h-px w-16 bg-navy;
+  .strip--wide {
+    @apply w-full;
   }
 
-  /* ============================================================
-     Editorial homepage — manifesto chapters, caviar carousel, texture band
-     ============================================================
-     Section builders live in assets/js/home.js (mnHomeManifesto, mnHomeCaviarCarousel,
-     mnHomeTextureGallery, …), mounted from index.html only — these classes aren't referenced
-     from any other page. */
-
-  /* Large thin chapter numeral ("1/4") — Cormorant Garamond at a light weight reads as a quiet
-     mark, not a heading; sits beside/above the eyebrow label in each manifesto chapter. */
-  .mn-chapter-num {
-    @apply font-titre font-normal text-marine/50 text-3xl sm:text-4xl tabular-nums;
+  .strip--columns {
+    @apply grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2;
   }
 
-  /* "Les caviars" — a single scroll-snapped row rather than a wrapping grid, so it reads as one
-     horizontal gesture (mouse wheel, trackpad, or a swipe on touch) instead of a boxed-in
-     catalogue grid; boutique.html remains the grid view for actual browsing/filtering. Native
-     scroll-snap, no JS and no library. Scrollbar hidden (`.mn-scrollbar-hidden`) since the
-     row's own edge-peeking next card is the scroll affordance. */
-  .mn-carousel {
-    @apply flex gap-6 overflow-x-auto pb-2;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: theme('spacing.5');
+  .strip--3-cols {
+    @apply grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-3;
   }
 
-  @media (min-width: theme('screens.sm')) {
-    .mn-carousel {
-      scroll-padding-left: theme('spacing.8');
+  @media (min-width: 768px) {
+    .strip--columns, .strip--3-cols {
+      padding-top: var(--strip-offset-pad);
+      padding-bottom: var(--strip-offset-pad);
     }
   }
 
-  .mn-carousel > * {
-    scroll-snap-align: start;
+  .strip--image {
+    @apply w-full overflow-hidden;
   }
 
-  .mn-scrollbar-hidden {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  @media (min-width: 768px) {
+    .strip--columns > :first-child,
+    .strip--3-cols > :first-child {
+      transform: translateY(calc(var(--w1, 0) * 0.6rem));
+    }
+    .strip--columns > :nth-child(2),
+    .strip--3-cols > :nth-child(2) {
+      transform: translateY(calc(var(--w2, 0) * 0.6rem));
+    }
+  }
+  /* < 768px : décalages neutralisés (pas de transform), colonnes simplement empilées. */
+
+  /* ============================================================================
+   * ANIMATIONS — volontairement minimales : deux classes, rien d'autre. Déclenchées par
+   * IntersectionObserver (voir mnInitReveal dans motion.js), jamais par une bibliothèque de
+   * scroll. Appliquées à une dizaine de blocs sur toute la page, pas plus.
+   * ============================================================================ */
+  .anima--bottom-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .anima--bottom-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .mn-scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+  .js-image-anime {
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js-image-anime.is-visible {
+    opacity: 1;
+    transform: scale(1);
   }
 
-  /* Bandeau de textures marines (accueil, animation 2 — parallaxe, voir motion.js) : cinq bandes
-     verticales égales, chacune une vraie photo déjà utilisée ailleurs sur le site recadrée en
-     object-cover, glissant à sa propre vitesse au défilement. */
-  .mn-texture-band {
-    @apply grid grid-cols-5;
+  @media (prefers-reduced-motion: reduce) {
+    .anima--bottom-in, .js-image-anime {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
   }
 
-  /* Masque de révélation du slogan (accueil, animation 3) : chaque mot est un bloc dans un
-     conteneur overflow-hidden de la hauteur d'une ligne, pour que sa remontée depuis +100% ne
-     déborde jamais visuellement pendant l'animation (voir mnInitSloganReveal dans motion.js). */
-  .mn-slogan-mask {
-    @apply inline-block overflow-hidden align-top;
-  }
-
-  .mn-slogan-word {
-    @apply inline-block;
-  }
-
-  /* Magnetic button: nudges toward the cursor within its own bounds (see mnInitMagnetic in ui.js) */
-  .magnetic {
-    transform: translate(var(--mag-x, 0px), var(--mag-y, 0px));
-    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* Makes the whole nearest `position:relative` ancestor clickable via this link
-     (product cards are entirely clickable through this). */
-  .stretched-link::after {
-    content: "";
-    @apply absolute inset-0;
-  }
-
-  /* Mobile nav panel: fades and unfurls open instead of the instant display:none jump.
-     max-height rather than height so we don't need to know the panel's real height in JS. */
+  /* Mobile nav panel */
   .mn-menu-panel {
     display: block;
     overflow: hidden;
@@ -280,134 +361,240 @@
     opacity: 0;
     transition: max-height 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 220ms ease-out;
   }
+  .mn-menu-panel.is-open { max-height: 480px; opacity: 1; }
 
-  .mn-menu-panel.is-open {
-    max-height: 480px;
-    opacity: 1;
-  }
+  .stretched-link::after { content: ""; @apply absolute inset-0; }
 }
 
-/* ============================================================
-   "Vivant & premium" pass — hand-written additions (design import from
-   claude.ai/design, design_handoff_marenostrum_site), not Tailwind utilities.
-   ============================================================ */
+/* ============================================================================
+ * BANDEAU DE DONNÉES VIVANTES — sous le hero, fond sombre fixe (thème sombre local, aplat pur).
+ * ============================================================================ */
+.mn-data-band {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+.mn-data-band .mn-data-figure {
+  color: var(--color-accent);
+}
 
-/* Fine, near-invisible film grain over the whole page — the tactile "photographed on film"
-   texture that keeps a flat digital palette from feeling sterile. Sits just above the fixed
-   background photo, below all real content. */
-.mn-grain {
+/* ============================================================================
+ * CURSEUR PERSONNALISÉ — disque plein qui suit la souris, s'agrandit et affiche un libellé au
+ * survol d'un élément portant data-hover. Un seul disque, aucun halo, aucun dégradé. Désactivé
+ * sur tactile (voir la détection JS dans mnInitCursor, ui.js) : la classe n'est posée que quand
+ * un pointeur fin est confirmé.
+ * ============================================================================ */
+.mn-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1), height 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 250ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+.mn-cursor span {
+  opacity: 0;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #111110;
+  white-space: nowrap;
+  transition: opacity 150ms ease;
+}
+.mn-cursor.is-hovering {
+  width: 72px;
+  height: 72px;
+}
+.mn-cursor.is-hovering span { opacity: 1; }
+
+/* ============================================================================
+ * ÉCRAN DE CHARGEMENT — voile plein écran au premier chargement uniquement (voir mnInitLoader,
+ * ui.js : une entrée sessionStorage évite de le rejouer à chaque navigation interne). Aplat
+ * --color-bg du thème sombre, pas de dégradé. Symbole et mot du logo, deux éléments séparés,
+ * qui se rejoignent avant le fondu vers le hero.
+ * ============================================================================ */
+.mn-loader {
   position: fixed;
   inset: 0;
-  z-index: -9;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: #17263F;
+  transition: opacity 600ms ease, visibility 600ms ease;
 }
-
-/* Deep-sea "abyss" section: near-black navy gradient with two slow-drifting radial caustics,
-   evoking light refracting through moving water. Used for dramatic full-bleed breaks between
-   the warm ivory sections — the one deliberate dark note in the palette. */
-.mn-abyss {
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(ellipse 120% 100% at 50% -10%, #23375c 0%, #0d1524 45%, #111110 100%);
-  isolation: isolate;
-}
-
-.mn-abyss::before,
-.mn-abyss::after {
-  content: "";
-  position: absolute;
+.mn-loader-mark {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  filter: blur(40px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.mn-abyss::before {
-  width: 60%;
-  height: 60%;
-  left: -10%;
-  top: -15%;
-  background: radial-gradient(circle, rgba(120, 150, 190, 0.30), transparent 70%);
-  animation: mn-caustic-drift-a 16s ease-in-out infinite;
-}
-
-.mn-abyss::after {
-  width: 55%;
-  height: 55%;
-  right: -12%;
-  bottom: -18%;
-  background: radial-gradient(circle, rgba(244, 239, 230, 0.16), transparent 70%);
-  animation: mn-caustic-drift-b 20s ease-in-out infinite;
-}
-
-@keyframes mn-caustic-drift-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(6%, 8%) scale(1.15); }
-}
-
-@keyframes mn-caustic-drift-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-8%, -5%) scale(1.1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mn-abyss::before,
-  .mn-abyss::after {
-    animation: none;
-  }
-}
-
-/* Small bright glints scattered over dark/hero surfaces — like light catching the surface
-   of moving water. Purely decorative, aria-hidden. */
-.mn-sparkle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #f4efe6;
-  box-shadow: 0 0 6px 1px rgba(244, 239, 230, 0.7);
+  border: 1.5px solid #D9BF85;
+  transform: translateX(24px);
   opacity: 0;
-  animation: mn-twinkle 4.5s ease-in-out infinite;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 700ms ease;
+}
+.mn-loader-word {
+  font-family: "Switzer", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #F4EFE6;
+  transform: translateX(-24px);
+  opacity: 0;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 700ms ease;
+}
+.mn-loader.is-ready .mn-loader-mark,
+.mn-loader.is-ready .mn-loader-word {
+  transform: translateX(0);
+  opacity: 1;
+}
+.mn-loader.is-done {
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
-
-@keyframes mn-twinkle {
-  0%, 100% { opacity: 0; transform: scale(0.6); }
-  50% { opacity: 0.9; transform: scale(1); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .mn-sparkle { animation: none; opacity: 0.5; }
+  .mn-loader { transition: opacity 200ms ease, visibility 200ms ease; }
+  .mn-loader-mark, .mn-loader-word { transition: none; transform: none; opacity: 1; }
 }
 
-/* Sheen sweep on primary/outline buttons — a single quiet flash of light on hover, not a
-   permanent gradient background. */
-.btn-navy::before, .btn-navy-magnetic::before, .btn-outline::before {
-  content: "";
-  position: absolute;
+/* ============================================================================
+ * MENU PLEIN ÉCRAN — overlay sombre, quatre entrées, image verticale au survol (desktop),
+ * libellé en double span pour la substitution verticale. Aplats uniquement.
+ * ============================================================================ */
+.mn-fullmenu {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(115deg, transparent 35%, rgba(244, 239, 230, 0.25) 50%, transparent 65%);
-  transform: translateX(-130%);
-  transition: transform 650ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 90;
+  background-color: #17263F;
+  color: #F4EFE6;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 350ms ease, visibility 350ms ease;
+  overflow-y: auto;
+}
+.mn-fullmenu.is-open { opacity: 1; visibility: visible; }
+
+.mn-fullmenu-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 1.3em;
+  font-family: "Switzer", "Inter", sans-serif;
+  font-weight: 500;
+}
+.mn-fullmenu-link span {
+  display: block;
+  transition: transform 400ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.mn-fullmenu-link span:first-child { color: #F4EFE6; }
+.mn-fullmenu-link span:last-child {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: #D9BF85;
+}
+.mn-fullmenu-item:hover .mn-fullmenu-link span {
+  transform: translateY(-100%);
+}
+
+.mn-fullmenu-preview {
+  position: fixed;
+  top: 50%;
+  right: 8%;
+  width: 220px;
+  height: 330px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 300ms ease;
   pointer-events: none;
 }
+.mn-fullmenu-preview.is-active { opacity: 1; }
+.mn-fullmenu-preview img { width: 100%; height: 100%; object-fit: cover; }
 
-.btn-outline::before {
-  background: linear-gradient(115deg, transparent 35%, rgba(196, 163, 90, 0.15) 50%, transparent 65%);
+@media (max-width: 1023px) {
+  .mn-fullmenu-preview { display: none; }
 }
 
-.btn-navy:hover::before, .btn-navy-magnetic:hover::before, .btn-outline:hover::before {
-  transform: translateX(130%);
+.mn-lang-switch button {
+  font-family: "Switzer", "Inter", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C2C8D2;
+  transition: color 200ms ease;
+}
+.mn-lang-switch button.is-active,
+.mn-lang-switch button:hover {
+  color: #D9BF85;
 }
 
-/* Nav links: underline grows from the center on hover instead of a flat color swap. */
-.mn-nav-link {
-  position: relative;
+/* ============================================================================
+ * "LA TABLE" — unifiée dans le système général : plus de serif, plus de palette exclusive.
+ * Les classes .lt-* subsistent (moins de HTML à réécrire) mais résolvent désormais aux mêmes
+ * jetons --color-* que le reste du site.
+ * ============================================================================ */
+.lt-eyebrow {
+  @apply font-texte text-xs font-medium uppercase tracking-[0.2em];
+  color: var(--color-accent);
+}
+.lt-title {
+  @apply font-texte leading-[1.05] text-4xl sm:text-5xl lg:text-6xl;
+  font-weight: var(--fontBold);
+  color: var(--color-text);
+}
+.lt-title-hero {
+  @apply font-texte leading-[0.98] text-5xl sm:text-6xl lg:text-7xl;
+  font-weight: var(--fontBold);
+  color: var(--color-text);
+}
+.lt-tagline {
+  @apply font-texte leading-snug text-lg sm:text-xl;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+.lt-tasting {
+  @apply font-texte text-base sm:text-lg leading-[1.8] max-w-md;
+  color: var(--color-text);
+  opacity: 0.75;
+}
+.lt-status {
+  @apply font-texte text-xs font-medium uppercase tracking-[0.2em];
+  color: var(--color-accent);
+}
+.lt-link {
+  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] transition-colors duration-200;
+  color: var(--color-text);
+}
+.lt-link:hover { color: var(--color-accent); }
+.lt-tech-list {
+  @apply flex flex-col gap-3 pt-6 max-w-sm border-t;
+  border-color: var(--color-border);
+}
+.lt-tech-item {
+  @apply flex items-baseline justify-between gap-6 font-texte text-xs uppercase tracking-[0.14em];
+  color: var(--color-text);
+  opacity: 0.6;
+}
+.lt-tech-item span:last-child {
+  @apply text-right tracking-normal normal-case;
+  opacity: 1;
 }
 
+/* Nav links: underline grows from the center on hover. */
+.mn-nav-link { position: relative; }
 .mn-nav-link::after {
   content: "";
   position: absolute;
@@ -419,52 +606,9 @@
   opacity: 0.7;
   transition: left 250ms cubic-bezier(0.4, 0, 0.2, 1), right 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.mn-nav-link:hover::after, .mn-nav-link.is-active::after { left: 0; right: 0; }
 
-.mn-nav-link:hover::after, .mn-nav-link.is-active::after {
-  left: 0;
-  right: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn-navy, .btn-navy-magnetic, .btn-outline {
-    transition: none !important;
-  }
-  .btn-navy::before, .btn-navy-magnetic::before, .btn-outline::before {
-    display: none;
-  }
-}
-
-/* Gold-quiet shimmer sweep across the hero accent word — a slow, traveling highlight rather
-   than a static fill. (The design-tool export baked this to a flat single-color gradient with
-   no visible effect; restored as a working sweep, now genuinely gold as the comment always
-   promised, using the ivoire/or brand pair.) */
-.mn-shine-text {
-  background-image: linear-gradient(100deg, #f4efe6 0%, #f4efe6 35%, #fbf8f1 50%, #f4efe6 65%, #f4efe6 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: mn-shine-sweep 6s ease-in-out infinite;
-}
-
-@keyframes mn-shine-sweep {
-  0%, 100% { background-position: 200% 0; }
-  50% { background-position: -50% 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mn-shine-text { animation: none; }
-}
-
-/* ============================================================
-   Homepage hero navigation — full-bleed image, header overlaid
-   ============================================================
-   On the accueil page the header carries `.mn-hero-nav` (added in mnHeader): it becomes a
-   fixed, fully transparent bar over the edge-to-edge hero image, with its text and logo turned
-   ivoire so they stay legible on the dark photo. Once the visitor scrolls past the hero
-   (`.is-scrolled`, threshold set in mnMountLayout) it resolves to the normal solid ivoire bar
-   with dark text/logo, so it never sits unreadable over the light content below. */
+/* Homepage hero navigation: transparent over the hero, solid once scrolled. */
 .nav-glass.mn-hero-nav {
   position: fixed;
   left: 0;
@@ -474,99 +618,35 @@
   box-shadow: none;
   backdrop-filter: none;
 }
-
 .nav-glass.mn-hero-nav .mn-nav-link,
-.nav-glass.mn-hero-nav #mn-menu-toggle {
-  color: #f4efe6;
+.nav-glass.mn-hero-nav #mn-menu-toggle,
+.nav-glass.mn-hero-nav #mn-menu-label {
+  color: #F4EFE6;
 }
+.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link { color: #111110; }
+.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link.is-active { color: #17263F; }
+.nav-glass.mn-hero-nav img { filter: brightness(0) invert(1); }
 
-/* #mn-mobile-menu has its own opaque bg-ink-900/95 backdrop once open — unlike the transparent
-   bar above it, it's never sitting directly on the hero photo, so the light hero-overlay text
-   color above would be near-invisible on it. Higher specificity (adds the #mn-mobile-menu id)
-   wins over the rule above regardless of source order. */
-.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link {
-  color: #2e2b24;
-}
-
-.nav-glass.mn-hero-nav #mn-mobile-menu .mn-nav-link.is-active {
-  color: #17263f;
-}
-
-/* Black wordmark PNG → white while overlaid on the dark hero image. */
-.nav-glass.mn-hero-nav img {
-  filter: brightness(0) invert(1);
-}
-
-/* Scrolled past the hero: fall back to the standard light bar. rgba literals here (not a Tailwind
-   bg-ivoire/90 utility) because .mn-hero-nav needs a hard override of the base .nav-glass
-   background — kept in sync by hand with BRAND.ivoire / ink.600 in tailwind.config.js whenever
-   the palette changes (this pair drifted out of sync once already: it shipped the old warm
-   #F4EFE6 ivoire long after the palette moved to a cool #ECEEF3, a mismatch visible as an
-   off-white "stain" on scroll). */
 .nav-glass.mn-hero-nav.is-scrolled {
-  background: rgba(246, 242, 234, 0.9);
-  border-color: rgba(228, 223, 211, 0.5);
+  background: rgba(244, 239, 230, 0.9);
+  border-color: rgba(232, 224, 211, 0.6);
   backdrop-filter: blur(12px);
 }
-
 .nav-glass.mn-hero-nav.is-scrolled .mn-nav-link,
-.nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle {
-  color: #2e2b24;
+.nav-glass.mn-hero-nav.is-scrolled #mn-menu-toggle,
+.nav-glass.mn-hero-nav.is-scrolled #mn-menu-label {
+  color: #111110;
 }
+.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active { color: #17263F; }
+.nav-glass.mn-hero-nav.is-scrolled img { filter: none; }
 
-.nav-glass.mn-hero-nav.is-scrolled .mn-nav-link.is-active {
-  color: #17263f;
-}
-
-.nav-glass.mn-hero-nav.is-scrolled img {
-  filter: none;
-}
-
-/* ============================================================================================
- * "LA TABLE" — traitement domaine-viticole (la-table.html + pages produit dédiées uniquement).
- * Palette strictement réduite à trois valeurs : ivoire (fond), noir (texte/fonds sombres),
- * metal (unique accent, un pewter/bronze mat — jamais doré ni brillant). Aucune autre couleur de
- * la palette du site (marine, glacier, sable, ink-*...) n'apparaît sur ces pages. Serif Cormorant
- * Garamond pour les titres, Switzer (déjà chargé sitewide) pour tout le reste. Pas de carte, pas
- * de cadre, pas d'arrondi, pas d'ombre : le rythme vient du vide et de l'échelle typographique.
- * ============================================================================================ */
-
-.lt-eyebrow {
-  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] text-metal;
-}
-
-.lt-title {
-  @apply font-domaine font-medium leading-[1.05] text-noir text-5xl sm:text-6xl lg:text-7xl;
-}
-
-.lt-title-hero {
-  @apply font-domaine font-medium leading-[0.98] text-ivoire text-6xl sm:text-7xl lg:text-8xl;
-}
-
-.lt-tagline {
-  @apply font-domaine italic leading-snug text-noir/80 text-xl sm:text-2xl;
-}
-
-.lt-tasting {
-  @apply font-texte text-base sm:text-lg leading-[1.8] text-noir/75 max-w-md;
-}
-
-.lt-status {
-  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] text-metal;
-}
-
-.lt-link {
-  @apply font-texte text-xs font-medium uppercase tracking-[0.2em] text-noir transition-colors duration-200 hover:text-metal;
-}
-
-.lt-tech-list {
-  @apply flex flex-col gap-3 border-t border-noir/15 pt-6 max-w-sm;
-}
-
-.lt-tech-item {
-  @apply flex items-baseline justify-between gap-6 font-texte text-xs uppercase tracking-[0.14em] text-noir/60;
-}
-
-.lt-tech-item span:last-child {
-  @apply text-right text-noir/85 tracking-normal normal-case;
+/* Fine, near-invisible film grain — the one texture allowed, no color of its own. */
+.mn-grain {
+  position: fixed;
+  inset: 0;
+  z-index: -9;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/filter%3E%3C/svg%3E");
 }
