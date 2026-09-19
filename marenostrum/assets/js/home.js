@@ -284,7 +284,7 @@ function mnSectionTable() {
     </div>
 
     <!-- [IMAGE — La Table, univers La Mer : flat lay de langoustines, vue du dessus à 90°, fond
-         gris-bleu mat, ombre dure, sans accessoire] — emplacement réservé. -->
+         gris-bleu mat, ombre dure, sans accessoire] — photo réelle (langoustine). -->
     <div class="strip strip--normal mt-lg" style="--w1:-7; --w2:6">
       <div class="strip--columns">
         <div class="flex flex-col justify-center order-2 md:order-1">
@@ -293,7 +293,9 @@ function mnSectionTable() {
           <p class="prose-copy mb-6 max-w-sm">Une sélection resserrée de pièces d'exception, au-delà du caviar.</p>
           ${list(merItems)}
         </div>
-        ${mnImagePlaceholder({ ratio: "4/5", label: "Flat lay langoustines, vue à 90°", className: "order-1 md:order-2 js-image-anime" })}
+        <div class="relative overflow-hidden order-1 md:order-2 js-image-anime" style="aspect-ratio:4/5">
+          ${mnPicture({ stem: "langoustine", alt: "Flat lay de langoustines, vue du dessus, Maison Marenostrum", sizes: "(min-width: 768px) 37.5rem, 100vw", className: "absolute inset-0 h-full w-full object-cover" })}
+        </div>
       </div>
     </div>
 
@@ -319,10 +321,12 @@ function mnSectionSavoirFaire() {
     </div>
 
     <!-- [IMAGE — Notre savoir-faire, bloc « La sélection » : grille de perles de caviar
-         régulières illustrant la constance] — emplacement réservé. -->
+         régulières illustrant la constance] — photo réelle (trois-caviars, constance entre lots). -->
     <div class="strip strip--normal mt-lg" style="--w1:5; --w2:-5">
       <div class="strip--columns">
-        ${mnImagePlaceholder({ ratio: "1/1", label: "Grille de perles de caviar régulières", className: "js-image-anime" })}
+        <div class="relative overflow-hidden js-image-anime" style="aspect-ratio:1/1">
+          ${mnPicture({ stem: "trois-caviars", alt: "Trois lots de caviar, régularité des perles, Maison Marenostrum", sizes: "(min-width: 768px) 30rem, 100vw", className: "absolute inset-0 h-full w-full object-cover" })}
+        </div>
         <div class="flex flex-col justify-center">
           <p class="eyebrow mb-3">La sélection</p>
           <h3 class="h-card mb-4">Un lot retenu, ou refusé</h3>
