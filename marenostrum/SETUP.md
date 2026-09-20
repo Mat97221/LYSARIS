@@ -169,26 +169,9 @@ son état final) et la parallaxe du hero.
 ### Splide.js
 
 Seule bibliothèque tierce chargée (CDN jsDelivr, `index.html` uniquement) : le carrousel du hero
-(`#hero-splide`, une diapositive pour l'instant — prêt à en recevoir d'autres) et le carrousel de
-sections (`#section-splide`, sous le bandeau de données). `mnInitHeroSplide()` dans `home.js`.
-Absente du `package.json` comme les autres dépendances CDN du site (pas de bundler).
-
-### Widget de conditions du littoral
-
-Carte translucide en bas à droite du hero (`.mn-conditions`) : nom du lieu, température,
-vent/humidité. `mnInitConditionsWidget()` (`home.js`) écrase les valeurs statiques du HTML par
-les données réelles d'[Open-Meteo](https://open-meteo.com/) (API sans clé, CORS ouvert) pour un
-point du littoral breton (Cancale) — échec silencieux si l'API est injoignable, les valeurs
-statiques servent alors de repli, jamais d'état vide.
-
-### Carrousel de sections
-
-Sous le bandeau de données : quatre diapositives plein cadre (une par entrée du menu — La
-Maison/La Table/Notre savoir-faire/Contact), chacune avec une carte claire centrée (compteur
-"01 / 04", titre, image d'appoint, teaser, lien) sur un aplat de scrim navy — voir
-`mnSectionsCarouselSlide()` dans `home.js`. Une pagination textuelle externe ("La Maison / La
-Table / ...") sous le carrousel est synchronisée à la main avec l'instance Splide
-(`mnInitHeroSplide()`), plutôt que les puces par défaut.
+(`#hero-splide`, une diapositive pour l'instant — prêt à en recevoir d'autres) et le sélecteur de
+sections horizontal (`#section-splide`, sous le bandeau de données). `mnInitHeroSplide()` dans
+`home.js`. Absente du `package.json` comme les autres dépendances CDN du site (pas de bundler).
 
 ### Curseur personnalisé
 
@@ -238,10 +221,7 @@ sur ce site de démonstration).
   `MN_PRODUIT_LABELS` pour l'intitulé affiché par slug).
 - **Bandeau de données vivantes** (`.mn-data-band`, sous le hero) : le millésime du cru en cours,
   le nombre de maisons référencées, la prochaine date d'allocation — trois chiffres statiques de
-  démonstration, en ivoire brut (la taille porte la hiérarchie, pas la couleur) sur aplat sombre,
-  séparés par un filet vertical.
-- **Presse** : un bloc encadré dans `#maison` (fond `--color-surface`, léger décalage `--w1`),
-  contenu de démonstration au même titre que les pages légales.
+  démonstration, en accent sur aplat sombre.
 
 ## La Table
 
