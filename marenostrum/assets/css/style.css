@@ -177,7 +177,10 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
   font-weight: 600;
   font-size: 20px;
   letter-spacing: 0.02em;
+  display: inline-flex;
 }
+.logo img { height: 22px; width: auto; }
+@media (min-width: 640px) { .logo img { height: 26px; } }
 
 .nav-desktop {
   display: none;
@@ -488,7 +491,8 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
 }
 @media (min-width: 1024px) { .contact__grid { grid-template-columns: 1fr 1fr; gap: 80px; } }
 
-.contact__brand .logo { font-size: 22px; margin-bottom: 12px; }
+.contact__brand .logo { margin-bottom: 16px; }
+.contact__brand .logo img { height: 24px; }
 .contact__brand > p { color: var(--text-secondary-navy-max); max-width: 34ch; margin-bottom: 28px; }
 
 .contact__coords { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
