@@ -27,7 +27,7 @@
       </nav>
 
       <div class="header__actions">
-        <a href="#contact" class="btn btn--navy btn--small">Contact</a>
+        <a href="#contact" class="btn btn--outline-fill btn--small">Contact</a>
         <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-mobile">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
@@ -84,7 +84,13 @@
           <p>Nous travaillons avec un réseau resserré de producteurs, pêcheurs et ateliers sélectionnés pour leur régularité. Chaque référence est tracée, de la criée ou du bassin jusqu'à votre réception.</p>
         </div>
         <div class="origines__grid">
-          <div class="photo-slot"><p>Photo — arrivage sur glace</p></div>
+          <div class="photo-slot photo-slot--filled">
+            <picture>
+              <source type="image/avif" srcset="assets/img/responsive/hero-mer-900w.avif 900w, assets/img/responsive/hero-mer-1200w.avif 1200w" sizes="(min-width: 640px) 33vw, 100vw" />
+              <source type="image/webp" srcset="assets/img/responsive/hero-mer-900w.webp 900w, assets/img/responsive/hero-mer-1200w.webp 1200w" sizes="(min-width: 640px) 33vw, 100vw" />
+              <img src="assets/img/responsive/hero-mer-1200w.jpg" srcset="assets/img/responsive/hero-mer-900w.jpg 900w, assets/img/responsive/hero-mer-1200w.jpg 1200w" sizes="(min-width: 640px) 33vw, 100vw" alt="Arrivage sur glace" loading="lazy" />
+            </picture>
+          </div>
           <div class="photo-slot"><p>Photo — bassins / criée</p></div>
           <div class="photo-slot"><p>Photo — geste d'atelier</p></div>
         </div>
@@ -134,13 +140,21 @@
             <p class="product-card__desc">Un approvisionnement régulier en gros conditionnement, pour les cartes qui en font un pilier.</p>
           </article>
           <article class="product-card">
-            <div class="photo-slot"><p>Photo — langoustines entières</p></div>
+            <div class="photo-slot photo-slot--filled">
+              <picture>
+                <source type="image/avif" srcset="assets/img/responsive/langoustine-900w.avif 900w, assets/img/responsive/langoustine-1200w.avif 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
+                <source type="image/webp" srcset="assets/img/responsive/langoustine-900w.webp 900w, assets/img/responsive/langoustine-1200w.webp 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
+                <img src="assets/img/responsive/langoustine-1200w.jpg" srcset="assets/img/responsive/langoustine-900w.jpg 900w, assets/img/responsive/langoustine-1200w.jpg 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" alt="Langoustines entières" loading="lazy" />
+              </picture>
+            </div>
             <h3>Langoustines entières</h3>
             <p class="product-card__specs">Calibre 10/20 pièces/kg — origine atlantique</p>
             <p class="product-card__desc">Fraîcheur et calibrage homogène, livrées en caisses professionnelles.</p>
           </article>
           <article class="product-card">
-            <div class="photo-slot"><p>Photo — poissons nobles</p></div>
+            <div class="photo-slot photo-slot--filled">
+              <img src="assets/img/rouget.jpg" alt="Poisson noble entier, rouget" loading="lazy" />
+            </div>
             <h3>Poissons nobles</h3>
             <p class="product-card__specs">Bar, turbot, Saint-Pierre — entiers ou levés</p>
             <p class="product-card__desc">Une sélection de poissons de ligne ou de filet, disponible à la demande et en volume.</p>
@@ -150,7 +164,7 @@
     </section>
 
     <!-- ============================================================ PRODUITS — GAMME PRESTIGE ============================================================ -->
-    <section class="section-pad" style="padding-top:0">
+    <section class="section-pad pad-prestige">
       <div class="container">
         <div class="section-header">
           <p class="eyebrow">Nos produits</p>
@@ -177,9 +191,13 @@
             <p class="product-card__desc">Une préparation fine et prête à dresser, pour une entrée signature sans travail de cuisine.</p>
           </article>
           <article class="product-card">
-            <div class="photo-slot photo-slot--dashed" style="position:relative">
+            <div class="photo-slot photo-slot--dashed photo-slot--filled" style="position:relative">
               <span class="badge">À venir</span>
-              <p>Photo — caviar</p>
+              <picture>
+                <source type="image/avif" srcset="assets/img/responsive/trois-caviars-900w.avif 900w, assets/img/responsive/trois-caviars-1024w.avif 1024w" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+                <source type="image/webp" srcset="assets/img/responsive/trois-caviars-900w.webp 900w, assets/img/responsive/trois-caviars-1024w.webp 1024w" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+                <img src="assets/img/responsive/trois-caviars-1024w.jpg" srcset="assets/img/responsive/trois-caviars-900w.jpg 900w, assets/img/responsive/trois-caviars-1024w.jpg 1024w" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" alt="Sélection de caviars, gamme en préparation" loading="lazy" />
+              </picture>
             </div>
             <h3>Caviar</h3>
             <p class="product-card__specs">Gamme en cours de finalisation</p>
@@ -199,7 +217,7 @@
     </section>
 
     <!-- ============================================================ ILS NOUS FONT CONFIANCE ============================================================ -->
-    <section class="section-pad">
+    <section class="section-pad pad-confiance">
       <div class="container">
         <div class="section-header section-header--center">
           <h2 class="h2">Ils nous font confiance</h2>

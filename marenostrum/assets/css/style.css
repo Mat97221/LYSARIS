@@ -20,17 +20,18 @@
   --font-display: "Familjen Grotesk", sans-serif;
   --font-body: "Archivo", sans-serif;
 
-  --container-max: 1180px;
+  --container-max: 1280px;
   --container-pad: 20px;
   --stripe-size: 26px;
   --header-height: 76px;
+  --radius: 2px;
 }
 
 @media (min-width: 640px) {
-  :root { --container-pad: 32px; }
+  :root { --container-pad: 40px; }
 }
 @media (min-width: 1024px) {
-  :root { --container-pad: 48px; --header-height: 88px; }
+  :root { --container-pad: 64px; --header-height: 88px; }
 }
 
 /* -------------------------------------------------------------------------- *
@@ -82,8 +83,35 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding-right: var(--container-pad);
 }
 
+/* Rayon d'angle uniforme et discret sur tous les blocs (photos, boutons, cartes). */
+.photo-slot, .trust__item, .clock-widget, .form-field input, .form-field textarea {
+  border-radius: var(--radius);
+}
+
+/* Rythme vertical volontairement variable selon la section (pas un padding uniforme) —
+   respecte l'ordre de grandeur du brief pour garder la respiration éditoriale du site de
+   référence : chaque section a son propre couple mobile/desktop plutôt qu'une valeur commune. */
 .section-pad { padding-top: 64px; padding-bottom: 64px; }
 @media (min-width: 1024px) { .section-pad { padding-top: 96px; padding-bottom: 96px; } }
+
+#origines.section-pad { padding-top: 0; padding-bottom: 64px; }
+@media (min-width: 1024px) { #origines.section-pad { padding-top: 0; padding-bottom: 150px; } }
+
+#savoir-faire.section-pad { padding-top: 64px; padding-bottom: 64px; }
+@media (min-width: 1024px) { #savoir-faire.section-pad { padding-top: 130px; padding-bottom: 130px; } }
+
+#produits.section-pad, .pad-prestige.section-pad { padding-top: 64px; padding-bottom: 64px; }
+@media (min-width: 640px) { #produits.section-pad, .pad-prestige.section-pad { padding-top: 90px; padding-bottom: 90px; } }
+@media (min-width: 1024px) { #produits.section-pad, .pad-prestige.section-pad { padding-top: 140px; padding-bottom: 140px; } }
+
+#professionnels.section-pad { padding-top: 64px; padding-bottom: 64px; }
+@media (min-width: 1024px) { #professionnels.section-pad { padding-top: 130px; padding-bottom: 130px; } }
+
+.pad-confiance.section-pad { padding-top: 56px; padding-bottom: 56px; }
+@media (min-width: 1024px) { .pad-confiance.section-pad { padding-top: 80px; padding-bottom: 80px; } }
+
+footer#contact.section-pad { padding-top: 56px; padding-bottom: 56px; }
+@media (min-width: 1024px) { footer#contact.section-pad { padding-top: 100px; padding-bottom: 60px; } }
 
 [data-theme="navy"] {
   background-color: var(--color-navy);
@@ -179,8 +207,8 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
   letter-spacing: 0.02em;
   display: inline-flex;
 }
-.logo img { height: 22px; width: auto; }
-@media (min-width: 640px) { .logo img { height: 26px; } }
+.logo img { height: 37px; width: auto; }
+@media (min-width: 640px) { .logo img { height: 44px; } }
 
 .nav-desktop {
   display: none;
@@ -191,19 +219,10 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    position: relative;
-    padding: 4px 0;
+    opacity: 0.72;
+    transition: opacity 0.15s ease;
   }
-  .nav-desktop a::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 100%;
-    bottom: 0;
-    height: 1px;
-    background: var(--color-navy);
-    transition: right 0.2s ease;
-  }
-  .nav-desktop a:hover::after { right: 0; }
+  .nav-desktop a:hover { opacity: 1; }
 }
 
 .header__actions { display: flex; align-items: center; gap: 16px; }
@@ -260,6 +279,8 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
 .btn--white:hover { background-color: #eef1f6; }
 .btn--ghost { border-color: var(--border-light-strong); color: var(--color-navy); }
 .btn--ghost:hover { border-color: var(--color-navy); }
+.btn--outline-fill { border-color: var(--color-navy); color: var(--color-navy); background-color: transparent; }
+.btn--outline-fill:hover { background-color: var(--color-navy); color: var(--color-white); }
 .btn--small { min-height: 40px; padding: 8px 20px; font-size: 13px; }
 
 /* -------------------------------------------------------------------------- *
@@ -348,10 +369,10 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
 /* -------------------------------------------------------------------------- *
  * Manifeste
  * -------------------------------------------------------------------------- */
-.manifesto { padding-top: 48px; padding-bottom: 48px; }
-@media (min-width: 1024px) { .manifesto { padding-top: 72px; padding-bottom: 72px; } }
+.manifesto { padding-top: 40px; padding-bottom: 40px; }
+@media (min-width: 1024px) { .manifesto { padding-top: 80px; padding-bottom: 130px; } }
 .manifesto blockquote {
-  max-width: 52rem;
+  max-width: 780px;
   margin: 0 auto;
   text-align: center;
   font-family: var(--font-display);
@@ -389,6 +410,12 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
 }
 .photo-slot--dashed { border-style: dashed; border-color: var(--border-light-strong); }
 
+/* Emplacement rempli par une vraie photo : l'image couvre le cadre (l'aspect-ratio et la
+   bordure — pointillée ou non — sont conservés), plus de padding ni de libellé texte. */
+.photo-slot--filled { display: block; padding: 0; overflow: hidden; }
+.photo-slot--filled picture { display: block; width: 100%; height: 100%; }
+.photo-slot--filled img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
 /* -------------------------------------------------------------------------- *
  * Origines
  * -------------------------------------------------------------------------- */
@@ -421,7 +448,7 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
 .product-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 40px;
 }
 @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .product-grid--3 { grid-template-columns: repeat(3, 1fr); } }
@@ -492,7 +519,7 @@ h2, .h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 20px; }
 @media (min-width: 1024px) { .contact__grid { grid-template-columns: 1fr 1fr; gap: 80px; } }
 
 .contact__brand .logo { margin-bottom: 16px; }
-.contact__brand .logo img { height: 24px; }
+.contact__brand .logo img { height: 41px; }
 .contact__brand > p { color: var(--text-secondary-navy-max); max-width: 34ch; margin-bottom: 28px; }
 
 .contact__coords { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
