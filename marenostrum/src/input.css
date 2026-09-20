@@ -375,6 +375,111 @@
 }
 
 /* ============================================================================
+ * WIDGET DE CONDITIONS — carte translucide en bas à droite du hero, valeurs mises à jour par
+ * mnInitConditionsWidget() (ui.js) via une requête à l'API Open-Meteo (sans clé), pour un point
+ * du littoral breton. Les valeurs statiques du HTML servent de repli si la requête échoue (hors
+ * ligne, réseau restreint) — jamais un état vide.
+ * ============================================================================ */
+.mn-conditions {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.75rem;
+  z-index: 10;
+  border: 1px solid rgba(244, 239, 230, 0.25);
+  background-color: rgba(14, 24, 41, 0.45);
+  backdrop-filter: blur(6px);
+  padding: 1rem 1.25rem;
+  color: #F4EFE6;
+}
+@media (min-width: 640px) {
+  .mn-conditions { right: 2rem; bottom: 2.5rem; }
+}
+.mn-conditions__place {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+  margin-bottom: 0.4rem;
+}
+.mn-conditions__temp {
+  font-family: "Switzer", "Inter", sans-serif;
+  font-size: 1.75rem;
+  font-weight: var(--fontBold);
+}
+.mn-conditions__footer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(244, 239, 230, 0.25);
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+.mn-conditions__data { display: flex; align-items: center; gap: 0.35rem; }
+.mn-conditions__data svg { width: 14px; height: 14px; }
+
+/* ============================================================================
+ * CARROUSEL DE SECTIONS — sous le bandeau de données, une carte claire centrée sur une photo
+ * plein cadre qui change par diapositive (compteur, titre, image d'appoint, teaser, lien),
+ * complétée par une liste de pagination textuelle synchronisée en dessous. Piloté par Splide
+ * (voir mnInitHeroSplide, home.js) ; sans JS/CDN bloqué, les diapositives s'empilent simplement.
+ * ============================================================================ */
+.mn-sections-carousel__slide {
+  position: relative;
+  min-height: 26rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .mn-sections-carousel__slide { min-height: 36rem; }
+}
+.mn-sections-carousel__bg { position: absolute; inset: 0; }
+.mn-sections-carousel__scrim {
+  position: absolute;
+  inset: 0;
+  background-color: #17263F;
+  opacity: 0.45;
+}
+.mn-sections-carousel__card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 26rem;
+  margin: 2rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+.mn-sections-carousel__counter {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+.mn-sections-carousel__counter .is-muted { opacity: 0.4; }
+.mn-sections-carousel__image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+.mn-sections-carousel__paging {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 2rem;
+  padding: 1.5rem 0;
+}
+.mn-sections-carousel__paging button {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.5;
+  transition: opacity 200ms ease;
+}
+.mn-sections-carousel__paging button.is-active { opacity: 1; }
+
+/* ============================================================================
  * BANDEAU DE DONNÉES VIVANTES — sous le hero, fond sombre fixe (thème sombre local, aplat pur).
  * ============================================================================ */
 .mn-data-band {

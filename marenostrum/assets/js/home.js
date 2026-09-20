@@ -97,6 +97,17 @@ function mnHomeHero() {
       <h1 class="h-hero max-w-2xl">L'apogée des saveurs</h1>
       <p class="mt-6 max-w-lg text-base sm:text-lg opacity-80">Le caviar choisi, calibré, garanti — pour les tables qui ne pardonnent rien.</p>
     </div>
+
+    <!-- Conditions du littoral (Cancale) — mnInitConditionsWidget() (ui.js) écrase ces valeurs
+         de repli avec les données Open-Meteo dès qu'elles sont disponibles. -->
+    <div class="mn-conditions" id="mn-conditions">
+      <p class="mn-conditions__place">Littoral de Cancale</p>
+      <p class="mn-conditions__temp"><span data-conditions-temp>14.5°C</span></p>
+      <div class="mn-conditions__footer">
+        <span class="mn-conditions__data"><span class="h-4 w-4">${MN_ICONS.wind}</span> <span data-conditions-wind>3.2 m/s</span></span>
+        <span class="mn-conditions__data"><span class="h-4 w-4">${MN_ICONS.droplet}</span> <span data-conditions-humidity>78%</span></span>
+      </div>
+    </div>
   </section>
 
   <!-- Bandeau de données vivantes — aplat sombre fixe, chiffres en ivoire (la taille porte la
@@ -118,21 +129,85 @@ function mnHomeHero() {
     </div>
   </div>
 
-  <!-- Sélecteur de sections horizontal (Splide) — navigation secondaire, complète le menu
-       plein écran plutôt que de le remplacer. Rattaché visuellement au bandeau de données
-       (même thème sombre) pour ne pas rouvrir une bande claire juste avant La Maison. -->
-  <nav class="border-b" data-theme="dark" style="background-color:var(--color-bg); border-color:var(--color-border); color:var(--color-text)" aria-label="Sections de la page">
-    <div class="splide" id="section-splide" aria-label="Sections">
+  <!-- Carrousel de sections — sert de sommaire visuel juste sous le hero, complète le menu
+       plein écran plutôt que de le remplacer (voir mnInitHeroSplide pour l'init Splide, et la
+       pagination textuelle synchronisée à la main plus bas, sur le modèle "01/04"). -->
+  <div class="mn-sections-carousel">
+    <div class="splide" id="section-splide" aria-label="Sections de la page">
       <div class="splide__track">
         <ul class="splide__list">
-          <li class="splide__slide"><a href="#maison" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">La Maison</a></li>
-          <li class="splide__slide"><a href="#table" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">La Table</a></li>
-          <li class="splide__slide"><a href="#savoir-faire" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">Notre savoir-faire</a></li>
-          <li class="splide__slide"><a href="#contact" data-scroll-link class="mn-nav-link block px-5 py-4 text-xs uppercase tracking-label whitespace-nowrap">Contact</a></li>
+          ${mnSectionsCarouselSlide({
+            n: 1,
+            href: "#maison",
+            title: "La Maison",
+            bgStem: "texture-mareyage",
+            imgStem: "grain-macro",
+            text: "Une maison qui retient peu de pièces, les calibre avec rigueur, et en garantit la régularité, commande après commande.",
+            cta: "Découvrir La Maison"
+          })}
+          ${mnSectionsCarouselSlide({
+            n: 2,
+            href: "#table",
+            title: "La Table",
+            bgStem: "bar-loup",
+            imgStem: "langoustine",
+            text: "Le Caviar et La Mer : deux univers, une même exigence. Aucun prix affiché — chaque pièce s'obtient sur demande d'allocation.",
+            cta: "Découvrir La Table"
+          })}
+          ${mnSectionsCarouselSlide({
+            n: 3,
+            href: "#savoir-faire",
+            title: "Notre savoir-faire",
+            bgStem: "trois-caviars",
+            imgStem: "gamme-boites",
+            text: "Sélection, traçabilité, chaîne du froid : ce qui garantit chaque expédition, du lot retenu jusqu'à la livraison réfrigérée.",
+            cta: "Découvrir notre savoir-faire"
+          })}
+          ${mnSectionsCarouselSlide({
+            n: 4,
+            href: "#contact",
+            title: "Contact",
+            text: "Une maison qui répond sous 48h à toute demande de référencement, étudiée individuellement.",
+            cta: "Nous écrire"
+          })}
         </ul>
       </div>
     </div>
-  </nav>`;
+    <ul class="mn-sections-carousel__paging" id="section-splide-paging">
+      <li><button type="button" class="is-active" data-paging-index="0">La Maison</button></li>
+      <li><button type="button" data-paging-index="1">La Table</button></li>
+      <li><button type="button" data-paging-index="2">Notre savoir-faire</button></li>
+      <li><button type="button" data-paging-index="3">Contact</button></li>
+    </ul>
+  </div>`;
+}
+
+/** Une diapositive du carrousel de sections : photo plein cadre (ou aplat de repli si aucune
+    photo réelle ne convient encore, ex. Contact), carte claire centrée (compteur, titre, image
+    d'appoint optionnelle, teaser, lien) — voir mnHomeHero() pour l'assemblage des quatre. */
+function mnSectionsCarouselSlide({ n, href, title, bgStem, imgStem, text, cta }) {
+  const total = "04";
+  const num = String(n).padStart(2, "0");
+  const bg = bgStem
+    ? mnPicture({ stem: bgStem, alt: "", sizes: "100vw", className: "h-full w-full object-cover" })
+    : `<div class="h-full w-full" style="background-color:var(--color-surface-high)"></div>`;
+  const inset = imgStem
+    ? mnPicture({ stem: imgStem, alt: "", sizes: "26rem", className: "h-full w-full object-cover" })
+    : "";
+  return `
+  <li class="splide__slide">
+    <div class="mn-sections-carousel__slide">
+      <div class="mn-sections-carousel__bg" aria-hidden="true">${bg}</div>
+      <div class="mn-sections-carousel__scrim" aria-hidden="true"></div>
+      <a href="${href}" data-scroll-link data-hover="Voir" class="mn-sections-carousel__card">
+        <p class="mn-sections-carousel__counter"><span>${num}</span> <span class="is-muted">${total}</span></p>
+        <h3 class="h-card mt-3">${title}</h3>
+        ${inset ? `<div class="mn-sections-carousel__image">${inset}</div>` : ""}
+        <p class="prose-copy text-sm mt-4">${text}</p>
+        <p class="btn-quiet mt-6 inline-flex">${cta} →</p>
+      </a>
+    </div>
+  </li>`;
 }
 
 function mnInitHeroSplide() {
@@ -144,16 +219,44 @@ function mnInitHeroSplide() {
     drag: false,
     autoplay: false
   }).mount();
-  new Splide("#section-splide", {
-    perPage: 4,
-    perMove: 1,
-    pagination: false,
+
+  const sectionsSplide = new Splide("#section-splide", {
+    type: "fade",
     arrows: false,
-    gap: "0.5rem",
-    breakpoints: {
-      768: { perPage: 2 }
-    }
-  }).mount();
+    pagination: false,
+    autoplay: false
+  });
+  // Pagination textuelle externe (liste "La Maison / La Table / ..." sous le carrousel) au lieu
+  // des puces Splide par défaut — on la synchronise à la main dans les deux sens.
+  const pagingButtons = document.querySelectorAll("#section-splide-paging [data-paging-index]");
+  sectionsSplide.on("move", (newIndex) => {
+    pagingButtons.forEach((btn, i) => btn.classList.toggle("is-active", i === newIndex));
+  });
+  pagingButtons.forEach((btn) => {
+    btn.addEventListener("click", () => sectionsSplide.go(Number(btn.dataset.pagingIndex)));
+  });
+  sectionsSplide.mount();
+}
+
+/** Widget de conditions du hero (voir mn-conditions dans mnHomeHero) : écrase les valeurs de
+    repli statiques par les données Open-Meteo (sans clé, CORS ouvert) pour un point du littoral
+    breton. Échec silencieux si l'API est injoignable — les valeurs de repli restent affichées. */
+function mnInitConditionsWidget() {
+  const el = document.getElementById("mn-conditions");
+  if (!el) return;
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=48.68&longitude=-1.85&current=temperature_2m,wind_speed_10m,relative_humidity_2m")
+    .then((res) => (res.ok ? res.json() : Promise.reject()))
+    .then((data) => {
+      const c = data && data.current;
+      if (!c) return;
+      const temp = el.querySelector("[data-conditions-temp]");
+      const wind = el.querySelector("[data-conditions-wind]");
+      const humidity = el.querySelector("[data-conditions-humidity]");
+      if (temp && typeof c.temperature_2m === "number") temp.textContent = `${c.temperature_2m.toFixed(1)}°C`;
+      if (wind && typeof c.wind_speed_10m === "number") wind.textContent = `${c.wind_speed_10m.toFixed(1)} m/s`;
+      if (humidity && typeof c.relative_humidity_2m === "number") humidity.textContent = `${Math.round(c.relative_humidity_2m)}%`;
+    })
+    .catch(() => {});
 }
 
 /* ------------------------------------------------------------------------------------------ *
@@ -208,6 +311,23 @@ function mnSectionMaison() {
          21:9, bords à bords] — seule photo déjà existante de cette liste, réutilisée telle
          quelle (voir mnHomeTextureBand). -->
     <div class="strip strip--wide strip--image mt-lg js-image-anime" id="mn-texture-slot" data-texture></div>
+
+    <!-- Presse — contenu de démonstration (voir la mention en pied de page), sur le modèle de
+         la carte "News" d'un site de domaine : bloc encadré à part du reste de la section. -->
+    <div class="strip strip--normal mt-lg" style="--w1:3; --w2:0">
+      <div class="strip--columns" style="background-color:var(--color-surface); padding-left:var(--space-section); padding-right:var(--space-section); padding-top:calc(var(--space-section) * 2); padding-bottom:calc(var(--space-section) * 2)">
+        <div class="flex flex-col justify-center">
+          <p class="eyebrow mb-3">Presse</p>
+          <h3 class="h-card mb-4">Marenostrum salué pour la régularité de ses calibrages</h3>
+          <p class="prose-copy mb-4">Un panel de chefs indépendants a testé cinq maisons sur trois commandes successives : Marenostrum est la seule à livrer un calibre rigoureusement identique à chaque expédition.</p>
+          <p class="text-sm font-medium mb-4">Source : Revue de la Table (démonstration)</p>
+          <a href="#contact" class="btn-quiet self-start" data-scroll-link data-hover="Lire">Lire l'article →</a>
+        </div>
+        <div class="relative overflow-hidden js-image-anime" style="aspect-ratio:4/5">
+          ${mnPicture({ stem: "gamme-boites", alt: "Gamme de coffrets Marenostrum", sizes: "(min-width: 768px) 30rem, 100vw", className: "absolute inset-0 h-full w-full object-cover" })}
+        </div>
+      </div>
+    </div>
 
     <div class="strip strip--normal mt-lg text-center">
       <p class="eyebrow mb-4">Le caviar</p>
