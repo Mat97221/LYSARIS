@@ -111,9 +111,18 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 .site-header .logo,
 .site-header .menu-toggle { pointer-events: auto; }
 
-.site-header .logo { display: block; position: relative; height: 52px; }
+.site-header .logo {
+  display: block;
+  position: relative;
+  height: 52px;
+  transition: opacity 0.6s ease;
+}
 @media (min-width: 640px) { .site-header .logo { height: 73px; } }
 @media (min-width: 1024px) { .site-header .logo { height: 88px; } }
+
+/* Le logo d'en-tête s'efface le temps que le logo-emblème se lève sur
+   l'horizon en clôture de page (voir mnInitClosingReveal dans main.js). */
+.site-header--hide-logo .logo { opacity: 0; pointer-events: none; }
 
 .site-header .logo img {
   height: 100%;
@@ -417,17 +426,17 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
   left: 50%;
   bottom: 48.2%;
   transform: translateX(-50%);
-  width: 220px;
+  width: 120px;
   height: 0;
   overflow: hidden;
-  transition: height 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: height 2.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@media (min-width: 640px) { .closing__logo-wrap { width: 300px; } }
-@media (min-width: 1024px) { .closing__logo-wrap { width: 380px; bottom: 47.6%; } }
+@media (min-width: 640px) { .closing__logo-wrap { width: 160px; } }
+@media (min-width: 1024px) { .closing__logo-wrap { width: 200px; bottom: 47.6%; } }
 
-.closing__logo-wrap.is-visible { height: 52px; }
-@media (min-width: 640px) { .closing__logo-wrap.is-visible { height: 70px; } }
-@media (min-width: 1024px) { .closing__logo-wrap.is-visible { height: 89px; } }
+.closing__logo-wrap.is-visible { height: 120px; }
+@media (min-width: 640px) { .closing__logo-wrap.is-visible { height: 160px; } }
+@media (min-width: 1024px) { .closing__logo-wrap.is-visible { height: 200px; } }
 
 .closing__logo-wrap img {
   position: absolute;

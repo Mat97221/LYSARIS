@@ -64,12 +64,16 @@ function mnInitHeaderTheme() {
 }
 
 /**
- * Photo de clôture : le logo blanc « se lève » sur l'horizon, comme le soleil
- * sur la photo, la première fois que la section entre dans l'écran.
+ * Photo de clôture : le logo-emblème blanc « se lève » sur l'horizon, comme
+ * le soleil sur la photo (révélation définitive, une seule fois). Tant que
+ * cette section est à l'écran, le logo de l'en-tête s'efface à son profit —
+ * et réapparaît dès qu'on la quitte.
  */
 function mnInitClosingReveal() {
+  const closing = document.querySelector(".closing");
   const wrap = document.getElementById("closing-logo-wrap");
-  if (!wrap) return;
+  const header = document.querySelector(".site-header");
+  if (!closing || !wrap) return;
 
   if (!("IntersectionObserver" in window)) {
     wrap.classList.add("is-visible");
@@ -81,13 +85,15 @@ function mnInitClosingReveal() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           wrap.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          if (header) header.classList.add("site-header--hide-logo");
+        } else if (header) {
+          header.classList.remove("site-header--hide-logo");
         }
       });
     },
     { threshold: 0.4 }
   );
-  observer.observe(wrap.closest(".closing"));
+  observer.observe(closing);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
