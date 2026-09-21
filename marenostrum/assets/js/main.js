@@ -25,6 +25,45 @@ function mnInitMenuOverlay() {
   });
 }
 
+/**
+ * Fait suivre l'en-tête (logo + icône menu) au défilement, et adapte sa couleur
+ * (blanc / marine) selon la zone de la page qui se trouve derrière lui — chaque
+ * zone porte l'attribut data-header-zone="dark|light" dans le HTML.
+ */
+function mnInitHeaderTheme() {
+  const header = document.querySelector(".site-header");
+  const zones = Array.from(document.querySelectorAll("[data-header-zone]"));
+  if (!header || !zones.length) return;
+
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    const probeY = header.offsetHeight / 2;
+    let theme = "light";
+    for (const zone of zones) {
+      const rect = zone.getBoundingClientRect();
+      if (rect.top <= probeY && rect.bottom >= probeY) {
+        theme = zone.getAttribute("data-header-zone");
+        break;
+      }
+    }
+    header.setAttribute("data-active-theme", theme);
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   mnInitMenuOverlay();
+  mnInitHeaderTheme();
 });

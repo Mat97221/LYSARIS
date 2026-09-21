@@ -13,9 +13,12 @@
 </head>
 <body>
   <!-- ============================================================ EN-TÊTE ============================================================ -->
-  <header class="site-header">
-    <a href="#" class="logo"><img src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" /></a>
-    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay" style="color:#fff">
+  <header class="site-header" data-active-theme="dark">
+    <a href="#" class="logo" aria-label="Marenostrum — accueil">
+      <img class="logo__img logo__img--on-dark" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
+      <img class="logo__img logo__img--on-light" src="assets/img/logo-marenostrum.png" alt="" aria-hidden="true" />
+    </a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 8h18M3 16h18"/></svg>
     </button>
   </header>
@@ -36,7 +39,7 @@
 
   <main>
     <!-- ============================================================ HERO ============================================================ -->
-    <section class="hero">
+    <section class="hero" data-header-zone="dark">
       <div class="hero__bg">
         <picture>
           <source type="image/avif" srcset="assets/img/responsive/hero-mer-900w.avif 900w, assets/img/responsive/hero-mer-1200w.avif 1200w, assets/img/responsive/hero-mer-1376w.avif 1376w" sizes="100vw" />
@@ -48,7 +51,7 @@
     </section>
 
     <!-- ============================================================ QUI NOUS SOMMES ============================================================ -->
-    <section id="qui-nous-sommes" class="split-section split-section--image-right">
+    <section id="qui-nous-sommes" class="split-section split-section--image-right" data-header-zone="light">
       <div class="split-section__grid">
         <div class="split-section__text">
           <h2 class="h2">Qui nous sommes</h2>
@@ -65,7 +68,7 @@
     </section>
 
     <!-- ============================================================ SÉLECTION, NÉGOCE, EXPORT ============================================================ -->
-    <section id="selection" class="negoce-block" data-theme="navy">
+    <section id="selection" class="negoce-block" data-theme="navy" data-header-zone="dark">
       <div class="negoce-block__grid">
         <div class="negoce-block__image photo-slot photo-slot--filled" style="background-color:transparent; border:0">
           <img src="assets/img/saint-jacques.jpg" alt="Noix de Saint-Jacques" loading="lazy" />
@@ -90,10 +93,10 @@
 
     <!-- ============================================================ NOS GAMMES ============================================================ -->
     <section id="gammes" class="gammes">
-      <div class="container">
+      <div class="container" data-header-zone="light">
         <p class="eyebrow gammes__title">NOS GAMMES</p>
       </div>
-      <div class="gammes__grid">
+      <div class="gammes__grid" data-header-zone="dark">
         <div class="gammes__item">
           <img class="gammes__item-img" src="assets/img/gammes-crustaces.jpg" alt="Langouste" loading="lazy" />
           <div class="gammes__item-scrim" aria-hidden="true"></div>
@@ -115,13 +118,13 @@
           <p class="gammes__item-title">Caviar<span class="gammes__item-soon">Prochainement</span></p>
         </div>
       </div>
-      <div class="container gammes__caption">
+      <div class="container gammes__caption" data-header-zone="light">
         <p>Du quotidien à l'exception, toujours choisi avec la même exigence.</p>
       </div>
     </section>
 
     <!-- ============================================================ NOS CONVICTIONS ============================================================ -->
-    <section id="convictions" class="convictions">
+    <section id="convictions" class="convictions" data-header-zone="light">
       <div class="convictions__grid">
         <div class="convictions__text">
           <h2 class="h2" style="margin-bottom:20px">Nos convictions</h2>
@@ -132,14 +135,14 @@
     </section>
 
     <!-- ============================================================ IMAGE DE CLÔTURE + LOGO ============================================================ -->
-    <div class="closing-image photo-slot"><p>Photo — image de clôture</p></div>
-    <div class="closing-logo">
+    <div class="closing-image photo-slot" data-header-zone="light"><p>Photo — image de clôture</p></div>
+    <div class="closing-logo" data-header-zone="light">
       <img src="assets/img/logo-marenostrum-emblem.png" alt="Mare Nostrum" />
     </div>
   </main>
 
   <!-- ============================================================ FOOTER ============================================================ -->
-  <footer id="contact" class="site-footer" data-theme="navy">
+  <footer id="contact" class="site-footer" data-theme="navy" data-header-zone="dark">
     <div class="container site-footer__grid">
       <div class="site-footer__brand">
         <p class="site-footer__wordmark">MARENOSTRUM</p>

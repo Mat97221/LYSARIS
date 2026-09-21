@@ -90,11 +90,14 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 [data-theme="navy"] .prose { color: var(--text-secondary-navy); }
 
 /* -------------------------------------------------------------------------- *
- * En-tête — logo centré en grand format, superposé au hero. Pas de nav visible,
- * seul un déclencheur "menu" ouvre l'overlay plein écran.
+ * En-tête — logo centré en grand format, fixe au défilement. Sa couleur (et
+ * celle de l'icône menu) s'adapte au fond qui défile derrière lui : blanc sur
+ * fond sombre (hero, blocs marine), marine sur fond clair. Voir mnInitHeaderTheme
+ * dans main.js, qui bascule l'attribut data-active-theme selon les zones
+ * marquées data-header-zone dans la page.
  * -------------------------------------------------------------------------- */
 .site-header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -103,11 +106,28 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
-.site-header .logo { display: block; }
-.site-header .logo img { height: 40px; width: auto; }
-@media (min-width: 640px) { .site-header .logo img { height: 56px; } }
-@media (min-width: 1024px) { .site-header .logo img { height: 68px; } }
+.site-header .logo,
+.site-header .menu-toggle { pointer-events: auto; }
+
+.site-header .logo { display: block; position: relative; height: 52px; }
+@media (min-width: 640px) { .site-header .logo { height: 73px; } }
+@media (min-width: 1024px) { .site-header .logo { height: 88px; } }
+
+.site-header .logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+.site-header .logo__img--on-light {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.site-header[data-active-theme="light"] .logo__img--on-dark { opacity: 0; }
+.site-header[data-active-theme="light"] .logo__img--on-light { opacity: 1; }
 
 .menu-toggle {
   position: absolute;
@@ -120,8 +140,14 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
   justify-content: center;
   width: 44px;
   height: 44px;
+  color: var(--color-white);
+  transition: color 0.3s ease;
 }
+.site-header[data-active-theme="light"] .menu-toggle { color: var(--color-navy); }
 .menu-toggle svg { width: 26px; height: 26px; }
+@media (prefers-reduced-motion: reduce) {
+  .site-header .logo img, .menu-toggle { transition: none; }
+}
 
 /* Overlay plein écran */
 .menu-overlay {
@@ -375,8 +401,8 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 @media (min-width: 1024px) { .closing-image { aspect-ratio: 21 / 9; margin-bottom: 80px; } }
 
 .closing-logo { display: flex; justify-content: center; padding-bottom: 96px; }
-.closing-logo img { height: 88px; width: auto; }
-@media (min-width: 1024px) { .closing-logo img { height: 110px; } }
+.closing-logo img { height: 176px; width: auto; }
+@media (min-width: 1024px) { .closing-logo img { height: 220px; } }
 
 /* -------------------------------------------------------------------------- *
  * Footer — mentions légales
