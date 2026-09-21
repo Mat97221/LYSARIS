@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — MARENOSTRUM</title>
+  <meta name="description" content="Contactez Marenostrum, négociant sélectionneur de produits de la mer pour les professionnels de la gastronomie." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A1F33'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23FFFFFF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- ============================================================ EN-TÊTE ============================================================ -->
+  <header class="site-header" data-active-theme="light">
+    <a href="index.html" class="logo" aria-label="Marenostrum — accueil">
+      <img class="logo__img logo__img--on-dark" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
+      <img class="logo__img logo__img--on-light" src="assets/img/logo-marenostrum.png" alt="" aria-hidden="true" />
+    </a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 8h18M3 16h18"/></svg>
+    </button>
+  </header>
+
+  <div class="menu-overlay" id="menu-overlay">
+    <button type="button" class="menu-overlay__close" id="menu-close" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav aria-label="Navigation principale">
+      <a href="index.html#qui-nous-sommes">Qui nous sommes</a>
+      <a href="index.html#selection">Sélection, négoce, export</a>
+      <a href="index.html#gammes">Nos gammes</a>
+      <a href="index.html#convictions">Nos convictions</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- ============================================================ CONTACT ============================================================ -->
+    <section class="contact-page">
+      <div class="container">
+        <p class="eyebrow">Marenostrum</p>
+        <h1 class="h1 gamme-page__title">Contact</h1>
+        <p class="prose contact-page__intro">Une question, un besoin d'approvisionnement, une demande de rendez-vous ? Notre équipe vous répond directement — sans détour ni intermédiaire.</p>
+
+        <div class="contact-page__grid">
+          <div class="contact-page__coords">
+            <p class="eyebrow">Coordonnées</p>
+            <p>Raison sociale — à compléter</p>
+            <p>SIRET — à compléter</p>
+            <p>Adresse du siège — à compléter</p>
+            <p><a href="mailto:contact@marenostrum.fr">contact@marenostrum.fr</a></p>
+            <p>Téléphone — à compléter</p>
+
+            <p class="eyebrow">Horaires</p>
+            <p>Du lundi au vendredi, 8h–18h</p>
+          </div>
+
+          <form class="contact-form" action="mailto:contact@marenostrum.fr" method="post" enctype="text/plain">
+            <div class="contact-form__row">
+              <div>
+                <label for="contact-nom">Nom complet</label>
+                <input type="text" id="contact-nom" name="Nom" required />
+              </div>
+              <div>
+                <label for="contact-etablissement">Établissement</label>
+                <input type="text" id="contact-etablissement" name="Établissement" required />
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div>
+                <label for="contact-email">Email professionnel</label>
+                <input type="email" id="contact-email" name="Email" required />
+              </div>
+              <div>
+                <label for="contact-tel">Téléphone</label>
+                <input type="tel" id="contact-tel" name="Téléphone" />
+              </div>
+            </div>
+            <div>
+              <label for="contact-sujet">Sujet</label>
+              <input type="text" id="contact-sujet" name="Sujet" placeholder="Ex. : demande d'approvisionnement, partenariat, presse..." required />
+            </div>
+            <div>
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="Message" required></textarea>
+            </div>
+            <button type="submit" class="contact-form__submit">Envoyer</button>
+            <p class="contact-form__note">Le message s'ouvre dans votre messagerie, adressé directement à Marenostrum.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================ FOOTER ============================================================ -->
+  <footer class="site-footer" data-theme="navy">
+    <div class="container site-footer__grid">
+      <div class="site-footer__brand">
+        <p class="site-footer__wordmark">MARENOSTRUM</p>
+        <p class="prose">Négociant sélectionneur de produits de la mer pour les professionnels de la gastronomie — du volume quotidien à la pièce la plus rare.</p>
+      </div>
+
+      <div class="site-footer__col">
+        <p class="eyebrow" style="margin-bottom:14px">Coordonnées</p>
+        <p>Raison sociale — à compléter</p>
+        <p>SIRET — à compléter</p>
+        <p>Adresse du siège — à compléter</p>
+        <p>Email — à compléter</p>
+        <p>Téléphone — à compléter</p>
+      </div>
+
+      <div class="site-footer__col">
+        <p class="eyebrow" style="margin-bottom:14px">Informations</p>
+        <p><a href="#">Mentions légales</a></p>
+        <p><a href="#">Politique de confidentialité</a></p>
+        <p><a href="#">Conditions générales de vente</a></p>
+        <p><a href="index.html#qui-nous-sommes">Qui nous sommes</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <p class="site-footer__copy">© 2026 Marenostrum — Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

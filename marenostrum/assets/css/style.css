@@ -107,7 +107,14 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  transition: background-color 0.3s ease;
 }
+
+/* Pages à deux colonnes (image fixe à gauche, contenu à droite) : le logo,
+   centré sur toute la largeur, chevaucherait à la fois la photo et le fond
+   blanc du texte. Un bandeau plein marine derrière le header garantit un
+   contraste constant, quel que soit ce qui défile derrière. */
+.site-header--solid { background-color: var(--color-navy); }
 .site-header .logo,
 .site-header .menu-toggle { pointer-events: auto; }
 
@@ -471,3 +478,176 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
   margin-bottom: 16px;
 }
 .site-footer__brand .prose { max-width: 40ch; }
+
+/* -------------------------------------------------------------------------- *
+ * Transition de page façon « zoom » sur l'image d'une gamme, quand on passe
+ * de sa carte sur l'accueil à sa page dédiée (et retour). S'appuie sur les
+ * View Transitions natives du navigateur : dégradation silencieuse (simple
+ * navigation, sans transition) sur les navigateurs qui ne les supportent pas
+ * encore. Chaque gamme porte le même attribut data-gamme sur sa carte et sur
+ * l'image de sa page, ce qui donne le même view-transition-name aux deux
+ * images : le navigateur anime alors automatiquement le passage de l'une à
+ * l'autre (position et taille), d'où l'effet de zoom.
+ * -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-gamme="crustaces"] img { view-transition-name: vt-gamme-crustaces; }
+[data-gamme="poissons"] img { view-transition-name: vt-gamme-poissons; }
+[data-gamme="epicerie"] img { view-transition-name: vt-gamme-epicerie; }
+[data-gamme="caviar"] img { view-transition-name: vt-gamme-caviar; }
+
+/* -------------------------------------------------------------------------- *
+ * Pages « gamme » — grande image à gauche (fixe sur desktop), contenu à
+ * droite : titre, texte, liste des références, formulaire de contact dédié.
+ * -------------------------------------------------------------------------- */
+.gamme-page { display: flex; flex-direction: column; }
+@media (min-width: 1024px) { .gamme-page { flex-direction: row; } }
+
+.gamme-page__image { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+@media (min-width: 1024px) {
+  .gamme-page__image {
+    flex: 0 0 46%;
+    aspect-ratio: auto;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+}
+.gamme-page__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.gamme-page__content { flex: 1; min-width: 0; padding: 140px var(--container-pad) 96px; }
+@media (min-width: 1024px) { .gamme-page__content { padding: 180px 80px 120px var(--container-pad); } }
+
+.gamme-page__title { margin-bottom: 24px; }
+.gamme-page__intro { font-size: 17px; max-width: 56ch; }
+
+.gamme-page__badge {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 9px 18px;
+  border: 1px solid var(--border-light);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.gamme-page__section-title {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-top: 64px;
+  margin-bottom: 24px;
+}
+
+.product-list { counter-reset: item; border-top: 1px solid var(--border-light); max-width: 56ch; }
+.product-list li {
+  counter-increment: item;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.product-list li::before {
+  content: counter(item, decimal-leading-zero);
+  flex: 0 0 auto;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.product-list li span { font-family: var(--font-title); font-size: 18px; }
+
+.gamme-page__contact {
+  margin-top: 80px;
+  padding-top: 56px;
+  border-top: 1px solid var(--border-light);
+  max-width: 640px;
+}
+.gamme-page__contact .prose { margin-top: 12px; margin-bottom: 32px; }
+
+/* -------------------------------------------------------------------------- *
+ * Formulaire de contact — réutilisé sur chaque page de gamme et sur la page
+ * Contact générale.
+ * -------------------------------------------------------------------------- */
+.contact-form { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.contact-form__row { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 560px) { .contact-form__row { grid-template-columns: 1fr 1fr; } }
+
+.contact-form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+[data-theme="navy"] .contact-form label { color: var(--text-secondary-navy); }
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 15px;
+  color: inherit;
+  border-radius: 0;
+}
+[data-theme="navy"] .contact-form input,
+[data-theme="navy"] .contact-form textarea { border-color: rgba(255, 255, 255, 0.24); }
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
+[data-theme="navy"] .contact-form input:focus-visible,
+[data-theme="navy"] .contact-form textarea:focus-visible { outline-color: var(--color-white); }
+.contact-form textarea { min-height: 140px; resize: vertical; }
+
+.contact-form__submit {
+  justify-self: start;
+  margin-top: 8px;
+  padding: 15px 34px;
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+.contact-form__submit:hover { background-color: var(--color-navy-deep); }
+[data-theme="navy"] .contact-form__submit { background-color: var(--color-white); color: var(--color-navy); }
+[data-theme="navy"] .contact-form__submit:hover { background-color: rgba(255, 255, 255, 0.85); }
+
+.contact-form__note { font-size: 12px; color: var(--text-secondary); margin-top: -4px; }
+[data-theme="navy"] .contact-form__note { color: var(--text-secondary-navy); }
+
+/* -------------------------------------------------------------------------- *
+ * Page Contact générale
+ * -------------------------------------------------------------------------- */
+.contact-page { padding: 140px var(--container-pad) 120px; }
+@media (min-width: 1024px) { .contact-page { padding-top: 180px; } }
+
+.contact-page__intro { max-width: 42ch; margin-top: 16px; }
+
+.contact-page__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 56px;
+  margin-top: 56px;
+}
+@media (min-width: 1024px) { .contact-page__grid { grid-template-columns: 1fr 1.3fr; gap: 96px; } }
+
+.contact-page__coords .eyebrow { display: block; margin-top: 36px; margin-bottom: 12px; }
+.contact-page__coords .eyebrow:first-child { margin-top: 0; }
+.contact-page__coords p { font-size: 15px; margin-bottom: 8px; }
+.contact-page__coords a:hover { text-decoration: underline; }
