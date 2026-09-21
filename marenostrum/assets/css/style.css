@@ -395,14 +395,48 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 @media (min-width: 768px) { .convictions__image--large { aspect-ratio: 4 / 5; margin-right: var(--container-pad); } }
 
 /* -------------------------------------------------------------------------- *
- * Image large de clôture + logo
+ * Image large de clôture — le logo blanc se révèle sur l'horizon comme un
+ * lever de soleil : .closing__logo-wrap est masqué (height: 0, overflow:
+ * hidden) et sa hauteur s'anime jusqu'à sa valeur pleine quand la section
+ * entre dans l'écran (classe .is-visible ajoutée par mnInitClosingReveal).
+ * Le logo, ancré en bas du cadre, se découvre donc du bas vers le haut,
+ * exactement comme s'il sortait de la ligne d'horizon.
  * -------------------------------------------------------------------------- */
-.closing-image { margin: 0 var(--container-pad) 56px; aspect-ratio: 16 / 9; }
-@media (min-width: 1024px) { .closing-image { aspect-ratio: 21 / 9; margin-bottom: 80px; } }
+.closing {
+  position: relative;
+  overflow: hidden;
+  margin: 0 var(--container-pad) 56px;
+  aspect-ratio: 16 / 9;
+}
+@media (min-width: 1024px) { .closing { aspect-ratio: 21 / 9; margin-bottom: 80px; } }
 
-.closing-logo { display: flex; justify-content: center; padding-bottom: 96px; }
-.closing-logo img { height: 176px; width: auto; }
-@media (min-width: 1024px) { .closing-logo img { height: 220px; } }
+.closing__bg { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+.closing__logo-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 48.2%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 0;
+  overflow: hidden;
+  transition: height 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 640px) { .closing__logo-wrap { width: 300px; } }
+@media (min-width: 1024px) { .closing__logo-wrap { width: 380px; bottom: 47.6%; } }
+
+.closing__logo-wrap.is-visible { height: 52px; }
+@media (min-width: 640px) { .closing__logo-wrap.is-visible { height: 70px; } }
+@media (min-width: 1024px) { .closing__logo-wrap.is-visible { height: 89px; } }
+
+.closing__logo-wrap img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 /* -------------------------------------------------------------------------- *
  * Footer — mentions légales

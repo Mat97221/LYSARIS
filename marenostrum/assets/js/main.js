@@ -63,7 +63,35 @@ function mnInitHeaderTheme() {
   update();
 }
 
+/**
+ * Photo de clôture : le logo blanc « se lève » sur l'horizon, comme le soleil
+ * sur la photo, la première fois que la section entre dans l'écran.
+ */
+function mnInitClosingReveal() {
+  const wrap = document.getElementById("closing-logo-wrap");
+  if (!wrap) return;
+
+  if (!("IntersectionObserver" in window)) {
+    wrap.classList.add("is-visible");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          wrap.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  observer.observe(wrap.closest(".closing"));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   mnInitMenuOverlay();
   mnInitHeaderTheme();
+  mnInitClosingReveal();
 });

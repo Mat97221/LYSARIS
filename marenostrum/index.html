@@ -136,10 +136,14 @@
       </div>
     </section>
 
-    <!-- ============================================================ IMAGE DE CLÔTURE + LOGO ============================================================ -->
-    <div class="closing-image photo-slot" data-header-zone="light"><p>Photo — image de clôture</p></div>
-    <div class="closing-logo" data-header-zone="light">
-      <img src="assets/img/logo-marenostrum-emblem.png" alt="Mare Nostrum" />
+    <!-- ============================================================ IMAGE DE CLÔTURE ============================================================ -->
+    <!-- Le logo blanc « se lève » sur l'horizon du coucher de soleil, comme le soleil sur la photo,
+         via un simple masque (hauteur 0 → pleine hauteur) déclenché par mnInitClosingReveal. -->
+    <div class="closing" data-header-zone="light">
+      <img class="closing__bg" src="assets/img/closing-coucher-soleil.jpg" alt="Coucher de soleil sur la mer" loading="lazy" />
+      <div class="closing__logo-wrap" id="closing-logo-wrap">
+        <img src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
+      </div>
     </div>
   </main>
 
