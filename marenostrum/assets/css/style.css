@@ -276,7 +276,8 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
  * -------------------------------------------------------------------------- */
 .gammes { padding-top: 96px; padding-bottom: 64px; text-align: center; }
 @media (min-width: 1024px) { .gammes { padding-top: 150px; } }
-.gammes__title { margin-bottom: 48px; }
+.gammes__title { font-size: 28px; margin-bottom: 48px; }
+@media (min-width: 640px) { .gammes__title { font-size: 32px; } }
 
 .gammes__grid {
   display: grid;
@@ -296,6 +297,8 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
   justify-content: center;
   padding-top: 32px;
 }
+@media (min-width: 640px) { .gammes__item { aspect-ratio: 3 / 5; } }
+@media (min-width: 1024px) { .gammes__item { aspect-ratio: 3 / 6; } }
 .gammes__item-title {
   font-family: var(--font-title);
   font-size: 20px;
@@ -323,25 +326,24 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 }
 
 /* -------------------------------------------------------------------------- *
- * Nos convictions — image plein bord gauche + image plus grande, texte à droite
- * en dessous (empilé, layout asymétrique).
+ * Nos convictions — titre et texte à gauche, grande photo à droite.
  * -------------------------------------------------------------------------- */
 .convictions { padding-top: 96px; padding-bottom: 96px; }
 @media (min-width: 1024px) { .convictions { padding-top: 150px; padding-bottom: 150px; } }
 
-.convictions__images {
+.convictions__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
-  margin-bottom: 48px;
+  gap: 40px;
+  align-items: center;
 }
-@media (min-width: 768px) { .convictions__images { grid-template-columns: 1fr 1.4fr; gap: 0; align-items: end; } }
-.convictions__image--small { aspect-ratio: 1 / 1; }
-.convictions__image--large { aspect-ratio: 4 / 3; }
-@media (min-width: 768px) { .convictions__image--large { aspect-ratio: 4 / 5; } }
+@media (min-width: 768px) { .convictions__grid { grid-template-columns: 1fr 1.3fr; gap: 64px; } }
 
-.convictions__text { padding-left: var(--container-pad); padding-right: var(--container-pad); max-width: 720px; }
-.convictions__text .prose { margin-top: 20px; max-width: 62ch; }
+.convictions__text { padding-left: var(--container-pad); padding-right: var(--container-pad); }
+.convictions__text .prose { margin-top: 20px; max-width: 52ch; }
+
+.convictions__image--large { aspect-ratio: 4 / 3; margin-right: 0; }
+@media (min-width: 768px) { .convictions__image--large { aspect-ratio: 4 / 5; margin-right: var(--container-pad); } }
 
 /* -------------------------------------------------------------------------- *
  * Image large de clôture + logo
@@ -350,13 +352,30 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 @media (min-width: 1024px) { .closing-image { aspect-ratio: 21 / 9; margin-bottom: 80px; } }
 
 .closing-logo { display: flex; justify-content: center; padding-bottom: 96px; }
-.closing-logo img { height: 48px; width: auto; }
-@media (min-width: 1024px) { .closing-logo img { height: 60px; } }
+.closing-logo img { height: 88px; width: auto; }
+@media (min-width: 1024px) { .closing-logo img { height: 110px; } }
 
 /* -------------------------------------------------------------------------- *
  * Footer — mentions légales
  * -------------------------------------------------------------------------- */
-.site-footer { padding: 56px 0 40px; }
-.site-footer .container { max-width: 900px; }
+.site-footer { padding: 72px 0 40px; }
 .site-footer p { font-size: 13px; color: var(--text-secondary-navy); margin-bottom: 8px; }
-.site-footer .site-footer__copy { margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.site-footer .site-footer__copy { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.site-footer a:hover { color: var(--color-white); }
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 16px;
+}
+@media (min-width: 768px) { .site-footer__grid { grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; } }
+
+.site-footer__wordmark {
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+.site-footer__brand .prose { max-width: 40ch; }
