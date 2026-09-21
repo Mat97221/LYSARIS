@@ -3,277 +3,138 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MARENOSTRUM — Produits de la mer pour professionnels</title>
-  <meta name="description" content="Marenostrum approvisionne les cuisines professionnelles en produits de la mer, du volume quotidien à la pièce d'exception — restaurants, hôtels, traiteurs, distributeurs." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314213D'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23FFFFFF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <title>MARENOSTRUM — Négociant sélectionneur de produits de la mer</title>
+  <meta name="description" content="Marenostrum, négociant sélectionneur des professionnels de la gastronomie : du volume quotidien à la pièce la plus rare." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A1F33'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23FFFFFF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600&family=Archivo:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="stripe-bar" role="presentation"></div>
-
-  <header class="site-header" id="site-header">
-    <div class="container header__row">
-      <a href="#" class="logo"><img src="assets/img/logo-marenostrum.png" alt="Mare Nostrum" /></a>
-
-      <nav class="nav-desktop" aria-label="Navigation principale">
-        <a href="#origines">Origines</a>
-        <a href="#savoir-faire">Savoir-faire</a>
-        <a href="#produits">Nos produits</a>
-        <a href="#professionnels">Professionnels</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="header__actions">
-        <a href="#contact" class="btn btn--outline-fill btn--small">Contact</a>
-        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-mobile">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-    </div>
+  <!-- ============================================================ EN-TÊTE ============================================================ -->
+  <header class="site-header">
+    <a href="#" class="logo"><img src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" /></a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay" style="color:#fff">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 8h18M3 16h18"/></svg>
+    </button>
   </header>
 
-  <nav class="nav-mobile" id="nav-mobile" aria-label="Navigation mobile">
-    <ul>
-      <li><a href="#origines">Origines</a></li>
-      <li><a href="#savoir-faire">Savoir-faire</a></li>
-      <li><a href="#produits">Nos produits</a></li>
-      <li><a href="#professionnels">Professionnels</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- Overlay plein écran — liens provisoires vers les sections de la page, à définir plus tard. -->
+  <div class="menu-overlay" id="menu-overlay">
+    <button type="button" class="menu-overlay__close" id="menu-close" aria-label="Fermer le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav aria-label="Navigation principale">
+      <a href="#qui-nous-sommes">Qui nous sommes</a>
+      <a href="#selection">Sélection, négoce, export</a>
+      <a href="#gammes">Nos gammes</a>
+      <a href="#convictions">Nos convictions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 
   <main>
     <!-- ============================================================ HERO ============================================================ -->
     <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__text">
-          <h1 class="h1">Les produits de la mer, pensés pour les professionnels.</h1>
-          <p>Marenostrum approvisionne les cuisines professionnelles en produits de la mer, du volume quotidien à la pièce d'exception — pour les restaurants, hôtels, traiteurs et distributeurs.</p>
-          <a href="#professionnels" class="btn btn--navy">Devenir client professionnel</a>
+      <div class="hero__bg">
+        <picture>
+          <source type="image/avif" srcset="assets/img/responsive/hero-mer-900w.avif 900w, assets/img/responsive/hero-mer-1200w.avif 1200w, assets/img/responsive/hero-mer-1376w.avif 1376w" sizes="100vw" />
+          <source type="image/webp" srcset="assets/img/responsive/hero-mer-900w.webp 900w, assets/img/responsive/hero-mer-1200w.webp 1200w, assets/img/responsive/hero-mer-1376w.webp 1376w" sizes="100vw" />
+          <img src="assets/img/responsive/hero-mer-1376w.jpg" srcset="assets/img/responsive/hero-mer-900w.jpg 900w, assets/img/responsive/hero-mer-1200w.jpg 1200w, assets/img/responsive/hero-mer-1376w.jpg 1376w" sizes="100vw" alt="Glace pilée" fetchpriority="high" />
+        </picture>
+        <div class="hero__scrim" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ QUI NOUS SOMMES ============================================================ -->
+    <section id="qui-nous-sommes" class="split-section split-section--image-right">
+      <div class="split-section__grid">
+        <div class="split-section__text">
+          <p class="eyebrow" style="margin-bottom:16px">Qui nous sommes</p>
+          <h2 class="h2">Qui nous sommes</h2>
+          <p class="prose">Marenostrum est le négociant sélectionneur des professionnels de la gastronomie. Fondée par Alexandre et Matis Toullec, notre maison va chercher, trie et met à disposition des cuisines professionnelles les produits de la mer les plus exigeants — du volume quotidien à la pièce la plus rare.</p>
         </div>
-        <div class="hero__visual">
-          <div class="stripe-visual" role="presentation"></div>
-          <div class="clock-widget" aria-label="Heure en direct dans trois fuseaux horaires">
-            <p class="clock-widget__label">En direct</p>
-            <p class="clock-widget__row"><span class="clock-widget__city">Paris</span><span class="clock-widget__time" id="clock-paris">--:--:--</span></p>
-            <p class="clock-widget__row"><span class="clock-widget__city">New York</span><span class="clock-widget__time" id="clock-ny">--:--:--</span></p>
-            <p class="clock-widget__row"><span class="clock-widget__city">Zurich</span><span class="clock-widget__time" id="clock-zurich">--:--:--</span></p>
+        <div class="split-section__image photo-slot photo-slot--filled">
+          <picture>
+            <source type="image/avif" srcset="assets/img/responsive/langoustine-900w.avif 900w, assets/img/responsive/langoustine-1200w.avif 1200w, assets/img/responsive/langoustine-1408w.avif 1408w" sizes="(min-width: 1024px) 55vw, 100vw" />
+            <source type="image/webp" srcset="assets/img/responsive/langoustine-900w.webp 900w, assets/img/responsive/langoustine-1200w.webp 1200w, assets/img/responsive/langoustine-1408w.webp 1408w" sizes="(min-width: 1024px) 55vw, 100vw" />
+            <img src="assets/img/responsive/langoustine-1200w.jpg" srcset="assets/img/responsive/langoustine-900w.jpg 900w, assets/img/responsive/langoustine-1200w.jpg 1200w, assets/img/responsive/langoustine-1408w.jpg 1408w" sizes="(min-width: 1024px) 55vw, 100vw" alt="Langoustine" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ SÉLECTION, NÉGOCE, EXPORT ============================================================ -->
+    <section id="selection" class="negoce-block" data-theme="navy">
+      <div class="negoce-block__grid">
+        <div class="negoce-block__image photo-slot photo-slot--filled" style="background-color:transparent; border:0">
+          <img src="assets/img/saint-jacques.jpg" alt="Noix de Saint-Jacques" loading="lazy" />
+        </div>
+        <div>
+          <h2 class="h2" style="margin-bottom:8px">Sélection, négoce, export</h2>
+          <div class="negoce-item">
+            <p class="negoce-item__label">Sélection</p>
+            <p class="prose">Nous ne proposons rien que nous n'ayons goûté, comparé et jugé digne d'une carte professionnelle.</p>
+          </div>
+          <div class="negoce-item">
+            <p class="negoce-item__label">Négoce</p>
+            <p class="prose">Nous achetons, stockons et distribuons en direct, sans intermédiaire superflu entre le producteur et votre cuisine.</p>
+          </div>
+          <div class="negoce-item">
+            <p class="negoce-item__label">Export</p>
+            <p class="prose">Nous développons l'accès à nos produits au-delà de la France, pour accompagner les maisons qui exportent ou s'installent à l'international.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================ MANIFESTE ============================================================ -->
-    <section class="manifesto">
+    <!-- ============================================================ NOS GAMMES ============================================================ -->
+    <section id="gammes" class="gammes">
       <div class="container">
-        <blockquote>
-          « Fondé par Alexandre et Matis Toullec, Marenostrum est né d'une conviction : une cuisine professionnelle mérite un fournisseur unique, capable de livrer aussi bien le volume qui fait tourner une cuisine que la pièce rare qui signe une carte. Deux exigences, une seule adresse. »
-        </blockquote>
+        <p class="eyebrow gammes__title" style="font-size:14px">NOS GAMMES</p>
+      </div>
+      <div class="gammes__grid">
+        <div class="gammes__item"><p class="gammes__item-title">Crustacés</p></div>
+        <div class="gammes__item"><p class="gammes__item-title">Poissons nobles</p></div>
+        <div class="gammes__item"><p class="gammes__item-title">L'épicerie</p></div>
+        <div class="gammes__item"><p class="gammes__item-title">Caviar<span class="gammes__item-soon">Prochainement</span></p></div>
+      </div>
+      <div class="container gammes__caption">
+        <p>Du quotidien à l'exception, toujours choisi avec la même exigence.</p>
       </div>
     </section>
 
-    <!-- ============================================================ ORIGINES ============================================================ -->
-    <section id="origines" class="section-pad">
-      <div class="container">
-        <div class="origines__text">
-          <p class="eyebrow">Origines</p>
-          <h2 class="h2">Un sourcing suivi, de la criée à votre cuisine</h2>
-          <p>Nous travaillons avec un réseau resserré de producteurs, pêcheurs et ateliers sélectionnés pour leur régularité. Chaque référence est tracée, de la criée ou du bassin jusqu'à votre réception.</p>
-        </div>
-        <div class="origines__grid">
-          <div class="photo-slot photo-slot--filled">
-            <picture>
-              <source type="image/avif" srcset="assets/img/responsive/hero-mer-900w.avif 900w, assets/img/responsive/hero-mer-1200w.avif 1200w" sizes="(min-width: 640px) 33vw, 100vw" />
-              <source type="image/webp" srcset="assets/img/responsive/hero-mer-900w.webp 900w, assets/img/responsive/hero-mer-1200w.webp 1200w" sizes="(min-width: 640px) 33vw, 100vw" />
-              <img src="assets/img/responsive/hero-mer-1200w.jpg" srcset="assets/img/responsive/hero-mer-900w.jpg 900w, assets/img/responsive/hero-mer-1200w.jpg 1200w" sizes="(min-width: 640px) 33vw, 100vw" alt="Arrivage sur glace" loading="lazy" />
-            </picture>
-          </div>
-          <div class="photo-slot"><p>Photo — bassins / criée</p></div>
-          <div class="photo-slot"><p>Photo — geste d'atelier</p></div>
-        </div>
+    <!-- ============================================================ NOS CONVICTIONS ============================================================ -->
+    <section id="convictions" class="convictions">
+      <div class="convictions__images">
+        <div class="convictions__image--small photo-slot"><p>Photo — convictions 1</p></div>
+        <div class="convictions__image--large photo-slot" style="margin-left:0"><p>Photo — convictions 2</p></div>
+      </div>
+      <div class="convictions__text">
+        <h2 class="h2" style="margin-bottom:20px">Nos convictions</h2>
+        <p class="prose">Parce qu'un chef ou un acheteur professionnel ne devrait jamais avoir à se contenter de ce qui est disponible. Parce que la meilleure pièce mérite d'être cherchée, pas seulement vendue. Marenostrum existe pour que l'exigence d'une cuisine professionnelle ne s'arrête jamais à ce qu'un catalogue peut offrir.</p>
       </div>
     </section>
 
-    <!-- ============================================================ SAVOIR-FAIRE ============================================================ -->
-    <section id="savoir-faire" class="section-pad" data-theme="navy">
-      <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Savoir-faire</p>
-        </div>
-        <div class="savoir-faire__grid">
-          <div class="savoir-faire__step">
-            <h3>Sélection</h3>
-            <p>Des producteurs et criées choisis pour leur constance, réévalués en continu sur la qualité livrée.</p>
-          </div>
-          <div class="savoir-faire__step">
-            <h3>Chaîne du froid</h3>
-            <p>Une logistique sous température dirigée, du départ producteur jusqu'à la livraison en cuisine.</p>
-          </div>
-          <div class="savoir-faire__step">
-            <h3>Élaboration</h3>
-            <p>Terrines, verrines et préparations façonnées en atelier, sans artifice ni surtransformation.</p>
-          </div>
-          <div class="savoir-faire__step">
-            <h3>Conditionnement</h3>
-            <p>Des formats pensés pour la cuisine professionnelle : portions calibrées, gros conditionnements, rien de superflu.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ PRODUITS — VOLUME PROFESSIONNEL ============================================================ -->
-    <section id="produits" class="section-pad">
-      <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Nos produits</p>
-          <h2 class="h2">Le volume, à la hauteur de vos cuisines</h2>
-          <p class="section-subtitle">L'approvisionnement quotidien des cuisines qui tournent, en gros conditionnements et à prix maîtrisés.</p>
-        </div>
-        <div class="product-grid product-grid--3">
-          <article class="product-card">
-            <div class="photo-slot photo-slot--filled">
-              <img src="assets/img/saint-jacques.jpg" alt="Noix de Saint-Jacques" loading="lazy" />
-            </div>
-            <h3>Noix de Saint-Jacques</h3>
-            <p class="product-card__specs">Calibre U10/20 — surgelées ou fraîches selon saison</p>
-            <p class="product-card__desc">Un approvisionnement régulier en gros conditionnement, pour les cartes qui en font un pilier.</p>
-          </article>
-          <article class="product-card">
-            <div class="photo-slot photo-slot--filled">
-              <picture>
-                <source type="image/avif" srcset="assets/img/responsive/langoustine-900w.avif 900w, assets/img/responsive/langoustine-1200w.avif 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
-                <source type="image/webp" srcset="assets/img/responsive/langoustine-900w.webp 900w, assets/img/responsive/langoustine-1200w.webp 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
-                <img src="assets/img/responsive/langoustine-1200w.jpg" srcset="assets/img/responsive/langoustine-900w.jpg 900w, assets/img/responsive/langoustine-1200w.jpg 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" alt="Langoustines entières" loading="lazy" />
-              </picture>
-            </div>
-            <h3>Langoustines entières</h3>
-            <p class="product-card__specs">Calibre 10/20 pièces/kg — origine atlantique</p>
-            <p class="product-card__desc">Fraîcheur et calibrage homogène, livrées en caisses professionnelles.</p>
-          </article>
-          <article class="product-card">
-            <div class="photo-slot photo-slot--filled">
-              <img src="assets/img/rouget.jpg" alt="Poisson noble entier, rouget" loading="lazy" />
-            </div>
-            <h3>Poissons nobles</h3>
-            <p class="product-card__specs">Bar, turbot, Saint-Pierre — entiers ou levés</p>
-            <p class="product-card__desc">Une sélection de poissons de ligne ou de filet, disponible à la demande et en volume.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ PRODUITS — GAMME PRESTIGE ============================================================ -->
-    <section class="section-pad pad-prestige">
-      <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Nos produits</p>
-          <h2 class="h2">La gamme prestige, façon maison</h2>
-          <p class="section-subtitle">Des préparations artisanales pour les cartes qui veulent se distinguer.</p>
-        </div>
-        <div class="product-grid product-grid--4">
-          <article class="product-card">
-            <div class="photo-slot photo-slot--filled">
-              <img src="assets/img/ormeau.jpg" alt="Ormeau, pour la terrine" loading="lazy" />
-            </div>
-            <h3>Terrine d'ormeaux</h3>
-            <p class="product-card__specs">Élaborée en atelier — pièce ou tranche</p>
-            <p class="product-card__desc">Une préparation rare, pensée pour les cartes qui cherchent à surprendre.</p>
-          </article>
-          <article class="product-card">
-            <div class="photo-slot"><p>Photo — verrine de langoustine</p></div>
-            <h3>Verrine de langoustine</h3>
-            <p class="product-card__specs">Prête à dresser — format individuel</p>
-            <p class="product-card__desc">Un dressage rapide en salle, sans compromis sur le produit brut.</p>
-          </article>
-          <article class="product-card">
-            <div class="photo-slot"><p>Photo — tartare de Saint-Jacques</p></div>
-            <h3>Tartare de Saint-Jacques</h3>
-            <p class="product-card__specs">Élaboré en atelier — format individuel</p>
-            <p class="product-card__desc">Une préparation fine et prête à dresser, pour une entrée signature sans travail de cuisine.</p>
-          </article>
-          <article class="product-card">
-            <div class="photo-slot photo-slot--dashed photo-slot--filled" style="position:relative">
-              <span class="badge">À venir</span>
-              <picture>
-                <source type="image/avif" srcset="assets/img/responsive/trois-caviars-900w.avif 900w, assets/img/responsive/trois-caviars-1024w.avif 1024w" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
-                <source type="image/webp" srcset="assets/img/responsive/trois-caviars-900w.webp 900w, assets/img/responsive/trois-caviars-1024w.webp 1024w" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
-                <img src="assets/img/responsive/trois-caviars-1024w.jpg" srcset="assets/img/responsive/trois-caviars-900w.jpg 900w, assets/img/responsive/trois-caviars-1024w.jpg 1024w" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" alt="Sélection de caviars, gamme en préparation" loading="lazy" />
-              </picture>
-            </div>
-            <h3>Caviar</h3>
-            <p class="product-card__specs">Gamme en cours de finalisation</p>
-            <p class="product-card__desc">Notre sélection caviar arrive prochainement. Plus de détails très bientôt.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ PROFESSIONNELS ============================================================ -->
-    <section id="professionnels" class="section-pad professionnels" data-theme="navy">
-      <div class="container">
-        <h2 class="h2">Vous êtes restaurateur, hôtelier, traiteur ou distributeur ?</h2>
-        <p>Tarifs volume et gamme prestige sur un même catalogue, livraison sous 48h en France métropolitaine, et un interlocuteur commercial dédié à votre établissement.</p>
-        <a href="#contact" class="btn btn--white">Devenir client professionnel</a>
-      </div>
-    </section>
-
-    <!-- ============================================================ ILS NOUS FONT CONFIANCE ============================================================ -->
-    <section class="section-pad pad-confiance">
-      <div class="container">
-        <div class="section-header section-header--center">
-          <h2 class="h2">Ils nous font confiance</h2>
-        </div>
-        <div class="trust__grid">
-          <div class="trust__item">Restaurant partenaire</div>
-          <div class="trust__item">Hôtel partenaire</div>
-          <div class="trust__item">Distributeur partenaire</div>
-          <div class="trust__item">Mention presse</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ CONTACT / FOOTER ============================================================ -->
-    <footer id="contact" class="section-pad" data-theme="navy">
-      <div class="container contact__grid">
-        <div class="contact__brand">
-          <p class="logo"><img src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" /></p>
-          <p>Produits de la mer, du volume professionnel à la gamme prestige.</p>
-          <dl class="contact__coords">
-            <div><dt>Email</dt><dd>Email commercial — à compléter</dd></div>
-            <div><dt>Téléphone</dt><dd>Téléphone — à compléter</dd></div>
-            <div><dt>Adresse</dt><dd>Adresse du siège — à compléter</dd></div>
-          </dl>
-        </div>
-
-        <div class="contact__form">
-          <p class="eyebrow" style="margin-bottom:20px">Nous écrire</p>
-          <form id="contact-form">
-            <div class="form-field">
-              <label for="cf-name">Nom</label>
-              <input type="text" id="cf-name" name="name" placeholder="Votre nom" required />
-            </div>
-            <div class="form-field">
-              <label for="cf-email">Email professionnel</label>
-              <input type="email" id="cf-email" name="email" placeholder="vous@etablissement.fr" required />
-            </div>
-            <div class="form-field">
-              <label for="cf-message">Message</label>
-              <textarea id="cf-message" name="message" placeholder="Votre établissement, votre besoin..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn--white">Envoyer le message</button>
-            <p class="form-feedback is-hidden" id="contact-feedback" role="status"></p>
-          </form>
-        </div>
-      </div>
-
-      <div class="container">
-        <p class="copyright">© 2026 Marenostrum — Tous droits réservés.</p>
-      </div>
-    </footer>
+    <!-- ============================================================ IMAGE DE CLÔTURE + LOGO ============================================================ -->
+    <div class="closing-image photo-slot"><p>Photo — image de clôture</p></div>
+    <div class="closing-logo">
+      <img src="assets/img/logo-marenostrum.png" alt="Mare Nostrum" />
+    </div>
   </main>
+
+  <!-- ============================================================ FOOTER ============================================================ -->
+  <footer id="contact" class="site-footer" data-theme="navy">
+    <div class="container">
+      <p style="color:#fff; font-family:var(--font-title); font-size:18px; margin-bottom:16px">MARENOSTRUM</p>
+      <p>Raison sociale — à compléter</p>
+      <p>SIRET — à compléter</p>
+      <p>Adresse du siège — à compléter</p>
+      <p>Contact — à compléter</p>
+      <p class="site-footer__copy">© 2026 Marenostrum — Tous droits réservés.</p>
+    </div>
+  </footer>
 
   <script src="assets/js/main.js"></script>
 </body>
