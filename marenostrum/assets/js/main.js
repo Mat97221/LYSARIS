@@ -135,9 +135,9 @@ function mnCreateWavePanel() {
   panel.style.zIndex = "9999";
   panel.style.overflow = "hidden";
   panel.style.background =
-    "radial-gradient(circle at 28% 22%, rgba(255,255,255,.16), rgba(255,255,255,0) 55%)," +
-    "linear-gradient(160deg, #123252, #0a1f33 55%, #071627)";
-  panel.style.boxShadow = "0 0 60px 10px rgba(5,15,28,.25)";
+    "radial-gradient(circle at 28% 22%, rgba(255,255,255,.14), rgba(255,255,255,0) 55%)," +
+    "linear-gradient(160deg, #0d2846, #071a30 55%, #020a16)";
+  panel.style.boxShadow = "0 0 60px 10px rgba(2,8,16,.35)";
   document.body.appendChild(panel);
   return panel;
 }
@@ -247,6 +247,25 @@ function mnInitWaveTransitions() {
     }, 500);
   });
 }
+
+/**
+ * Filet de sécurité pour le bouton précédent/suivant du navigateur : quand la
+ * page est restaurée depuis le bfcache (event.persisted), aucun script ne se
+ * ré-exécute — la page réapparaît telle qu'elle était figée au moment où on
+ * l'a quittée. Si on l'a quittée pendant que le panneau de la transition
+ * couvrait tout l'écran (phase « entrée » juste avant la navigation), ce
+ * panneau restait donc affiché pour toujours, bloquant la page en bleu.
+ * On le retire simplement dès que ce cas est détecté.
+ */
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  document.querySelectorAll(".wave-panel").forEach((el) => el.remove());
+  try {
+    sessionStorage.removeItem(MN_WAVE_STORAGE_KEY);
+  } catch (e) {
+    /* stockage indisponible : rien à nettoyer */
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   mnInitMenuOverlay();
