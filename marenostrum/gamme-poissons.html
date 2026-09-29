@@ -12,6 +12,26 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem("mn-wave-transition");
+        if (!raw) return;
+        var data = JSON.parse(raw);
+        if (!data || !data.active) return;
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var panel = document.createElement("div");
+        panel.id = "wave-panel-init";
+        panel.className = "wave-panel";
+        panel.style.cssText =
+          "position:fixed;inset:0;z-index:9999;overflow:hidden;border-radius:0;pointer-events:none;" +
+          "background:radial-gradient(circle at 28% 22%, rgba(255,255,255,.16), rgba(255,255,255,0) 55%)," +
+          "linear-gradient(160deg, #123252, #0a1f33 55%, #071627);" +
+          "box-shadow:0 0 60px 10px rgba(5,15,28,.25);";
+        document.body.appendChild(panel);
+      } catch (e) {}
+    })();
+  </script>
   <!-- ============================================================ EN-TÊTE ============================================================ -->
   <header class="site-header site-header--solid" data-active-theme="dark">
     <a href="index.html" class="logo" aria-label="Marenostrum — accueil">
