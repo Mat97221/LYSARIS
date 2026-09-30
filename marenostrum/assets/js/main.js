@@ -97,103 +97,131 @@ function mnInitClosingReveal() {
 }
 
 /**
- * Transition de page « vague liquide » — un blob qui grandit depuis le lien
- * cliqué jusqu'à couvrir l'écran, puis se retire pour révéler la nouvelle
- * page. Le site étant multi-pages (pas de SPA), l'animation est coupée en
- * deux moitiés qui se relaient d'une page à l'autre via sessionStorage :
- *   - phase « entrée » : jouée sur la page de départ, juste avant la
- *     navigation réelle (voir mnInitWaveTransitions, écouteur de clic) ;
- *   - phase « sortie » : jouée sur la page d'arrivée. Pour éviter tout flash
- *     du contenu réel avant que le script ne s'exécute, chaque page pose en
- *     tout premier, avant même l'en-tête, un petit script en ligne
- *     (voir index.html etc.) qui recouvre instantanément l'écran si une
- *     transition est en attente ; mnRevealWaveTransition anime ensuite ce
- *     panneau déjà en place pour révéler la page.
+ * Transition de page « stores vénitiens » — des lattes verticales qui se
+ * ferment (le cadre grandit depuis le lien cliqué jusqu'à couvrir l'écran,
+ * puis les lattes tombent du haut vers le bas en cascade) puis se rouvrent
+ * (les lattes remontent, du bas vers le haut) pour révéler la nouvelle page.
+ * Le site étant multi-pages (pas de SPA), l'animation est coupée en deux
+ * moitiés qui se relaient d'une page à l'autre via sessionStorage :
+ *   - phase « fermeture » : jouée sur la page de départ, juste avant la
+ *     navigation réelle (voir mnInitBlindTransitions, écouteur de clic) ;
+ *   - phase « ouverture » : jouée sur la page d'arrivée. Pour éviter tout
+ *     flash du contenu réel avant que le script ne s'exécute, chaque page
+ *     pose en tout premier, avant même l'en-tête, un petit script en ligne
+ *     (voir index.html etc.) qui recouvre instantanément l'écran de lattes
+ *     déjà fermées si une transition est en attente ; mnRevealBlindTransition
+ *     anime ensuite ces lattes déjà en place pour révéler la page.
  */
-const MN_WAVE_BLOB_IN = "38% 62% 55% 45% / 45% 40% 60% 55%";
-const MN_WAVE_BLOB_FULL = "0% 0% 0% 0% / 0% 0% 0% 0%";
-const MN_WAVE_BLOB_OUT = "55% 45% 40% 60% / 42% 58% 38% 62%";
-const MN_WAVE_EASE_IN = "cubic-bezier(.6,0,.15,1)";
-const MN_WAVE_EASE_OUT = "cubic-bezier(.16,1,.3,1)";
-const MN_WAVE_STORAGE_KEY = "mn-wave-transition";
+const MN_BLIND_COUNT = 10;
+const MN_BLIND_GROW_MS = 295;
+const MN_BLIND_STAGGER_MS = 26;
+const MN_BLIND_STRIP_MS = 353;
+const MN_BLIND_CLOSE_DELAY_MS = MN_BLIND_GROW_MS + 11;
+const MN_BLIND_CASCADE_MS = MN_BLIND_STRIP_MS + (MN_BLIND_COUNT - 1) * MN_BLIND_STAGGER_MS;
+const MN_BLIND_ENTER_MS = MN_BLIND_CLOSE_DELAY_MS + MN_BLIND_CASCADE_MS;
+const MN_BLIND_GRADIENT = "linear-gradient(160deg, #0d2846, #071a30 55%, #020a16)";
+const MN_BLIND_STORAGE_KEY = "mn-blind-transition";
 
 function mnPrefersReducedMotion() {
   return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function mnWaveRectStyle(el, r) {
+function mnBlindRectStyle(el, r) {
   el.style.top = r.top + "px";
   el.style.left = r.left + "px";
   el.style.width = r.width + "px";
   el.style.height = r.height + "px";
 }
 
-function mnCreateWavePanel() {
-  const panel = document.createElement("div");
-  panel.className = "wave-panel";
-  panel.style.position = "fixed";
-  panel.style.zIndex = "9999";
-  panel.style.overflow = "hidden";
-  panel.style.background =
-    "radial-gradient(circle at 28% 22%, rgba(255,255,255,.14), rgba(255,255,255,0) 55%)," +
-    "linear-gradient(160deg, #0d2846, #071a30 55%, #020a16)";
-  panel.style.boxShadow = "0 0 60px 10px rgba(2,8,16,.35)";
-  document.body.appendChild(panel);
-  return panel;
+function mnBlindFullRect() {
+  return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
 }
 
-/** Joue la phase « sortie » sur un panneau déjà présent (plein écran) pour révéler la page. */
-function mnRevealWaveTransition(panel, forward) {
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const dir = forward ? 1 : -1;
-  const exit = { top: -vh * 0.06, left: dir * vw, width: vw, height: vh * 1.12 };
+/** Crée le cadre et ses N lattes, toutes fermées (scaleY(0) depuis le haut). */
+function mnCreateBlindContainer() {
+  const container = document.createElement("div");
+  container.className = "blind-panel";
+  container.style.position = "fixed";
+  container.style.zIndex = "9999";
+  container.style.overflow = "hidden";
+  container.style.display = "flex";
+  container.style.pointerEvents = "none";
+  document.body.appendChild(container);
 
-  // La propriété transition doit déjà être en place au moins une frame avant
-  // que les valeurs ne changent, sinon le navigateur applique le changement
-  // instantanément sans l'animer (c'est ce qui se passait ici auparavant).
-  panel.style.transition =
-    `top .55s ${MN_WAVE_EASE_OUT}, left .55s ${MN_WAVE_EASE_OUT}, width .55s ${MN_WAVE_EASE_OUT}, height .55s ${MN_WAVE_EASE_OUT}, border-radius .55s ${MN_WAVE_EASE_OUT}`;
-  panel.style.animation = "wave-pulse .5s ease-out";
+  const strips = [];
+  for (let i = 0; i < MN_BLIND_COUNT; i++) {
+    const s = document.createElement("div");
+    s.style.flex = "1 0 auto";
+    s.style.height = "100%";
+    s.style.background = MN_BLIND_GRADIENT;
+    s.style.transform = "scaleY(0)";
+    s.style.transformOrigin = "top";
+    s.style.transition = `transform ${MN_BLIND_STRIP_MS}ms ease ${i * MN_BLIND_STAGGER_MS}ms`;
+    container.appendChild(s);
+    strips.push(s);
+  }
+  return { container, strips };
+}
 
+/** Joue la phase « ouverture » sur un cadre déjà présent (plein écran, lattes fermées) pour révéler la page. */
+function mnRevealBlindTransition(container, strips) {
+  // Les lattes ont déjà leur transition posée (voir mnCreateBlindContainer, ou
+  // l'équivalent dans le script en ligne) depuis au moins une frame : on peut
+  // changer leur transform directement, il sera bien animé.
   requestAnimationFrame(() =>
     requestAnimationFrame(() => {
-      mnWaveRectStyle(panel, exit);
-      panel.style.borderRadius = MN_WAVE_BLOB_OUT;
+      strips.forEach((s) => {
+        s.style.transformOrigin = "bottom";
+        s.style.transform = "scaleY(0)";
+      });
     })
   );
 
-  setTimeout(() => panel.remove(), 580);
+  setTimeout(() => container.remove(), MN_BLIND_CASCADE_MS + 10);
 }
 
 /** Révèle la page courante si elle vient d'être atteinte via une transition en attente. */
-function mnConsumePendingWaveTransition() {
-  const existing = document.getElementById("wave-panel-init");
+function mnConsumePendingBlindTransition() {
+  const existing = document.getElementById("blind-panel-init");
   let pending = null;
   try {
-    pending = JSON.parse(sessionStorage.getItem(MN_WAVE_STORAGE_KEY) || "null");
+    pending = JSON.parse(sessionStorage.getItem(MN_BLIND_STORAGE_KEY) || "null");
   } catch (e) {
     pending = null;
   }
-  sessionStorage.removeItem(MN_WAVE_STORAGE_KEY);
+  sessionStorage.removeItem(MN_BLIND_STORAGE_KEY);
 
   if (!pending || !pending.active) {
     if (existing) existing.remove();
     return;
   }
 
-  const panel = existing || mnCreateWavePanel();
-  panel.id = "";
-  panel.style.borderRadius = MN_WAVE_BLOB_FULL;
-  mnWaveRectStyle(panel, { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight });
-  mnRevealWaveTransition(panel, pending.forward);
+  let container;
+  let strips;
+  if (existing) {
+    existing.id = "";
+    container = existing;
+    strips = Array.from(container.children);
+    // Les lattes posées par le script en ligne n'ont pas encore de transition
+    // (elles arrivent déjà fermées, sans animation) : on la pose maintenant,
+    // une frame avant de les faire remonter dans mnRevealBlindTransition.
+    strips.forEach((s, i) => {
+      s.style.transition = `transform ${MN_BLIND_STRIP_MS}ms ease ${i * MN_BLIND_STAGGER_MS}ms`;
+    });
+  } else {
+    ({ container, strips } = mnCreateBlindContainer());
+    mnBlindRectStyle(container, mnBlindFullRect());
+    strips.forEach((s) => {
+      s.style.transform = "scaleY(1)";
+    });
+  }
+
+  mnRevealBlindTransition(container, strips);
 }
 
-/** Intercepte les liens internes pour jouer la phase « entrée » avant de naviguer réellement. */
-function mnInitWaveTransitions() {
+/** Intercepte les liens internes pour jouer la phase « fermeture » avant de naviguer réellement. */
+function mnInitBlindTransitions() {
   if (mnPrefersReducedMotion()) return;
-
-  const depthOf = (path) => (path === "" || path === "index.html" ? 0 : 1);
 
   document.addEventListener("click", (e) => {
     const link = e.target.closest("a[href]");
@@ -215,36 +243,33 @@ function mnInitWaveTransitions() {
 
     e.preventDefault();
 
-    const currentPath = window.location.pathname.split("/").pop();
-    const nextPath = url.pathname.split("/").pop();
-    const forward = depthOf(nextPath) >= depthOf(currentPath);
+    const { container, strips } = mnCreateBlindContainer();
+    mnBlindRectStyle(container, link.getBoundingClientRect());
 
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const full = { top: 0, left: 0, width: vw, height: vh };
-    const panel = mnCreateWavePanel();
-    panel.style.borderRadius = MN_WAVE_BLOB_IN;
-    mnWaveRectStyle(panel, link.getBoundingClientRect());
-
-    panel.style.transition =
-      `top .5s ${MN_WAVE_EASE_IN}, left .5s ${MN_WAVE_EASE_IN}, width .5s ${MN_WAVE_EASE_IN}, height .5s ${MN_WAVE_EASE_IN}, border-radius .5s ${MN_WAVE_EASE_IN}`;
+    container.style.transition =
+      `top ${MN_BLIND_GROW_MS}ms ease, left ${MN_BLIND_GROW_MS}ms ease, width ${MN_BLIND_GROW_MS}ms ease, height ${MN_BLIND_GROW_MS}ms ease`;
 
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
-        mnWaveRectStyle(panel, full);
-        panel.style.borderRadius = MN_WAVE_BLOB_FULL;
+        mnBlindRectStyle(container, mnBlindFullRect());
       })
     );
 
+    setTimeout(() => {
+      strips.forEach((s) => {
+        s.style.transform = "scaleY(1)";
+      });
+    }, MN_BLIND_CLOSE_DELAY_MS);
+
     try {
-      sessionStorage.setItem(MN_WAVE_STORAGE_KEY, JSON.stringify({ active: true, forward }));
+      sessionStorage.setItem(MN_BLIND_STORAGE_KEY, JSON.stringify({ active: true }));
     } catch (err) {
       /* stockage indisponible : la page suivante ne jouera simplement pas la révélation */
     }
 
     setTimeout(() => {
       window.location.href = url.href;
-    }, 500);
+    }, MN_BLIND_ENTER_MS);
   });
 }
 
@@ -252,16 +277,16 @@ function mnInitWaveTransitions() {
  * Filet de sécurité pour le bouton précédent/suivant du navigateur : quand la
  * page est restaurée depuis le bfcache (event.persisted), aucun script ne se
  * ré-exécute — la page réapparaît telle qu'elle était figée au moment où on
- * l'a quittée. Si on l'a quittée pendant que le panneau de la transition
- * couvrait tout l'écran (phase « entrée » juste avant la navigation), ce
- * panneau restait donc affiché pour toujours, bloquant la page en bleu.
- * On le retire simplement dès que ce cas est détecté.
+ * l'a quittée. Si on l'a quittée pendant que les lattes couvraient tout
+ * l'écran (phase « fermeture » juste avant la navigation), elles restaient
+ * donc affichées pour toujours, bloquant la page. On les retire simplement
+ * dès que ce cas est détecté.
  */
 window.addEventListener("pageshow", (event) => {
   if (!event.persisted) return;
-  document.querySelectorAll(".wave-panel").forEach((el) => el.remove());
+  document.querySelectorAll(".blind-panel").forEach((el) => el.remove());
   try {
-    sessionStorage.removeItem(MN_WAVE_STORAGE_KEY);
+    sessionStorage.removeItem(MN_BLIND_STORAGE_KEY);
   } catch (e) {
     /* stockage indisponible : rien à nettoyer */
   }
@@ -271,6 +296,6 @@ document.addEventListener("DOMContentLoaded", () => {
   mnInitMenuOverlay();
   mnInitHeaderTheme();
   mnInitClosingReveal();
-  mnConsumePendingWaveTransition();
-  mnInitWaveTransitions();
+  mnConsumePendingBlindTransition();
+  mnInitBlindTransitions();
 });

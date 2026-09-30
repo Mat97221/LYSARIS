@@ -480,11 +480,11 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 .site-footer__brand .prose { max-width: 40ch; }
 
 /* La transition « zoom » native du navigateur (View Transitions,
- * navigation: auto) a été remplacée par la transition « vague liquide »
- * pilotée en JS (voir mnInitWaveTransitions dans main.js, et la règle
- * .wave-panel plus bas) : les deux se seraient superposées et provoqué un
- * flash, la vague liquide est donc désormais la seule à couvrir la page
- * pendant la navigation entre les cartes de gamme et leur page dédiée. */
+ * navigation: auto) a été remplacée par une transition « stores vénitiens »
+ * pilotée en JS (voir mnInitBlindTransitions dans main.js, et la règle
+ * .blind-panel plus bas) : les deux se seraient superposées et provoqué un
+ * flash, les stores vénitiens sont donc désormais les seuls à couvrir la
+ * page pendant la navigation entre les cartes de gamme et leur page dédiée. */
 
 /* -------------------------------------------------------------------------- *
  * Pages « gamme » — grande image à gauche (fixe sur desktop), contenu à
@@ -639,17 +639,15 @@ h2, .h2 { font-size: clamp(28px, 3.4vw, 42px); }
 .contact-page__coords a:hover { text-decoration: underline; }
 
 /* -------------------------------------------------------------------------- *
- * Transition de page « vague liquide » — voir mnInitWaveTransitions dans
- * main.js. Le panneau lui-même est entièrement piloté en JS (position,
- * taille, border-radius) ; cette règle ne fixe que ce qui n'a pas besoin de
+ * Transition de page « stores vénitiens » — voir mnInitBlindTransitions dans
+ * main.js. Le cadre et ses lattes sont entièrement pilotés en JS (position,
+ * taille, transform) ; cette règle ne fixe que ce qui n'a pas besoin de
  * changer d'une frame à l'autre.
  * -------------------------------------------------------------------------- */
-.wave-panel {
+.blind-panel {
   pointer-events: none;
-  will-change: top, left, width, height, border-radius, filter;
+  will-change: top, left, width, height;
 }
-@keyframes wave-pulse {
-  0% { filter: brightness(1) saturate(1); }
-  40% { filter: brightness(1.35) saturate(1.3); }
-  100% { filter: brightness(1) saturate(1); }
+.blind-panel > div {
+  will-change: transform;
 }
