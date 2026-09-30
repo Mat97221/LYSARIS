@@ -24,11 +24,21 @@
         container.id = "blind-panel-init";
         container.className = "blind-panel";
         container.style.cssText = "position:fixed;inset:0;z-index:9999;overflow:hidden;display:flex;pointer-events:none;";
+        var from = [[13,40,70],[7,26,48],[2,10,22]];
+        var to = [[191,224,240],[134,185,214],[79,143,179]];
         for (var i = 0; i < 10; i++) {
+          var t = i / 9;
+          var stops = [];
+          for (var k = 0; k < 3; k++) {
+            var rgb = [];
+            for (var ch = 0; ch < 3; ch++) {
+              rgb.push(Math.round(from[k][ch] + (to[k][ch] - from[k][ch]) * t));
+            }
+            stops.push("rgb(" + rgb.join(",") + ")");
+          }
+          var bg = "linear-gradient(160deg, " + stops[0] + ", " + stops[1] + " 55%, " + stops[2] + ")";
           var s = document.createElement("div");
-          s.style.cssText =
-            "flex:1 0 auto;height:100%;transform:scaleY(1);transform-origin:top;" +
-            "background:linear-gradient(160deg, #0d2846, #071a30 55%, #020a16);";
+          s.style.cssText = "flex:1 0 auto;height:100%;transform:scaleY(1);transform-origin:top;background:" + bg + ";";
           container.appendChild(s);
         }
         document.body.appendChild(container);

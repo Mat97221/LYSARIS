@@ -119,11 +119,32 @@ const MN_BLIND_STRIP_MS = 353;
 const MN_BLIND_CLOSE_DELAY_MS = MN_BLIND_GROW_MS + 11;
 const MN_BLIND_CASCADE_MS = MN_BLIND_STRIP_MS + (MN_BLIND_COUNT - 1) * MN_BLIND_STAGGER_MS;
 const MN_BLIND_ENTER_MS = MN_BLIND_CLOSE_DELAY_MS + MN_BLIND_CASCADE_MS;
-const MN_BLIND_GRADIENT = "linear-gradient(160deg, #0d2846, #071a30 55%, #020a16)";
+// Camaïeu marine → bleu ciel : chaque latte, de la première à la dernière,
+// interpole entre ces deux triplets (les trois arrêts du dégradé diagonal
+// que porte chaque latte individuellement, pour garder la même profondeur).
+const MN_BLIND_FROM = [
+  [13, 40, 70], // #0d2846
+  [7, 26, 48], // #071a30
+  [2, 10, 22], // #020a16
+];
+const MN_BLIND_TO = [
+  [191, 224, 240], // #bfe0f0
+  [134, 185, 214], // #86b9d6
+  [79, 143, 179], // #4f8fb3
+];
 const MN_BLIND_STORAGE_KEY = "mn-blind-transition";
 
 function mnPrefersReducedMotion() {
   return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Dégradé diagonal de la latte i (sur n), interpolé entre le marine et le bleu ciel. */
+function mnBlindStripBackground(i, n) {
+  const t = n > 1 ? i / (n - 1) : 0;
+  const stops = MN_BLIND_FROM.map((from, k) =>
+    from.map((v, ch) => Math.round(v + (MN_BLIND_TO[k][ch] - v) * t))
+  );
+  return `linear-gradient(160deg, rgb(${stops[0].join(",")}), rgb(${stops[1].join(",")}) 55%, rgb(${stops[2].join(",")}))`;
 }
 
 function mnBlindRectStyle(el, r) {
@@ -153,7 +174,7 @@ function mnCreateBlindContainer() {
     const s = document.createElement("div");
     s.style.flex = "1 0 auto";
     s.style.height = "100%";
-    s.style.background = MN_BLIND_GRADIENT;
+    s.style.background = mnBlindStripBackground(i, MN_BLIND_COUNT);
     s.style.transform = "scaleY(0)";
     s.style.transformOrigin = "top";
     s.style.transition = `transform ${MN_BLIND_STRIP_MS}ms ease ${i * MN_BLIND_STAGGER_MS}ms`;
