@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script type="speculationrules">
+    { "prerender": [ { "source": "list", "urls": ["gamme-crustaces.html", "gamme-poissons.html", "gamme-epicerie.html", "gamme-caviar.html", "contact.html"], "eagerness": "moderate" } ] }
+  </script>
 </head>
 <body>
   <script>
@@ -46,10 +50,9 @@
     })();
   </script>
   <!-- ============================================================ EN-TÊTE ============================================================ -->
-  <header class="site-header" data-active-theme="dark">
-    <a href="#" class="logo" aria-label="Marenostrum — accueil">
-      <img class="logo__img logo__img--on-dark" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
-      <img class="logo__img logo__img--on-light" src="assets/img/logo-marenostrum.png" alt="" aria-hidden="true" />
+  <header class="site-header" id="top">
+    <a href="#top" class="logo" aria-label="Marenostrum — accueil">
+      <img class="logo__img" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
     </a>
     <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 8h18M3 16h18"/></svg>
@@ -72,7 +75,7 @@
 
   <main>
     <!-- ============================================================ HERO ============================================================ -->
-    <section class="hero" data-header-zone="dark">
+    <section class="hero">
       <div class="hero__bg">
         <picture>
           <source type="image/avif" srcset="assets/img/responsive/hero-mer-900w.avif 900w, assets/img/responsive/hero-mer-1200w.avif 1200w, assets/img/responsive/hero-mer-1376w.avif 1376w" sizes="100vw" />
@@ -81,16 +84,17 @@
         </picture>
         <div class="hero__scrim" aria-hidden="true"></div>
       </div>
+      <div class="hero__fade-bottom" aria-hidden="true"></div>
     </section>
 
     <!-- ============================================================ QUI NOUS SOMMES ============================================================ -->
-    <section id="qui-nous-sommes" class="split-section split-section--image-right" data-header-zone="light">
+    <section id="qui-nous-sommes" class="split-section split-section--image-right">
       <div class="split-section__grid">
-        <div class="split-section__text">
+        <div class="split-section__text reveal">
           <h2 class="h2">Qui nous sommes</h2>
           <p class="prose">Marenostrum est le négociant sélectionneur des professionnels de la gastronomie. Fondée par Alexandre et Matis Toullec, notre maison va chercher, trie et met à disposition des cuisines professionnelles les produits de la mer les plus exigeants — du volume quotidien à la pièce la plus rare.</p>
         </div>
-        <div class="split-section__image photo-slot photo-slot--filled">
+        <div class="split-section__image photo-slot photo-slot--filled reveal">
           <picture>
             <source type="image/avif" srcset="assets/img/responsive/langoustine-900w.avif 900w, assets/img/responsive/langoustine-1200w.avif 1200w, assets/img/responsive/langoustine-1408w.avif 1408w" sizes="(min-width: 1024px) 55vw, 100vw" />
             <source type="image/webp" srcset="assets/img/responsive/langoustine-900w.webp 900w, assets/img/responsive/langoustine-1200w.webp 1200w, assets/img/responsive/langoustine-1408w.webp 1408w" sizes="(min-width: 1024px) 55vw, 100vw" />
@@ -101,12 +105,12 @@
     </section>
 
     <!-- ============================================================ SÉLECTION, NÉGOCE, EXPORT ============================================================ -->
-    <section id="selection" class="negoce-block" data-theme="navy" data-header-zone="dark">
+    <section id="selection" class="negoce-block" data-theme="navy">
       <div class="negoce-block__grid">
-        <div class="negoce-block__image photo-slot photo-slot--filled" style="background-color:transparent; border:0">
+        <div class="negoce-block__image photo-slot photo-slot--filled reveal" style="background-color:transparent; border:0">
           <img src="assets/img/saint-jacques.jpg" alt="Noix de Saint-Jacques" loading="lazy" />
         </div>
-        <div>
+        <div class="reveal">
           <h2 class="h2" style="margin-bottom:8px">Sélection, négoce, export</h2>
           <div class="negoce-item">
             <p class="negoce-item__label">Sélection</p>
@@ -126,44 +130,44 @@
 
     <!-- ============================================================ NOS GAMMES ============================================================ -->
     <section id="gammes" class="gammes">
-      <div class="container" data-header-zone="light">
+      <div class="container reveal">
         <p class="eyebrow gammes__title">NOS GAMMES</p>
       </div>
-      <div class="gammes__grid" data-header-zone="dark">
-        <a class="gammes__item" href="gamme-crustaces.html" data-gamme="crustaces">
+      <div class="gammes__grid">
+        <a class="gammes__item reveal" href="gamme-crustaces.html" data-gamme="crustaces">
           <img class="gammes__item-img" src="assets/img/gammes-crustaces.jpg" alt="Langouste" loading="lazy" />
           <div class="gammes__item-scrim" aria-hidden="true"></div>
           <p class="gammes__item-title">Crustacés</p>
         </a>
-        <a class="gammes__item" href="gamme-poissons.html" data-gamme="poissons">
+        <a class="gammes__item reveal" href="gamme-poissons.html" data-gamme="poissons">
           <img class="gammes__item-img" src="assets/img/gammes-poissons.jpg" alt="Maquereau" loading="lazy" />
           <div class="gammes__item-scrim" aria-hidden="true"></div>
           <p class="gammes__item-title">Poissons nobles</p>
         </a>
-        <a class="gammes__item" href="gamme-epicerie.html" data-gamme="epicerie">
+        <a class="gammes__item reveal" href="gamme-epicerie.html" data-gamme="epicerie">
           <img class="gammes__item-img" src="assets/img/gammes-epicerie.jpg" alt="Conserves Marenostrum" loading="lazy" />
           <div class="gammes__item-scrim" aria-hidden="true"></div>
           <p class="gammes__item-title">L'épicerie</p>
         </a>
-        <a class="gammes__item" href="gamme-caviar.html" data-gamme="caviar">
+        <a class="gammes__item reveal" href="gamme-caviar.html" data-gamme="caviar">
           <img class="gammes__item-img" src="assets/img/gammes-caviar.jpg" alt="Caviar" loading="lazy" />
           <div class="gammes__item-scrim" aria-hidden="true"></div>
           <p class="gammes__item-title">Caviar<span class="gammes__item-soon">Prochainement</span></p>
         </a>
       </div>
-      <div class="container gammes__caption" data-header-zone="light">
+      <div class="container gammes__caption">
         <p>Du quotidien à l'exception, toujours choisi avec la même exigence.</p>
       </div>
     </section>
 
     <!-- ============================================================ NOS CONVICTIONS ============================================================ -->
-    <section id="convictions" class="convictions" data-header-zone="light">
+    <section id="convictions" class="convictions">
       <div class="convictions__grid">
-        <div class="convictions__text">
+        <div class="convictions__text reveal">
           <h2 class="h2" style="margin-bottom:20px">Nos convictions</h2>
           <p class="prose">Parce qu'un chef ou un acheteur professionnel ne devrait jamais avoir à se contenter de ce qui est disponible. Parce que la meilleure pièce mérite d'être cherchée, pas seulement vendue. Marenostrum existe pour que l'exigence d'une cuisine professionnelle ne s'arrête jamais à ce qu'un catalogue peut offrir.</p>
         </div>
-        <div class="convictions__image--large photo-slot photo-slot--filled">
+        <div class="convictions__image--large photo-slot photo-slot--filled reveal">
           <img src="assets/img/convictions.jpg" alt="Caviar Marenostrum" loading="lazy" />
         </div>
       </div>
@@ -172,7 +176,7 @@
     <!-- ============================================================ IMAGE DE CLÔTURE ============================================================ -->
     <!-- Le logo blanc « se lève » sur l'horizon du coucher de soleil, comme le soleil sur la photo,
          via un simple masque (hauteur 0 → pleine hauteur) déclenché par mnInitClosingReveal. -->
-    <div class="closing" data-header-zone="light">
+    <div class="closing">
       <img class="closing__bg" src="assets/img/closing-coucher-soleil.jpg" alt="Coucher de soleil sur la mer" loading="lazy" />
       <div class="closing__logo-wrap" id="closing-logo-wrap">
         <img src="assets/img/logo-marenostrum-emblem-white.png" alt="Mare Nostrum" />
@@ -181,7 +185,7 @@
   </main>
 
   <!-- ============================================================ FOOTER ============================================================ -->
-  <footer id="contact" class="site-footer" data-theme="navy" data-header-zone="dark">
+  <footer id="contact" class="site-footer" data-theme="navy">
     <div class="container site-footer__grid">
       <div class="site-footer__brand">
         <p class="site-footer__wordmark">MARENOSTRUM</p>

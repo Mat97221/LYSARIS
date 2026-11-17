@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script type="speculationrules">
+    { "prerender": [ { "source": "list", "urls": ["index.html", "gamme-crustaces.html", "gamme-poissons.html", "gamme-epicerie.html", "gamme-caviar.html"], "eagerness": "moderate" } ] }
+  </script>
 </head>
 <body>
   <script>
@@ -46,10 +50,9 @@
     })();
   </script>
   <!-- ============================================================ EN-TÊTE ============================================================ -->
-  <header class="site-header" data-active-theme="light">
+  <header class="site-header site-header--solid">
     <a href="index.html" class="logo" aria-label="Marenostrum — accueil">
-      <img class="logo__img logo__img--on-dark" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
-      <img class="logo__img logo__img--on-light" src="assets/img/logo-marenostrum.png" alt="" aria-hidden="true" />
+      <img class="logo__img" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
     </a>
     <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 8h18M3 16h18"/></svg>
@@ -78,7 +81,7 @@
         <p class="prose contact-page__intro">Une question, un besoin d'approvisionnement, une demande de rendez-vous ? Notre équipe vous répond directement — sans détour ni intermédiaire.</p>
 
         <div class="contact-page__grid">
-          <div class="contact-page__coords">
+          <div class="contact-page__coords reveal">
             <p class="eyebrow">Coordonnées</p>
             <p>Raison sociale — à compléter</p>
             <p>SIRET — à compléter</p>
@@ -90,7 +93,7 @@
             <p>Du lundi au vendredi, 8h–18h</p>
           </div>
 
-          <form class="contact-form" action="mailto:contact@marenostrum.fr" method="post" enctype="text/plain">
+          <form class="contact-form reveal" action="mailto:contact@marenostrum.fr" method="post" enctype="text/plain">
             <div class="contact-form__row">
               <div>
                 <label for="contact-nom">Nom complet</label>

@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script type="speculationrules">
+    { "prerender": [ { "source": "list", "urls": ["index.html", "gamme-crustaces.html", "gamme-poissons.html", "gamme-caviar.html", "contact.html"], "eagerness": "moderate" } ] }
+  </script>
 </head>
 <body>
   <script>
@@ -46,10 +50,9 @@
     })();
   </script>
   <!-- ============================================================ EN-TÊTE ============================================================ -->
-  <header class="site-header site-header--solid" data-active-theme="dark">
+  <header class="site-header site-header--solid">
     <a href="index.html" class="logo" aria-label="Marenostrum — accueil">
-      <img class="logo__img logo__img--on-dark" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
-      <img class="logo__img logo__img--on-light" src="assets/img/logo-marenostrum.png" alt="" aria-hidden="true" />
+      <img class="logo__img" src="assets/img/logo-marenostrum-white.png" alt="Mare Nostrum" />
     </a>
     <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 8h18M3 16h18"/></svg>
@@ -76,12 +79,13 @@
         <img src="assets/img/gammes-epicerie.jpg" alt="Conserves Marenostrum" />
       </div>
       <div class="gamme-page__content">
+        <a class="gamme-page__back" href="index.html#gammes">← Nos gammes</a>
         <p class="eyebrow">Nos gammes</p>
         <h1 class="h1 gamme-page__title">L'épicerie</h1>
         <p class="prose gamme-page__intro">Rillettes, sardines, conserves de la mer : notre gamme d'épicerie fine prolonge en cuisine ce que nous sélectionnons en direct sur les quais. Des références simples, sans artifice, pensées pour durer en carte.</p>
 
         <p class="gamme-page__section-title">Références</p>
-        <ul class="product-list">
+        <ul class="product-list reveal">
           <li><span>Rillettes de thon</span></li>
           <li><span>Sardines à l'huile d'olive</span></li>
           <li><span>Maquereau sauce tomate</span></li>
@@ -91,7 +95,7 @@
           <li><span>Velouté de crustacés</span></li>
         </ul>
 
-        <section class="gamme-page__contact" id="contact-gamme">
+        <section class="gamme-page__contact reveal" id="contact-gamme">
           <h2 class="h2">Vous souhaitez commander cette gamme ?</h2>
           <p class="prose">Indiquez-nous vos volumes et votre fréquence de livraison souhaitée, nous revenons vers vous rapidement.</p>
           <form class="contact-form" action="mailto:contact@marenostrum.fr" method="post" enctype="text/plain">

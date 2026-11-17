@@ -1,6 +1,13 @@
 /**
- * MARENOSTRUM — JS vanilla, sans dépendance : ouverture/fermeture de l'overlay menu plein écran.
+ * MARENOSTRUM — JS vanilla, sans dépendance.
  */
+
+/**
+ * Formulaires de contact : laisser à null pour garder l'envoi par mailto
+ * actuel ; renseigner une URL (ex. endpoint Formspree) pour y basculer plus
+ * tard sans réécrire mnInitContactForms.
+ */
+const MN_FORM_ENDPOINT = null;
 
 function mnInitMenuOverlay() {
   const toggle = document.getElementById("menu-toggle");
@@ -11,56 +18,135 @@ function mnInitMenuOverlay() {
   const open = () => {
     overlay.classList.add("is-open");
     toggle.setAttribute("aria-expanded", "true");
+    document.documentElement.classList.add("menu-open");
   };
   const closeOverlay = () => {
     overlay.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
+    document.documentElement.classList.remove("menu-open");
+    toggle.focus();
   };
 
   toggle.addEventListener("click", open);
   if (close) close.addEventListener("click", closeOverlay);
   overlay.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeOverlay));
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeOverlay();
+    if (e.key === "Escape" && overlay.classList.contains("is-open")) closeOverlay();
   });
 }
 
 /**
- * Fait suivre l'en-tête (logo + icône menu) au défilement, et adapte sa couleur
- * (blanc / marine) selon la zone de la page qui se trouve derrière lui — chaque
- * zone porte l'attribut data-header-zone="dark|light" dans le HTML.
+ * En-tête unique sur tout le site : transparent tant que le hero de l'accueil
+ * est visible sous lui, solide (fond marine) partout ailleurs — y compris
+ * d'emblée sur les pages sans hero (gammes, contact), qui portent déjà la
+ * classe .site-header--solid dans leur HTML. Un seul IntersectionObserver,
+ * posé sur le hero, remplace l'ancien sondage au scroll par zones.
  */
-function mnInitHeaderTheme() {
+function mnInitHeaderState() {
   const header = document.querySelector(".site-header");
-  const zones = Array.from(document.querySelectorAll("[data-header-zone]"));
-  if (!header || !zones.length) return;
+  if (!header) return;
+  const hero = document.querySelector(".hero");
+  if (!hero || !("IntersectionObserver" in window)) return;
 
-  let ticking = false;
+  const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-h"), 10) || 0;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        header.classList.toggle("site-header--solid", !entry.isIntersecting);
+      });
+    },
+    { rootMargin: `-${headerH}px 0px 0px 0px`, threshold: 0 }
+  );
+  observer.observe(hero);
+}
 
-  const update = () => {
-    ticking = false;
-    const probeY = header.offsetHeight / 2;
-    let theme = "light";
-    for (const zone of zones) {
-      const rect = zone.getBoundingClientRect();
-      if (rect.top <= probeY && rect.bottom >= probeY) {
-        theme = zone.getAttribute("data-header-zone");
-        break;
-      }
-    }
-    header.setAttribute("data-active-theme", theme);
+/**
+ * Révélation au scroll, uniforme sur tout le site : les éléments marqués
+ * .reveal apparaissent (fondu + léger décalage, voir la règle CSS associée)
+ * une seule fois, dès qu'ils entrent dans le viewport.
+ */
+function mnInitScrollReveal() {
+  const els = Array.from(document.querySelectorAll(".reveal"));
+  if (!els.length || !("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  els.forEach((el) => observer.observe(el));
+}
+
+/**
+ * Scrollspy du menu plein écran (accueil uniquement) : met en évidence le
+ * lien correspondant à la section visible. Sans effet sur les autres pages,
+ * qui ne portent pas ces identifiants de section.
+ */
+function mnInitScrollspy() {
+  const nav = document.querySelector(".menu-overlay nav");
+  if (!nav || !("IntersectionObserver" in window)) return;
+
+  const sectionIds = ["qui-nous-sommes", "selection", "gammes", "convictions", "contact"];
+  const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+  if (!sections.length) return;
+
+  const links = Array.from(nav.querySelectorAll("a[href^='#']"));
+  const setCurrent = (id) => {
+    links.forEach((a) => a.classList.toggle("is-current", a.getAttribute("href") === `#${id}`));
   };
 
-  const onScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  };
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setCurrent(entry.target.id);
+      });
+    },
+    { threshold: 0.5 }
+  );
+  sections.forEach((s) => observer.observe(s));
+}
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  update();
+/**
+ * Formulaires de contact (mailto) : confirmation inline après envoi, pour
+ * éviter la sortie abrupte vers la messagerie sans aucun retour visuel.
+ */
+function mnInitContactForms() {
+  document.querySelectorAll(".contact-form").forEach((form) => {
+    const submitBtn = form.querySelector(".contact-form__submit");
+    const note = form.querySelector(".contact-form__note");
+    if (!submitBtn || !note) return;
+
+    let confirmEl = form.querySelector(".contact-form__confirm");
+    if (!confirmEl) {
+      confirmEl = document.createElement("p");
+      confirmEl.className = "contact-form__confirm";
+      confirmEl.setAttribute("role", "status");
+      note.insertAdjacentElement("afterend", confirmEl);
+    }
+
+    const mailtoMatch = /mailto:([^?]+)/.exec(form.getAttribute("action") || "");
+    const address = mailtoMatch ? mailtoMatch[1] : "";
+
+    form.addEventListener("submit", () => {
+      if (!form.checkValidity()) return;
+      submitBtn.disabled = true;
+      confirmEl.textContent =
+        `Votre demande est prête. Votre messagerie s'ouvre pour l'envoi. Si rien ne s'ouvre, écrivez-nous à ${address}.`;
+      confirmEl.style.display = "block";
+      // eslint-disable-next-line no-unused-expressions
+      confirmEl.offsetHeight; // force un reflow pour que l'opacité suivante soit bien animée
+      confirmEl.classList.add("is-visible");
+      setTimeout(() => {
+        submitBtn.disabled = false;
+      }, 2500);
+    });
+  });
 }
 
 /**
@@ -315,8 +401,11 @@ window.addEventListener("pageshow", (event) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   mnInitMenuOverlay();
-  mnInitHeaderTheme();
+  mnInitHeaderState();
   mnInitClosingReveal();
+  mnInitScrollReveal();
+  mnInitScrollspy();
+  mnInitContactForms();
   mnConsumePendingBlindTransition();
   mnInitBlindTransitions();
 });
